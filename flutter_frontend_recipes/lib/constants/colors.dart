@@ -1,6 +1,10 @@
 import 'package:flutter/material.dart';
 
-// Diese Klasse enthält
+
+// TODO: Die Inhalte sind erstmal nur Platzhalter, bis das endültige Design Feststeht
+// TODO: Sobald das Design endgültig ist, müssen alle Werte geändert werden
+
+// Diese Klasse enthält die Farben, die in der App verwendet werden
 class Colors {
 
 

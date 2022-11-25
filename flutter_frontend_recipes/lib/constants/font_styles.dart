@@ -1,6 +1,11 @@
 import 'package:flutter/material.dart';
 
 
+// TODO: Die Inhalte sind erstmal nur Platzhalter, bis das endültige Design Feststeht
+// TODO: Sobald das Design endgültig ist, müssen alle Werte geändert werden
+
+
+// Hier werden die TextStyles für die verschiedenen Texte eingefügt, die dann verwendet werden
 class FontStyles {
 
 
