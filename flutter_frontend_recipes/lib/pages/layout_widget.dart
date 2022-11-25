@@ -58,6 +58,7 @@ class _LayoutWidgetState extends State<LayoutWidget> {
         ],
 
         currentIndex: _currentIndex,
+        backgroundColor: colorDesign.navigationBarBGColor,
         selectedItemColor: colorDesign.selectedIconColor,
         unselectedItemColor: colorDesign.unSelectedIconColor,
         onTap: (int index) {
