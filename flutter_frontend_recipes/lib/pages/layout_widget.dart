@@ -15,7 +15,10 @@ class LayoutWidget extends StatefulWidget {
 
 class _LayoutWidgetState extends State<LayoutWidget> {
   int _currentIndex = 0;
-
+  String homePageLabel = 'Home';
+  String recipePageLabel = 'Rezepte';
+  String shoppingListPageLabel = 'Einkaufslisten';
+  String profilPageLabel = 'Profil';
 
 
   // TODO: Die Liste von MyHomePage zu den tatsächlichen Seiten ändern
@@ -41,19 +44,19 @@ class _LayoutWidgetState extends State<LayoutWidget> {
         items:  <BottomNavigationBarItem>[
           BottomNavigationBarItem(
             icon: Icon(iconDesigns.homePageIcon),
-            label: 'Settings',
+            label: homePageLabel,
           ),
           BottomNavigationBarItem(
             icon: Icon(iconDesigns.recipePageIcon),
-            label: 'Home',
+            label: recipePageLabel,
           ),
           BottomNavigationBarItem(
             icon: Icon(iconDesigns.shoppingListPageIcon),
-            label: 'Messages',
+            label: shoppingListPageLabel,
           ),
           BottomNavigationBarItem(
             icon: Icon(iconDesigns.profilePageIcon),
-            label: 'Messages',
+            label: profilPageLabel,
           ),
         ],
 
