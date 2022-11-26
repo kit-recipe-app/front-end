@@ -5,7 +5,7 @@ import 'package:flutter/material.dart';
 // TODO: Sobald das Design endgültig ist, müssen alle Werte geändert werden
 
 // Diese Klasse enthält die Farben, die in der App verwendet werden
-class Colors {
+class ColorDesigns {
 
 
   // Das sind Farben, die für die Seiten wichtig sind
