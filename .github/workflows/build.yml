@@ -1,4 +1,4 @@
-name: Builds
+name: Flutter Build on Android, iOS, macOS and web
 on:
   push:
     branches:
