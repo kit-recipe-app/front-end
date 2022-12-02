@@ -1,4 +1,3 @@
-import 'package:flutter/material.dart';
 import 'package:flutter_frontend_recipes/pages/recipes/ingredients.dart';
 
 
@@ -14,11 +13,12 @@ class Recipe {
   bool vegetarian;
   String difficulty;
   List<Ingredients> ingredients;
+  List<String> tags;
 
 
   Recipe({required this.title, required this.description,
     required this.calories, required this.time, required this.vegetarian,
-    required this.difficulty, required this.ingredients}) {
+    required this.difficulty, required this.ingredients, required this.tags}) {
 
   }
 
