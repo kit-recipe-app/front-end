@@ -1,7 +1,7 @@
-import 'package:flutter_frontend_recipes/pages/recipes/recipe.dart';
-import 'package:flutter_frontend_recipes/pages/recipes/ingredients.dart';
-import 'package:flutter_frontend_recipes/pages/shopping-lists/shopping_list.dart';
-import 'package:flutter_frontend_recipes/pages/profile/profile.dart';
+import 'package:flutter_frontend_recipes/pages/recipes/example_recipe.dart';
+import 'package:flutter_frontend_recipes/pages/recipes/example_ingredients.dart';
+import 'package:flutter_frontend_recipes/pages/shopping-lists/example_shopping_list.dart';
+import 'package:flutter_frontend_recipes/pages/profile/example_profile.dart';
 import 'package:flutter_frontend_recipes/content_examples/unit_examples.dart';
 
 

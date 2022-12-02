@@ -1,6 +1,6 @@
-import 'package:flutter_frontend_recipes/pages/recipes/ingredients.dart';
-import 'package:flutter_frontend_recipes/pages/recipes/recipe.dart';
-import 'package:flutter_frontend_recipes/pages/profile/profile.dart';
+import 'package:flutter_frontend_recipes/pages/recipes/example_ingredients.dart';
+import 'package:flutter_frontend_recipes/pages/recipes/example_recipe.dart';
+import 'package:flutter_frontend_recipes/pages/profile/example_profile.dart';
 
 // Dies ist eine Klasse, die in erster Linie nur fürs Testen gedacht ist und
 // am Ende wieder gelöscht werden sollte

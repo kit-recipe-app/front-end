@@ -1,4 +1,4 @@
-import 'package:flutter_frontend_recipes/pages/recipes/ingredients.dart';
+import 'package:flutter_frontend_recipes/pages/recipes/example_ingredients.dart';
 
 
 // Dies ist eine Klasse, die in erster Linie nur fürs Testen gedacht ist und
