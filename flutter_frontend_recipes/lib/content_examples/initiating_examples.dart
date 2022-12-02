@@ -25,6 +25,7 @@ class InitiatingExamples {
   }
 
 
+
    void createProfiles() {
     Profile profileOfHerbert = Profile(name: 'Herbert', vegetarian: true);
     Profile profileOfMargritt = Profile(name: 'Margritt', vegetarian: false);
@@ -54,7 +55,8 @@ class InitiatingExamples {
         lässt man sie kochen und dann mACHT MANn das kadhskada sjsdkjask iohfshakjh sad shdk l
         d ash alhs dhkalshd skhd ksjahdljhs akjhd akshdasd d ksahd ashd ahsdhasduhsfksbdniul
         hahd  djsabkjd  jdh s js js d hskjhs kjshd kds sdhkj skj hks  sdahdkahlsdk ahldhsadlkjahsdlsla
-         sajkshdkjahiuwhsakdjkw hdukhsnckjiuh duwihaksdkjkawjhld idsjnkjnckhiualhdliu ''');
+         sajkshdkjahiuwhsakdjkw hdukhsnckjiuh duwihaksdkjkawjhld idsjnkjnckhiualhdliu ''',
+        imageUrl: 'https://www.gutekueche.at/storage/media/recipe/27368/conv/spagetti-bolognese_1482833072-default.jpg');
 
 
 
@@ -83,7 +85,8 @@ class InitiatingExamples {
           sakdakhdlkashdkjshchiabuic hdkjab  sja kj askhak kad kjhsdk aha  ashd 
          asdjksahdkjhaskd sdah asdl msn ansakjdka as kda skjda sjdha a jhs kjhdkjasdjk adhsjasd
          s dasd sa dsa dasdasdjaskjdjdbsmnbmnbjhsjk  hdkjahd kjsd sdhk sjkd skjd ksdhs kdsds 
-          sdskj dksaksj kdhs khsad kjsdj ahdkjashdkjcnc mdj has jdds djwajndjflahd,b js''');
+          sdskj dksaksj kdhs khsad kjsdj ahdkjashdkjcnc mdj has jdds djwajndjflahd,b js''',
+        imageUrl: 'https://images.ichkoche.at/data/image/variations/496x384/1/wiener-schnitzel-breaded-viennese-escalope-img-2896.jpg');
 
 
     List<Ingredients> ingredients3 = [
@@ -95,7 +98,8 @@ class InitiatingExamples {
     Recipe recipe3 = Recipe(title: 'Gurkensalat', time: 10, difficulty: 'easy', calories: 100,
         vegetarian: true, ingredients: ingredients3, tags: ['Vegetarisch', 'Einfach'],
         description: '''Zuerst die Gurke schälen und dann schneiden und dann in eine Schüssel
-        Öl und Essig und Basilikum dazutun und dann umrühren''');
+        Öl und Essig und Basilikum dazutun und dann umrühren''',
+      imageUrl: 'https://img.chefkoch-cdn.de/rezepte/331471115938348/bilder/1255518/crop-960x720/gurkensalat-mit-essig-und-oel.jpg');
 
 
     List<Ingredients> ingredients4 = [
@@ -105,7 +109,8 @@ class InitiatingExamples {
     ];
     Recipe recipe4 = Recipe(title: 'Bratkartoffel', time: 5, difficulty: 'easy', calories: 150,
         vegetarian: true, ingredients: ingredients4, tags: ['Vegetarisch', 'Einfach'],
-        description: 'Öl in die Pfanne geben, die Kartoffel in die Pfanne und dann mit Salz umrühren');
+        description: 'Öl in die Pfanne geben, die Kartoffel in die Pfanne und dann mit Salz umrühren',
+        imageUrl: 'https://cdn.bbqpit.de/wp-content/uploads/2021/03/11225439/Bratkartoffeln-knusprig-schnell-einfach.jpg');
 
 
     List<Ingredients> ingredients5 = [
