@@ -19,6 +19,7 @@ class IconDesigns {
   IconData calories = Icons.local_fire_department_rounded;
   IconData duration = Icons.access_time;
   IconData price = Icons.speed_outlined;
+  IconData notFinalIcon = Icons.not_interested;
 
 }
 

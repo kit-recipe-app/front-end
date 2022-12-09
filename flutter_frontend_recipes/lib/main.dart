@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_frontend_recipes/pages/feed/main-page-feed.dart';
 import 'package:flutter_frontend_recipes/pages/profile/main-page-profile.dart';
+import 'package:flutter_frontend_recipes/pages/shopping-lists/main-page-shopping-lists.dart';
 
 void main() {
   runApp(const MyApp());
@@ -33,10 +34,7 @@ class _LayoutWidgetState extends State<LayoutWidget> {
   final List<Widget> _pages = <Widget>[
     const MainPageFeed(title: 'MVP Recipe App - Startpage'),
     const MyWidgettt(title: 'hello'),
-    Container(
-      color: Colors.amber,
-      child: const Text('Einkaufsliste'),
-    ),
+    MainPageShoppingLists(),
     Container(
       color: Colors.amber,
       child: const Text('Profil'),

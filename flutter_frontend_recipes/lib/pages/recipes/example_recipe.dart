@@ -15,10 +15,11 @@ class Recipe {
   List<Ingredients> ingredients;
   List<String> tags;
   String imageUrl = 'https://www.schild.de/wp-content/uploads/2016/08/nopic.jpg';
+  String howToMake;
 
   Recipe({required this.title, required this.description, required this.calories,
     required this.time, required this.vegetarian, required this.difficulty,
-    required this.ingredients, required this.tags, imageUrl}) {
+    required this.ingredients, required this.tags,required this.howToMake, imageUrl}) {
 
   }
 

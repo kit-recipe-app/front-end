@@ -56,6 +56,12 @@ class InitiatingExamples {
         d ash alhs dhkalshd skhd ksjahdljhs akjhd akshdasd d ksahd ashd ahsdhasduhsfksbdniul
         hahd  djsabkjd  jdh s js js d hskjhs kjshd kds sdhkj skj hks  sdahdkahlsdk ahldhsadlkjahsdlsla
          sajkshdkjahiuwhsakdjkw hdukhsnckjiuh duwihaksdkjkawjhld idsjnkjnckhiualhdliu ''',
+        howToMake: '''1. Zuerst macht man die Spaghetti in heißes Wasser und fügt etwas Salz hinzu dann 
+        lässt man sie kochen. 
+        2. dann mACHT MANn das kadhskada sjsdkjask iohfshakjh sad shdk l
+        d ash alhs dhkalshd. 
+        3. ksjahdljhs akjhd akshdasd d ksahd ashd ahsdhasduhsfksbdniul
+        hahd  djsabkjd  jdh s js js d hskjhs kjshd kds sdhkj skj hks  sdahdkahlsdk ahldhsad''',
         imageUrl: 'https://www.gutekueche.at/storage/media/recipe/27368/conv/spagetti-bolognese_1482833072-default.jpg');
 
 
@@ -73,19 +79,10 @@ class InitiatingExamples {
         dann wird das Salz und Pfefferzur Panade dazugegeben und umgerührt, dann das Schnitzel in die
         Pfanne und dann  sakdakhdlkashdkjshchiabuic hdkjab  sja kj askhak kad kjhsdk aha  ashd 
          asdjksahdkjhaskd sdah asdl msn ansakjdka as kda skjda sjdha a jhs kjhdkjasdjk adhsjasd
-         s dasd sa dsa dasdasdjaskjdjdbsmnbmnbjhsjk  hdkjahd kjsd sdhk sjkd skjd ksdhs kdsds 
-          sdskj dksaksj kdhs khsad kjsdj ahdkjashdkjcnc mdj has jdds djwajndjflahd,b jssakdakhdlkashdkjshchiabuic hdkjab  sja kj askhak kad kjhsdk aha  ashd 
-         asdjksahdkjhaskd sdah asdl msn ansakjdka as kda skjda sjdha a jhs kjhdkjasdjk adhsjasd
-         s dasd sa dsa dasdasdjaskjdjdbsmnbmnbjhsjk  hdkjahd kjsd sdhk sjkd skjd ksdhs kdsds 
-          sdskj dksaksj kdhs khsad kjsdj ahdkjashdkjcnc mdj has jdds djwajndjflahd,b js 
-          sakdakhdlkashdkjshchiabuic hdkjab  sja kj askhak kad kjhsdk aha  ashd 
-         asdjksahdkjhaskd sdah asdl msn ansakjdka as kda skjda sjdha a jhs kjhdkjasdjk adhsjasd
-         s dasd sa dsa dasdasdjaskjdjdbsmnbmnbjhsjk  hdkjahd kjsd sdhk sjkd skjd ksdhs kdsds 
-          sdskj dksaksj kdhs khsad kjsdj ahdkjashdkjcnc mdj has jdds djwajndjflahd,b js
-          sakdakhdlkashdkjshchiabuic hdkjab  sja kj askhak kad kjhsdk aha  ashd 
-         asdjksahdkjhaskd sdah asdl msn ansakjdka as kda skjda sjdha a jhs kjhdkjasdjk adhsjasd
-         s dasd sa dsa dasdasdjaskjdjdbsmnbmnbjhsjk  hdkjahd kjsd sdhk sjkd skjd ksdhs kdsds 
-          sdskj dksaksj kdhs khsad kjsdj ahdkjashdkjcnc mdj has jdds djwajndjflahd,b js''',
+         ''', howToMake: '''1. Zuerst die Kartoffel schneiden.
+    2. Danach Zwiebel schälen und in Ringe oder Stücke schneiden.
+    3. Für die Marinade Essig, Panade etcnakldsadloijdsaöjdasjdöksaj.
+    4. Zum Schluss Schnitzel in die Pfanne''',
         imageUrl: 'https://images.ichkoche.at/data/image/variations/496x384/1/wiener-schnitzel-breaded-viennese-escalope-img-2896.jpg');
 
 
@@ -99,6 +96,12 @@ class InitiatingExamples {
         vegetarian: true, ingredients: ingredients3, tags: ['Vegetarisch', 'Einfach'],
         description: '''Zuerst die Gurke schälen und dann schneiden und dann in eine Schüssel
         Öl und Essig und Basilikum dazutun und dann umrühren''',
+        howToMake: '''
+    1. Zuerst die Gurken waschen und in sehr dünne Scheiben hobeln.
+    2. Danach Zwiebel schälen und in Ringe oder Stücke schneiden.
+    3. Für die Marinade Essig, Öl, einen Schuss Wasser gut verrühren und mit Salz und Zucker abschmecken.
+    4. Zum Schluss Gurkenscheiben und Zwiebeln in einer Schüssel vermischen, mit der Marinade vermengen und für gut 10-20 Minuten im Kühlschrank ziehen lassen.
+''',
       imageUrl: 'https://img.chefkoch-cdn.de/rezepte/331471115938348/bilder/1255518/crop-960x720/gurkensalat-mit-essig-und-oel.jpg');
 
 
@@ -110,6 +113,12 @@ class InitiatingExamples {
     Recipe recipe4 = Recipe(title: 'Bratkartoffel', time: 5, difficulty: 'easy', calories: 150,
         vegetarian: true, ingredients: ingredients4, tags: ['Vegetarisch', 'Einfach'],
         description: 'Öl in die Pfanne geben, die Kartoffel in die Pfanne und dann mit Salz umrühren',
+        howToMake: '''1. Ich hab mit nichts überlegt
+        2. Ich bin zu faul irgendwas zu googeln
+        3. das ist sowieso bald entfernt
+        4. googel einfach Bratkartoffeln 
+        5. Oder schmeiß einfach Kartoffel in die Pfanne
+        6. Vorher noch schälen dann fertig''',
         imageUrl: 'https://cdn.bbqpit.de/wp-content/uploads/2021/03/11225439/Bratkartoffeln-knusprig-schnell-einfach.jpg');
 
 
@@ -124,7 +133,11 @@ class InitiatingExamples {
         description: '''Das Fleisch wird nakjdkajsdk adjsakl j saalskj dajdksdjhsakd saj lkj 
         asdkjhasjdh sad hjhsak dhj asdjkahs kjhjhsd khw liu hakjhd ksd kashd kjadka dkjhas 
          sadh askjdhaskjh dkas kjdha kjdh kasjhd lskhd ashd akjhdal dhas lkhd kashd ad 
-         s jdadlsahd jsdhk hsdkaj ldjas döasldh skah kshkhda hs  skdha''');
+         s jdadlsahd jsdhk hsdkaj ldjas döasldh skah kshkhda hs  skdha''',
+        howToMake: '''1. Das Fleisch wird nakjdkajsdk adjsakl j saalskj dajdksdjhsakd saj lkj 
+        2. sad hjhsak dhj asdjkahs kjhjhsd khw liu hakjhd ksd kashd kjadka dkjhas 
+         3. sadh askjdhaskjh dkas kjdha kjdh kasjhd lskhd ashd akj
+         4. Iss schon jetzt bitte''');
 
     exampleRecipes.add(recipe1);
     exampleRecipes.add(recipe2);
