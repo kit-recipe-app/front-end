@@ -20,10 +20,12 @@ class _MainPageShoppingListsState extends State<MainPageShoppingLists> {
   FontStyles fontStyles = FontStyles();
   IconDesigns iconDesigns = IconDesigns();
 
-  String subTitleTiles = 'Erstellt am *Datum*';
+  String subTitleTiles = 'Erstellt am ';
   String title = 'Einkaufslisten';
-
+  String member = 'Mitglieder: ';
+  String addNewList = 'Liste erstellen';
   InitiatingExamples initiatingExamples = InitiatingExamples();
+
 
 
   @override
@@ -38,39 +40,69 @@ class _MainPageShoppingListsState extends State<MainPageShoppingLists> {
         ),
       ),
       body: Padding(
-        padding: const EdgeInsets.fromLTRB(30, 30, 30, 5),
+        padding: const EdgeInsets.fromLTRB(35, 30, 35, 5),
         child: Center(
           child: Scrollbar(
             child: ListView.builder(
               itemCount: initiatingExamples.exampleLists.length,
               itemBuilder: (context, index) {
-                return Card(
-                  child: ListTile(
-                    trailing:
-                    Icon(
+                return Padding(
+                  padding: const EdgeInsets.fromLTRB(5, 4, 5, 4),
+                  child: Card(
+                    elevation: 3,
+                    child: ListTile(
+                      trailing: Icon(
                         iconDesigns.notFinalIcon,
-                      color: colorDesigns.unSelectedIconColor,
-                      size: 20,
-                    ),
-                    title: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Text(
-                          initiatingExamples.exampleLists[index].title,
-                          style: fontStyles.normalText,
-                        ),
-                         Text(
-                          subTitleTiles,
-                          style: fontStyles.subtitleForTiles,
-                        ),
-                      ],
-                    ),
-                    subtitle: Icon(iconDesigns.profilePageIcon),
+                        color: colorDesigns.unSelectedIconColor,
+                        size: 20,
+                      ),
 
+                      title: Padding(
+                        padding: const EdgeInsets.only(bottom: 30),
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Text(
+                              initiatingExamples.exampleLists[index].title,
+                              style: fontStyles.titleText,
+                            ),
+                             Text(
+                               '$subTitleTiles ${initiatingExamples.exampleLists[index].date}',
+                              style: fontStyles.subtitleForTiles,
+                            ),
+                          ],
+                        ),
+                      ),
+                      subtitle: Row(
+                        children: [
+                          Icon(
+                            iconDesigns.profilePageIcon,
+                            size: 25,
+                          ),
+                        ],
+                      ),
+
+                    ),
                   ),
                 );
               },
             ),
+          ),
+        ),
+      ),
+      floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
+      floatingActionButton:
+      SizedBox( width: 200,
+        child: ElevatedButton(
+          style: ElevatedButton.styleFrom(
+            backgroundColor: colorDesigns.addButtonColor,
+          ),
+          onPressed: () {
+
+          },
+          child: Text(
+            addNewList,
+            style: fontStyles.normalText,
           ),
         ),
       ),

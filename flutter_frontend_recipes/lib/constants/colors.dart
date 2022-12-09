@@ -13,7 +13,7 @@ class ColorDesigns {
   Color? appBarBGColor = Colors.green[800];
   Color? navigationBarBGColor = Colors.white;
   Color? listTileColor = Colors.white;
-  Color? addButtonColor = Colors.white;
+  Color? addButtonColor = Colors.grey[300];
   Color? shoppingListBGColor = Colors.white;
 
 

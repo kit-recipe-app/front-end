@@ -17,7 +17,7 @@ class FontStyles {
 
   // das ist für texte in den AppBars
   TextStyle appBarText = const TextStyle(
-    fontSize: 28,
+    fontSize: 25,
     letterSpacing: 1,
     color: Colors.white,
   );
@@ -32,7 +32,7 @@ class FontStyles {
 
   // das ist ein Text, der für untere Titel der Listen gedacht ist
   TextStyle subtitleForTiles = const TextStyle(
-    fontSize: 10,
+    fontSize: 13,
     color: Colors.grey,
   );
 

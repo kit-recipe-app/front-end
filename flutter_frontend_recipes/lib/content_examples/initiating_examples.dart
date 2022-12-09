@@ -153,15 +153,18 @@ class InitiatingExamples {
     if (exampleRecipes.isNotEmpty && exampleProfiles.isNotEmpty){
 
       ShoppingList shoppingList1 = ShoppingList(title: 'Herberts Liste',
+          date: '11.11.22',
           allMembers: [exampleProfiles[0], exampleProfiles[1]],
           allRecipes: [exampleRecipes[0], exampleRecipes[3]]);
 
 
       ShoppingList shoppingList2 = ShoppingList(title: 'Margritts Liste',
+          date: '7.12.22',
           allMembers: [exampleProfiles[1], exampleProfiles[3]],
           allRecipes: [exampleRecipes[3]]);
 
       ShoppingList shoppingList3 = ShoppingList(title: 'Supertolle Liste',
+          date: '1.12.22',
           allMembers: [exampleProfiles[1], exampleProfiles[3], exampleProfiles[0]],
           allRecipes: [exampleRecipes[3], exampleRecipes[0], exampleRecipes[1], exampleRecipes[2]]);
 
