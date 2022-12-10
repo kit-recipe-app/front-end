@@ -4,6 +4,7 @@ import 'package:flutter_frontend_recipes/constants/font_styles.dart';
 import 'package:flutter_frontend_recipes/constants/icon_designs.dart';
 
 
+
 class AddShoppingList extends StatefulWidget {
   const AddShoppingList({Key? key}) : super(key: key);
 
@@ -21,6 +22,9 @@ class _AddShoppingListState extends State<AddShoppingList> {
   String create = 'erstellen';
 
   final textController = TextEditingController();
+  String nameForNewList = '';
+  String displayedText = '';
+  String noNameInput = 'Bitte geben Sie einen Namen an';
 
   @override
   Widget build(BuildContext context) {
@@ -54,6 +58,20 @@ class _AddShoppingListState extends State<AddShoppingList> {
             ),
             ElevatedButton(onPressed: () {
 
+              // TODO: Hier soll später das Backend eingebunden werden, um neue Einkaufslisten
+              // TODO: zu den eigenen Hinzugefügt werden
+              if (textController.text != '') {
+                setState(() {
+                  nameForNewList = textController.text;
+
+                });
+              }
+              else if (textController.text == '') {
+                setState(() {
+                  displayedText = noNameInput;
+                });
+              }
+
             },
               style: ElevatedButton.styleFrom(
                 backgroundColor: colorDesigns.addButtonColor,
@@ -63,7 +81,10 @@ class _AddShoppingListState extends State<AddShoppingList> {
                 style: fontStyles.normalText,
                 ),
 
-            )
+            ),
+            Text(
+              displayedText,
+            ),
           ],
         ),
       ),

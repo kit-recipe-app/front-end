@@ -21,7 +21,6 @@ class IconDesigns {
   IconData price = Icons.speed_outlined;
   IconData chain = Icons.all_inclusive_outlined;
 
-
   IconData clearText = Icons.clear;
 
 

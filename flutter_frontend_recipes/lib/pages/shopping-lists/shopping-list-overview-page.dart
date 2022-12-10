@@ -6,6 +6,7 @@ import 'package:flutter_frontend_recipes/content_examples/initiating_examples.da
 
 
 
+
 class ShoppingListOverview extends StatefulWidget {
   const ShoppingListOverview({Key? key}) : super(key: key);
 
@@ -23,6 +24,7 @@ class _ShoppingListOverviewState extends State<ShoppingListOverview> {
   String title = 'Einkaufslisten';
   String member = 'Mitglieder: ';
   InitiatingExamples initiatingExamples = InitiatingExamples();
+
 
 
   @override

@@ -38,6 +38,7 @@ class FontStyles {
 
 
 
+
   TextStyle bigText = const TextStyle(
     fontWeight: FontWeight.w400,
     fontSize: 25,
