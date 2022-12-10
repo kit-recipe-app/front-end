@@ -2,7 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_frontend_recipes/constants/colors.dart';
 import 'package:flutter_frontend_recipes/constants/font_styles.dart';
 import 'package:flutter_frontend_recipes/constants/icon_designs.dart';
-import 'package:flutter_frontend_recipes/content_examples/initiating_examples.dart';
+import 'package:flutter_frontend_recipes/pages/shopping-lists/add-shopping-list-page.dart';
+import 'package:flutter_frontend_recipes/pages/shopping-lists/shopping-list-overview-page.dart';
 
 
 
@@ -20,12 +21,16 @@ class _MainPageShoppingListsState extends State<MainPageShoppingLists> {
   FontStyles fontStyles = FontStyles();
   IconDesigns iconDesigns = IconDesigns();
 
-  String subTitleTiles = 'Erstellt am ';
   String title = 'Einkaufslisten';
-  String member = 'Mitglieder: ';
   String addNewList = 'Liste erstellen';
-  InitiatingExamples initiatingExamples = InitiatingExamples();
+  String cancel = 'Abbrechen';
+  String currentText = 'Liste erstellen';
+  int currentIndex = 0;
 
+  List<Widget> shoppingListPages = [
+    ShoppingListOverview(),
+    AddShoppingList(),
+  ];
 
 
   @override
@@ -39,57 +44,7 @@ class _MainPageShoppingListsState extends State<MainPageShoppingLists> {
           style: fontStyles.appBarText,
         ),
       ),
-      body: Padding(
-        padding: const EdgeInsets.fromLTRB(35, 30, 35, 5),
-        child: Center(
-          child: Scrollbar(
-            child: ListView.builder(
-              itemCount: initiatingExamples.exampleLists.length,
-              itemBuilder: (context, index) {
-                return Padding(
-                  padding: const EdgeInsets.fromLTRB(5, 4, 5, 4),
-                  child: Card(
-                    elevation: 3,
-                    child: ListTile(
-                      trailing: Icon(
-                        iconDesigns.notFinalIcon,
-                        color: colorDesigns.unSelectedIconColor,
-                        size: 20,
-                      ),
-
-                      title: Padding(
-                        padding: const EdgeInsets.only(bottom: 30),
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Text(
-                              initiatingExamples.exampleLists[index].title,
-                              style: fontStyles.titleText,
-                            ),
-                             Text(
-                               '$subTitleTiles ${initiatingExamples.exampleLists[index].date}',
-                              style: fontStyles.subtitleForTiles,
-                            ),
-                          ],
-                        ),
-                      ),
-                      subtitle: Row(
-                        children: [
-                          Icon(
-                            iconDesigns.profilePageIcon,
-                            size: 25,
-                          ),
-                        ],
-                      ),
-
-                    ),
-                  ),
-                );
-              },
-            ),
-          ),
-        ),
-      ),
+      body: shoppingListPages[currentIndex],
       floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
       floatingActionButton:
       SizedBox( width: 200,
@@ -98,10 +53,21 @@ class _MainPageShoppingListsState extends State<MainPageShoppingLists> {
             backgroundColor: colorDesigns.addButtonColor,
           ),
           onPressed: () {
-
+            if (currentIndex == 0){
+              setState(() {
+                currentIndex = 1;
+                currentText = cancel;
+              });
+            }
+            else if (currentIndex == 1){
+              setState(() {
+                currentIndex = 0;
+                currentText = addNewList;
+              });
+            }
           },
           child: Text(
-            addNewList,
+            currentText,
             style: fontStyles.normalText,
           ),
         ),
