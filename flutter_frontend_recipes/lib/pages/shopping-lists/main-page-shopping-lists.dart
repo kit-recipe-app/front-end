@@ -14,7 +14,6 @@ class MainPageShoppingLists extends StatefulWidget {
   State<MainPageShoppingLists> createState() => _MainPageShoppingListsState();
 }
 
-
 class _MainPageShoppingListsState extends State<MainPageShoppingLists> {
 
   ColorDesigns colorDesigns = ColorDesigns();
