@@ -21,6 +21,9 @@ class _ShoppingListContentPageState extends State<ShoppingListContentPage> {
   IconDesigns iconDesigns = IconDesigns();
 
 
+
+
+
   Widget createColumnForAllIngredients(List<Ingredients> allIngredients) {
 
     bool? isChecked = false;
