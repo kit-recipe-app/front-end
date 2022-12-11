@@ -14,37 +14,11 @@ class ShoppingListContentPage extends StatefulWidget {
 }
 
 
-
-
-
-class a {
-  Ingredients ingredient;
-  bool? value;
-  String name = '';
-  int amount = 0;
-  String  unit = '';
-
-  a({required this.ingredient, required this.value}) {
-    name = ingredient.name;
-    amount = ingredient.amount;
-    unit = ingredient.unit;
-
-  }
-
-
-}
-
-
-
-
-
 class _ShoppingListContentPageState extends State<ShoppingListContentPage> {
 
   ColorDesigns colorDesigns = ColorDesigns();
   FontStyles fontStyles = FontStyles();
   IconDesigns iconDesigns = IconDesigns();
-
-  int indexOfIngredientsFromRecipe = 0;
 
 
   Widget createColumnForAllIngredients(List<Ingredients> allIngredients) {
@@ -103,14 +77,11 @@ class _ShoppingListContentPageState extends State<ShoppingListContentPage> {
       ));
     }
 
-
     return Column(children: widgetList,);
   }
 
 
 
-
-  bool? h = false;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -147,24 +118,4 @@ class _ShoppingListContentPageState extends State<ShoppingListContentPage> {
     );
   }
 }
-
-
-
-
-class Deleteme extends StatefulWidget {
-  const Deleteme({Key? key}) : super(key: key);
-
-  @override
-  State<Deleteme> createState() => _DeletemeState();
-}
-
-class _DeletemeState extends State<Deleteme> {
-  @override
-  Widget build(BuildContext context) {
-    return Container();
-  }
-}
-
-
-
 
