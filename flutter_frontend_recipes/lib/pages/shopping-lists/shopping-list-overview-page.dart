@@ -3,6 +3,7 @@ import 'package:flutter_frontend_recipes/constants/colors.dart';
 import 'package:flutter_frontend_recipes/constants/font_styles.dart';
 import 'package:flutter_frontend_recipes/constants/icon_designs.dart';
 import 'package:flutter_frontend_recipes/content_examples/initiating_examples.dart';
+import 'package:flutter_frontend_recipes/pages/shopping-lists/shopping-list-content-page.dart';
 
 
 
@@ -42,6 +43,15 @@ class _ShoppingListOverviewState extends State<ShoppingListOverview> {
                   child: Card(
                     elevation: 3,
                     child: ListTile(
+                      onTap: () {
+                        Navigator.push(
+                            context,
+                            MaterialPageRoute(builder: (context) =>
+                                ShoppingListContentPage(shoppingList: initiatingExamples.exampleLists[index])
+                            ),
+                        );
+
+                      },
                       trailing: Icon(
                         iconDesigns.chain,
                         color: colorDesigns.unSelectedIconColor,
