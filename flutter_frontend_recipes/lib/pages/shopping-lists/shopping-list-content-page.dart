@@ -95,10 +95,16 @@ class _ShoppingListContentPageState extends State<ShoppingListContentPage> {
         ],
       )
       );
+
+      widgetList.add(Container(
+        color: Colors.grey[400],
+        height: 2,
+        width: 300,
+      ));
     }
 
 
-    return Column(children: widgetList);
+    return Column(children: widgetList,);
   }
 
 
