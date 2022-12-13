@@ -26,13 +26,16 @@ class LayoutWidget extends StatefulWidget {
 }
 
 class _LayoutWidgetState extends State<LayoutWidget> {
+
+
+
   int _currentIndex = 0;
   final List<Widget> _pages = <Widget>[
     const MainPageFeed(title: 'MVP Recipe App - Startpage'),
     const MyWidgettt(title: 'hello'),
     Container(
       color: Colors.amber,
-      child: const Text('Einkauslisten'),
+      child: const Text('Einkaufsliste'),
     ),
     Container(
       color: Colors.amber,
