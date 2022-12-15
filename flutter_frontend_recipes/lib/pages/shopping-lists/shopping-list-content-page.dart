@@ -21,7 +21,7 @@ class _ShoppingListContentPageState extends State<ShoppingListContentPage> {
   IconDesigns iconDesigns = IconDesigns();
 
 
-
+  String addToContent = 'Hinzufügen';
 
 
   Widget createColumnForAllIngredients(List<Ingredients> allIngredients) {
@@ -117,7 +117,21 @@ class _ShoppingListContentPageState extends State<ShoppingListContentPage> {
         }
         ),
       ),
+      floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
+      floatingActionButton: SizedBox( width: 200,
+        child: ElevatedButton(
+          style: ElevatedButton.styleFrom(
+            backgroundColor: colorDesigns.addButtonColor,
+          ),
+          onPressed: () {
 
+          },
+          child: Text(
+            addToContent,
+            style: fontStyles.normalText,
+          ),
+        ),
+      ),
     );
   }
 }
