@@ -12,13 +12,12 @@ class FontStyles {
   // das ist für die Texte in Rezepten und Listen
   TextStyle normalText = const TextStyle(
     fontSize: 15,
-    letterSpacing: 1,
     color: Colors.black,
   );
 
   // das ist für texte in den AppBars
   TextStyle appBarText = const TextStyle(
-    fontSize: 15,
+    fontSize: 25,
     letterSpacing: 1,
     color: Colors.white,
   );
@@ -29,6 +28,21 @@ class FontStyles {
     letterSpacing: 1,
     color: Colors.black,
     fontWeight: FontWeight.bold,
+  );
+
+  // das ist ein Text, der für untere Titel der Listen gedacht ist
+  TextStyle subtitleForTiles = const TextStyle(
+    fontSize: 13,
+    color: Colors.grey,
+  );
+
+
+
+
+  TextStyle bigText = const TextStyle(
+    fontWeight: FontWeight.w400,
+    fontSize: 25,
+    color: Colors.black,
   );
 
 }

@@ -14,9 +14,10 @@ class ShoppingList {
   List<Ingredients> missingIngredients = [];
   List<Profile> allMembers;
   List<String> allTags = [];
+  String date;
 
-  ShoppingList({required this.title, required this.allRecipes, required this.allMembers}) {
-
+  ShoppingList({required this.title, required this.allRecipes,
+    required this.allMembers, required this.date}) {
 
 
     for (var recipe in allRecipes) {

@@ -10,10 +10,10 @@ class ColorDesigns {
 
   // Das sind Farben, die für die Seiten wichtig sind
   Color? backGroundColor = Colors.white;
-  Color? appBarBGColor = Colors.green[400];
+  Color? appBarBGColor = Colors.green[800];
   Color? navigationBarBGColor = Colors.white;
   Color? listTileColor = Colors.white;
-  Color? addButtonColor = Colors.white;
+  Color? addButtonColor = Colors.grey[300];
   Color? shoppingListBGColor = Colors.white;
 
 
