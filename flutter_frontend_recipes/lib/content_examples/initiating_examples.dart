@@ -27,11 +27,16 @@ class InitiatingExamples {
 
 
    void createProfiles() {
-    Profile profileOfHerbert = Profile(name: 'Herbert', vegetarian: true);
-    Profile profileOfMargritt = Profile(name: 'Margritt', vegetarian: false);
-    Profile profileOfLucas= Profile(name: 'Lucas', vegetarian: false);
-    Profile profileOfTim = Profile(name: 'Tim', vegetarian: false);
-    Profile profileOfMaria = Profile(name: 'Maria', vegetarian: true);
+    Profile profileOfHerbert = Profile(name: 'Herbert',
+        vegetarian: true, levelOfCooking: 'Amateur');
+    Profile profileOfMargritt = Profile(name: 'Margritt',
+        vegetarian: false, levelOfCooking: 'Profi');
+    Profile profileOfLucas= Profile(name: 'Lucas',
+        vegetarian: false, levelOfCooking: 'Amateur');
+    Profile profileOfTim = Profile(name: 'Tim',
+        vegetarian: false, levelOfCooking: 'Fortgeschritten');
+    Profile profileOfMaria = Profile(name: 'Maria',
+        vegetarian: true, levelOfCooking: 'Amateur');
 
     exampleProfiles.add(profileOfHerbert);
     exampleProfiles.add(profileOfMargritt);

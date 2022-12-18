@@ -33,12 +33,12 @@ class _LayoutWidgetState extends State<LayoutWidget> {
   int _currentIndex = 0;
   final List<Widget> _pages = <Widget>[
     const MainPageFeed(title: 'MVP Recipe App - Startpage'),
-    ProfilMainPage(),
-    MainPageShoppingLists(),
     Container(
       color: Colors.amber,
-      child: const Text('Profil'),
+      child: const Text('Rezept'),
     ),
+    MainPageShoppingLists(),
+    ProfilMainPage(),
   ];
   @override
   Widget build(BuildContext context) {
