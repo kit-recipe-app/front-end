@@ -8,7 +8,7 @@ class RecommendedRecipe {
   // Bild ist nur Platzhalter
   SizedBox card = const SizedBox(
     height: 110,
-    width: 350,
+    width: 355,
     child: Image(
       fit: BoxFit.fitWidth,
       image: AssetImage('assets/hamburger_platzhalter.jpg'),
