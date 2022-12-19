@@ -1,12 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_frontend_recipes/constants/colors.dart';
+import 'package:flutter_frontend_recipes/constants/color_styles.dart';
 import 'package:flutter_frontend_recipes/constants/font_styles.dart';
 import 'package:flutter_frontend_recipes/constants/icon_designs.dart';
 import 'package:flutter_frontend_recipes/content_examples/initiating_examples.dart';
 import 'package:flutter_frontend_recipes/pages/shopping-lists/shopping-list-content-page.dart';
-
-
-
 
 class ShoppingListOverview extends StatefulWidget {
   const ShoppingListOverview({Key? key}) : super(key: key);
@@ -16,17 +13,12 @@ class ShoppingListOverview extends StatefulWidget {
 }
 
 class _ShoppingListOverviewState extends State<ShoppingListOverview> {
-
-  ColorDesigns colorDesigns = ColorDesigns();
   FontStyles fontStyles = FontStyles();
-  IconDesigns iconDesigns = IconDesigns();
 
   String subTitleTiles = 'Erstellt am ';
   String title = 'Einkaufslisten';
   String member = 'Mitglieder: ';
   InitiatingExamples initiatingExamples = InitiatingExamples();
-
-
 
   @override
   Widget build(BuildContext context) {
@@ -45,19 +37,18 @@ class _ShoppingListOverviewState extends State<ShoppingListOverview> {
                     child: ListTile(
                       onTap: () {
                         Navigator.push(
-                            context,
-                            MaterialPageRoute(builder: (context) =>
-                                ShoppingListContentPage(shoppingList: initiatingExamples.exampleLists[index])
-                            ),
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => ShoppingListContentPage(
+                                  shoppingList:
+                                      initiatingExamples.exampleLists[index])),
                         );
-
                       },
                       trailing: Icon(
-                        iconDesigns.chain,
-                        color: colorDesigns.unSelectedIconColor,
+                        RecipeAppIcons.chain,
+                        color: RecipeAppColorStyles.unSelectedIconColor,
                         size: 20,
                       ),
-
                       title: Padding(
                         padding: const EdgeInsets.only(bottom: 30),
                         child: Column(
@@ -77,16 +68,15 @@ class _ShoppingListOverviewState extends State<ShoppingListOverview> {
                       subtitle: Row(
                         children: [
                           Icon(
-                            iconDesigns.profilePageIcon,
+                            RecipeAppIcons.profilePageIcon,
                             size: 25,
                           ),
                         ],
                       ),
-
                     ),
                   ),
                 );
-                },
+              },
             ),
           ),
         ),
@@ -94,5 +84,3 @@ class _ShoppingListOverviewState extends State<ShoppingListOverview> {
     );
   }
 }
-
-
