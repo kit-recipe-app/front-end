@@ -18,7 +18,7 @@ class _RecipeAppState extends State<RecipeApp> {
     const MainFeed(),
     const RecipeScreen(),
     const MainPageShoppingLists(),
-    const ProfileMainPage(),
+    ProfileMainPage(),
   ];
   @override
   Widget build(BuildContext context) {

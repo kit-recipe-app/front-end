@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_frontend_recipes/constants/color_styles.dart';
 
-import '../../constants/colors.dart';
 import '../../constants/font_styles.dart';
 import '../../constants/icon_designs.dart';
 
@@ -8,18 +8,13 @@ import '../../constants/icon_designs.dart';
 
 class BuildProfiLAppBar {
 
-  ColorDesigns colorDesigns = ColorDesigns();
-  FontStyles fontStyles = FontStyles();
-  IconDesigns iconDesigns = IconDesigns();
-
-
   AppBar profilAppBar(String title) {
     return AppBar(
       centerTitle: true,
-      backgroundColor: colorDesigns.appBarBGColor,
+      backgroundColor: RecipeAppColorStyles.appBarBGColor,
       title: Text(
         title,
-        style: fontStyles.appBarText,
+        style: FontStyles.appBarText,
       ),
 
     );

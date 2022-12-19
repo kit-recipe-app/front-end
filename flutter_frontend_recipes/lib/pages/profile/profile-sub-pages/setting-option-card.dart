@@ -1,20 +1,14 @@
 import 'package:flutter/material.dart';
 
-import '../../../constants/colors.dart';
 import '../../../constants/font_styles.dart';
 import '../../../constants/icon_designs.dart';
-
 
 class ProfilPageSettingOptionCard extends StatelessWidget {
   final String title;
   final Widget page;
-  ProfilPageSettingOptionCard({Key? key,
-    required this.title, required this.page}) : super(key: key);
-
-
-  ColorDesigns colorDesigns = ColorDesigns();
-  FontStyles fontStyles = FontStyles();
-  IconDesigns iconDesigns = IconDesigns();
+  const ProfilPageSettingOptionCard(
+      {Key? key, required this.title, required this.page})
+      : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -23,22 +17,17 @@ class ProfilPageSettingOptionCard extends StatelessWidget {
         onTap: () {
           Navigator.push(
             context,
-            MaterialPageRoute(builder: (context) =>
-            page
-            ),
+            MaterialPageRoute(builder: (context) => page),
           );
-
         },
         title: Text(
           title,
-          style: fontStyles.bigText,
+          style: FontStyles.bigText,
         ),
         trailing: Icon(
-            iconDesigns.settingIcon,
+          RecipeAppIcons.settingIcon,
         ),
       ),
     );
   }
 }
-
-

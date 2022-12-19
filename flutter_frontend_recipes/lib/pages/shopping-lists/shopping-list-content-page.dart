@@ -16,7 +16,6 @@ class ShoppingListContentPage extends StatefulWidget {
 }
 
 class _ShoppingListContentPageState extends State<ShoppingListContentPage> {
-  FontStyles fontStyles = FontStyles();
   RecipeAppIcons iconDesigns = RecipeAppIcons();
 
   String addToContent = 'Hinzufügen';
@@ -83,7 +82,7 @@ class _ShoppingListContentPageState extends State<ShoppingListContentPage> {
         backgroundColor: RecipeAppColorStyles.appBarBGColor,
         title: Text(
           widget.shoppingList.title,
-          style: fontStyles.appBarText,
+          style: FontStyles.appBarText,
         ),
       ),
       body: Scrollbar(
@@ -117,7 +116,7 @@ class _ShoppingListContentPageState extends State<ShoppingListContentPage> {
           onPressed: () {},
           child: Text(
             addToContent,
-            style: fontStyles.normalText,
+            style: FontStyles.normalText,
           ),
         ),
       ),
