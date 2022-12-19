@@ -23,7 +23,7 @@ class NavigationBarItem extends StatelessWidget {
         children: [
           Icon(
             icon,
-            size: 48,
+            size: 40,
             color: isSelected
                 ? RecipeAppColorStyles.navigationBarSelectedIconColor
                 : RecipeAppColorStyles

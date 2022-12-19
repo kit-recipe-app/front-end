@@ -33,7 +33,9 @@ class _RecipeScreenState extends State<RecipeScreen> {
             });
           }),
         ),
-        _tabs[_selectedIndex],
+        Expanded(
+          child: _tabs[_selectedIndex],
+        ),
       ],
     );
   }
