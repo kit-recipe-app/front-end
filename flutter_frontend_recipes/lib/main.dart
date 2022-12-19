@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_frontend_recipes/pages/feed/actual-main-feed.dart';
 import 'package:flutter_frontend_recipes/pages/feed/main-page-feed.dart';
 import 'package:flutter_frontend_recipes/pages/profile/main-page-profile.dart';
 import 'package:flutter_frontend_recipes/pages/shopping-lists/main-page-shopping-lists.dart';
@@ -29,10 +30,10 @@ class LayoutWidget extends StatefulWidget {
 class _LayoutWidgetState extends State<LayoutWidget> {
 
 
-
+// const MainPageFeed(title: 'MVP Recipe App - Startpage')
   int _currentIndex = 0;
   final List<Widget> _pages = <Widget>[
-    const MainPageFeed(title: 'MVP Recipe App - Startpage'),
+    MainFeed(),
     Container(
       color: Colors.amber,
       child: const Text('Rezept'),
