@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_frontend_recipes/constants/font_styles.dart';
+import 'package:flutter_frontend_recipes/pages/feed/recommended-recipe-card.dart';
 
 import '../../constants/colors.dart';
 import '../../constants/icon_designs.dart';
+import 'last-recipe-card.dart';
 
 
 class MainFeed extends StatefulWidget {
@@ -18,9 +20,11 @@ class _MainFeedState extends State<MainFeed> {
   FontStyles fontStyles = FontStyles();
   IconDesigns iconDesigns = IconDesigns();
 
-  String title = 'Willkommen';
-  String favorites = 'Ihre Favoriten';
-  String recommended = 'Ihre Empfehlungen';
+  String title = 'Dashboard';
+  String welcome = 'Willkommen zurück';
+  String lastSeen = 'Zuletzt angesehenes Rezept';
+  String recommended = 'Das könnte Ihnen schmecken';
+
 
   @override
   Widget build(BuildContext context) {
@@ -38,26 +42,28 @@ class _MainFeedState extends State<MainFeed> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Padding(
+                  padding: const EdgeInsets.all(10),
+                  child: Text(
+                  welcome,
+                    style: fontStyles.titleText,
+                  ),
+                ),
+              ],
+            ),
             Padding(
               padding: const EdgeInsets.fromLTRB(2, 30, 0, 10),
               child: Text(
-                  favorites,
+                  lastSeen,
                 style: fontStyles.titleText,
               ),
             ),
+            LastSeenRecipe().card,
             const SizedBox(
-              height: 110,
-              child: Card(
-                elevation: 2,
-                child: ListTile(
-
-                ),
-              ),
-            ),
-            SizedBox(
-              height: 130,
-              child: Container(
-              ),
+              height: 40,
             ),
             Padding(
               padding: const EdgeInsets.fromLTRB(2, 20, 0, 10),
@@ -66,15 +72,7 @@ class _MainFeedState extends State<MainFeed> {
                 style: fontStyles.titleText,
               ),
             ),
-            const SizedBox(
-              height: 110,
-              child: Card(
-                elevation: 2,
-                child: ListTile(
-
-                ),
-              ),
-            ),
+            RecommendedRecipe().card,
           ],
         ),
       ),
