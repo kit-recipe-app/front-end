@@ -6,6 +6,7 @@ import 'package:flutter_frontend_recipes/constants/font_styles.dart';
 import 'package:flutter_frontend_recipes/constants/icon_designs.dart';
 import 'package:flutter_frontend_recipes/content_examples/initiating_examples.dart';
 import 'package:flutter_frontend_recipes/pages/profile/profil-page-appbar.dart';
+import 'package:flutter_frontend_recipes/pages/profile/profile-sub-pages/setting-list.dart';
 
 import 'current-profil-card.dart';
 import 'example_profile.dart';
@@ -13,7 +14,7 @@ import 'example_profile.dart';
 class ProfilMainPage extends StatelessWidget {
    ProfilMainPage({Key? key}) : super(key: key);
 
-
+   ProfilPageOptions options = ProfilPageOptions();
 
    //TODO:hier später echtes Profil reinmachen
    Profile currentProfile = InitiatingExamples().exampleProfiles[0];
@@ -33,11 +34,12 @@ class ProfilMainPage extends StatelessWidget {
   //
 
   String changeProfile = 'Profil bearbeiten';
+  String profilePageTitle = 'Profil';
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: buildProfiLAppBar.profilAppBar(),
+      appBar: buildProfiLAppBar.profilAppBar(profilePageTitle),
       body: Column(
         children: [
 
@@ -101,8 +103,15 @@ class ProfilMainPage extends StatelessWidget {
             ],
           ),
 
-          const Padding(
-              padding: EdgeInsets.all(10),
+          //
+          Padding(
+              padding: const EdgeInsets.all(20),
+            child: SizedBox(
+              height: 350,
+              child: ListView(
+                children: options.listOfOptions,
+                  ),
+            ),
           ),
 
         ],

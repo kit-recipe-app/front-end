@@ -12,14 +12,13 @@ class BuildProfiLAppBar {
   FontStyles fontStyles = FontStyles();
   IconDesigns iconDesigns = IconDesigns();
 
-  String mainPageTitle = 'Profil';
 
-  AppBar profilAppBar() {
+  AppBar profilAppBar(String title) {
     return AppBar(
       centerTitle: true,
       backgroundColor: colorDesigns.appBarBGColor,
       title: Text(
-        mainPageTitle,
+        title,
         style: fontStyles.appBarText,
       ),
 

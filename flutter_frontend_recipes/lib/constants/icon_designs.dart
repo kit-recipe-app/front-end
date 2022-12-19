@@ -13,7 +13,7 @@ class IconDesigns {
   IconData homePageIcon = Icons.home;
   IconData shoppingListPageIcon = Icons.list_alt;
   IconData recipePageIcon = Icons.food_bank_sharp;
-
+  IconData settingIcon = Icons.settings;
 
   //Icons für die Rezpte
   IconData calories = Icons.local_fire_department_rounded;
