@@ -9,25 +9,47 @@ class RecipeAppExploringRecipes extends StatelessWidget {
     return ListView(
       padding: EdgeInsets.zero,
       children: [
-        SizedBox(
-          height: 200,
-          child: ListView(
-            scrollDirection: Axis.horizontal,
-            padding: EdgeInsets.zero,
-            children: const [
-              RecipeAppRecipePreviewExploring(),
-              RecipeAppRecipePreviewExploring(),
-              RecipeAppRecipePreviewExploring(),
-              RecipeAppRecipePreviewExploring(),
-              RecipeAppRecipePreviewExploring(),
-              RecipeAppRecipePreviewExploring(),
-              RecipeAppRecipePreviewExploring(),
-              RecipeAppRecipePreviewExploring(),
-              RecipeAppRecipePreviewExploring(),
-              RecipeAppRecipePreviewExploring(),
-              RecipeAppRecipePreviewExploring(),
-            ],
-          ),
+        Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            const Padding(
+              padding: EdgeInsets.fromLTRB(8, 32, 8, 8),
+              child: Text("Für dich empfohlen"),
+            ),
+            SizedBox(
+              height: 250,
+              child: ListView(
+                scrollDirection: Axis.horizontal,
+                padding: EdgeInsets.zero,
+                children: const [
+                  RecipeAppRecipePreviewExploring(),
+                  RecipeAppRecipePreviewExploring(),
+                  RecipeAppRecipePreviewExploring(),
+                ],
+              ),
+            ),
+          ],
+        ),
+        Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            const Padding(
+              padding: EdgeInsets.fromLTRB(8, 32, 8, 8),
+              child: Text("Saisonal"),
+            ),
+            SizedBox(
+              height: 250,
+              child: ListView(
+                scrollDirection: Axis.horizontal,
+                padding: EdgeInsets.zero,
+                children: const [
+                  RecipeAppRecipePreviewExploring(),
+                  RecipeAppRecipePreviewExploring(),
+                  RecipeAppRecipePreviewExploring(),
+                ],
+              ),
+            ),
+          ],
         ),
       ],
     );
