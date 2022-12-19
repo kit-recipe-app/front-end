@@ -1,9 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_frontend_recipes/constants/colors.dart';
+import 'package:flutter_frontend_recipes/constants/color_styles.dart';
 import 'package:flutter_frontend_recipes/constants/font_styles.dart';
 import 'package:flutter_frontend_recipes/constants/icon_designs.dart';
-
-
 
 class AddShoppingList extends StatefulWidget {
   const AddShoppingList({Key? key}) : super(key: key);
@@ -13,10 +11,7 @@ class AddShoppingList extends StatefulWidget {
 }
 
 class _AddShoppingListState extends State<AddShoppingList> {
-
-  ColorDesigns colorDesigns = ColorDesigns();
   FontStyles fontStyles = FontStyles();
-  IconDesigns iconDesigns = IconDesigns();
 
   String giveName = 'Geben Sie ihrer Einkaufsliste bitte einen Namen';
   String create = 'erstellen';
@@ -33,7 +28,8 @@ class _AddShoppingListState extends State<AddShoppingList> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
-            Padding(padding: EdgeInsets.all(15),
+            Padding(
+              padding: const EdgeInsets.all(15),
               child: Text(
                 giveName,
                 style: fontStyles.bigText,
@@ -50,37 +46,32 @@ class _AddShoppingListState extends State<AddShoppingList> {
                     onPressed: () {
                       textController.clear();
                     },
-                    icon: Icon(iconDesigns.clearText),
-
+                    icon: Icon(RecipeAppIcons.clearText),
                   ),
                 ),
               ),
             ),
-            ElevatedButton(onPressed: () {
-
-              // TODO: Hier soll später das Backend eingebunden werden, um neue Einkaufslisten
-              // TODO: zu den eigenen Hinzugefügt werden
-              if (textController.text != '') {
-                setState(() {
-                  nameForNewList = textController.text;
-
-                });
-              }
-              else if (textController.text == '') {
-                setState(() {
-                  displayedText = noNameInput;
-                });
-              }
-
-            },
+            ElevatedButton(
+              onPressed: () {
+                // TODO: Hier soll später das Backend eingebunden werden, um neue Einkaufslisten
+                // TODO: zu den eigenen Hinzugefügt werden
+                if (textController.text != '') {
+                  setState(() {
+                    nameForNewList = textController.text;
+                  });
+                } else if (textController.text == '') {
+                  setState(() {
+                    displayedText = noNameInput;
+                  });
+                }
+              },
               style: ElevatedButton.styleFrom(
-                backgroundColor: colorDesigns.addButtonColor,
+                backgroundColor: RecipeAppColorStyles.addButtonColor,
               ),
               child: Text(
-                    create,
+                create,
                 style: fontStyles.normalText,
-                ),
-
+              ),
             ),
             Text(
               displayedText,
@@ -91,5 +82,3 @@ class _AddShoppingListState extends State<AddShoppingList> {
     );
   }
 }
-
-

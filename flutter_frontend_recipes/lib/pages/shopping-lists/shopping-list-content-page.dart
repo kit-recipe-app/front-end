@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_frontend_recipes/constants/colors.dart';
+import 'package:flutter_frontend_recipes/constants/color_styles.dart';
 import 'package:flutter_frontend_recipes/constants/font_styles.dart';
 import 'package:flutter_frontend_recipes/constants/icon_designs.dart';
 import 'package:flutter_frontend_recipes/pages/shopping-lists/example_shopping_list.dart';
@@ -7,25 +7,21 @@ import 'package:flutter_frontend_recipes/pages/recipes/example_ingredients.dart'
 
 class ShoppingListContentPage extends StatefulWidget {
   ShoppingList shoppingList;
-  ShoppingListContentPage({Key? key, required this.shoppingList}) : super(key: key);
+  ShoppingListContentPage({Key? key, required this.shoppingList})
+      : super(key: key);
 
   @override
-  State<ShoppingListContentPage> createState() => _ShoppingListContentPageState();
+  State<ShoppingListContentPage> createState() =>
+      _ShoppingListContentPageState();
 }
 
-
 class _ShoppingListContentPageState extends State<ShoppingListContentPage> {
-
-  ColorDesigns colorDesigns = ColorDesigns();
   FontStyles fontStyles = FontStyles();
-  IconDesigns iconDesigns = IconDesigns();
-
+  RecipeAppIcons iconDesigns = RecipeAppIcons();
 
   String addToContent = 'Hinzufügen';
 
-
   Widget createColumnForAllIngredients(List<Ingredients> allIngredients) {
-
     bool? isChecked = false;
 
     List<Widget> widgetList = [];
@@ -35,27 +31,27 @@ class _ShoppingListContentPageState extends State<ShoppingListContentPage> {
         children: [
           Padding(
             padding: const EdgeInsets.fromLTRB(0, 5, 0, 5),
-            child: Container(
+            child: SizedBox(
               width: 100,
               child: Text(element.name),
             ),
           ),
           Padding(
             padding: const EdgeInsets.fromLTRB(0, 5, 0, 5),
-            child: Container(
+            child: SizedBox(
               width: 50,
               child: Text('${element.amount}'),
             ),
           ),
           Padding(
             padding: const EdgeInsets.fromLTRB(0, 5, 0, 5),
-            child: Container(
+            child: SizedBox(
               width: 50,
               child: Text(element.unit),
             ),
           ),
-           StatefulBuilder(
-               builder: (BuildContext context, StateSetter setState) {
+          StatefulBuilder(
+              builder: (BuildContext context, StateSetter setState) {
             return Checkbox(
                 value: isChecked,
                 activeColor: Colors.green,
@@ -63,15 +59,10 @@ class _ShoppingListContentPageState extends State<ShoppingListContentPage> {
                   setState(() {
                     isChecked = newBool;
                   });
-
-                }
-            );
-
-    }
-    )
+                });
+          })
         ],
-      )
-      );
+      ));
 
       widgetList.add(Container(
         color: Colors.grey[400],
@@ -80,18 +71,18 @@ class _ShoppingListContentPageState extends State<ShoppingListContentPage> {
       ));
     }
 
-    return Column(children: widgetList,);
+    return Column(
+      children: widgetList,
+    );
   }
-
-
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: colorDesigns.appBarBGColor,
+        backgroundColor: RecipeAppColorStyles.appBarBGColor,
         title: Text(
-            widget.shoppingList.title,
+          widget.shoppingList.title,
           style: fontStyles.appBarText,
         ),
       ),
@@ -106,26 +97,24 @@ class _ShoppingListContentPageState extends State<ShoppingListContentPage> {
                     title: Padding(
                       padding: const EdgeInsets.all(8.0),
                       child: Text(
-                          widget.shoppingList.allRecipes[index].title,
+                        widget.shoppingList.allRecipes[index].title,
                       ),
                     ),
-                    subtitle: createColumnForAllIngredients(widget.
-                    shoppingList.allRecipes[index].ingredients),
+                    subtitle: createColumnForAllIngredients(
+                        widget.shoppingList.allRecipes[index].ingredients),
                   ),
-          ),
+                ),
               );
-        }
-        ),
+            }),
       ),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
-      floatingActionButton: SizedBox( width: 200,
+      floatingActionButton: SizedBox(
+        width: 200,
         child: ElevatedButton(
           style: ElevatedButton.styleFrom(
-            backgroundColor: colorDesigns.addButtonColor,
+            backgroundColor: RecipeAppColorStyles.addButtonColor,
           ),
-          onPressed: () {
-
-          },
+          onPressed: () {},
           child: Text(
             addToContent,
             style: fontStyles.normalText,
@@ -135,4 +124,3 @@ class _ShoppingListContentPageState extends State<ShoppingListContentPage> {
     );
   }
 }
-
