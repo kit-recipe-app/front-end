@@ -11,7 +11,6 @@ class AddShoppingList extends StatefulWidget {
 }
 
 class _AddShoppingListState extends State<AddShoppingList> {
-  FontStyles fontStyles = FontStyles();
 
   String giveName = 'Geben Sie ihrer Einkaufsliste bitte einen Namen';
   String create = 'erstellen';
@@ -32,7 +31,7 @@ class _AddShoppingListState extends State<AddShoppingList> {
               padding: const EdgeInsets.all(15),
               child: Text(
                 giveName,
-                style: fontStyles.bigText,
+                style: FontStyles.bigText,
                 textAlign: TextAlign.center,
               ),
             ),
@@ -70,7 +69,7 @@ class _AddShoppingListState extends State<AddShoppingList> {
               ),
               child: Text(
                 create,
-                style: fontStyles.normalText,
+                style: FontStyles.normalText,
               ),
             ),
             Text(

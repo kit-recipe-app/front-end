@@ -13,8 +13,6 @@ class ShoppingListOverview extends StatefulWidget {
 }
 
 class _ShoppingListOverviewState extends State<ShoppingListOverview> {
-  FontStyles fontStyles = FontStyles();
-
   String subTitleTiles = 'Erstellt am ';
   String title = 'Einkaufslisten';
   String member = 'Mitglieder: ';
@@ -56,11 +54,11 @@ class _ShoppingListOverviewState extends State<ShoppingListOverview> {
                           children: [
                             Text(
                               initiatingExamples.exampleLists[index].title,
-                              style: fontStyles.titleText,
+                              style: FontStyles.titleText,
                             ),
                             Text(
                               '$subTitleTiles ${initiatingExamples.exampleLists[index].date}',
-                              style: fontStyles.subtitleForTiles,
+                              style: FontStyles.subtitleForTiles,
                             ),
                           ],
                         ),
