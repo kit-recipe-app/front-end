@@ -46,10 +46,7 @@ class RecipeAppRecipePreviewExploring extends StatelessWidget {
           ),
           const Padding(
             padding: EdgeInsets.fromLTRB(8, 0, 8, 0),
-            child: Flexible(
-              child:
-                  Text("Sed ut perspiciatis, unde omnis iste natus error sit"),
-            ),
+            child: Text("Sed ut perspiciatis, unde omnis iste natus error sit"),
           ),
           Padding(
             padding: const EdgeInsets.fromLTRB(0, 0, 0, 8),
