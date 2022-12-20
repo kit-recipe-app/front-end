@@ -19,7 +19,7 @@ class BottomNavigationBarRecipeApp extends StatelessWidget {
         ),
       ),
       child: SizedBox(
-        height: MediaQuery.of(context).size.height / 10,
+        height: MediaQuery.of(context).size.height / 12,
         width: MediaQuery.of(context).size.width,
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceAround,

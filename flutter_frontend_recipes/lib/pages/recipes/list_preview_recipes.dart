@@ -28,13 +28,14 @@ class RecipeAppRecipeListPreview extends StatelessWidget {
         child: Row(
           children: [
             ClipRRect(
-                borderRadius: BorderRadius.circular(16),
-                child: Image.asset(
-                  'assets/example_pictures/hamburger.jpg',
-                  width: 100,
-                  height: 100,
-                  fit: BoxFit.cover,
-                )),
+              borderRadius: BorderRadius.circular(16),
+              child: Image.asset(
+                'assets/example_pictures/hamburger.jpg',
+                width: 100,
+                height: 100,
+                fit: BoxFit.cover,
+              ),
+            ),
             Padding(
               padding: const EdgeInsets.fromLTRB(32, 0, 0, 0),
               child: Column(

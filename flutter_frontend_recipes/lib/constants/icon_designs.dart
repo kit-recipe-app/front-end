@@ -19,6 +19,10 @@ class RecipeAppIcons {
 
   //Icons Recipe Screen
 
+  static IconData caloriesIcon = Icons.local_fire_department_outlined;
+  static IconData timeIcon = Icons.schedule_outlined;
+  static IconData difficultyIcon = Icons.speed_outlined;
+
   //Icons für die Rezpte
   static IconData calories = Icons.local_fire_department_rounded;
   static IconData duration = Icons.access_time;
