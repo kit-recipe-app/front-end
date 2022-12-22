@@ -11,7 +11,7 @@ class ManageFriends extends StatefulWidget {
 
 class _ManageFriendsState extends State<ManageFriends> {
   
-  String title = 'Frende verwalten';
+  String title = 'Freunde verwalten';
   BuildProfiLAppBar bar = BuildProfiLAppBar();
   
   @override

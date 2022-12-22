@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_frontend_recipes/constants/color_styles.dart';
 import 'package:flutter_frontend_recipes/constants/font_styles.dart';
 import 'package:flutter_frontend_recipes/constants/icon_designs.dart';
-import 'package:flutter_frontend_recipes/pages/shopping-lists/add-shopping-list-page.dart';
-import 'package:flutter_frontend_recipes/pages/shopping-lists/shopping-list-overview-page.dart';
+import 'package:flutter_frontend_recipes/pages/shopping-lists/pages/add-shopping-list-page.dart';
+import 'package:flutter_frontend_recipes/pages/shopping-lists/pages/shopping-list-overview-page.dart';
 
 class MainPageShoppingLists extends StatefulWidget {
   const MainPageShoppingLists({Key? key}) : super(key: key);

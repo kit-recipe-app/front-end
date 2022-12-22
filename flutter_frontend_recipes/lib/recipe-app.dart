@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_frontend_recipes/layout/bottom_navigation_bar_recipe_app.dart';
 import 'package:flutter_frontend_recipes/pages/feed/actual-main-feed.dart';
 import 'package:flutter_frontend_recipes/pages/recipes/main-page-recipes.dart';
-import 'package:flutter_frontend_recipes/pages/shopping-lists/main-page-shopping-lists.dart';
+import 'package:flutter_frontend_recipes/pages/shopping-lists/pages/main-page-shopping-lists.dart';
 import 'package:flutter_frontend_recipes/pages/profile/main-page-profile.dart';
 
 class RecipeApp extends StatefulWidget {

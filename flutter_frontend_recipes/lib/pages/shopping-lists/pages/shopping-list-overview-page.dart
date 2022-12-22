@@ -3,7 +3,7 @@ import 'package:flutter_frontend_recipes/constants/color_styles.dart';
 import 'package:flutter_frontend_recipes/constants/font_styles.dart';
 import 'package:flutter_frontend_recipes/constants/icon_designs.dart';
 import 'package:flutter_frontend_recipes/content_examples/initiating_examples.dart';
-import 'package:flutter_frontend_recipes/pages/shopping-lists/shopping-list-content-page.dart';
+import 'package:flutter_frontend_recipes/pages/shopping-lists/pages/shopping-list-content-page.dart';
 
 class ShoppingListOverview extends StatefulWidget {
   const ShoppingListOverview({Key? key}) : super(key: key);
