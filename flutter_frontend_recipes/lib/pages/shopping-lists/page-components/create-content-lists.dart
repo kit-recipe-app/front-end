@@ -37,7 +37,7 @@ class CreateContentLists {
     return content;
   }
 
-  List<Widget> listsForOverview(List<ShoppingList> allShoppingLists) {
+  List<Widget> listsForOverview({required List<ShoppingList> allShoppingLists,}) {
     List<Widget> overview = [];
 
     for (var list in allShoppingLists) {

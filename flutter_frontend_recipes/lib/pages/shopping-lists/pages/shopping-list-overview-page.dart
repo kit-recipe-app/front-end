@@ -21,7 +21,10 @@ class _ShoppingListOverviewState extends State<ShoppingListOverview> {
         child: Center(
           child: Scrollbar(
             child: ListView(
-              children: CreateContentLists().listsForOverview(initiatingExamples.exampleLists),
+              children:
+              CreateContentLists().listsForOverview(
+                allShoppingLists: initiatingExamples.exampleLists,
+              ),
             ),
           ),
         ),
