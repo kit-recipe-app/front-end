@@ -1,12 +1,16 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_frontend_recipes/pages/shopping-lists/example_shopping_list.dart';
 import 'package:flutter_frontend_recipes/pages/shopping-lists/page-components/shopping-list-content-ingredient-depiction.dart';
+import 'package:flutter_frontend_recipes/pages/shopping-lists/page-components/shopping-list-overview-cards.dart';
 
 import '../../recipes/example_recipe.dart';
 
 
-class CreateContentList {
+class CreateContentLists {
 
-  List<Widget> getContent(List<Recipe> allRecipes) {
+
+
+  List<Widget> listsForShoppingListContent(List<Recipe> allRecipes) {
     List<Widget> content = [];
 
     for (var element in allRecipes) {
@@ -30,8 +34,24 @@ class CreateContentList {
       content.add(cardForRecipe);
     }
 
-
     return content;
   }
+
+  List<Widget> listsForOverview(List<ShoppingList> allShoppingLists) {
+    List<Widget> overview = [];
+
+    for (var list in allShoppingLists) {
+      overview.add(
+        OverviewCard(shoppingList: list),
+      );
+    }
+
+
+    return overview;
+  }
+
+
+
+
 }
 

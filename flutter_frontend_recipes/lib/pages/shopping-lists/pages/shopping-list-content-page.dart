@@ -3,7 +3,7 @@ import 'package:flutter_frontend_recipes/constants/color_styles.dart';
 import 'package:flutter_frontend_recipes/constants/font_styles.dart';
 import 'package:flutter_frontend_recipes/constants/icon_designs.dart';
 import 'package:flutter_frontend_recipes/pages/shopping-lists/example_shopping_list.dart';
-import '../page-components/create-content-list.dart';
+import '../page-components/create-content-lists.dart';
 
 class ShoppingListContentPage extends StatefulWidget {
   ShoppingList shoppingList;
@@ -33,8 +33,8 @@ class _ShoppingListContentPageState extends State<ShoppingListContentPage> {
       ),
       body: Scrollbar(
         child: ListView(
-            children: CreateContentList().
-            getContent(widget.shoppingList.allRecipes),
+            children: CreateContentLists().
+            listsForShoppingListContent(widget.shoppingList.allRecipes),
 
         ),
       ),
