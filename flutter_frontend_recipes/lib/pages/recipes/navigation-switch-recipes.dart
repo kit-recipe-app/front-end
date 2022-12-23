@@ -1,11 +1,23 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_frontend_recipes/constants/color_styles.dart';
 
-class RecipeAppNavigationSwitchRecipes extends StatelessWidget {
+class RecipeAppNavigationSwitchBasicLayout extends StatelessWidget {
   Function onChange;
   int selectedIndex;
-  RecipeAppNavigationSwitchRecipes(
-      {required this.onChange, required this.selectedIndex, super.key});
+  String textLeftTab;
+  String textRightTab;
+  RecipeAppNavigationSwitchBasicLayout(
+      {required this.onChange, required this.selectedIndex,
+        required this.textLeftTab, required this.textRightTab, super.key});
+
+  // TODO: Info an Paul:
+  // hier Alex, ich hab die Klasse etwas verändert, ich hab
+  // den text jetzt als required in den construktor gemacht
+  // (die variablen textLeftTab und textRightTab) und den Namen
+  // der Klasse geändert, weil ich benutze die exakt selbe Klasse bei der
+  // Profil Seite um da die Tabs umzuschalten, also wenn du hier später
+  // noch was umänderst, dann hat das auch Auswirkungen auf die Profil Seite
+  // nur damit du das weißt
 
   @override
   Widget build(BuildContext context) {
@@ -23,7 +35,7 @@ class RecipeAppNavigationSwitchRecipes extends StatelessWidget {
                     onChange(0);
                   },
                   child: Text(
-                    "Entdecken",
+                    textLeftTab,
                     style: TextStyle(
                       color: (selectedIndex == 0)
                           ? RecipeAppColorStyles.selectedTextColor
@@ -36,7 +48,7 @@ class RecipeAppNavigationSwitchRecipes extends StatelessWidget {
                     onChange(1);
                   },
                   child: Text(
-                    "Meine Rezepte",
+                    textRightTab,
                     style: TextStyle(
                       color: (selectedIndex == 1)
                           ? RecipeAppColorStyles.selectedTextColor

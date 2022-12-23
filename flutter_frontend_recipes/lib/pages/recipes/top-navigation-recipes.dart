@@ -8,6 +8,10 @@ class RecipeAppTopNavigation extends StatelessWidget {
   RecipeAppTopNavigation(
       {required this.onChange, required this.selectedIndex, super.key});
 
+
+  String textLeftTab = "Entdecken";
+  String textRightTab = "Meine Rezepte";
+
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -15,8 +19,9 @@ class RecipeAppTopNavigation extends StatelessWidget {
       child: Column(
         children: [
           const RecipeAppSearchBar(),
-          RecipeAppNavigationSwitchRecipes(
-              onChange: onChange, selectedIndex: selectedIndex),
+          RecipeAppNavigationSwitchBasicLayout(
+              onChange: onChange, selectedIndex: selectedIndex,
+            textLeftTab: textLeftTab, textRightTab: textRightTab,),
         ],
       ),
     );

@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_frontend_recipes/pages/profile/example_profile.dart';
 
-import '../../constants/font_styles.dart';
-import '../../constants/icon_designs.dart';
+import '../../../constants/font_styles.dart';
+import '../../../constants/icon_designs.dart';
 
 
 class CurrentProfilCard {
