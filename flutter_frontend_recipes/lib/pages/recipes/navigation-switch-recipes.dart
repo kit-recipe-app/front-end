@@ -10,37 +10,46 @@ class RecipeAppNavigationSwitchRecipes extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.only(top: 24),
+      padding: const EdgeInsets.fromLTRB(8, 24, 8, 0),
       child: Stack(
         children: [
           Padding(
             padding: const EdgeInsets.only(bottom: 4),
             child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceAround,
               children: [
                 GestureDetector(
+                  behavior: HitTestBehavior.translucent,
                   onTap: () {
                     onChange(0);
                   },
-                  child: Text(
-                    "Entdecken",
-                    style: TextStyle(
-                      color: (selectedIndex == 0)
-                          ? RecipeAppColorStyles.selectedTextColor
-                          : RecipeAppColorStyles.unSelectedTextColor,
+                  child: Container(
+                    width: (MediaQuery.of(context).size.width - 32) / 2,
+                    alignment: Alignment.center,
+                    child: Text(
+                      "Entdecken",
+                      style: TextStyle(
+                        color: (selectedIndex == 0)
+                            ? RecipeAppColorStyles.selectedTextColor
+                            : RecipeAppColorStyles.unSelectedTextColor,
+                      ),
                     ),
                   ),
                 ),
                 GestureDetector(
+                  behavior: HitTestBehavior.translucent,
                   onTap: () {
                     onChange(1);
                   },
-                  child: Text(
-                    "Meine Rezepte",
-                    style: TextStyle(
-                      color: (selectedIndex == 1)
-                          ? RecipeAppColorStyles.selectedTextColor
-                          : RecipeAppColorStyles.unSelectedTextColor,
+                  child: Container(
+                    width: (MediaQuery.of(context).size.width - 32) / 2,
+                    alignment: Alignment.center,
+                    child: Text(
+                      "Meine Rezepte",
+                      style: TextStyle(
+                        color: (selectedIndex == 1)
+                            ? RecipeAppColorStyles.selectedTextColor
+                            : RecipeAppColorStyles.unSelectedTextColor,
+                      ),
                     ),
                   ),
                 ),
@@ -52,8 +61,8 @@ class RecipeAppNavigationSwitchRecipes extends StatelessWidget {
             curve: Curves.fastOutSlowIn,
             bottom: 0,
             left: (selectedIndex == 0)
-                ? 8
-                : (MediaQuery.of(context).size.width - 32) / 2 + 8,
+                ? 0
+                : (MediaQuery.of(context).size.width - 32) / 2,
             child: Container(
               width: (MediaQuery.of(context).size.width - 32) / 2,
               height: 2,
@@ -62,7 +71,7 @@ class RecipeAppNavigationSwitchRecipes extends StatelessWidget {
           ),
           Positioned(
             bottom: 0,
-            left: 8,
+            left: 0,
             child: SizedBox(
               height: 2,
               width: (MediaQuery.of(context).size.width - 32),

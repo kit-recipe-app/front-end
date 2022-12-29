@@ -22,9 +22,6 @@ class _RecipeScreenState extends State<RecipeScreen> {
   Widget build(BuildContext context) {
     return Column(
       children: [
-        const SizedBox(
-          height: 34,
-        ),
         RecipeAppTopNavigation(
           selectedIndex: _selectedIndex,
           onChange: ((int index) {
