@@ -15,12 +15,10 @@ class RecipeApp extends StatefulWidget {
 class _RecipeAppState extends State<RecipeApp> {
   int _currentIndex = 0;
   final List<Widget> _pages = [
-    const MainPageFeed(),
+    const MainFeed(),
     const RecipeScreen(),
     const MainPageShoppingLists(),
-    const Center(
-      child: Text("profile and friends screen"),
-    ),
+    ProfileMainPage(),
   ];
   @override
   Widget build(BuildContext context) {

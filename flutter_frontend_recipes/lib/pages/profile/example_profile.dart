@@ -9,8 +9,10 @@ class Profile {
   String name;
   bool vegetarian;
   String description = '';
+  String levelOfCooking;
 
-  Profile({required this.name, required this.vegetarian}) {
+  Profile({required this.name, required this.vegetarian,
+    required this.levelOfCooking}) {
 
   }
 

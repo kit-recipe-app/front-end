@@ -6,6 +6,8 @@ import 'package:flutter/material.dart';
 // Diese Klasse beinhaltet die Icon Designs, die dann später in der App verwendet werden
 class RecipeAppIcons {
   // Icons für die verschidenen Seiten, die auf dem Navigation Bar angezeigt werden
+  
+  static IconData settingIcon = Icons.settings;
   static IconData homePageIcon = Icons.home_outlined;
   static IconData recipePageIcon = Icons.restaurant_outlined;
   static IconData shoppingListPageIcon = Icons.list_alt_outlined;

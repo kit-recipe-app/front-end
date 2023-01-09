@@ -13,7 +13,6 @@ class MainPageShoppingLists extends StatefulWidget {
 }
 
 class _MainPageShoppingListsState extends State<MainPageShoppingLists> {
-  FontStyles fontStyles = FontStyles();
   RecipeAppIcons iconDesigns = RecipeAppIcons();
 
   String title = 'Einkaufslisten';
@@ -35,7 +34,7 @@ class _MainPageShoppingListsState extends State<MainPageShoppingLists> {
         backgroundColor: RecipeAppColorStyles.appBarBGColor,
         title: Text(
           title,
-          style: fontStyles.appBarText,
+          style: FontStyles.appBarText,
         ),
       ),
       body: shoppingListPages[currentIndex],
@@ -61,7 +60,7 @@ class _MainPageShoppingListsState extends State<MainPageShoppingLists> {
           },
           child: Text(
             currentText,
-            style: fontStyles.normalText,
+            style: FontStyles.normalText,
           ),
         ),
       ),
