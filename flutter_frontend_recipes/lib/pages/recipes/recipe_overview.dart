@@ -49,34 +49,23 @@ class RecipeOverview extends StatelessWidget {
             ),
           ),
           Padding(
-            padding: const EdgeInsets.fromLTRB(16, 0, 16, 0),
-            child: SizedBox(
-              height: 50,
-              child: ListView(
-                scrollDirection: Axis.horizontal,
-                padding: EdgeInsets.zero,
-                children: [
-                  if (recipe.tags != null) ...[
-                    for (var i in recipe.tags!)
-                      Container(
-                        margin: const EdgeInsets.all(8),
-                        decoration: const BoxDecoration(
-                          color: Colors.grey,
-                          borderRadius: BorderRadius.all(Radius.circular(16)),
-                        ),
-                        child: Align(
-                          alignment: Alignment.center,
-                          child: Padding(
-                            padding: const EdgeInsets.all(8.0),
-                            child: (Text(i)),
-                          ),
-                        ),
-                      )
-                  ] else ...[
-                    const Text("no Tags")
-                  ],
-                ],
-              ),
+            padding: const EdgeInsets.fromLTRB(12, 0, 12, 0),
+            child: Wrap(
+              children: [
+                if (recipe.tags != null)
+                  for (var i in recipe.tags!)
+                    Container(
+                      margin: const EdgeInsets.all(8),
+                      decoration: const BoxDecoration(
+                        color: Colors.grey,
+                        borderRadius: BorderRadius.all(Radius.circular(16)),
+                      ),
+                      child: Padding(
+                        padding: const EdgeInsets.fromLTRB(12,8,12,8),
+                        child: (Text(i)),
+                      ),
+                    )
+              ],
             ),
           ),
           Padding(

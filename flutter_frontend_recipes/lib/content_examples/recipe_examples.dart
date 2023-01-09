@@ -59,7 +59,7 @@ class RecipeExamples {
     ],
     manual: ["Lachs waschen", "Knoblauch schälen", "Zwiebeln in Pfanne dünsten",
       "Lachs in Pfanne geben", "Lachs knusprig braten", "Lachs würzen"],
-    tags: ["Fisch", "gesund", "High Protein"],
+    tags: ["Fisch", "gesund", "High Protein", "Healthy", "new", "fresh", "fitness"],
     time: 30,
     difficulty: "schwer",
   );
