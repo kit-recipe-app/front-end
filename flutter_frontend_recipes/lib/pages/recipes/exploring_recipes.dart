@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_frontend_recipes/content_examples/recipe-examples.dart';
 import 'package:flutter_frontend_recipes/pages/recipes/recipe_preview_exploring.dart';
 
 class RecipeAppExploringRecipes extends StatelessWidget {
@@ -21,10 +22,16 @@ class RecipeAppExploringRecipes extends StatelessWidget {
               child: ListView(
                 scrollDirection: Axis.horizontal,
                 padding: EdgeInsets.zero,
-                children: const [
-                  RecipeAppRecipePreviewExploring(),
-                  RecipeAppRecipePreviewExploring(),
-                  RecipeAppRecipePreviewExploring(),
+                children: [
+                  RecipeAppRecipePreviewExploring(
+                    recipe: RecipeExamples.testRecipe1,
+                  ),
+                  RecipeAppRecipePreviewExploring(
+                    recipe: RecipeExamples.testRecipe1,
+                  ),
+                  RecipeAppRecipePreviewExploring(
+                    recipe: RecipeExamples.testRecipe1,
+                  ),
                 ],
               ),
             ),
@@ -42,10 +49,16 @@ class RecipeAppExploringRecipes extends StatelessWidget {
               child: ListView(
                 scrollDirection: Axis.horizontal,
                 padding: EdgeInsets.zero,
-                children: const [
-                  RecipeAppRecipePreviewExploring(),
-                  RecipeAppRecipePreviewExploring(),
-                  RecipeAppRecipePreviewExploring(),
+                children: [
+                  RecipeAppRecipePreviewExploring(
+                    recipe: RecipeExamples.testRecipe1,
+                  ),
+                  RecipeAppRecipePreviewExploring(
+                    recipe: RecipeExamples.testRecipe1,
+                  ),
+                  RecipeAppRecipePreviewExploring(
+                    recipe: RecipeExamples.testRecipe1,
+                  ),
                 ],
               ),
             ),

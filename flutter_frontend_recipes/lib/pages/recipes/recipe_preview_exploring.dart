@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_frontend_recipes/constants/icon_designs.dart';
+import 'package:flutter_frontend_recipes/types/recipe.dart';
 
 class RecipeAppRecipePreviewExploring extends StatelessWidget {
-  const RecipeAppRecipePreviewExploring({super.key});
+  RARecipe recipe;
+  RecipeAppRecipePreviewExploring({required this.recipe, super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -28,69 +30,91 @@ class RecipeAppRecipePreviewExploring extends StatelessWidget {
           ClipRRect(
             borderRadius: BorderRadius.circular(16),
             child: Image.asset(
-              'assets/example_pictures/hamburger.jpg',
+              recipe.picture,
               width: 200,
               height: 100,
               fit: BoxFit.cover,
             ),
           ),
-          const Padding(
-            padding: EdgeInsets.fromLTRB(8, 0, 8, 0),
+          Padding(
+            padding: const EdgeInsets.fromLTRB(8, 0, 8, 0),
             child: Text(
-              "Maisburger mit Bailikum",
-              style: TextStyle(
+              recipe.title,
+              style: const TextStyle(
                 fontWeight: FontWeight.bold,
                 fontSize: 14,
               ),
+              maxLines: 1,
+              overflow: TextOverflow.ellipsis,
             ),
           ),
-          const Padding(
-            padding: EdgeInsets.fromLTRB(8, 0, 8, 0),
-            child: Text("Sed ut perspiciatis, unde omnis iste natus error sit"),
+          Padding(
+            padding: const EdgeInsets.fromLTRB(8, 0, 8, 0),
+            child: Text(
+              recipe.description,
+              maxLines: 2,
+              overflow: TextOverflow.fade,
+            ),
           ),
           Padding(
             padding: const EdgeInsets.fromLTRB(0, 0, 0, 8),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceAround,
-              children: [
-                Column(
-                  children: [
-                    Icon(RecipeAppIcons.calories),
-                    const Text(
-                      "457 kcal",
-                      style: TextStyle(
-                        fontSize: 12,
-                      ),
-                    ),
-                  ],
-                ),
-                Column(
-                  children: [
-                    Icon(RecipeAppIcons.timeIcon),
-                    const Text(
-                      "30 min.",
-                      style: TextStyle(
-                        fontSize: 12,
-                      ),
-                    )
-                  ],
-                ),
-                Column(
-                  children: [
-                    Icon(RecipeAppIcons.difficultyIcon),
-                    const Text(
-                      "mittel",
-                      style: TextStyle(
-                        fontSize: 12,
-                      ),
-                    ),
-                  ],
-                ),
-              ],
-            ),
+            child: getIconBar(),
           )
         ],
       ),
+    );
+  }
+
+  Widget getIconBar() {
+    List<Widget> availableValues = [];
+    if (recipe.getCalories() != null) {
+      availableValues.add(
+        Column(
+          children: [
+            Icon(RecipeAppIcons.calories),
+            Text(
+              "${recipe.getCalories()} kcal",
+              style: const TextStyle(
+                fontSize: 12,
+              ),
+            ),
+          ],
+        ),
+      );
+    }
+    if (recipe.time != null) {
+      availableValues.add(
+        Column(
+          children: [
+            Icon(RecipeAppIcons.timeIcon),
+            Text(
+              "${recipe.time} min.",
+              style: const TextStyle(
+                fontSize: 12,
+              ),
+            ),
+          ],
+        ),
+      );
+    }
+    if (recipe.difficulty != null) {
+      availableValues.add(
+        Column(
+          children: [
+            Icon(RecipeAppIcons.difficultyIcon),
+            Text(
+              (recipe.difficulty != null) ? recipe.difficulty! : "",
+              style: const TextStyle(
+                fontSize: 12,
+              ),
+            ),
+          ],
+        ),
+      );
+    }
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.spaceAround,
+      children: availableValues,
     );
   }
 }

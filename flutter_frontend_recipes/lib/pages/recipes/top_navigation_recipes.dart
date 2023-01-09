@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_frontend_recipes/pages/recipes/navigation-switch-recipes.dart';
+import 'package:flutter_frontend_recipes/pages/recipes/navigation_switch_recipes.dart';
 import 'package:flutter_frontend_recipes/shared/search_bar.dart';
 
 class RecipeAppTopNavigation extends StatelessWidget {

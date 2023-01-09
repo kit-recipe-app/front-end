@@ -20,7 +20,7 @@ class RARecipe {
       this.time,
       this.difficulty});
 
-  int getCalories() {
+  int? getCalories() {
     int summedCalories = 0;
     for (RAIngredient ingredient in ingredients) {
       summedCalories += ingredient.calories;
