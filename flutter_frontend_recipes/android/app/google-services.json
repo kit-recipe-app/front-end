@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "537722360443",
+    "project_id": "kit-recipe-app",
+    "storage_bucket": "kit-recipe-app.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:537722360443:android:5472bf606d193706a788de",
+        "android_client_info": {
+          "package_name": "com.example.flutter_frontend_recipes"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "537722360443-6s71r6pe90ti3o0uu63ck5tsggogbdtp.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAJTZ-Fa_8wyMY9_v9knSIDvPitasvt7tM"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "537722360443-6s71r6pe90ti3o0uu63ck5tsggogbdtp.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
