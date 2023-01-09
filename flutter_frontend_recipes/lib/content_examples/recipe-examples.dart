@@ -57,7 +57,9 @@ class RecipeExamples {
         calories: 140,
       ),
     ],
-    manual: [],
+    manual: ["Lachs waschen", "Knoblauch schälen", "Zwiebeln in Pfanne dünsten",
+      "Lachs in Pfanne geben", "Lachs knusprig braten", "Lachs würzen"],
+    tags: ["Fisch", "gesund", "High Protein"],
     time: 30,
     difficulty: "schwer",
   );

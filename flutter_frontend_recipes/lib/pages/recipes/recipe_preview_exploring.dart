@@ -3,8 +3,8 @@ import 'package:flutter_frontend_recipes/constants/icon_designs.dart';
 import 'package:flutter_frontend_recipes/types/recipe.dart';
 
 class RecipeAppRecipePreviewExploring extends StatelessWidget {
-  RARecipe recipe;
-  RecipeAppRecipePreviewExploring({required this.recipe, super.key});
+  final RARecipe recipe;
+  const RecipeAppRecipePreviewExploring({required this.recipe, super.key});
 
   @override
   Widget build(BuildContext context) {
