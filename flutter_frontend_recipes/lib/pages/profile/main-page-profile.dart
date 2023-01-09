@@ -1,4 +1,6 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_frontend_recipes/authentification/auth.dart';
 import 'package:flutter_frontend_recipes/constants/font_styles.dart';
 import 'package:flutter_frontend_recipes/content_examples/initiating_examples.dart';
 import 'package:flutter_frontend_recipes/pages/profile/profil-page-appbar.dart';
@@ -9,6 +11,20 @@ import 'example_profile.dart';
 
 class ProfileMainPage extends StatelessWidget {
   ProfileMainPage({Key? key}) : super(key: key);
+
+  final User? user = RAAuthService().user;
+  late String? email = user?.email;
+
+  Future<void> signOut() async {
+    await RAAuthService().signOut();
+  }
+
+  Widget signOutButton() {
+    return ElevatedButton(
+      onPressed: signOut,
+      child: const Text("sign out"),
+    );
+  }
 
   ProfilPageOptions options = ProfilPageOptions();
 
@@ -32,6 +48,7 @@ class ProfileMainPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      floatingActionButton: signOutButton(),
       appBar: buildProfiLAppBar.profilAppBar(profilePageTitle),
       body: Column(
         children: [
@@ -80,6 +97,18 @@ class ProfileMainPage extends StatelessWidget {
           Padding(
             padding: const EdgeInsets.all(20),
             child: currentProfilCard.returnCard(),
+          ),
+          Row(
+            children: [
+              Padding(
+                padding: const EdgeInsets.only(
+                  left: 30,
+                ),
+                child: Text(
+                  "Email:          ${user!.email!}",
+                ),
+              ),
+            ],
           ),
           Row(
             children: [
