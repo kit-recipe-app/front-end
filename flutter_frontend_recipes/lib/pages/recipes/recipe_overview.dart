@@ -22,6 +22,7 @@ class RecipeOverview extends StatelessWidget {
                 },
                 icon: const Icon(
                   Icons.arrow_back,
+                  size: 32,
                   color: Colors.white,
                   shadows: [Shadow(color: Colors.black, blurRadius: 32.0)],
                 ),

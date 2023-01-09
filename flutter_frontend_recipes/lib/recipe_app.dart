@@ -1,10 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_frontend_recipes/constants/color_styles.dart';
-import 'package:flutter_frontend_recipes/content_examples/recipe_examples.dart';
 import 'package:flutter_frontend_recipes/layout/bottom_navigation_bar_recipe_app.dart';
+import 'package:flutter_frontend_recipes/pages/feed/actual-main-feed.dart';
 import 'package:flutter_frontend_recipes/pages/profile/main-page-profile.dart';
 import 'package:flutter_frontend_recipes/pages/recipes/main_page_recipes.dart';
-import 'package:flutter_frontend_recipes/pages/recipes/recipe_overview.dart';
 import 'package:flutter_frontend_recipes/pages/shopping-lists/main-page-shopping-lists.dart';
 
 class RecipeApp extends StatefulWidget {
@@ -17,8 +16,7 @@ class RecipeApp extends StatefulWidget {
 class _RecipeAppState extends State<RecipeApp> {
   int _currentIndex = 0;
   final List<Widget> _pages = [
-    //const MainFeed(),
-    RecipeOverview(recipe: RecipeExamples.testRecipe1),
+    const MainFeed(),
     const RecipeScreen(),
     const MainPageShoppingLists(),
     ProfileMainPage(),
