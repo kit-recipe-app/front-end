@@ -14,25 +14,28 @@ class RecipeAppExploringRecipes extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             const Padding(
-              padding: EdgeInsets.fromLTRB(8, 32, 8, 8),
+              padding: EdgeInsets.all(8),
               child: Text("Für dich empfohlen"),
             ),
-            SizedBox(
-              height: 250,
-              child: ListView(
-                scrollDirection: Axis.horizontal,
-                padding: EdgeInsets.zero,
-                children: [
-                  RecipeAppRecipePreviewExploring(
-                    recipe: RecipeExamples.testRecipe1,
-                  ),
-                  RecipeAppRecipePreviewExploring(
-                    recipe: RecipeExamples.testRecipe1,
-                  ),
-                  RecipeAppRecipePreviewExploring(
-                    recipe: RecipeExamples.testRecipe1,
-                  ),
-                ],
+            Padding(
+              padding: const EdgeInsets.only(bottom: 16),
+              child: SizedBox(
+                height: 250,
+                child: ListView(
+                  scrollDirection: Axis.horizontal,
+                  padding: EdgeInsets.zero,
+                  children: [
+                    RecipeAppRecipePreviewExploring(
+                      recipe: RecipeExamples.testRecipe2,
+                    ),
+                    RecipeAppRecipePreviewExploring(
+                      recipe: RecipeExamples.testRecipe3,
+                    ),
+                    RecipeAppRecipePreviewExploring(
+                      recipe: RecipeExamples.testRecipe1,
+                    ),
+                  ],
+                ),
               ),
             ),
           ],
@@ -41,25 +44,28 @@ class RecipeAppExploringRecipes extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             const Padding(
-              padding: EdgeInsets.fromLTRB(8, 32, 8, 8),
+              padding: EdgeInsets.all(8),
               child: Text("Saisonal"),
             ),
-            SizedBox(
-              height: 250,
-              child: ListView(
-                scrollDirection: Axis.horizontal,
-                padding: EdgeInsets.zero,
-                children: [
-                  RecipeAppRecipePreviewExploring(
-                    recipe: RecipeExamples.testRecipe1,
-                  ),
-                  RecipeAppRecipePreviewExploring(
-                    recipe: RecipeExamples.testRecipe1,
-                  ),
-                  RecipeAppRecipePreviewExploring(
-                    recipe: RecipeExamples.testRecipe1,
-                  ),
-                ],
+            Padding(
+              padding: const EdgeInsets.only(bottom: 16),
+              child: SizedBox(
+                height: 250,
+                child: ListView(
+                  scrollDirection: Axis.horizontal,
+                  padding: EdgeInsets.zero,
+                  children: [
+                    RecipeAppRecipePreviewExploring(
+                      recipe: RecipeExamples.testRecipe1,
+                    ),
+                    RecipeAppRecipePreviewExploring(
+                      recipe: RecipeExamples.testRecipe2,
+                    ),
+                    RecipeAppRecipePreviewExploring(
+                      recipe: RecipeExamples.testRecipe3,
+                    ),
+                  ],
+                ),
               ),
             ),
           ],
