@@ -10,92 +10,99 @@ class RecipeOverview extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return ListView(
-      children: [
-        Image.asset(
-          recipe.picture
-        ),
-        Padding(
-          padding: const EdgeInsets.all(8.0),
-          child: Text(
-            recipe.title,
-            textAlign: TextAlign.center,
-            style: const TextStyle(
-              fontWeight: FontWeight.bold,
-              fontSize: 26),
+    return Material(
+      child: ListView(
+        children: [
+          Stack(
+            children: [
+              Image.asset(recipe.picture),
+              IconButton(
+                onPressed: () {
+                  Navigator.pop(context);
+                },
+                icon: const Icon(
+                  Icons.arrow_back,
+                  color: Colors.white,
+                  shadows: [Shadow(color: Colors.black, blurRadius: 32.0)],
+                ),
+              ),
+            ],
           ),
-        ),
-        Padding(
-          padding: const EdgeInsets.fromLTRB(0, 0, 0, 8),
-          child: getIconBar(),
-        ),
-        Padding(
-          padding: const EdgeInsets.fromLTRB(16,8,16,8),
-          child: Text(
-            recipe.description,
-            style: const TextStyle(
-                fontSize: 15),
+          Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: Text(
+              recipe.title,
+              textAlign: TextAlign.center,
+              style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 26),
+            ),
           ),
-        ),
-        Padding(
-          padding: const EdgeInsets.fromLTRB(16, 0, 16, 0),
-          child: SizedBox(
-            height: 50,
-            child: ListView(
-              scrollDirection: Axis.horizontal,
-              padding: EdgeInsets.zero,
-              children: [
-                if (recipe.tags != null)...[
-                  for ( var i in recipe.tags!)
-                    Container(
-                      margin: const EdgeInsets.all(8),
-                      decoration: const BoxDecoration(
-                        color: Colors.grey,
-                        borderRadius: BorderRadius.all(Radius.circular(16)),
-                      ),
-                      child: Align(
-                        alignment: Alignment.center,
-                        child: Padding(
-                          padding: const EdgeInsets.all(8.0),
-                          child: (
-                            Text(i)
+          Padding(
+            padding: const EdgeInsets.fromLTRB(0, 0, 0, 8),
+            child: getIconBar(),
+          ),
+          Padding(
+            padding: const EdgeInsets.fromLTRB(16, 8, 16, 8),
+            child: Text(
+              recipe.description,
+              style: const TextStyle(fontSize: 15),
+            ),
+          ),
+          Padding(
+            padding: const EdgeInsets.fromLTRB(16, 0, 16, 0),
+            child: SizedBox(
+              height: 50,
+              child: ListView(
+                scrollDirection: Axis.horizontal,
+                padding: EdgeInsets.zero,
+                children: [
+                  if (recipe.tags != null) ...[
+                    for (var i in recipe.tags!)
+                      Container(
+                        margin: const EdgeInsets.all(8),
+                        decoration: const BoxDecoration(
+                          color: Colors.grey,
+                          borderRadius: BorderRadius.all(Radius.circular(16)),
+                        ),
+                        child: Align(
+                          alignment: Alignment.center,
+                          child: Padding(
+                            padding: const EdgeInsets.all(8.0),
+                            child: (Text(i)),
                           ),
                         ),
-                      ),
-                    )
-                ] else ...[
-                  const Text("no Tags")
+                      )
+                  ] else ...[
+                    const Text("no Tags")
+                  ],
                 ],
-
+              ),
+            ),
+          ),
+          Padding(
+            padding: const EdgeInsets.fromLTRB(16, 8, 16, 8),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                const Padding(
+                  padding: EdgeInsets.only(bottom: 8),
+                  child: Text(
+                    "Zutaten",
+                    style: TextStyle(
+                      fontWeight: FontWeight.bold,
+                      fontSize: 18,
+                    ),
+                  ),
+                ),
+                for (RAIngredient i in recipe.ingredients)
+                  Padding(
+                    padding: const EdgeInsets.only(bottom: 5),
+                    child: Text(i.toString()),
+                  )
               ],
             ),
           ),
-        ),
-        Padding(
-          padding: const EdgeInsets.fromLTRB(16,8,16,8),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              const Padding(
-                padding: EdgeInsets.only(bottom: 8),
-                child: Text(
-                  "Zutaten",
-                  style: TextStyle(
-                    fontWeight: FontWeight.bold,
-                    fontSize: 18,
-                  ),
-                ),
-              ),
-              for (RAIngredient i in recipe.ingredients)
-                Padding(
-                  padding: const EdgeInsets.only(bottom: 5),
-                  child: Text(i.toString()),
-                )
-            ],
-          ),
-        ),
-        Padding(
-            padding: const EdgeInsets.fromLTRB(16,8,16,8),
+          Padding(
+            padding: const EdgeInsets.fromLTRB(16, 8, 16, 8),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
@@ -116,8 +123,9 @@ class RecipeOverview extends StatelessWidget {
                   )
               ],
             ),
-        )
-      ],
+          )
+        ],
+      ),
     );
   }
 
@@ -174,5 +182,3 @@ class RecipeOverview extends StatelessWidget {
     );
   }
 }
-
-

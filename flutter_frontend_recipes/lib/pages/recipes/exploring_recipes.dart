@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_frontend_recipes/content_examples/recipe-examples.dart';
+import 'package:flutter_frontend_recipes/content_examples/recipe_examples.dart';
 import 'package:flutter_frontend_recipes/pages/recipes/recipe_preview_exploring.dart';
 
 class RecipeAppExploringRecipes extends StatelessWidget {
