@@ -6,7 +6,7 @@ import 'package:flutter/material.dart';
 // Diese Klasse enthält die Farben, die in der App verwendet werden
 class RecipeAppColorStyles {
   // Das sind Farben, die für die Seiten wichtig sind
-  Color? backGroundColor = Colors.white;
+  static Color? backGroundColor = Colors.white;
   static Color? appBarBGColor = Colors.green[800];
 
   // Navigation Bar Styles

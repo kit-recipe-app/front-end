@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_frontend_recipes/pages/recipes/exploring-recipes.dart';
-import 'package:flutter_frontend_recipes/pages/recipes/my-recipes-recipes.dart';
-import 'package:flutter_frontend_recipes/pages/recipes/top-navigation-recipes.dart';
+import 'package:flutter_frontend_recipes/pages/recipes/exploring_recipes.dart';
+import 'package:flutter_frontend_recipes/pages/recipes/my_recipes_recipes.dart';
+import 'package:flutter_frontend_recipes/pages/recipes/top_navigation_recipes.dart';
 
 class RecipeScreen extends StatefulWidget {
   const RecipeScreen({super.key});
@@ -22,9 +22,6 @@ class _RecipeScreenState extends State<RecipeScreen> {
   Widget build(BuildContext context) {
     return Column(
       children: [
-        const SizedBox(
-          height: 34,
-        ),
         RecipeAppTopNavigation(
           selectedIndex: _selectedIndex,
           onChange: ((int index) {
