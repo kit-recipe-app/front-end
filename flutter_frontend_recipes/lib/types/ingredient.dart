@@ -12,4 +12,7 @@ class RAIngredient {
       required this.unit,
       required this.amount,
       required this.calories});
+
+  @override
+  String toString() => '$amount $unit $name';
 }
