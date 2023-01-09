@@ -18,14 +18,14 @@ class FontStyles {
   // das ist für texte in den AppBars
   static TextStyle appBarText = const TextStyle(
     fontSize: 25,
-    letterSpacing: 1,
+    letterSpacing: 0,
     color: Colors.white,
   );
 
   // das ist ein Text für einen Titel, der entweder Titel einer Liste oder eines Rezeptes ist
   static TextStyle titleText = const TextStyle(
     fontSize: 20,
-    letterSpacing: 1,
+    letterSpacing: 0,
     color: Colors.black,
     fontWeight: FontWeight.bold,
   );
