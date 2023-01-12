@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_frontend_recipes/authentification/auth.dart';
 import 'package:flutter_frontend_recipes/authentification/login_register_page.dart';
+import 'package:flutter_frontend_recipes/authentification/verification_check.dart';
 import 'package:flutter_frontend_recipes/recipe_app.dart';
 
 class WidgetTree extends StatefulWidget {
@@ -17,7 +18,7 @@ class _WidgetTreeState extends State<WidgetTree> {
       stream: RAAuthService().userStream,
       builder: (context, snapshot) {
         if (snapshot.hasData) {
-          return RecipeApp();
+          return const EmailVerificationCheck();
         } else {
           return const LoginPage();
         }

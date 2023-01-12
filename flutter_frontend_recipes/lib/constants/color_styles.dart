@@ -8,6 +8,11 @@ class RecipeAppColorStyles {
   // Das sind Farben, die für die Seiten wichtig sind
   static Color? backGroundColor = Colors.white;
   static Color? appBarBGColor = Colors.green[800];
+  static Color recipeAppMainColor = const Color(0xff66aa44);
+
+  //Auth Colors
+  static Color authButtonColor = Colors.black45;
+  static Color authButtonTextColor = Colors.white;
 
   // Navigation Bar Styles
   static List<Color> navigationBarBGFade = [
@@ -17,7 +22,7 @@ class RecipeAppColorStyles {
 
   static Color navigationBarSelectedIconColor = const Color(0xff66aa44);
   static Color navigationBarunSelectedIconColor =
-      const Color(0xfff111111);//.withOpacity(0.54);
+      const Color(0xfff111111); //.withOpacity(0.54);
   Color? listTileColor = Colors.white;
   static Color? addButtonColor = Colors.grey[300];
   Color? shoppingListBGColor = Colors.white;
