@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_frontend_recipes/authentification/auth.dart';
 import 'package:flutter_frontend_recipes/constants/color_styles.dart';
 import 'package:flutter_frontend_recipes/recipe_app.dart';
+import 'package:flutter_frontend_recipes/shared/submit_button.dart';
 
 class EmailVerificationCheck extends StatefulWidget {
   const EmailVerificationCheck({super.key});
@@ -90,19 +91,37 @@ class _EmailVerificationCheckState extends State<EmailVerificationCheck> {
         left: false,
         right: false,
         child: Scaffold(
-          body: Column(
-            children: [
-              const Text("Ihnen wurde eine Email zur Verifikation gesendet."),
-              canResendEmail
-                  ? ElevatedButton(
-                      onPressed: sendVerificationEmail,
-                      child: const Text("Email erneut senden."),
-                    )
-                  : const Text("Warte, bis du erneut eine Email sendest."),
-              cancelVerificationButton(),
-              hasError ? Text(errorMessage) : Container(),
-            ],
+          body: Container(
+            padding: const EdgeInsets.all(24),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.center,
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                const Text("Ihnen wurde eine Email zur Verifikation gesendet."),
+                canResendEmail
+                    ? RASubmitButton(
+                        onTap: sendVerificationEmail,
+                        description: "Email Erneut senden",
+                        backgroundColor:
+                            RecipeAppColorStyles.recipeAppMainColor,
+                        margin: 32,
+                      )
+                    : RASubmitButton(
+                        onTap: () {},
+                        description: "Warte einen Moment",
+                        margin: 32,
+                      ),
+                hasError ? Text(errorMessage) : Container(),
+              ],
+            ),
           ),
+          floatingActionButton: RASubmitButton(
+            onTap: RAAuthService().signOut,
+            description: "Abbrechen",
+            margin: 8,
+          ),
+          floatingActionButtonLocation:
+              FloatingActionButtonLocation.centerFloat,
         ),
       ),
     );

@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter_frontend_recipes/authentification/auth.dart';
 import 'package:flutter_frontend_recipes/constants/color_styles.dart';
+import 'package:flutter_frontend_recipes/shared/input_field.dart';
+import 'package:flutter_frontend_recipes/shared/submit_button.dart';
 
 class LoginPage extends StatefulWidget {
   const LoginPage({super.key});
@@ -12,12 +14,16 @@ class LoginPage extends StatefulWidget {
 
 class _LoginPageState extends State<LoginPage> {
   final String loginToRegister = "Du hast noch keinen Account?";
-  final String registerToLogin = "Du hast bereits einen Account?";
+  final String registerToLogin = "Zurück zum Login.";
   String? errorMessage = "";
   bool isLogin = true;
 
+  final TextEditingController _controllerTest = TextEditingController();
+
   final TextEditingController _controllerEmail = TextEditingController();
   final TextEditingController _controllerPassword = TextEditingController();
+  final TextEditingController _controllerConfirmPassword =
+      TextEditingController();
 
   Future<void> signInWithEmailAndPassword() async {
     try {
@@ -33,6 +39,12 @@ class _LoginPageState extends State<LoginPage> {
   }
 
   Future<void> createUserWithEmailAndPassword() async {
+    if (_controllerPassword.text != _controllerConfirmPassword.text) {
+      setState(() {
+        errorMessage = "Passwörter stimmen nicht überein.";
+      });
+      return;
+    }
     try {
       await RAAuthService().createUserWithEmailAndPassword(
         email: _controllerEmail.text,
@@ -46,8 +58,9 @@ class _LoginPageState extends State<LoginPage> {
   }
 
   Widget _entryField(
-    String title,
+    String hintText,
     TextEditingController controller,
+    IconData icon,
     bool isPassword,
   ) {
     return Container(
@@ -60,97 +73,144 @@ class _LoginPageState extends State<LoginPage> {
         controller: controller,
         obscureText: isPassword,
         decoration: InputDecoration(
-          hintText: title,
+          hintText: hintText,
           border: InputBorder.none,
           contentPadding: const EdgeInsets.all(16),
+          prefixIcon: Icon(icon),
+        ),
+      ),
+    );
+  }
+
+  Widget _pageTitle() {
+    return Container(
+      padding: EdgeInsets.only(top: MediaQuery.of(context).size.height / 5),
+      alignment: Alignment.topCenter,
+      child: Text(
+        isLogin ? "LOGIN" : "REGISTRIEREN",
+        style: const TextStyle(
+          color: Colors.black,
+          fontSize: 32,
+          fontWeight: FontWeight.bold,
         ),
       ),
     );
   }
 
   Widget _errorMessage() {
-    return Text(errorMessage == '' ? '' : 'Humm ? $errorMessage');
+    return Text(errorMessage == '' ? '' : '$errorMessage');
   }
 
-  Widget _submitButton() {
-    return GestureDetector(
-      onTap:
-          isLogin ? signInWithEmailAndPassword : createUserWithEmailAndPassword,
-      behavior: HitTestBehavior.translucent,
-      child: Container(
-        decoration: BoxDecoration(
-          color: RecipeAppColorStyles.authButtonColor,
-          borderRadius: BorderRadius.circular(18),
-          boxShadow: [
-            BoxShadow(
-              color: Colors.black.withOpacity(0.25),
-              spreadRadius: 0,
-              blurRadius: 5,
-              offset: const Offset(0, 2),
-            ),
-          ],
-        ),
-        padding: const EdgeInsets.fromLTRB(16, 8, 16, 8),
-        child: Text(
-          isLogin ? 'Login' : 'Registrieren',
-          style: TextStyle(
-            fontSize: 16,
-            color: RecipeAppColorStyles.authButtonTextColor,
-            fontWeight: FontWeight.bold,
-          ),
-        ),
-      ),
-    );
-    /*
-    return ElevatedButton(
-      onPressed:
-          isLogin ? signInWithEmailAndPassword : createUserWithEmailAndPassword,
-      child: Text(isLogin ? 'Login' : 'Registrieren'),
-    );
-    */
-  }
-
-  Widget _loginOrRegisterButton() {
-    return TextButton(
-      onPressed: () {
-        setState(() {
-          isLogin = !isLogin;
-        });
+  void switchLoginOrRegister() {
+    setState(
+      () {
+        if (!isLogin) {
+          _controllerConfirmPassword.text = "";
+        }
+        isLogin = !isLogin;
       },
-      child: Text(isLogin ? loginToRegister : registerToLogin),
     );
   }
 
   @override
   Widget build(BuildContext context) {
     return Container(
-      color: RecipeAppColorStyles.backGroundColor,
+      decoration: BoxDecoration(
+        gradient: LinearGradient(
+          begin: Alignment.bottomLeft,
+          colors: RecipeAppColorStyles.loginRegisterBackground,
+        ),
+      ),
       child: SafeArea(
         left: false,
         bottom: false,
         right: false,
-        child: Scaffold(
-          body: Container(
-            padding: const EdgeInsets.all(20),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.center,
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: <Widget>[
-                _entryField(
-                  'email',
-                  _controllerEmail,
-                  false,
+        child: GestureDetector(
+          onTap: (() => FocusScope.of(context).unfocus()),
+          child: Scaffold(
+            backgroundColor: Colors.transparent,
+            body: Stack(
+              children: [
+                _pageTitle(),
+                Container(
+                  padding: const EdgeInsets.all(24),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: <Widget>[
+                      //
+                      RAInputField(
+                        hintText: "Email",
+                        controller: _controllerEmail,
+                        icon: Icons.mail,
+                      ),
+                      RAInputField(
+                        hintText: "Passwort",
+                        controller: _controllerPassword,
+                        isPassword: true,
+                        icon: Icons.key,
+                      ),
+                      Visibility(
+                        visible: !isLogin,
+                        child: RAInputField(
+                          hintText: "Passwort bestätigen",
+                          controller: _controllerConfirmPassword,
+                          isPassword: true,
+                          icon: Icons.key,
+                        ),
+                      ),
+                      //
+                      /*
+                      _entryField(
+                        'Email',
+                        _controllerEmail,
+                        Icons.mail,
+                        false,
+                      ),
+                      _entryField(
+                        'Passwort',
+                        _controllerPassword,
+                        Icons.key,
+                        true,
+                      ),
+                      Visibility(
+                        visible: !isLogin,
+                        child: _entryField(
+                          "Passwort bestätigen",
+                          _controllerConfirmPassword,
+                          Icons.key,
+                          true,
+                        ),
+                      ),
+                      */
+                      _errorMessage(),
+                      isLogin
+                          ? RASubmitButton(
+                              onTap: signInWithEmailAndPassword,
+                              description: "Login",
+                              backgroundColor:
+                                  RecipeAppColorStyles.recipeAppMainColor,
+                            )
+                          : RASubmitButton(
+                              onTap: createUserWithEmailAndPassword,
+                              description: "Registrieren",
+                              backgroundColor:
+                                  RecipeAppColorStyles.recipeAppMainColor,
+                            ),
+                    ],
+                  ),
                 ),
-                _entryField(
-                  'password',
-                  _controllerPassword,
-                  true,
-                ),
-                _errorMessage(),
-                _submitButton(),
-                _loginOrRegisterButton(),
               ],
             ),
+            floatingActionButton: RASubmitButton(
+              onTap: switchLoginOrRegister,
+              description: isLogin ? loginToRegister : registerToLogin,
+              margin: 16,
+              shadow: false,
+              backgroundColor: Colors.black54,
+            ),
+            floatingActionButtonLocation:
+                FloatingActionButtonLocation.centerFloat,
           ),
         ),
       ),

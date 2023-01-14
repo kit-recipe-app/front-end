@@ -13,6 +13,10 @@ class RecipeAppColorStyles {
   //Auth Colors
   static Color authButtonColor = Colors.black45;
   static Color authButtonTextColor = Colors.white;
+  static List<Color> loginRegisterBackground = [
+    const Color(0xff66aa44),
+    const Color(0xffeeeeee),
+  ];
 
   // Navigation Bar Styles
   static List<Color> navigationBarBGFade = [
