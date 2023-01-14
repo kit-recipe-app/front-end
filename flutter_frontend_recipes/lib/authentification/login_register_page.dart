@@ -57,31 +57,6 @@ class _LoginPageState extends State<LoginPage> {
     }
   }
 
-  Widget _entryField(
-    String hintText,
-    TextEditingController controller,
-    IconData icon,
-    bool isPassword,
-  ) {
-    return Container(
-      margin: const EdgeInsets.all(8),
-      decoration: BoxDecoration(
-        color: Colors.black12,
-        borderRadius: BorderRadius.circular(32),
-      ),
-      child: TextField(
-        controller: controller,
-        obscureText: isPassword,
-        decoration: InputDecoration(
-          hintText: hintText,
-          border: InputBorder.none,
-          contentPadding: const EdgeInsets.all(16),
-          prefixIcon: Icon(icon),
-        ),
-      ),
-    );
-  }
-
   Widget _pageTitle() {
     return Container(
       padding: EdgeInsets.only(top: MediaQuery.of(context).size.height / 5),
@@ -159,30 +134,6 @@ class _LoginPageState extends State<LoginPage> {
                           icon: Icons.key,
                         ),
                       ),
-                      //
-                      /*
-                      _entryField(
-                        'Email',
-                        _controllerEmail,
-                        Icons.mail,
-                        false,
-                      ),
-                      _entryField(
-                        'Passwort',
-                        _controllerPassword,
-                        Icons.key,
-                        true,
-                      ),
-                      Visibility(
-                        visible: !isLogin,
-                        child: _entryField(
-                          "Passwort bestätigen",
-                          _controllerConfirmPassword,
-                          Icons.key,
-                          true,
-                        ),
-                      ),
-                      */
                       _errorMessage(),
                       isLogin
                           ? RASubmitButton(
