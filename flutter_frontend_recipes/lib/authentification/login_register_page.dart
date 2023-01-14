@@ -59,10 +59,12 @@ class _LoginPageState extends State<LoginPage> {
 
   Widget _pageTitle() {
     return Container(
-      padding: EdgeInsets.only(top: MediaQuery.of(context).size.height / 5),
-      alignment: Alignment.topCenter,
+      padding: EdgeInsets.only(
+          bottom: isLogin
+              ? MediaQuery.of(context).size.height / 8 + 66
+              : MediaQuery.of(context).size.height / 8),
       child: Text(
-        isLogin ? "LOGIN" : "REGISTRIEREN",
+        isLogin ? "LOGIN" : "REGISTRIERUNG",
         style: const TextStyle(
           color: Colors.black,
           fontSize: 32,
@@ -104,61 +106,61 @@ class _LoginPageState extends State<LoginPage> {
           onTap: (() => FocusScope.of(context).unfocus()),
           child: Scaffold(
             backgroundColor: Colors.transparent,
-            body: Stack(
-              children: [
-                _pageTitle(),
-                Container(
-                  padding: const EdgeInsets.all(24),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.center,
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: <Widget>[
-                      //
-                      RAInputField(
-                        hintText: "Email",
-                        controller: _controllerEmail,
-                        icon: Icons.mail,
-                      ),
-                      RAInputField(
-                        hintText: "Passwort",
-                        controller: _controllerPassword,
-                        isPassword: true,
-                        icon: Icons.key,
-                      ),
-                      Visibility(
-                        visible: !isLogin,
-                        child: RAInputField(
-                          hintText: "Passwort bestätigen",
-                          controller: _controllerConfirmPassword,
-                          isPassword: true,
-                          icon: Icons.key,
-                        ),
-                      ),
-                      _errorMessage(),
-                      isLogin
-                          ? RASubmitButton(
-                              onTap: signInWithEmailAndPassword,
-                              description: "Login",
-                              backgroundColor:
-                                  RecipeAppColorStyles.recipeAppMainColor,
-                            )
-                          : RASubmitButton(
-                              onTap: createUserWithEmailAndPassword,
-                              description: "Registrieren",
-                              backgroundColor:
-                                  RecipeAppColorStyles.recipeAppMainColor,
-                            ),
-                    ],
+            body: Container(
+              alignment: Alignment.topCenter,
+              padding: const EdgeInsets.all(24),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.center,
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: <Widget>[
+                  _pageTitle(),
+                  //
+                  RAInputField(
+                    hintText: "Email",
+                    controller: _controllerEmail,
+                    icon: Icons.mail,
                   ),
-                ),
-              ],
+                  RAInputField(
+                    hintText: "Passwort",
+                    controller: _controllerPassword,
+                    isPassword: true,
+                    icon: Icons.key,
+                  ),
+                  Visibility(
+                    visible: !isLogin,
+                    child: RAInputField(
+                      hintText: "Passwort bestätigen",
+                      controller: _controllerConfirmPassword,
+                      isPassword: true,
+                      icon: Icons.key,
+                    ),
+                  ),
+                  _errorMessage(),
+                  isLogin
+                      ? RASubmitButton(
+                          onTap: signInWithEmailAndPassword,
+                          description: "Login",
+                          backgroundColor:
+                              RecipeAppColorStyles.recipeAppMainColor,
+                        )
+                      : RASubmitButton(
+                          onTap: createUserWithEmailAndPassword,
+                          description: "Registrieren",
+                          backgroundColor:
+                              RecipeAppColorStyles.recipeAppMainColor,
+                        ),
+                ],
+              ),
             ),
-            floatingActionButton: RASubmitButton(
-              onTap: switchLoginOrRegister,
-              description: isLogin ? loginToRegister : registerToLogin,
-              margin: 16,
-              shadow: false,
-              backgroundColor: Colors.black54,
+            floatingActionButton: Visibility(
+              visible: MediaQuery.of(context).viewInsets.bottom == 0.0,
+              child: RASubmitButton(
+                onTap: switchLoginOrRegister,
+                description: isLogin ? loginToRegister : registerToLogin,
+                margin: 16,
+                shadow: false,
+                backgroundColor: Colors.black54,
+              ),
             ),
             floatingActionButtonLocation:
                 FloatingActionButtonLocation.centerFloat,
