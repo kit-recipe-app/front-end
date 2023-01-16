@@ -7,6 +7,8 @@ class RASubmitButton extends StatelessWidget {
   final Color textColor;
   final double margin;
   final bool shadow;
+  final IconData? icon;
+  final Color? iconColor;
   const RASubmitButton({
     required this.onTap,
     required this.description,
@@ -14,6 +16,8 @@ class RASubmitButton extends StatelessWidget {
     this.textColor = Colors.white,
     this.margin = 0,
     this.shadow = true,
+    this.icon,
+    this.iconColor,
     super.key,
   });
 
@@ -37,14 +41,28 @@ class RASubmitButton extends StatelessWidget {
           ],
         ),
         padding: const EdgeInsets.fromLTRB(16, 8, 16, 8),
-        child: Text(
-          description,
-          textAlign: TextAlign.center,
-          style: TextStyle(
-            fontSize: 16,
-            color: textColor,
-            fontWeight: FontWeight.bold,
-          ),
+        child: Row(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            (icon == null)
+                ? const SizedBox(
+                    width: 0,
+                    height: 0,
+                  )
+                : Padding(
+                    padding: const EdgeInsets.only(right: 8),
+                    child: Icon(icon, color: iconColor,),
+                  ),
+            Text(
+              description,
+              textAlign: TextAlign.center,
+              style: TextStyle(
+                fontSize: 16,
+                color: textColor,
+                fontWeight: FontWeight.bold,
+              ),
+            ),
+          ],
         ),
       ),
     );

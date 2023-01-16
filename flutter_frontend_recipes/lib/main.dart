@@ -2,7 +2,6 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter_frontend_recipes/widget_tree.dart';
 import 'firebase_options.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_frontend_recipes/recipe_app.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();

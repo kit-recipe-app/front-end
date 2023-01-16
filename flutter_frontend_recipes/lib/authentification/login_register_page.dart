@@ -4,6 +4,7 @@ import 'package:flutter_frontend_recipes/authentification/auth.dart';
 import 'package:flutter_frontend_recipes/constants/color_styles.dart';
 import 'package:flutter_frontend_recipes/shared/input_field.dart';
 import 'package:flutter_frontend_recipes/shared/submit_button.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 class LoginPage extends StatefulWidget {
   const LoginPage({super.key});
@@ -24,6 +25,16 @@ class _LoginPageState extends State<LoginPage> {
   final TextEditingController _controllerPassword = TextEditingController();
   final TextEditingController _controllerConfirmPassword =
       TextEditingController();
+
+  Future<void> signInWithGoogle() async {
+    try {
+      await RAAuthService().signInWithGoogle();
+    } on FirebaseAuthException catch (e) {
+      setState(() {
+        errorMessage = e.message;
+      });
+    }
+  }
 
   Future<void> signInWithEmailAndPassword() async {
     try {
@@ -105,6 +116,18 @@ class _LoginPageState extends State<LoginPage> {
         child: GestureDetector(
           onTap: (() => FocusScope.of(context).unfocus()),
           child: Scaffold(
+            appBar: AppBar(
+              title: Text(
+                isLogin ? "LOGIN" : "REGISTRIERUNG",
+                style: const TextStyle(
+                  color: Colors.black,
+                  fontSize: 32,
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
+              elevation: 0,
+              backgroundColor: Colors.transparent,
+            ),
             backgroundColor: Colors.transparent,
             body: Container(
               alignment: Alignment.topCenter,
@@ -113,8 +136,6 @@ class _LoginPageState extends State<LoginPage> {
                 crossAxisAlignment: CrossAxisAlignment.center,
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: <Widget>[
-                  _pageTitle(),
-                  //
                   RAInputField(
                     hintText: "Email",
                     controller: _controllerEmail,
@@ -149,6 +170,17 @@ class _LoginPageState extends State<LoginPage> {
                           backgroundColor:
                               RecipeAppColorStyles.recipeAppMainColor,
                         ),
+                  isLogin
+                      ? RASubmitButton(
+                          onTap: signInWithGoogle,
+                          description: "Mit Google anmelden",
+                          backgroundColor: Colors.white,
+                          textColor: Colors.black,
+                          margin: 16,
+                          icon: FontAwesomeIcons.google,
+                          iconColor: Colors.red,
+                        )
+                      : Container(),
                 ],
               ),
             ),
