@@ -23,14 +23,14 @@ class IngredientExamples {
     ),
     RAIngredient(
       name: "Apfel",
-      unit: "Blatt",
+      unit: "Stück",
       amount: 16,
       calories: 24,
     ),
     RAIngredient(
       name: "Lachs",
-      unit: "Blatt",
-      amount: 16,
+      unit: "gramm",
+      amount: 300,
       calories: 24,
     )
   ];

@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_frontend_recipes/constants/color_styles.dart';
 import 'package:flutter_frontend_recipes/pages/recipes/create_recipe/add_ingredient.dart';
 import 'package:flutter_frontend_recipes/pages/recipes/create_recipe/create_recipe_title.dart';
-import 'package:step_progress_indicator/step_progress_indicator.dart';
 
 import 'create_recipe_progress.dart';
 
@@ -21,9 +19,25 @@ class _NameRecipeState extends State<NameRecipe> {
     return Material(
         child: Column(
       children: [
-        const Progress(
-          total: 4,
-          current: 1,
+        Padding(
+          padding: const EdgeInsets.fromLTRB(0,20,0,0),
+          child: Stack(
+              children: [IconButton(
+                onPressed: () {
+                  Navigator.pop(context);
+                },
+                icon: const Icon(
+                  Icons.arrow_back,
+                  size: 32,
+                  color: Colors.black,
+                  shadows: [Shadow(color: Colors.black, blurRadius: 1.0)],
+                ),
+              ),
+                const Padding(
+                  padding: EdgeInsets.fromLTRB(0,20,0,0),
+                  child: Progress(total: 4, current: 1),
+                ),]
+          ),
         ),
         const RecipeTitle(name: "Gib deinem Gericht einen Namen"),
         Padding(

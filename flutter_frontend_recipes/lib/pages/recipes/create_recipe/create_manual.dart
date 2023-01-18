@@ -1,35 +1,68 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_frontend_recipes/content_examples/ingredient_examples.dart';
 import 'package:flutter_frontend_recipes/pages/recipes/create_recipe/create_recipe_title.dart';
-import '../../../types/ingredient.dart';
-import 'add_ingredient.dart';
+import 'package:flutter_frontend_recipes/pages/recipes/create_recipe/edit_dialog.dart';
+import 'package:flutter_frontend_recipes/pages/recipes/create_recipe/step_dialog.dart';
+import 'package:flutter_frontend_recipes/types/ingredient.dart';
+
+import 'add_picture.dart';
 import 'create_recipe_progress.dart';
 
 class CreateManual extends StatefulWidget {
   final String name;
+  final List<RAIngredient> ingredients;
 
-  const CreateManual({Key? key, required this.name}) : super(key: key);
+
+  const CreateManual({Key? key, required this.name, required this.ingredients}) : super(key: key);
 
   @override
   State<CreateManual> createState() => _CreateManualState();
 }
 
 class _CreateManualState extends State<CreateManual> {
-  TextEditingController nameController = TextEditingController();
   String? selectedValueSingleDialog;
+  List<String> steps = [];
+
   //widget.name übergeben
 
+  addStep(String str) {
+    setState(() {
+      steps.add(str);
+    });
+  }
 
+  removeStep(String str){
+    setState(() {
+      steps.remove(str);
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
     return Material(
         child: Column(
           children: [
-            const Progress(total: 4, current: 3),
+            Padding(
+              padding: const EdgeInsets.fromLTRB(0,20,0,0),
+              child: Stack(
+                  children: [IconButton(
+                    onPressed: () {
+                      Navigator.pop(context);
+                    },
+                    icon: const Icon(
+                      Icons.arrow_back,
+                      size: 32,
+                      color: Colors.black,
+                      shadows: [Shadow(color: Colors.black, blurRadius: 1.0)],
+                    ),
+                  ),
+                    const Padding(
+                      padding: EdgeInsets.fromLTRB(0,20,0,0),
+                      child: Progress(total: 4, current: 3),
+                    ),]
+              ),
+            ),
             const RecipeTitle(
                 name: "Verrate uns, wie man dein Rezept zubereitet"),
-            Text(widget.name),
             Padding(
               padding: const EdgeInsets.all(8.0),
               child: Container(
@@ -41,7 +74,7 @@ class _CreateManualState extends State<CreateManual> {
                       context,
                       MaterialPageRoute(
                           builder: (context) =>
-                              AddIngredient(name: 'a',)),
+                              StepDialog(addStep: addStep,)),
                     );
                   },
                   child: const Text("Neuer Schritt"),
@@ -56,6 +89,46 @@ class _CreateManualState extends State<CreateManual> {
                 ),
               ),
             ),
+            for(String step in steps) Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: Container(
+                decoration: BoxDecoration(
+                  color: Colors.white,
+                  border: Border.all(color: Colors.grey),
+                  borderRadius: BorderRadius.circular(20),
+                  boxShadow: [
+                    BoxShadow(
+                      color: Colors.grey.withOpacity(0.5),
+                      spreadRadius: 1,
+                      blurRadius: 1,
+                      offset: Offset(0, 3), // changes position of shadow
+                    ),
+                  ],
+                ),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Flexible(
+                      child: Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child: Text("${steps.indexOf(step) + 1}. $step", overflow: TextOverflow.ellipsis,),
+                      ),
+                    ),
+                    const Spacer(),
+                    IconButton(
+                        onPressed: () {
+                          setState(() {
+                            _edit(context, steps.indexOf(step), step);
+                          });
+                        },
+                        icon: const Icon(Icons.edit)),
+                    IconButton(
+                        onPressed: () => removeStep(step),
+                        icon: const Icon(Icons.remove))
+                  ],
+                ),
+              ),
+            ),
             const Spacer(),
             Padding(
               padding: const EdgeInsets.all(8.0),
@@ -67,7 +140,7 @@ class _CreateManualState extends State<CreateManual> {
                       context,
                       MaterialPageRoute(
                           builder: (context) =>
-                              AddIngredient(name: "a")),
+                              AddPicture(name: widget.name, ingredients: widget.ingredients, steps: steps)),
                     );
                   },
                   child: const Text("Nächster Schritt"),
@@ -81,5 +154,17 @@ class _CreateManualState extends State<CreateManual> {
             )
           ],
         ));
+  }
+
+  Future<void> _edit(BuildContext context, int index, String oldString) async {
+    final result = await Navigator.push(
+      context,
+      MaterialPageRoute(builder: (context) => EditDialog(oldString: oldString)),
+    );
+
+    if (!mounted) return;
+    setState(() {
+      steps[index] = result;
+    });
   }
 }

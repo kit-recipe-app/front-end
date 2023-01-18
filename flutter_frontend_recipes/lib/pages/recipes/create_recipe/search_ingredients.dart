@@ -22,7 +22,7 @@ class _SearchIngredientsState extends State<SearchIngredients> {
         child: SearchableList<RAIngredient> (
           initialList: IngredientExamples.ingredients2,
           builder: (RAIngredient ing) => BuildIngredient(ingredient: ing, addItem: widget.addItem,),
-          filter: (value) => IngredientExamples.ingredients2.where((element) => element.name.toLowerCase().contains(value)).toList(),
+          filter: (value) => IngredientExamples.ingredients2.where((element) => element.name.toLowerCase().startsWith(value) || element.name.startsWith(value)).toList(),
           inputDecoration: InputDecoration(
             labelText: "Zutaten",
             fillColor: Colors.white,
