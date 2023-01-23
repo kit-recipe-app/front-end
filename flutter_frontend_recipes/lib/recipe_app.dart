@@ -17,8 +17,7 @@ class RecipeApp extends StatefulWidget {
 class _RecipeAppState extends State<RecipeApp> {
   int _currentIndex = 0;
   final List<Widget> _pages = [
-    //const MainFeed(),
-    const LoadRecipes(),
+    const MainFeed(),
     const RecipeScreen(),
     const MainPageShoppingLists(),
     const ProfileMainPage(),

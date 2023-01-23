@@ -1,9 +1,24 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_frontend_recipes/backend_connection/load_recipes.dart';
 import 'package:flutter_frontend_recipes/content_examples/recipe_examples.dart';
 import 'package:flutter_frontend_recipes/pages/recipes/recipe_preview_exploring.dart';
+import 'package:flutter_frontend_recipes/types/recipe.dart';
 
-class RecipeAppExploringRecipes extends StatelessWidget {
+class RecipeAppExploringRecipes extends StatefulWidget {
   const RecipeAppExploringRecipes({super.key});
+
+  @override
+  State<RecipeAppExploringRecipes> createState() =>
+      _RecipeAppExploringRecipesState();
+}
+
+class _RecipeAppExploringRecipesState extends State<RecipeAppExploringRecipes> {
+  LoadRecipes backendLoader = LoadRecipes();
+
+  @override
+  void initState() {
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -65,6 +80,46 @@ class RecipeAppExploringRecipes extends StatelessWidget {
                       recipe: RecipeExamples.testRecipe3,
                     ),
                   ],
+                ),
+              ),
+            ),
+          ],
+        ),
+        Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            const Padding(
+              padding: EdgeInsets.all(8),
+              child: Text("Aus dem Backend"),
+            ),
+            Padding(
+              padding: const EdgeInsets.only(bottom: 16),
+              child: SizedBox(
+                height: 250,
+                child: FutureBuilder(
+                  future: backendLoader.getRecipes(),
+                  builder: (BuildContext context,
+                      AsyncSnapshot<List<RARecipe>> snapshot) {
+                    if (snapshot.hasData) {
+                      List<RARecipe> recipes = snapshot.data!;
+                      return ListView(
+                        scrollDirection: Axis.horizontal,
+                        padding: EdgeInsets.zero,
+                        children: recipes
+                            .map(
+                              (RARecipe recipe) =>
+                                  RecipeAppRecipePreviewExploring(
+                                recipe: recipe,
+                              ),
+                            )
+                            .toList(),
+                      );
+                    } else {
+                      return const Center(
+                        child: CircularProgressIndicator(),
+                      );
+                    }
+                  },
                 ),
               ),
             ),

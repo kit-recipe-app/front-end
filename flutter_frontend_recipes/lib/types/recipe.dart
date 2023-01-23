@@ -15,17 +15,22 @@ class RARecipe {
       required this.title,
       required this.description,
       required this.ingredients,
-       required this.manual,
+      required this.manual,
       this.tags,
       this.time,
       this.difficulty});
 
   factory RARecipe.fromJson(Map<String, dynamic> json) {
     return RARecipe(
-      picture: 'https://recipebackendnew-qgf6rz2woa-ey.a.run.app/api/v1/images/${json['imageData']['name']}',
+      picture: (json['imageData'] == null)
+          ? 'assets/example_pictures/hamburger.jpg'
+          : 'https://recipebackendnew-qgf6rz2woa-ey.a.run.app/api/v1/images/${json['imageData']['name']}',
       title: json['name'],
       description: json['description'],
-      ingredients: [for (Map<String, dynamic> ingredient in json['ingredients']) RAIngredient.fromJson(ingredient)],
+      ingredients: [
+        for (Map<String, dynamic> ingredient in json['ingredients'])
+          RAIngredient.fromJson(ingredient)
+      ],
       manual: [
         for (Map step in json['cookingInstructions']) step['instruction']
       ],
