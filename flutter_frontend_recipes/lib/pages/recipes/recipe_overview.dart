@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_frontend_recipes/constants/color_styles.dart';
 import 'package:flutter_frontend_recipes/types/recipe.dart';
@@ -26,7 +28,7 @@ class RecipeOverview extends StatelessWidget {
                     children: [
                       (recipe.picture.startsWith('http'))
                           ? Image.network(recipe.picture)
-                          : Image.asset(recipe.picture),
+                          : ((recipe.picture.startsWith('assets')) ? Image.asset(recipe.picture) : Image.file(File(recipe.picture))),
                     ],
                   ),
                   Padding(
