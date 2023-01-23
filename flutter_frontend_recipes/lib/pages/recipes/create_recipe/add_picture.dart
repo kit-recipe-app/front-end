@@ -10,15 +10,14 @@ import 'create_recipe_progress.dart';
 import 'create_recipe_title.dart';
 
 class AddPicture extends StatefulWidget {
-  final String name;
-  final List<RAIngredient> ingredients;
-  final List<String> steps;
+
+  final Function(String picture) setPicture;
+  final Function() next;
+  final Function() back;
 
   const AddPicture(
-      {Key? key,
-      required this.name,
-      required this.ingredients,
-      required this.steps})
+      {Key? key, required this.setPicture, required this.next, required this.back,
+      })
       : super(key: key);
 
   @override
@@ -28,6 +27,7 @@ class AddPicture extends StatefulWidget {
 class _AddPictureState extends State<AddPicture> {
   var _image;
   var imagePicker;
+  String path = "";
 
   @override
   void initState() {
@@ -45,7 +45,9 @@ class _AddPictureState extends State<AddPicture> {
           child: Stack(children: [
             IconButton(
               onPressed: () {
-                Navigator.pop(context);
+                setState(() {
+                  widget.back();
+                });
               },
               icon: const Icon(
                 Icons.arrow_back,
@@ -79,6 +81,7 @@ class _AddPictureState extends State<AddPicture> {
                 preferredCameraDevice: CameraDevice.front);
             setState(() {
               _image = File(image.path);
+              path = image.path;
             });
           },
           child: Container(
@@ -116,8 +119,11 @@ class _AddPictureState extends State<AddPicture> {
             alignment: Alignment.bottomCenter,
             child: ElevatedButton(
               onPressed: () {
-
-                Navigator.push(
+                setState(() {
+                  widget.setPicture(path);
+                  widget.next();
+                });
+                /*Navigator.push(
                   context,
                   MaterialPageRoute(
                       builder: (context) => RecipeOverview(
@@ -128,7 +134,7 @@ class _AddPictureState extends State<AddPicture> {
                             ingredients: widget.ingredients,
                             manual: widget.steps,
                           ), navigate: "next",)),
-                );
+                );*/
               },
               style: ElevatedButton.styleFrom(
                   shape: const StadiumBorder(),

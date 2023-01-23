@@ -8,9 +8,12 @@ import 'create_recipe_progress.dart';
 import 'package:flutter/services.dart';
 
 class AddIngredient extends StatefulWidget {
-  final String name;
 
-  const AddIngredient({Key? key, required this.name}) : super(key: key);
+  final Function(List<RAIngredient>) setIngredients;
+  final Function() next;
+  final Function() back;
+
+  const AddIngredient({Key? key, required this.setIngredients, required this.next, required this.back}) : super(key: key);
 
   @override
   State<AddIngredient> createState() => _AddIngredientState();
@@ -63,7 +66,9 @@ class _AddIngredientState extends State<AddIngredient> {
           child: Stack(children: [
             IconButton(
               onPressed: () {
-                Navigator.pop(context);
+                setState(() {
+                  widget.back();
+                });
               },
               icon: const Icon(
                 Icons.arrow_back,
@@ -241,12 +246,17 @@ class _AddIngredientState extends State<AddIngredient> {
             alignment: Alignment.bottomCenter,
             child: ElevatedButton(
               onPressed: () {
-                Navigator.push(
+                setState(() {
+                  widget.setIngredients(lis);
+                  widget.next();
+                });
+
+                /*Navigator.push(
                   context,
                   MaterialPageRoute(
                       builder: (context) =>
                           CreateManual(name: widget.name, ingredients: lis,)),
-                );
+                );*/
               },
               style: ElevatedButton.styleFrom(
                   shape: const StadiumBorder(),

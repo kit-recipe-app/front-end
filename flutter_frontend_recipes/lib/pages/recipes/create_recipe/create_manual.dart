@@ -2,16 +2,16 @@ import 'package:flutter/material.dart';
 import 'package:flutter_frontend_recipes/pages/recipes/create_recipe/create_recipe_title.dart';
 import 'package:flutter_frontend_recipes/pages/recipes/create_recipe/edit_dialog.dart';
 import 'package:flutter_frontend_recipes/pages/recipes/create_recipe/step_dialog.dart';
-import 'package:flutter_frontend_recipes/types/ingredient.dart';
 
-import 'add_picture.dart';
 import 'create_recipe_progress.dart';
 
 class CreateManual extends StatefulWidget {
-  final String name;
-  final List<RAIngredient> ingredients;
 
-  const CreateManual({Key? key, required this.name, required this.ingredients})
+  final Function(List<String>) setManual;
+  final Function() next;
+  final Function() back;
+
+  const CreateManual({Key? key, required this.setManual, required this.next, required this.back, })
       : super(key: key);
 
   @override
@@ -46,7 +46,10 @@ class _CreateManualState extends State<CreateManual> {
           child: Stack(children: [
             IconButton(
               onPressed: () {
-                Navigator.pop(context);
+                setState(() {
+                  widget.back();
+                });
+
               },
               icon: const Icon(
                 Icons.arrow_back,
@@ -146,14 +149,11 @@ class _CreateManualState extends State<CreateManual> {
             alignment: Alignment.bottomCenter,
             child: ElevatedButton(
               onPressed: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                      builder: (context) => AddPicture(
-                          name: widget.name,
-                          ingredients: widget.ingredients,
-                          steps: steps)),
-                );
+                setState(() {
+                  widget.setManual(steps);
+                  widget.next();
+                });
+
               },
               child: const Text("Nächster Schritt"),
               style: ElevatedButton.styleFrom(

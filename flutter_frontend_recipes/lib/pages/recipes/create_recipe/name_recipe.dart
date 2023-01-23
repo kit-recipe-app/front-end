@@ -1,12 +1,14 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_frontend_recipes/pages/recipes/create_recipe/add_ingredient.dart';
 import 'package:flutter_frontend_recipes/pages/recipes/create_recipe/create_recipe_title.dart';
 
 import 'create_recipe_progress.dart';
 
 class NameRecipe extends StatefulWidget {
 
-  const NameRecipe({Key? key}) : super(key: key);
+  final Function(String) setTitle;
+  final Function() next;
+
+  const NameRecipe({Key? key, required this.setTitle, required this.next}) : super(key: key);
 
   @override
   State<NameRecipe> createState() => _NameRecipeState();
@@ -69,12 +71,16 @@ class _NameRecipeState extends State<NameRecipe> {
             alignment: Alignment.bottomCenter,
             child: ElevatedButton(
               onPressed: () {
-                Navigator.push(
+                setState(() {
+                  widget.setTitle(nameController.text);
+                  widget.next();
+                });
+                /*Navigator.push(
                   context,
                   MaterialPageRoute(
                       builder: (context) =>
                           AddIngredient(name: nameController.text)),
-                );
+                );*/
               },
               child: const Text("Nächster Schritt"),
               style: ElevatedButton.styleFrom(

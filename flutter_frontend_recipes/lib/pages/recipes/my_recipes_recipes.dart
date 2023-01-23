@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_frontend_recipes/pages/recipes/create_recipe/create_recipe_main_page.dart';
 import 'package:flutter_frontend_recipes/pages/recipes/create_recipe/name_recipe.dart';
 import 'package:flutter_frontend_recipes/pages/recipes/list_preview_recipes.dart';
 
@@ -15,6 +16,10 @@ class RecipeAppSavedRecipes extends StatefulWidget {
 
 class _RecipeAppSavedRecipesState extends State<RecipeAppSavedRecipes> {
   List<RARecipe> myRecipes = [];
+
+  void pushRecipe(RARecipe recipe) {
+    myRecipes.add(recipe);
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -51,7 +56,7 @@ class _RecipeAppSavedRecipesState extends State<RecipeAppSavedRecipes> {
                   context,
                   MaterialPageRoute(
                       builder: (context) =>
-                          NameRecipe()),
+                          CreateRecipeMainPage()),
                 );
               },
               child: const Text("Neues Rezept erstellen"),

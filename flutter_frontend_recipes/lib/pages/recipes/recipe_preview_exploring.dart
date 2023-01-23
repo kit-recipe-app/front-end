@@ -14,7 +14,7 @@ class RecipeAppRecipePreviewExploring extends StatelessWidget {
         Navigator.push(
           context,
           MaterialPageRoute(
-              builder: (context) => RecipeOverview(recipe: recipe, navigate: "back",)),
+              builder: (context) => RecipeOverview(recipe: recipe)),
         );
       },
       child: Container(

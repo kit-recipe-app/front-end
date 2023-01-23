@@ -1,14 +1,14 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
-import 'package:flutter_frontend_recipes/pages/recipes/my_recipes_recipes.dart';
 import 'package:flutter_frontend_recipes/types/recipe.dart';
 
 import '../../constants/icon_designs.dart';
 import '../../types/ingredient.dart';
 
 class RecipeOverview extends StatelessWidget {
-  final String navigate;
   final RARecipe recipe;
-  const RecipeOverview({required this.recipe, super.key, required this.navigate});
+  const RecipeOverview({required this.recipe, super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -17,12 +17,10 @@ class RecipeOverview extends StatelessWidget {
         children: [
           Stack(
             children: [
-              Image.asset(recipe.picture),
+              Image.file(File(recipe.picture)),
               IconButton(
                 onPressed: () {
-                  (navigate == "back")
-                  ?Navigator.pop(context)
-                  :Navigator.of(context).popUntil((route) => route.isFirst);
+                  Navigator.pop(context);
                 },
                 icon: const Icon(
                   Icons.arrow_back,

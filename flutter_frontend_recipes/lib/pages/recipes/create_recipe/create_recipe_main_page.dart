@@ -1,12 +1,15 @@
+
 import 'package:flutter/material.dart';
 import 'package:flutter_frontend_recipes/pages/recipes/create_recipe/add_ingredient.dart';
 import 'package:flutter_frontend_recipes/pages/recipes/create_recipe/add_picture.dart';
+import 'package:flutter_frontend_recipes/pages/recipes/create_recipe/confirm_screen.dart';
 import 'package:flutter_frontend_recipes/pages/recipes/create_recipe/create_manual.dart';
 import 'package:flutter_frontend_recipes/pages/recipes/create_recipe/name_recipe.dart';
 import 'package:flutter_frontend_recipes/types/ingredient.dart';
 import 'package:flutter_frontend_recipes/types/recipe.dart';
 
 class CreateRecipeMainPage extends StatefulWidget {
+
   const CreateRecipeMainPage({Key? key}) : super(key: key);
 
   @override
@@ -22,40 +25,63 @@ class _CreateRecipeMainPageState extends State<CreateRecipeMainPage> {
     manual: [],
   );
 
-  setTitle(String title){
+  int _currentIndex = 0;
+
+  void setTitle(String title){
     setState(() {
       recipe.title = title;
     });
   }
 
-  setDescription(String description){
+  void setDescription(String description){
     setState(() {
       recipe.description = description;
     });
   }
 
-  setIngredients(List<RAIngredient> ingredients){
+  void setIngredients(List<RAIngredient> ingredients){
     setState(() {
       recipe.ingredients = ingredients;
     });
   }
 
-  setManual(List<String> manual){
+  void setManual(List<String> manual){
     setState(() {
       recipe.manual = manual;
     });
   }
 
-  int _currentIndex = 0;
-  final List<Widget> _pages = [
-    const NameRecipe(),
-    /*const AddIngredient(name: name),
-    const CreateManual(name: name, ingredients: ingredients),
-    AddPicture(name: name, ingredients: ingredients, steps: steps),*/
+  void setPicture(String picture) {
+    setState(() {
+      recipe.picture = picture;
+    });
+  }
+
+  void next() {
+    setState(() {
+      _currentIndex++;
+    });
+  }
+
+  void back() {
+    setState(() {
+      _currentIndex--;
+    });
+  }
+
+
+   late final List<Widget> _pages = [
+    NameRecipe(setTitle: setTitle, next: next,),
+    AddIngredient(setIngredients: setIngredients, next: next, back: back,),
+    CreateManual(setManual: setManual, next: next, back: back,),
+    AddPicture(setPicture: setPicture, next: next, back: back,),
+    ConfirmRecipe(upload: (){Navigator.pop(context);}),
   ];
 
   @override
   Widget build(BuildContext context) {
-    return Container();
+    return Container(
+      child: _pages[_currentIndex],
+    );
   }
 }
