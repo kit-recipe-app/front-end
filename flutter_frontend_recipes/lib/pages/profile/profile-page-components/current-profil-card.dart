@@ -1,15 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_frontend_recipes/pages/profile/example_profile.dart';
 
-import '../../constants/font_styles.dart';
-import '../../constants/icon_designs.dart';
+import '../../../constants/font_styles.dart';
+import '../../../constants/icon_designs.dart';
+
 
 class CurrentProfilCard {
+
   Profile currentProfile;
 
-  CurrentProfilCard({
-    required this.currentProfile,
-  });
+  CurrentProfilCard({ required this.currentProfile}) {
+  }
 
   String vegetarian = 'Vegetarier';
   String noVegetarian = 'Standard mit Fleisch';
@@ -18,19 +19,23 @@ class CurrentProfilCard {
     String description = '';
     if (currentProfile.vegetarian) {
       description += vegetarian;
-    } else {
+    }
+    else {
       description += noVegetarian;
     }
+
 
     return description;
   }
 
+
   Card returnCard() {
+
     return Card(
       elevation: 2,
       child: ListTile(
         leading: Icon(
-          RecipeAppIcons.profilePageIcon,
+            RecipeAppIcons.profilePageIcon,
           size: 50,
         ),
         title: Padding(
@@ -57,4 +62,8 @@ class CurrentProfilCard {
       ),
     );
   }
+
+
 }
+
+

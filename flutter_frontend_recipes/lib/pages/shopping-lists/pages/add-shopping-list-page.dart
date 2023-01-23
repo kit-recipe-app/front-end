@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_frontend_recipes/constants/color_styles.dart';
 import 'package:flutter_frontend_recipes/constants/font_styles.dart';
-import 'package:flutter_frontend_recipes/constants/icon_designs.dart';
+
+import '../page-components/add-list-text-field.dart';
 
 class AddShoppingList extends StatefulWidget {
   const AddShoppingList({Key? key}) : super(key: key);
@@ -13,12 +14,13 @@ class AddShoppingList extends StatefulWidget {
 class _AddShoppingListState extends State<AddShoppingList> {
 
   String giveName = 'Geben Sie ihrer Einkaufsliste bitte einen Namen';
-  String create = 'erstellen';
+  String create = 'Erstellen';
 
   final textController = TextEditingController();
   String nameForNewList = '';
   String displayedText = '';
   String noNameInput = 'Bitte geben Sie einen Namen an';
+
 
   @override
   Widget build(BuildContext context) {
@@ -35,21 +37,7 @@ class _AddShoppingListState extends State<AddShoppingList> {
                 textAlign: TextAlign.center,
               ),
             ),
-            Padding(
-              padding: const EdgeInsets.all(20.0),
-              child: TextField(
-                controller: textController,
-                decoration: InputDecoration(
-                  border: const OutlineInputBorder(),
-                  suffixIcon: IconButton(
-                    onPressed: () {
-                      textController.clear();
-                    },
-                    icon: Icon(RecipeAppIcons.clearText),
-                  ),
-                ),
-              ),
-            ),
+            AddListTextField(textController: textController),
             ElevatedButton(
               onPressed: () {
                 // TODO: Hier soll später das Backend eingebunden werden, um neue Einkaufslisten
