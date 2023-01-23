@@ -1,6 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter_frontend_recipes/authentification/auth.dart';
+import 'package:flutter_frontend_recipes/constants/color_styles.dart';
+import 'package:flutter_frontend_recipes/shared/input_field.dart';
+import 'package:flutter_frontend_recipes/shared/submit_button.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 class LoginPage extends StatefulWidget {
   const LoginPage({super.key});
@@ -10,11 +14,27 @@ class LoginPage extends StatefulWidget {
 }
 
 class _LoginPageState extends State<LoginPage> {
+  final String loginToRegister = "Du hast noch keinen Account?";
+  final String registerToLogin = "Zurück zum Login.";
   String? errorMessage = "";
   bool isLogin = true;
 
+  final TextEditingController _controllerTest = TextEditingController();
+
   final TextEditingController _controllerEmail = TextEditingController();
   final TextEditingController _controllerPassword = TextEditingController();
+  final TextEditingController _controllerConfirmPassword =
+      TextEditingController();
+
+  Future<void> signInWithGoogle() async {
+    try {
+      await RAAuthService().signInWithGoogle();
+    } on FirebaseAuthException catch (e) {
+      setState(() {
+        errorMessage = e.message;
+      });
+    }
+  }
 
   Future<void> signInWithEmailAndPassword() async {
     try {
@@ -30,6 +50,12 @@ class _LoginPageState extends State<LoginPage> {
   }
 
   Future<void> createUserWithEmailAndPassword() async {
+    if (_controllerPassword.text != _controllerConfirmPassword.text) {
+      setState(() {
+        errorMessage = "Passwörter stimmen nicht überein.";
+      });
+      return;
+    }
     try {
       await RAAuthService().createUserWithEmailAndPassword(
         email: _controllerEmail.text,
@@ -42,65 +68,136 @@ class _LoginPageState extends State<LoginPage> {
     }
   }
 
-  Widget _title() {
-    return const Text('Firebase Auth');
-  }
-
-  Widget _entryField(
-    String title,
-    TextEditingController controller,
-  ) {
-    return TextField(
-      controller: controller,
-      decoration: InputDecoration(
-        labelText: title,
+  Widget _pageTitle() {
+    return Container(
+      padding: EdgeInsets.only(
+          bottom: isLogin
+              ? MediaQuery.of(context).size.height / 8 + 66
+              : MediaQuery.of(context).size.height / 8),
+      child: Text(
+        isLogin ? "LOGIN" : "REGISTRIERUNG",
+        style: const TextStyle(
+          color: Colors.black,
+          fontSize: 32,
+          fontWeight: FontWeight.bold,
+        ),
       ),
     );
   }
 
   Widget _errorMessage() {
-    return Text(errorMessage == '' ? '' : 'Humm ? $errorMessage');
+    return Text(errorMessage == '' ? '' : '$errorMessage');
   }
 
-  Widget _submitButton() {
-    return ElevatedButton(
-      onPressed:
-          isLogin ? signInWithEmailAndPassword : createUserWithEmailAndPassword,  
-      child: Text(isLogin ? 'Login' : 'Register'),
-    );
-  }
-
-  Widget _loginOrRegisterButton() {
-    return TextButton(
-      onPressed: () {
-        setState(() {
-          isLogin = !isLogin;
-        });
+  void switchLoginOrRegister() {
+    setState(
+      () {
+        if (!isLogin) {
+          _controllerConfirmPassword.text = "";
+        }
+        isLogin = !isLogin;
       },
-      child: Text(isLogin ? 'Register instead' : 'Login instead'),
     );
   }
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: _title(),
+    return Container(
+      decoration: BoxDecoration(
+        gradient: LinearGradient(
+          begin: Alignment.bottomLeft,
+          colors: RecipeAppColorStyles.loginRegisterBackground,
+        ),
       ),
-      body: Container(
-        height: double.infinity,
-        width: double.infinity,
-        padding: const EdgeInsets.all(20),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.center,
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: <Widget>[
-            _entryField('email', _controllerEmail),
-            _entryField('password', _controllerPassword),
-            _errorMessage(),
-            _submitButton(),
-            _loginOrRegisterButton(),
-          ],
+      child: SafeArea(
+        left: false,
+        bottom: false,
+        right: false,
+        child: GestureDetector(
+          onTap: (() => FocusScope.of(context).unfocus()),
+          child: Scaffold(
+            appBar: AppBar(
+              centerTitle: true,
+              title: Text(
+                isLogin ? "LOGIN" : "REGISTRIERUNG",
+                style: const TextStyle(
+                  color: Colors.black,
+                  fontSize: 32,
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
+              elevation: 0,
+              backgroundColor: Colors.transparent,
+            ),
+            backgroundColor: Colors.transparent,
+            body: Container(
+              alignment: Alignment.topCenter,
+              padding: const EdgeInsets.all(24),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.center,
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: <Widget>[
+                  RAInputField(
+                    hintText: "Email",
+                    controller: _controllerEmail,
+                    icon: Icons.mail,
+                  ),
+                  RAInputField(
+                    hintText: "Passwort",
+                    controller: _controllerPassword,
+                    isPassword: true,
+                    icon: Icons.key,
+                  ),
+                  Visibility(
+                    visible: !isLogin,
+                    child: RAInputField(
+                      hintText: "Passwort bestätigen",
+                      controller: _controllerConfirmPassword,
+                      isPassword: true,
+                      icon: Icons.key,
+                    ),
+                  ),
+                  _errorMessage(),
+                  isLogin
+                      ? RASubmitButton(
+                          onTap: signInWithEmailAndPassword,
+                          description: "Login",
+                          backgroundColor:
+                              RecipeAppColorStyles.recipeAppMainColor,
+                        )
+                      : RASubmitButton(
+                          onTap: createUserWithEmailAndPassword,
+                          description: "Registrieren",
+                          backgroundColor:
+                              RecipeAppColorStyles.recipeAppMainColor,
+                        ),
+                  isLogin
+                      ? RASubmitButton(
+                          onTap: signInWithGoogle,
+                          description: "Mit Google anmelden",
+                          backgroundColor: Colors.white,
+                          textColor: Colors.black,
+                          margin: 16,
+                          icon: FontAwesomeIcons.google,
+                          iconColor: Colors.red,
+                        )
+                      : Container(),
+                ],
+              ),
+            ),
+            floatingActionButton: Visibility(
+              visible: MediaQuery.of(context).viewInsets.bottom == 0.0,
+              child: RASubmitButton(
+                onTap: switchLoginOrRegister,
+                description: isLogin ? loginToRegister : registerToLogin,
+                margin: 16,
+                shadow: false,
+                backgroundColor: Colors.black54,
+              ),
+            ),
+            floatingActionButtonLocation:
+                FloatingActionButtonLocation.centerFloat,
+          ),
         ),
       ),
     );
