@@ -10,6 +10,7 @@ class ProfilPageSettingOptionCard extends StatelessWidget {
       {Key? key, required this.title, required this.page})
       : super(key: key);
 
+
   @override
   Widget build(BuildContext context) {
     return Card(
