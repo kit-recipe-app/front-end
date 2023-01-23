@@ -117,6 +117,7 @@ class _LoginPageState extends State<LoginPage> {
           onTap: (() => FocusScope.of(context).unfocus()),
           child: Scaffold(
             appBar: AppBar(
+              centerTitle: true,
               title: Text(
                 isLogin ? "LOGIN" : "REGISTRIERUNG",
                 style: const TextStyle(
