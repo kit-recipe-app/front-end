@@ -1,3 +1,4 @@
+import 'package:dropdown_button2/dropdown_button2.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_frontend_recipes/pages/recipes/create_recipe/create_manual.dart';
 import 'package:flutter_frontend_recipes/pages/recipes/create_recipe/create_recipe_title.dart';
@@ -16,21 +17,40 @@ class AddIngredient extends StatefulWidget {
 }
 
 class _AddIngredientState extends State<AddIngredient> {
+
+  List<TextEditingController> controllers = [];
   List<RAIngredient> lis = [];
   int factor = 1;
+  List<String> units = ["g", "Stück", "ml", "kg", "Blatt"];
 
   //widget.name übergeben
 
   addItem(RAIngredient ingredient) {
     setState(() {
       lis.add(ingredient);
+      TextEditingController controller = TextEditingController(text: ingredient.amount.toString());
+      controller.addListener(() {ingredient.amount = int.parse(controller.text);});
+      controllers.add(controller);
+
     });
   }
 
-  removeItem(RAIngredient ingredient) {
+  removeItem(RAIngredient ingredient, int index) {
     setState(() {
       lis.remove(ingredient);
+      controllers.removeAt(index);
     });
+  }
+
+
+  @override
+  void dispose() {
+    // Clean up the controllers when the widget is removed from the
+    // widget tree.
+    for (TextEditingController controller in controllers){
+      controller.dispose();
+    }
+    super.dispose();
   }
 
   @override
@@ -39,7 +59,7 @@ class _AddIngredientState extends State<AddIngredient> {
         child: Column(
       children: [
         Padding(
-          padding: const EdgeInsets.fromLTRB(0, 20, 0, 10),
+          padding: const EdgeInsets.fromLTRB(0, 20, 0, 0),
           child: Stack(children: [
             IconButton(
               onPressed: () {
@@ -151,7 +171,7 @@ class _AddIngredientState extends State<AddIngredient> {
                     decoration: BoxDecoration(
                       color: Colors.white,
                       border: Border.all(color: Colors.grey),
-                      borderRadius: BorderRadius.circular(20),
+                      borderRadius: BorderRadius.circular(16),
                       boxShadow: [
                         BoxShadow(
                           color: Colors.grey.withOpacity(0.5),
@@ -169,38 +189,72 @@ class _AddIngredientState extends State<AddIngredient> {
                           child: Text(ing.name),
                         ),
                         const Spacer(),
-                        Text("${factor * ing.amount} "),
-                        Text(ing.unit),
+                        Padding(
+                          padding: const EdgeInsets.all(8.0),
+                          child: SizedBox(
+                            width: 40,
+                            height: 40,
+                            child: Padding(
+                              padding: const EdgeInsets.fromLTRB(0, 10, 0, 10),
+                              child: TextField(
+                                textAlign: TextAlign.center,
+                                keyboardType: TextInputType.number,
+                                inputFormatters: <TextInputFormatter>[
+                                  FilteringTextInputFormatter.digitsOnly
+                                ],
+                                decoration: const InputDecoration(
+                                  isDense: true,
+                                  contentPadding: EdgeInsets.symmetric(vertical: 0),
+                                ),
+                                controller: controllers[lis.indexOf(ing)],
+                              ),
+                            ),
+                          ),
+                        ),
+                        DropdownButtonHideUnderline(
+                            child: DropdownButton2(
+                              buttonWidth: 75,
+                              items: units.map((unit) =>
+                              DropdownMenuItem<String>(value: unit, child: Text(unit))).toList(),
+                              value: ing.unit,
+                              onChanged: (value) {
+                                setState(() {
+                                  ing.unit = value as String;
+                                });
+                              },
+                            )
+                        ),
                         IconButton(
-                            onPressed: () => removeItem(ing),
-                            icon: const Icon(Icons.remove))
+                            onPressed: () => removeItem(ing, lis.indexOf(ing)),
+                            icon: const Icon(Icons.close))
                       ],
                     ),
                   ),
                 ),
-              Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: Align(
-                  alignment: Alignment.bottomCenter,
-                  child: ElevatedButton(
-                    onPressed: () {
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                            builder: (context) =>
-                                CreateManual(name: widget.name, ingredients: lis,)),
-                      );
-                    },
-                    style: ElevatedButton.styleFrom(
-                        shape: const StadiumBorder(),
-                        backgroundColor: const Color(0xff66aa44),
-                        textStyle: const TextStyle(
-                            fontSize: 20, fontWeight: FontWeight.bold)),
-                    child: const Text("Nächster Schritt"),
-                  ),
-                ),
-              )
+
             ],
+          ),
+        ),
+        Padding(
+          padding: const EdgeInsets.all(8.0),
+          child: Align(
+            alignment: Alignment.bottomCenter,
+            child: ElevatedButton(
+              onPressed: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                      builder: (context) =>
+                          CreateManual(name: widget.name, ingredients: lis,)),
+                );
+              },
+              style: ElevatedButton.styleFrom(
+                  shape: const StadiumBorder(),
+                  backgroundColor: const Color(0xff66aa44),
+                  textStyle: const TextStyle(
+                      fontSize: 20, fontWeight: FontWeight.bold)),
+              child: const Text("Nächster Schritt"),
+            ),
           ),
         ),
       ],

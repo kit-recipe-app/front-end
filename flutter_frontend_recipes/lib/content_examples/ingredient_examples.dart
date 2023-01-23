@@ -29,7 +29,13 @@ class IngredientExamples {
     ),
     RAIngredient(
       name: "Lachs",
-      unit: "gramm",
+      unit: "g",
+      amount: 300,
+      calories: 24,
+    ),
+    RAIngredient(
+      name: "Kirschtomaten",
+      unit: "g",
       amount: 300,
       calories: 24,
     )

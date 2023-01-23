@@ -15,7 +15,7 @@ class RARecipe {
       required this.title,
       required this.description,
       required this.ingredients,
-      required this.manual,
+       required this.manual,
       this.tags,
       this.time,
       this.difficulty});

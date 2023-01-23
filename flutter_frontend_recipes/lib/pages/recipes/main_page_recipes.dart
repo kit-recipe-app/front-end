@@ -15,7 +15,7 @@ class _RecipeScreenState extends State<RecipeScreen> {
 
   final List<Widget> _tabs = [
     const RecipeAppExploringRecipes(),
-    const RecipeAppSavedRecipes(),
+     RecipeAppSavedRecipes(),
   ];
 
   @override

@@ -10,13 +10,16 @@ import 'create_recipe_progress.dart';
 import 'create_recipe_title.dart';
 
 class AddPicture extends StatefulWidget {
-
-
   final String name;
   final List<RAIngredient> ingredients;
   final List<String> steps;
 
-  const AddPicture({Key? key, required this.name, required this.ingredients, required this.steps}) : super(key: key);
+  const AddPicture(
+      {Key? key,
+      required this.name,
+      required this.ingredients,
+      required this.steps})
+      : super(key: key);
 
   @override
   State<AddPicture> createState() => _AddPictureState();
@@ -38,24 +41,24 @@ class _AddPictureState extends State<AddPicture> {
         child: Column(
       children: [
         Padding(
-          padding: const EdgeInsets.fromLTRB(0,20,0,0),
-          child: Stack(
-              children: [IconButton(
-                onPressed: () {
-                  Navigator.pop(context);
-                },
-                icon: const Icon(
-                  Icons.arrow_back,
-                  size: 32,
-                  color: Colors.black,
-                  shadows: [Shadow(color: Colors.black, blurRadius: 1.0)],
-                ),
+          padding: const EdgeInsets.fromLTRB(0, 20, 0, 0),
+          child: Stack(children: [
+            IconButton(
+              onPressed: () {
+                Navigator.pop(context);
+              },
+              icon: const Icon(
+                Icons.arrow_back,
+                size: 32,
+                color: Colors.black,
+                shadows: [Shadow(color: Colors.black, blurRadius: 1.0)],
               ),
-                const Padding(
-                  padding: EdgeInsets.fromLTRB(0,20,0,0),
-                  child: Progress(total: 4, current: 4),
-                ),]
-          ),
+            ),
+            const Padding(
+              padding: EdgeInsets.fromLTRB(0, 20, 0, 0),
+              child: Progress(total: 4, current: 4),
+            ),
+          ]),
         ),
         const RecipeTitle(name: "Wie sieht dein Gericht aus?"),
         const Padding(
@@ -101,12 +104,11 @@ class _AddPictureState extends State<AddPicture> {
                     fit: BoxFit.fill,
                   )
                 : Icon(
-                      Icons.add,
-                      color: Colors.grey[800],
-                    ),
+                    Icons.add,
+                    color: Colors.grey[800],
                   ),
           ),
-        
+        ),
         const Spacer(),
         Padding(
           padding: const EdgeInsets.all(8.0),
@@ -114,16 +116,25 @@ class _AddPictureState extends State<AddPicture> {
             alignment: Alignment.bottomCenter,
             child: ElevatedButton(
               onPressed: () {
+
                 Navigator.push(
                   context,
-                  MaterialPageRoute(builder: (context) => RecipeOverview(recipe: RARecipe(picture: 'assets/example_pictures/hamburger.jpg', title: widget.name, description: '', ingredients: widget.ingredients, manual: widget.steps))),
+                  MaterialPageRoute(
+                      builder: (context) => RecipeOverview(
+                              recipe: RARecipe(
+                            picture: 'assets/example_pictures/hamburger.jpg',
+                            title: widget.name,
+                            description: '',
+                            ingredients: widget.ingredients,
+                            manual: widget.steps,
+                          ), navigate: "next",)),
                 );
               },
               style: ElevatedButton.styleFrom(
                   shape: const StadiumBorder(),
                   backgroundColor: const Color(0xff66aa44),
-                  textStyle:
-                      const TextStyle(fontSize: 20, fontWeight: FontWeight.bold)),
+                  textStyle: const TextStyle(
+                      fontSize: 20, fontWeight: FontWeight.bold)),
               child: const Text("Nächster Schritt"),
             ),
           ),

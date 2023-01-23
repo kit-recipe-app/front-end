@@ -14,7 +14,7 @@ class RecipeCard extends StatelessWidget {
         Navigator.push(
           context,
           MaterialPageRoute(
-              builder: (context) => RecipeOverview(recipe: recipe)),
+              builder: (context) => RecipeOverview(recipe: recipe, navigate: "back",)),
         );
       },
       child: ClipRRect(

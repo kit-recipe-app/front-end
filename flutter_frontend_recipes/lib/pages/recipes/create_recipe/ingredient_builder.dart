@@ -20,7 +20,7 @@ class _BuildIngredientState extends State<BuildIngredient> {
         decoration: BoxDecoration(
           color: Colors.white,
           border: Border.all(color: Colors.grey),
-            borderRadius: BorderRadius.circular(20),
+            borderRadius: BorderRadius.circular(16),
           boxShadow: [
             BoxShadow(
               color: Colors.grey.withOpacity(0.5),

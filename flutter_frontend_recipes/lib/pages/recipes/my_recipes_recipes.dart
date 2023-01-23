@@ -2,8 +2,19 @@ import 'package:flutter/material.dart';
 import 'package:flutter_frontend_recipes/pages/recipes/create_recipe/name_recipe.dart';
 import 'package:flutter_frontend_recipes/pages/recipes/list_preview_recipes.dart';
 
-class RecipeAppSavedRecipes extends StatelessWidget {
+import '../../types/recipe.dart';
+
+class RecipeAppSavedRecipes extends StatefulWidget {
+
+
   const RecipeAppSavedRecipes({super.key});
+
+  @override
+  State<RecipeAppSavedRecipes> createState() => _RecipeAppSavedRecipesState();
+}
+
+class _RecipeAppSavedRecipesState extends State<RecipeAppSavedRecipes> {
+  List<RARecipe> myRecipes = [];
 
   @override
   Widget build(BuildContext context) {
@@ -11,18 +22,22 @@ class RecipeAppSavedRecipes extends StatelessWidget {
       padding: EdgeInsets.zero,
       children: [
         RecipeAppRecipeListPreview(
+          recipes: myRecipes,
+          title: "Eigene Rezepte",
+          numberRecipes: 0,
+        ),
+        RecipeAppRecipeListPreview(
+          recipes: [],
           title: "Meine Favoriten",
           numberRecipes: 18,
         ),
         RecipeAppRecipeListPreview(
+          recipes: [],
           title: "Zuletzt gekocht",
           numberRecipes: 8,
         ),
         RecipeAppRecipeListPreview(
-          title: "Familienessen",
-          numberRecipes: 22,
-        ),
-        RecipeAppRecipeListPreview(
+          recipes: [],
           title: "Weihnachtsessen",
           numberRecipes: 3,
         ),
@@ -50,4 +65,6 @@ class RecipeAppSavedRecipes extends StatelessWidget {
         )],
     );
   }
+  
+
 }

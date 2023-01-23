@@ -5,6 +5,7 @@ import 'package:flutter_frontend_recipes/pages/recipes/create_recipe/create_reci
 import 'create_recipe_progress.dart';
 
 class NameRecipe extends StatefulWidget {
+
   const NameRecipe({Key? key}) : super(key: key);
 
   @override
