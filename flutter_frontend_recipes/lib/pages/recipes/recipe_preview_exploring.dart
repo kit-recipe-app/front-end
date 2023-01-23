@@ -38,12 +38,19 @@ class RecipeAppRecipePreviewExploring extends StatelessWidget {
           children: [
             ClipRRect(
               borderRadius: BorderRadius.circular(16),
-              child: Image.asset(
-                recipe.picture,
-                width: 200,
-                height: 100,
-                fit: BoxFit.cover,
-              ),
+              child: (recipe.picture.startsWith('http'))
+                  ? Image.network(
+                      recipe.picture,
+                      width: 200,
+                      height: 100,
+                      fit: BoxFit.cover,
+                    )
+                  : Image.asset(
+                      recipe.picture,
+                      width: 200,
+                      height: 100,
+                      fit: BoxFit.cover,
+                    ),
             ),
             Padding(
               padding: const EdgeInsets.fromLTRB(8, 0, 8, 0),
