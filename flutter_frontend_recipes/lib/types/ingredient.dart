@@ -15,4 +15,8 @@ class RAIngredient {
 
   @override
   String toString() => '$amount $unit $name';
+
+  multiply(int factor) {
+    amount *= factor;
+  }
 }
