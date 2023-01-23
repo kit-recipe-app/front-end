@@ -20,6 +20,18 @@ class RARecipe {
       this.time,
       this.difficulty});
 
+  factory RARecipe.fromJson(Map<String, dynamic> json) {
+    return RARecipe(
+      picture: 'https://recipebackendnew-qgf6rz2woa-ey.a.run.app/api/v1/images/${json['imageData']['name']}',
+      title: json['name'],
+      description: json['description'],
+      ingredients: [for (Map<String, dynamic> ingredient in json['ingredients']) RAIngredient.fromJson(ingredient)],
+      manual: [
+        for (Map step in json['cookingInstructions']) step['instruction']
+      ],
+    );
+  }
+
   int? getCalories() {
     int summedCalories = 0;
     for (RAIngredient ingredient in ingredients) {

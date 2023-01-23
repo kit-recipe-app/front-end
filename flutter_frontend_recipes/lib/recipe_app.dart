@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_frontend_recipes/backend_connection/load_recipes.dart';
 import 'package:flutter_frontend_recipes/constants/color_styles.dart';
 import 'package:flutter_frontend_recipes/layout/bottom_navigation_bar_recipe_app.dart';
 import 'package:flutter_frontend_recipes/pages/feed/main-page-feed.dart';
@@ -16,10 +17,11 @@ class RecipeApp extends StatefulWidget {
 class _RecipeAppState extends State<RecipeApp> {
   int _currentIndex = 0;
   final List<Widget> _pages = [
-    const MainFeed(),
+    //const MainFeed(),
+    const LoadRecipes(),
     const RecipeScreen(),
     const MainPageShoppingLists(),
-    ProfileMainPage(),
+    const ProfileMainPage(),
   ];
   @override
   Widget build(BuildContext context) {
