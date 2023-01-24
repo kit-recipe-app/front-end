@@ -12,6 +12,7 @@ class RecipeTitle extends StatelessWidget {
         alignment: Alignment.center,
         child: Text(
           name,
+          textAlign: TextAlign.center,
           style: const TextStyle(
             fontSize: 18,
             color: Color(0xff66aa44),
