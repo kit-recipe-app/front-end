@@ -12,7 +12,8 @@ class LoadRecipes {
     );
     if (response.statusCode == 200) {
       List<dynamic> body = jsonDecode(utf8.decode(response.bodyBytes));
-      List<RARecipe> recipes = body.map((dynamic item) => RARecipe.fromJson(item)).toList();
+      List<RARecipe> recipes =
+          body.map((dynamic item) => RARecipe.fromJson(item)).toList();
       return recipes;
     } else {
       throw Exception('Failed to load recipes');
