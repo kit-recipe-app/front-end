@@ -12,7 +12,11 @@ class ConfirmRecipe extends StatelessWidget {
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          Text("Glückwunsch! Dein Rezept wurde erfolgreich erstellt!"),
+          Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: Text("Glückwunsch! Dein Rezept wurde erfolgreich erstellt!",
+            style: TextStyle(fontSize: 20),textAlign: TextAlign.center,),
+          ),
           Padding(
             padding: const EdgeInsets.all(8.0),
             child: Align(
@@ -21,7 +25,7 @@ class ConfirmRecipe extends StatelessWidget {
                 onPressed: () {
                   upload();
                 },
-                child: const Text("Nächster Schritt"),
+                child: const Text("Zurück"),
                 style: ElevatedButton.styleFrom(
                     shape: const StadiumBorder(),
                     backgroundColor: const Color(0xff66aa44),

@@ -80,8 +80,13 @@ class _CreateRecipeMainPageState extends State<CreateRecipeMainPage> {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      child: _pages[_currentIndex],
+    return SafeArea(
+      bottom: false,
+      right: false,
+      left: false,
+      child: Container(
+        child: _pages[_currentIndex],
+      ),
     );
   }
 }
