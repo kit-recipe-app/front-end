@@ -4,10 +4,8 @@ import 'package:flutter_frontend_recipes/authentification/auth.dart';
 import 'package:flutter_frontend_recipes/constants/font_styles.dart';
 import 'package:flutter_frontend_recipes/content_examples/initiating_examples.dart';
 import 'package:flutter_frontend_recipes/pages/profile/change_allergies.dart';
-import 'package:flutter_frontend_recipes/pages/profile/profile-sub-pages/setting-list.dart';
 
 import '../../constants/color_styles.dart';
-import 'current-profil-card.dart';
 import 'example_profile.dart';
 
 class ProfileMainPage extends StatefulWidget {
@@ -34,15 +32,8 @@ class _ProfileMainPageState extends State<ProfileMainPage> {
   }
 
 
-
-
-  ProfilPageOptions options = ProfilPageOptions();
-
   //TODO:hier später echtes Profil reinmachen
   Profile currentProfile = InitiatingExamples().exampleProfiles[0];
-  CurrentProfilCard currentProfilCard = CurrentProfilCard(
-      currentProfile: InitiatingExamples().exampleProfiles[0]);
-  //
 
   String vegetarian = 'Vegetarier:  ';
   String allergies = 'Allergien:   ';
