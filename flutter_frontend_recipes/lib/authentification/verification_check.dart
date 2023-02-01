@@ -15,7 +15,7 @@ class EmailVerificationCheck extends StatefulWidget {
 }
 
 class _EmailVerificationCheckState extends State<EmailVerificationCheck> {
-  final User? user = RAAuthService().user;
+  User? user = RAAuthService().user;
   bool emailIsVerified = false;
   Timer? timer;
   bool hasError = false;
@@ -45,6 +45,7 @@ class _EmailVerificationCheckState extends State<EmailVerificationCheck> {
 
   Future checkEmailVerified() async {
     await user!.reload();
+    user = RAAuthService().user;
 
     setState(() {
       emailIsVerified = user!.emailVerified;

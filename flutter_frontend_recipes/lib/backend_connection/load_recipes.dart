@@ -1,3 +1,4 @@
+import 'package:flutter_frontend_recipes/authentification/auth.dart';
 import 'package:flutter_frontend_recipes/types/recipe.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
@@ -9,6 +10,9 @@ class LoadRecipes {
     final response = await http.get(
       Uri.parse(
           'https://recipebackendnew-qgf6rz2woa-ey.a.run.app/api/v1/recipes'),
+          headers: {
+            'Authorization': 'Bearer ${RAAuthService().user!.getIdToken()}',
+          },
     );
     if (response.statusCode == 200) {
       List<dynamic> body = jsonDecode(utf8.decode(response.bodyBytes));

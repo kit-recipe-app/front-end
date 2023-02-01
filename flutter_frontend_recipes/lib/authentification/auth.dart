@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 
@@ -21,6 +22,9 @@ class RAAuthService {
     );
 
     await FirebaseAuth.instance.signInWithCredential(credential);
+    FirebaseAuth.instance.currentUser!.getIdToken().then((result) {
+      print(result);
+    });
   }
 
   Future<void> signInWithEmailAndPassword({
@@ -31,9 +35,14 @@ class RAAuthService {
       email: email,
       password: password,
     );
+
+    FirebaseAuth.instance.currentUser!.getIdToken().then((result) {
+      print(result);
+    });
   }
 
   Future<void> createUserWithEmailAndPassword({
+    required String userName,
     required String email,
     required String password,
   }) async {
@@ -41,9 +50,20 @@ class RAAuthService {
       email: email,
       password: password,
     );
+    print("registration done");
   }
 
   Future<void> signOut() async {
     FirebaseAuth.instance.signOut();
+  }
+
+  Future<void> userSetup(String userName) async {
+    CollectionReference users = FirebaseFirestore.instance.collection('Users');
+    String userId = user!.uid.toString();
+    print(userId);
+    users.doc(userId).set({
+      'userName': userName,
+    });
+    return;
   }
 }

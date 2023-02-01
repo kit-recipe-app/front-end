@@ -21,6 +21,7 @@ class _LoginPageState extends State<LoginPage> {
 
   final TextEditingController _controllerTest = TextEditingController();
 
+  final TextEditingController _controllerUserName = TextEditingController();
   final TextEditingController _controllerEmail = TextEditingController();
   final TextEditingController _controllerPassword = TextEditingController();
   final TextEditingController _controllerConfirmPassword =
@@ -57,10 +58,15 @@ class _LoginPageState extends State<LoginPage> {
       return;
     }
     try {
-      await RAAuthService().createUserWithEmailAndPassword(
+      await RAAuthService()
+          .createUserWithEmailAndPassword(
+        userName: _controllerUserName.text,
         email: _controllerEmail.text,
         password: _controllerPassword.text,
-      );
+      )
+          .then((cred) {
+        RAAuthService().userSetup(_controllerUserName.text);
+      });
     } on FirebaseAuthException catch (e) {
       setState(() {
         errorMessage = e.message;
@@ -137,6 +143,14 @@ class _LoginPageState extends State<LoginPage> {
                 crossAxisAlignment: CrossAxisAlignment.center,
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: <Widget>[
+                  Visibility(
+                    visible: !isLogin,
+                    child: RAInputField(
+                      hintText: "Benutzername",
+                      controller: _controllerUserName,
+                      icon: Icons.person,
+                    ),
+                  ),
                   RAInputField(
                     hintText: "Email",
                     controller: _controllerEmail,
