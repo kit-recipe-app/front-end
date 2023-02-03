@@ -5,10 +5,11 @@ import 'create_recipe_progress.dart';
 
 class NameRecipe extends StatefulWidget {
 
-  final Function(String) setTitle;
   final Function() next;
+  final Function(String) setTitle;
+  String title;
 
-  const NameRecipe({Key? key, required this.setTitle, required this.next}) : super(key: key);
+    NameRecipe({Key? key, required this.next, required this.title, required this.setTitle}) : super(key: key);
 
   @override
   State<NameRecipe> createState() => _NameRecipeState();
@@ -16,6 +17,12 @@ class NameRecipe extends StatefulWidget {
 
 class _NameRecipeState extends State<NameRecipe> {
   TextEditingController nameController = TextEditingController();
+
+  @override
+  void initState() {
+    nameController.text = widget.title;
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {

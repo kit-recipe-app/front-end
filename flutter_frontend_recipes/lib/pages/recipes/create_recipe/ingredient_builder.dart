@@ -4,8 +4,9 @@ import 'package:flutter_frontend_recipes/types/ingredient.dart';
 class BuildIngredient extends StatefulWidget {
   final RAIngredient ingredient;
   final ValueSetter<RAIngredient> addItem;
+  final Function(RAIngredient) showDialog;
 
-  const BuildIngredient({Key? key, required this.ingredient, required this.addItem}) : super(key: key);
+  const BuildIngredient({Key? key, required this.ingredient, required this.addItem, required this.showDialog}) : super(key: key);
 
   @override
   State<BuildIngredient> createState() => _BuildIngredientState();
@@ -37,7 +38,10 @@ class _BuildIngredientState extends State<BuildIngredient> {
               padding: const EdgeInsets.all(8.0),
               child: Text(widget.ingredient.name),
             ),
-            IconButton(onPressed: () => widget.addItem(widget.ingredient), icon: const Icon(Icons.add))
+            IconButton(onPressed: () {
+              widget.showDialog(widget.ingredient);
+              },
+                icon: const Icon(Icons.add))
           ],
         ),
       ),

@@ -8,11 +8,13 @@ import 'package:flutter/services.dart';
 
 class AddIngredient extends StatefulWidget {
 
-  final Function(List<RAIngredient>) setIngredients;
+  //final Function(List<RAIngredient>) setIngredients;
   final Function() next;
   final Function() back;
+  List<RAIngredient> ingredients;
+  List<TextEditingController> controllers;
 
-  const AddIngredient({Key? key, required this.setIngredients, required this.next, required this.back}) : super(key: key);
+  AddIngredient({Key? key, required this.next, required this.back, required this.ingredients, required this.controllers}) : super(key: key);
 
   @override
   State<AddIngredient> createState() => _AddIngredientState();
@@ -22,10 +24,9 @@ class _AddIngredientState extends State<AddIngredient> {
 
   List<TextEditingController> controllers = [];
   List<RAIngredient> lis = [];
+
   int factor = 1;
   List<String> units = ["g", "Stück", "ml", "kg", "Blatt"];
-
-  //widget.name übergeben
 
   addItem(RAIngredient ingredient) {
     setState(() {
@@ -44,8 +45,14 @@ class _AddIngredientState extends State<AddIngredient> {
     });
   }
 
-
   @override
+  void initState() {
+    controllers = widget.controllers;
+    lis = widget.ingredients;
+    super.initState();
+  }
+
+ /* @override
   void dispose() {
     // Clean up the controllers when the widget is removed from the
     // widget tree.
@@ -53,11 +60,10 @@ class _AddIngredientState extends State<AddIngredient> {
       controller.dispose();
     }
     super.dispose();
-  }
+  }*/
 
   @override
   Widget build(BuildContext context) {
-
     return WillPopScope(
       onWillPop: () {
         setState(() {
@@ -254,16 +260,8 @@ class _AddIngredientState extends State<AddIngredient> {
               child: ElevatedButton(
                 onPressed: () {
                   setState(() {
-                    widget.setIngredients(lis);
                     widget.next();
                   });
-
-                  /*Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                        builder: (context) =>
-                            CreateManual(name: widget.name, ingredients: lis,)),
-                  );*/
                 },
                 style: ElevatedButton.styleFrom(
                     shape: const StadiumBorder(),

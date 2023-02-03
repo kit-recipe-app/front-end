@@ -22,7 +22,7 @@ class _StepDialogState extends State<StepDialog> {
           borderRadius: BorderRadius.all(Radius.circular(12))),
       child: SizedBox(
         height: 400,
-        child: ListView(
+        child: Column(
           children: [
             Padding(
               padding: const EdgeInsets.all(8.0),
@@ -36,10 +36,16 @@ class _StepDialogState extends State<StepDialog> {
                 ),
               ),
             ),
-            TextButton(onPressed: () {
-              widget.addStep(_c.text);
-              Navigator.pop(context);
-            } , child: const Text("Speichern", style: TextStyle(color: Color(0xff66aa44), fontSize: 20)), )
+            Spacer(),
+            Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: TextButton(onPressed: () {
+                widget.addStep(_c.text);
+                Navigator.pop(context);
+              } , child: const Text("Speichern",
+                    style: TextStyle(color: Color(0xff66aa44), fontSize: 20)),
+              ),
+            )
           ],
         ),
       ),

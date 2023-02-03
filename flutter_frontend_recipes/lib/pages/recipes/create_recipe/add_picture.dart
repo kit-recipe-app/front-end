@@ -6,16 +6,19 @@ import 'package:image_picker/image_picker.dart';
 import 'create_recipe_progress.dart';
 import 'create_recipe_title.dart';
 
-class AddPicture extends StatefulWidget {
+enum ImageType { gallery, camera }
 
+class AddPicture extends StatefulWidget {
   final Function(String picture) setPicture;
   final Function() next;
   final Function() back;
 
-  const AddPicture(
-      {Key? key, required this.setPicture, required this.next, required this.back,
-      })
-      : super(key: key);
+  const AddPicture({
+    Key? key,
+    required this.setPicture,
+    required this.next,
+    required this.back,
+  }) : super(key: key);
 
   @override
   State<AddPicture> createState() => _AddPictureState();
@@ -76,18 +79,104 @@ class _AddPictureState extends State<AddPicture> {
                   style: TextStyle(fontSize: 16),
                 )),
           ),
-          GestureDetector(
-            onTap: () async {
-              var source = ImageSource.gallery;
-              XFile image = await imagePicker.pickImage(
-                  source: source,
-                  imageQuality: 50,
-                  preferredCameraDevice: CameraDevice.front);
-              setState(() {
-                _image = File(image.path);
-                path = image.path;
-              });
+          ElevatedButton(
+            onPressed: () {
+              showModalBottomSheet<void>(
+                  backgroundColor: Colors.white,
+                  shape: const RoundedRectangleBorder(
+                    borderRadius: BorderRadius.only(
+                      topLeft: Radius.circular(10),
+                      topRight: Radius.circular(10),
+                    ),
+                  ),
+                  context: context,
+                  builder: (BuildContext context) {
+                    return Container(
+                      decoration: BoxDecoration(
+                        color: Colors.white,
+                        borderRadius: const BorderRadius.only(
+                          topLeft: Radius.circular(10),
+                          topRight: Radius.circular(10),
+                        ),
+                        boxShadow: [
+                          BoxShadow(
+                            color: Colors.green.withOpacity(0.7),
+                            spreadRadius: 10,
+                            blurRadius: 100,
+                            offset: Offset(0, 5), // changes position of shadow
+                          ),
+                        ],
+                      ),
+                      height: 120,
+                      child: Material(
+                        borderRadius: const BorderRadius.only(
+                          topLeft: Radius.circular(10),
+                          topRight: Radius.circular(10),
+                        ),
+                        child: Column(
+                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                          children: [
+                            InkWell(
+                              borderRadius: BorderRadius.circular(10),
+                              onTap: () {
+                                chooseImage(ImageType.gallery);
+                              },
+                              child: Row(
+                                children: const [
+                                  Padding(
+                                    padding: EdgeInsets.all(12),
+                                    child: Icon(
+                                      Icons.collections,
+                                      size: 28,
+                                    ),
+                                  ),
+                                  Text(
+                                    "Galerie",
+                                    style: TextStyle(fontSize: 22),
+                                  )
+                                ],
+                              ),
+                            ),
+                            const Divider(
+                              height: 1.5,
+                              thickness: 1.5,
+                            ),
+                            InkWell(
+                              borderRadius: BorderRadius.circular(10),
+                              onTap: () {
+                                chooseImage(ImageType.camera);
+                              },
+                              child: Row(
+                                children: const [
+                                  Padding(
+                                    padding: EdgeInsets.all(12),
+                                    child: Icon(
+                                      Icons.camera_alt,
+                                      size: 28,
+                                    ),
+                                  ),
+                                  Text(
+                                    "Kamera",
+                                    style: TextStyle(fontSize: 22),
+                                  )
+                                ],
+                              ),
+                            )
+                          ],
+                        ),
+                      ),
+                    );
+                  });
             },
+            style: ElevatedButton.styleFrom(
+                shape: const StadiumBorder(),
+                backgroundColor: const Color(0xff66aa44),
+                textStyle:
+                    const TextStyle(fontSize: 20, fontWeight: FontWeight.bold)),
+            child: const Text("Foto auswählen"),
+          ),
+          Padding(
+            padding: const EdgeInsets.fromLTRB(0, 20, 0, 0),
             child: Container(
               width: 200,
               height: 200,
@@ -110,10 +199,7 @@ class _AddPictureState extends State<AddPicture> {
                       height: 200.0,
                       fit: BoxFit.fill,
                     )
-                  : Icon(
-                      Icons.add,
-                      color: Colors.grey[800],
-                    ),
+                  : const SizedBox.shrink(),
             ),
           ),
           const Spacer(),
@@ -123,22 +209,12 @@ class _AddPictureState extends State<AddPicture> {
               alignment: Alignment.bottomCenter,
               child: ElevatedButton(
                 onPressed: () {
+                  if (path == "")
+                    path = "assets/example_pictures/standard_picture.jpg";
                   setState(() {
                     widget.setPicture(path);
                     widget.next();
                   });
-                  /*Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                        builder: (context) => RecipeOverview(
-                                recipe: RARecipe(
-                              picture: 'assets/example_pictures/hamburger.jpg',
-                              title: widget.name,
-                              description: '',
-                              ingredients: widget.ingredients,
-                              manual: widget.steps,
-                            ), navigate: "next",)),
-                  );*/
                 },
                 style: ElevatedButton.styleFrom(
                     shape: const StadiumBorder(),
@@ -152,5 +228,18 @@ class _AddPictureState extends State<AddPicture> {
         ],
       )),
     );
+  }
+
+  void chooseImage(ImageType type) async {
+    var source =
+        (type == ImageType.camera) ? ImageSource.camera : ImageSource.gallery;
+    XFile image = await imagePicker.pickImage(
+        source: source,
+        imageQuality: 50,
+        preferredCameraDevice: CameraDevice.front);
+    setState(() {
+      _image = File(image.path);
+      path = image.path;
+    });
   }
 }
