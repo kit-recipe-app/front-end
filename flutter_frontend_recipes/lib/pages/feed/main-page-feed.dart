@@ -31,8 +31,8 @@ class _MainFeedState extends State<MainFeed> {
       ),
       body: Padding(
         padding: const EdgeInsets.all(15.0),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
+        child: ListView(
+          physics: NeverScrollableScrollPhysics(),
           children: [
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
