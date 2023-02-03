@@ -119,6 +119,7 @@ class _AddPictureState extends State<AddPicture> {
                             InkWell(
                               borderRadius: BorderRadius.circular(10),
                               onTap: () {
+                                Navigator.pop(context);
                                 chooseImage(ImageType.gallery);
                               },
                               child: Row(
@@ -144,6 +145,7 @@ class _AddPictureState extends State<AddPicture> {
                             InkWell(
                               borderRadius: BorderRadius.circular(10),
                               onTap: () {
+                                Navigator.pop(context);
                                 chooseImage(ImageType.camera);
                               },
                               child: Row(
@@ -197,7 +199,7 @@ class _AddPictureState extends State<AddPicture> {
                       _image,
                       width: 200.0,
                       height: 200.0,
-                      fit: BoxFit.fill,
+                      fit: BoxFit.cover,
                     )
                   : const SizedBox.shrink(),
             ),
@@ -236,7 +238,7 @@ class _AddPictureState extends State<AddPicture> {
     XFile image = await imagePicker.pickImage(
         source: source,
         imageQuality: 50,
-        preferredCameraDevice: CameraDevice.front);
+        preferredCameraDevice: CameraDevice.rear);
     setState(() {
       _image = File(image.path);
       path = image.path;
