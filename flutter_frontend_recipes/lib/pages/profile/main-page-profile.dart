@@ -89,19 +89,21 @@ class _ProfileMainPageState extends State<ProfileMainPage> {
             height: 3,
             width: 400,
           ),
-          Row(
-            children: [
-              Padding(
-                padding: const EdgeInsets.fromLTRB(30, 30, 10, 30),
-                child: SizedBox(
-                  width: 350,
-                  child: Text(
-                    "Email:          ${user!.email!}",
-                    style: FontStyles.bigText,
+          Flexible(
+            child: Row(
+              children: [
+                Padding(
+                  padding: const EdgeInsets.fromLTRB(30, 30, 10, 30),
+                  child: SizedBox(
+                    width: 350,
+                    child: Text(
+                      "Email:          ${user!.email!}",
+                      style: FontStyles.bigText,
+                    ),
                   ),
                 ),
-              ),
-            ],
+              ],
+            ),
           ),
           Container(
             color: Colors.green,
