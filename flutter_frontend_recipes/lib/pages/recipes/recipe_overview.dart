@@ -24,13 +24,9 @@ class RecipeOverview extends StatelessWidget {
             children: [
               ListView(
                 children: [
-                  Stack(
-                    children: [
-                      (recipe.picture.startsWith('http'))
-                          ? Image.network(recipe.picture)
-                          : ((recipe.picture.startsWith('assets')) ? Image.asset(recipe.picture) : Image.file(File(recipe.picture))),
-                    ],
-                  ),
+                  (recipe.picture.startsWith('http'))
+                      ? Image.network(recipe.picture)
+                      : ((recipe.picture.startsWith('assets')) ? Image.asset(recipe.picture) : Image.file(File(recipe.picture))),
                   Padding(
                     padding: const EdgeInsets.all(8.0),
                     child: Text(

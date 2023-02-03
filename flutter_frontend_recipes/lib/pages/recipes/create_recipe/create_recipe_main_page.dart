@@ -5,8 +5,9 @@ import 'package:flutter_frontend_recipes/pages/recipes/create_recipe/add_picture
 import 'package:flutter_frontend_recipes/pages/recipes/create_recipe/confirm_screen.dart';
 import 'package:flutter_frontend_recipes/pages/recipes/create_recipe/create_manual.dart';
 import 'package:flutter_frontend_recipes/pages/recipes/create_recipe/name_recipe.dart';
-import 'package:flutter_frontend_recipes/types/ingredient.dart';
 import 'package:flutter_frontend_recipes/types/recipe.dart';
+
+import '../../../constants/color_styles.dart';
 
 class CreateRecipeMainPage extends StatefulWidget {
 
@@ -25,29 +26,13 @@ class _CreateRecipeMainPageState extends State<CreateRecipeMainPage> {
     manual: [],
   );
 
+  List<TextEditingController> controllers = [];
+
   int _currentIndex = 0;
 
   void setTitle(String title){
     setState(() {
       recipe.title = title;
-    });
-  }
-
-  void setDescription(String description){
-    setState(() {
-      recipe.description = description;
-    });
-  }
-
-  void setIngredients(List<RAIngredient> ingredients){
-    setState(() {
-      recipe.ingredients = ingredients;
-    });
-  }
-
-  void setManual(List<String> manual){
-    setState(() {
-      recipe.manual = manual;
     });
   }
 
@@ -71,21 +56,24 @@ class _CreateRecipeMainPageState extends State<CreateRecipeMainPage> {
 
 
    late final List<Widget> _pages = [
-    NameRecipe(setTitle: setTitle, next: next,),
-    AddIngredient(setIngredients: setIngredients, next: next, back: back,),
-    CreateManual(setManual: setManual, next: next, back: back,),
+    NameRecipe(next: next, recipe: recipe, setTitle: setTitle),
+    AddIngredient(next: next, back: back, ingredients: recipe.ingredients, controllers: controllers,),
+    CreateManual(next: next, back: back, manual: recipe.manual,),
     AddPicture(setPicture: setPicture, next: next, back: back,),
     ConfirmRecipe(upload: (){Navigator.pop(context);}),
   ];
 
   @override
   Widget build(BuildContext context) {
-    return SafeArea(
-      bottom: false,
-      right: false,
-      left: false,
-      child: Container(
-        child: _pages[_currentIndex],
+    return Container(
+      color: RecipeAppColorStyles.backGroundColor,
+      child: SafeArea(
+        bottom: false,
+        right: false,
+        left: false,
+        child: Container(
+          child: _pages[_currentIndex],
+        ),
       ),
     );
   }

@@ -7,11 +7,11 @@ import 'create_recipe_progress.dart';
 
 class CreateManual extends StatefulWidget {
 
-  final Function(List<String>) setManual;
   final Function() next;
   final Function() back;
+  List<String> manual;
 
-  const CreateManual({Key? key, required this.setManual, required this.next, required this.back, })
+  CreateManual({Key? key, required this.manual, required this.next, required this.back, })
       : super(key: key);
 
   @override
@@ -22,7 +22,12 @@ class _CreateManualState extends State<CreateManual> {
   String? selectedValueSingleDialog;
   List<String> steps = [];
 
-  //widget.name übergeben
+
+  @override
+  void initState() {
+    steps = widget.manual;
+    super.initState();
+  }
 
   addStep(String str) {
     setState(() {
@@ -109,6 +114,7 @@ class _CreateManualState extends State<CreateManual> {
             Padding(
               padding: const EdgeInsets.all(8.0),
               child: Container(
+                height: 50,
                 decoration: BoxDecoration(
                   color: Colors.white,
                   border: Border.all(color: Colors.grey),
@@ -157,7 +163,6 @@ class _CreateManualState extends State<CreateManual> {
               child: ElevatedButton(
                 onPressed: () {
                   setState(() {
-                    widget.setManual(steps);
                     widget.next();
                   });
 
@@ -177,9 +182,17 @@ class _CreateManualState extends State<CreateManual> {
   }
 
   Future<void> _edit(BuildContext context, int index, String oldString) async {
-    final result = await Navigator.push(
+    /*final result = await Navigator.push(
       context,
+
       MaterialPageRoute(builder: (context) => EditDialog(oldString: oldString)),
+    );*/
+
+    final result = await showDialog(
+        context: context,
+        builder: (BuildContext context){
+          return EditDialog(oldString: oldString);
+        }
     );
 
     if (!mounted) return;

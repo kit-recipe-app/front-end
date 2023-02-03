@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_frontend_recipes/backend_connection/load_recipes.dart';
 import 'package:flutter_frontend_recipes/constants/color_styles.dart';
 import 'package:flutter_frontend_recipes/layout/bottom_navigation_bar_recipe_app.dart';
 import 'package:flutter_frontend_recipes/pages/feed/main-page-feed.dart';
