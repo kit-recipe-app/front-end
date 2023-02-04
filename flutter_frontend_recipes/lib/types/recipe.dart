@@ -37,6 +37,13 @@ class RARecipe {
     );
   }
 
+  Map<String, dynamic> toJson() =>{
+    "name": title,
+    "description": description,
+    "cookingInstructions": [for (String instruction in manual) {"instruction": instruction}],
+    "ingredients": [for (RAIngredient ingredient in ingredients) ingredient.toJson()]
+  };
+
   int? getCalories() {
     int summedCalories = 0;
     for (RAIngredient ingredient in ingredients) {
