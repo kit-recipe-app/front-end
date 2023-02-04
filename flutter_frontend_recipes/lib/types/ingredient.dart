@@ -17,11 +17,16 @@ class RAIngredient {
   factory RAIngredient.fromJson(Map<String, dynamic> json) {
     return RAIngredient(
       name: json['ingredient']['name'],
-      unit: json['amountInformation']['unit']['name'],
-      amount: json['amountInformation']['amount'].round(),
+      unit: json['amount']['unit'],
+      amount: json['amount']['amount'].round(),
       calories: 0,
     );
   }
+
+  Map<String, dynamic> toJson() =>{
+    "ingredient": {"name": name},
+    "amount": {"amount": amount, "unit": unit}
+  };
 
   @override
   String toString() => '$amount $unit $name';

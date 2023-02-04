@@ -1,4 +1,7 @@
 
+import 'dart:convert';
+
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_frontend_recipes/pages/recipes/create_recipe/add_ingredient.dart';
 import 'package:flutter_frontend_recipes/pages/recipes/create_recipe/add_picture.dart';
@@ -8,6 +11,8 @@ import 'package:flutter_frontend_recipes/pages/recipes/create_recipe/name_recipe
 import 'package:flutter_frontend_recipes/types/recipe.dart';
 
 import '../../../constants/color_styles.dart';
+
+import 'package:http/http.dart' as http;
 
 class CreateRecipeMainPage extends StatefulWidget {
 
@@ -54,13 +59,36 @@ class _CreateRecipeMainPageState extends State<CreateRecipeMainPage> {
     });
   }
 
+  void postRecipe() async {
+    var token = await FirebaseAuth.instance.currentUser!.getIdToken();
+
+    var headers = {
+      'Authorization': 'Bearer $token',
+      //'Content-Type': 'application/json'
+    };
+    var request = http.Request('POST', Uri.parse('https://recipebackendnew-qgf6rz2woa-ey.a.run.app/api/v1/recipes'));
+    request.body = json.encode(recipe);
+    request.headers.addAll(headers);
+
+    http.StreamedResponse response = await request.send();
+
+    if (response.statusCode == 200) {
+      print(await response.stream.bytesToString());
+    }
+    else {
+      print(response.headers);
+      print(response.statusCode);
+      print(response.reasonPhrase);
+    }
+  }
+
 
    late final List<Widget> _pages = [
     NameRecipe(next: next, recipe: recipe, setTitle: setTitle),
     AddIngredient(next: next, back: back, ingredients: recipe.ingredients, controllers: controllers,),
     CreateManual(next: next, back: back, manual: recipe.manual,),
     AddPicture(setPicture: setPicture, next: next, back: back,),
-    ConfirmRecipe(upload: (){Navigator.pop(context);}),
+    ConfirmRecipe(upload: (){Navigator.pop(context); postRecipe();}),
   ];
 
   @override
