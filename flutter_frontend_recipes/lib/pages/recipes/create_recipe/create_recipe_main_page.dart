@@ -26,7 +26,7 @@ class _CreateRecipeMainPageState extends State<CreateRecipeMainPage> {
   RARecipe recipe = RARecipe(
     picture: "",
     title: "",
-    description: "",
+    description: "Essen",
     ingredients: [],
     manual: [],
   );
@@ -60,11 +60,12 @@ class _CreateRecipeMainPageState extends State<CreateRecipeMainPage> {
   }
 
   void postRecipe() async {
+
     var token = await FirebaseAuth.instance.currentUser!.getIdToken();
 
     var headers = {
       'Authorization': 'Bearer $token',
-      //'Content-Type': 'application/json'
+      'Content-Type': 'application/json'
     };
     var request = http.Request('POST', Uri.parse('https://recipebackendnew-qgf6rz2woa-ey.a.run.app/api/v1/recipes'));
     request.body = json.encode(recipe);
@@ -76,7 +77,6 @@ class _CreateRecipeMainPageState extends State<CreateRecipeMainPage> {
       print(await response.stream.bytesToString());
     }
     else {
-      print(response.headers);
       print(response.statusCode);
       print(response.reasonPhrase);
     }

@@ -17,8 +17,8 @@ class RAIngredient {
   factory RAIngredient.fromJson(Map<String, dynamic> json) {
     return RAIngredient(
       name: json['ingredient']['name'],
-      unit: json['amount']['unit'],
-      amount: json['amount']['amount'].round(),
+      unit: json['amountInformation']['unit']['name'],
+      amount: json['amountInformation']['amount'].round(),
       calories: 0,
     );
   }
