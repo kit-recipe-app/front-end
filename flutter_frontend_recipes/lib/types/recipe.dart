@@ -23,7 +23,7 @@ class RARecipe {
   factory RARecipe.fromJson(Map<String, dynamic> json) {
     return RARecipe(
       picture: (json['imageData'] == null)
-          ? 'assets/example_pictures/hamburger.jpg'
+          ? 'assets/example_pictures/standard_picture.jpg'
           : 'https://recipebackendnew-qgf6rz2woa-ey.a.run.app/api/v1/images/${json['imageData']['name']}',
       title: json['name'],
       description: json['description'],
@@ -36,6 +36,13 @@ class RARecipe {
       ],
     );
   }
+
+  Map<String, dynamic> toJson() =>{
+    "name": title,
+    "description": description,
+    "cookingInstructions": [for (String instruction in manual) {"instruction": instruction}],
+    "ingredients": [for (RAIngredient ingredient in ingredients) ingredient.toJson()]
+  };
 
   int? getCalories() {
     int summedCalories = 0;

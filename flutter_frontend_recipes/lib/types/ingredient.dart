@@ -23,6 +23,11 @@ class RAIngredient {
     );
   }
 
+  Map<String, dynamic> toJson() =>{
+    "ingredient": {"name": name},
+    "amount": {"amount": amount, "unit": unit}
+  };
+
   @override
   String toString() => '$amount $unit $name';
 
