@@ -26,7 +26,7 @@ class _CreateRecipeMainPageState extends State<CreateRecipeMainPage> {
   RARecipe recipe = RARecipe(
     picture: "",
     title: "",
-    description: "Essen",
+    description: "",
     ingredients: [],
     manual: [],
   );
@@ -84,7 +84,7 @@ class _CreateRecipeMainPageState extends State<CreateRecipeMainPage> {
 
 
    late final List<Widget> _pages = [
-    NameRecipe(next: next, recipe: recipe, setTitle: setTitle),
+    NameRecipe(next: next, recipe: recipe),
     AddIngredient(next: next, back: back, ingredients: recipe.ingredients, controllers: controllers,),
     CreateManual(next: next, back: back, manual: recipe.manual,),
     AddPicture(setPicture: setPicture, next: next, back: back,),
