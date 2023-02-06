@@ -5,12 +5,11 @@ import '../../../types/recipe.dart';
 import 'create_recipe_progress.dart';
 
 class NameRecipe extends StatefulWidget {
-
   final Function() next;
-  final Function(String) setTitle;
   RARecipe recipe;
 
-    NameRecipe({Key? key, required this.next, required this.recipe, required this.setTitle}) : super(key: key);
+  NameRecipe({Key? key, required this.next, required this.recipe})
+      : super(key: key);
 
   @override
   State<NameRecipe> createState() => _NameRecipeState();
@@ -18,10 +17,12 @@ class NameRecipe extends StatefulWidget {
 
 class _NameRecipeState extends State<NameRecipe> {
   TextEditingController nameController = TextEditingController();
+  TextEditingController descController = TextEditingController();
 
   @override
   void initState() {
     nameController.text = widget.recipe.title;
+    descController.text = widget.recipe.description;
     super.initState();
   }
 
@@ -31,44 +32,79 @@ class _NameRecipeState extends State<NameRecipe> {
         child: Column(
       children: [
         Padding(
-          padding: const EdgeInsets.fromLTRB(0,20,0,0),
-          child: Stack(
-              children: [IconButton(
-                onPressed: () {
-                  Navigator.pop(context);
-                },
-                icon: const Icon(
-                  Icons.arrow_back,
-                  size: 32,
-                  color: Colors.black,
-                  shadows: [Shadow(color: Colors.black, blurRadius: 1.0)],
-                ),
+          padding: const EdgeInsets.fromLTRB(0, 20, 0, 0),
+          child: Stack(children: [
+            IconButton(
+              onPressed: () {
+                Navigator.pop(context);
+              },
+              icon: const Icon(
+                Icons.arrow_back,
+                size: 32,
+                color: Colors.black,
+                shadows: [Shadow(color: Colors.black, blurRadius: 1.0)],
               ),
-                const Padding(
-                  padding: EdgeInsets.fromLTRB(0,20,0,0),
-                  child: Progress(total: 4, current: 1),
-                ),]
-          ),
+            ),
+            const Padding(
+              padding: EdgeInsets.fromLTRB(0, 20, 0, 0),
+              child: Progress(total: 4, current: 1),
+            ),
+          ]),
         ),
-        const RecipeTitle(name: "Gib deinem Gericht einen Namen"),
+        const RecipeTitle(
+            name: "Gib deinem Gericht einen Namen und eine Beschreibung"),
         Padding(
           padding: const EdgeInsets.all(32),
           child: TextField(
+            maxLength: 50,
+            style: TextStyle(fontSize: 20),
             textAlign: TextAlign.center,
             controller: nameController,
             decoration: const InputDecoration(
-              //contentPadding: EdgeInsets.all(0),
+              counterText: '',
               focusedBorder: UnderlineInputBorder(
-                borderSide: BorderSide(color: Colors.grey, width: 1),
+                borderSide:
+                    BorderSide(color: const Color(0xff66aa44), width: 1),
               ),
               disabledBorder: UnderlineInputBorder(
                 borderSide: BorderSide(color: Colors.grey, width: 1),
               ),
-              label: Center(
-                child: Text("Rezeptname"),
-              ),
-              //hintText: "Rezeptname",
+              label: Align(
+                  alignment: Alignment.bottomCenter,
+                  child: Text(
+                    "Rezeptname",
+                    style: TextStyle(fontSize: 17, height: 3),
+                  )),
               floatingLabelBehavior: FloatingLabelBehavior.never,
+            ),
+          ),
+        ),
+        Padding(
+          padding: const EdgeInsets.all(32),
+          child: SizedBox(
+            height: 250,
+            child: TextField(
+              textInputAction: TextInputAction.done,
+              maxLength: 250,
+              style: TextStyle(fontSize: 20),
+              maxLines: 10,
+              controller: descController,
+              decoration: InputDecoration(
+                  counterText: '',
+                  focusedBorder: OutlineInputBorder(
+                    borderSide:
+                        BorderSide(color: const Color(0xff66aa44), width: 1),
+                    borderRadius: BorderRadius.circular(20),
+                  ),
+                  border: OutlineInputBorder(
+                    borderSide:
+                        BorderSide(color: const Color(0xff66aa44), width: 1),
+                    borderRadius: BorderRadius.circular(20),
+                  ),
+                  labelText: "Beschreibung",
+                  labelStyle:
+                      TextStyle(fontSize: 21, color: const Color(0xff66aa44)),
+                  floatingLabelBehavior: FloatingLabelBehavior.always),
             ),
           ),
         ),
@@ -80,13 +116,15 @@ class _NameRecipeState extends State<NameRecipe> {
             child: ElevatedButton(
               onPressed: () {
                 setState(() {
-                  widget.setTitle(nameController.text);
+                  //widget.setTitle(nameController.text);
+                  widget.recipe.title = nameController.text;
+                  widget.recipe.description = descController.text;
                   widget.next();
                 });
               },
               child: const Text("Nächster Schritt"),
               style: ElevatedButton.styleFrom(
-                animationDuration: const Duration(seconds: 1),
+                  animationDuration: const Duration(seconds: 1),
                   shape: const StadiumBorder(),
                   backgroundColor: const Color(0xff66aa44),
                   textStyle:

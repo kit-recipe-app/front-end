@@ -31,7 +31,7 @@ class _MainPageShoppingListsState extends State<MainPageShoppingLists> {
     return Scaffold(
       appBar: AppBar(
         centerTitle: true,
-        backgroundColor: RecipeAppColorStyles.appBarBGColor,
+        backgroundColor: const Color(0xff66aa44),
         title: Text(
           title,
           style: FontStyles.appBarText,
