@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_frontend_recipes/pages/profile/setting-tile.dart';
+import 'package:flutter_frontend_recipes/pages/profile/setting_button.dart';
+import 'package:flutter_frontend_recipes/pages/profile/subpages/account_settings.dart';
+import 'package:flutter_frontend_recipes/pages/profile/subpages/app_settings.dart';
 
 import '../../constants/color_styles.dart';
 import '../../constants/font_styles.dart';
@@ -34,49 +36,69 @@ class _ProfilePageState extends State<ProfilePage> {
             Padding(
               padding: const EdgeInsets.fromLTRB(8, 30, 8, 0),
               child: Center(
-                child: Container(
-                  height: 100,
-                  width: MediaQuery.of(context).size.width - 20,
-                  decoration: BoxDecoration(
-                    color: Colors.white,
-                    borderRadius: BorderRadius.all(Radius.circular(14)),
-                    boxShadow: [
-                      BoxShadow(
-                        color: Colors.grey.withOpacity(0.5),
-                        spreadRadius: 2,
-                        blurRadius: 4,
-                        offset: Offset(0, 5), // changes position of shadow
+                child: Stack(
+                  children: [
+                    Container(
+                      height: 100,
+                      width: MediaQuery.of(context).size.width - 20,
+                      decoration: BoxDecoration(
+                        color: Colors.white,
+                        borderRadius: BorderRadius.all(Radius.circular(14)),
+                        boxShadow: [
+                          BoxShadow(
+                            color: Colors.grey.withOpacity(0.5),
+                            spreadRadius: 2,
+                            blurRadius: 4,
+                            offset: Offset(0, 5), // changes position of shadow
+                          ),
+                        ],
                       ),
-                    ],
-                  ),
-                  child: Row(
-                    children: [
-                      Padding(
-                        padding: const EdgeInsets.fromLTRB(15, 0, 0, 15),
-                        child: Icon(
-                          RecipeAppIcons.profilePageIcon,
-                          size: 40,
-                        ),
-                      ),
-                      Padding(
-                        padding: const EdgeInsets.fromLTRB(15, 20, 0, 0),
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Text(
-                              name, style: TextStyle(fontSize: 25, fontWeight: FontWeight.bold),
+                      child: Row(
+                        children: [
+                          Padding(
+                            padding: const EdgeInsets.fromLTRB(15, 0, 0, 15),
+                            child: Icon(
+                              RecipeAppIcons.profilePageIcon,
+                              size: 40,
                             ),
-                            Padding(
-                              padding: const EdgeInsets.fromLTRB(0, 4, 0, 0),
-                              child: Text(
-                                preference
-                              ),
-                            )
-                          ],
-                        ),
-                      )
-                    ],
-                  ),
+                          ),
+                          Padding(
+                            padding: const EdgeInsets.fromLTRB(15, 20, 0, 0),
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Text(
+                                  name, style: TextStyle(fontSize: 25, fontWeight: FontWeight.bold),
+                                ),
+                                Padding(
+                                  padding: const EdgeInsets.fromLTRB(0, 4, 0, 0),
+                                  child: Text(
+                                    preference
+                                  ),
+                                )
+                              ],
+                            ),
+                          ),
+                          Spacer(),
+                          Padding(
+                            padding: const EdgeInsets.fromLTRB(0, 0, 25, 0),
+                            child: Icon(Icons.settings, size: 30,),
+                          )
+                        ],
+                      ),
+                    ),
+                    Positioned.fill(
+                      child: Material(
+                        color: Colors.transparent,
+                        child: InkWell(
+                            borderRadius: BorderRadius.circular(14),
+                            onTap: (){
+                              Navigator.push(context, MaterialPageRoute(builder: (context) => AccountSettings()));
+                            },
+                            child: const SizedBox.shrink()),
+                      ),
+                    ),
+                  ],
                 ),
               ),
             ),
@@ -91,19 +113,19 @@ class _ProfilePageState extends State<ProfilePage> {
             ),
             Padding(
               padding: const EdgeInsets.fromLTRB(0, 20, 0, 0),
-              child: SettingTile(text: 'Einstellungen',),
+              child: SettingButton(text: 'Einstellungen', page: AppSettings(),),
             ),
             Padding(
               padding: const EdgeInsets.fromLTRB(0, 10, 0, 0),
-              child: SettingTile(text: 'Präferenzen',),
+              child: SettingButton(text: 'Nahrungsmittelpräferenzen', page: AppSettings()),
             ),
             Padding(
               padding: const EdgeInsets.fromLTRB(0, 10, 0, 0),
-              child: SettingTile(text: 'Standard-Lebensmittel',),
+              child: SettingButton(text: 'Allergien', page: AppSettings()),
             ),
             Padding(
               padding: const EdgeInsets.fromLTRB(0, 10, 0, 0),
-              child: SettingTile(text: 'Meine Rezepte',),
+              child: SettingButton(text: 'Meine Rezepte', page: AppSettings()),
             ),
           ],
         ));
