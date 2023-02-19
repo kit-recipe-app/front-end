@@ -22,7 +22,6 @@ class MyApp extends StatefulWidget {
 }
 
 class _MyAppState extends State<MyApp> {
-
   ThemeMode _themeMode = ThemeMode.system;
 
   @override
@@ -30,13 +29,17 @@ class _MyAppState extends State<MyApp> {
     return MaterialApp(
       title: 'Recipe App',
       theme: ThemeData(
-        brightness: Brightness.light,
-        /* light theme settings */
-      ),
+          scaffoldBackgroundColor: Colors.white,
+          colorScheme: ColorScheme.light(),
+          appBarTheme: AppBarTheme(
+            backgroundColor: Colors.white,
+          )),
       darkTheme: ThemeData(
-        brightness: Brightness.dark,
-        /* dark theme settings */
-      ),
+          scaffoldBackgroundColor: Colors.black,
+          colorScheme: const ColorScheme.dark(),
+          appBarTheme: const AppBarTheme(
+            backgroundColor: Colors.black,
+          )),
       themeMode: _themeMode,
       home: WidgetTree(),
     );

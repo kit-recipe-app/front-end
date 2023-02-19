@@ -1,21 +1,21 @@
 import 'package:flutter/material.dart';
 
-class AccountTile extends StatefulWidget {
+class TextTile extends StatefulWidget {
 
   final String text;
   String info;
 
-  AccountTile({Key? key, required this.text, required this.info}) : super(key: key);
+  TextTile({Key? key, required this.text, required this.info}) : super(key: key);
 
   @override
-  State<AccountTile> createState() => _AccountTileState();
+  State<TextTile> createState() => _TextTileState();
 }
 
-class _AccountTileState extends State<AccountTile> {
+class _TextTileState extends State<TextTile> {
   @override
   Widget build(BuildContext context) {
     return Material(
-      color: Colors.white,
+      color: Theme.of(context).colorScheme.onPrimary,
       child: InkWell(
         onTap: () {},
         child: Container(

@@ -1,8 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_frontend_recipes/pages/profile/setting_button.dart';
 import 'package:flutter_frontend_recipes/pages/profile/subpages/account_settings.dart';
+import 'package:flutter_frontend_recipes/pages/profile/subpages/allergies.dart';
 import 'package:flutter_frontend_recipes/pages/profile/subpages/app_settings.dart';
+import 'package:flutter_frontend_recipes/pages/profile/subpages/preferences.dart';
 
+import '../../authentification/auth.dart';
 import '../../constants/color_styles.dart';
 import '../../constants/font_styles.dart';
 import '../../constants/icon_designs.dart';
@@ -20,9 +23,22 @@ class _ProfilePageState extends State<ProfilePage> {
   String preference = "Vegetarier";
   String editProfile = "Profil bearbeiten";
 
+  Future<void> signOut() async {
+    await RAAuthService().signOut();
+  }
+
+  Widget signOutButton(Color color) {
+    return ElevatedButton(
+      onPressed: signOut,
+      child: const Text("sign out"),
+      style: ButtonStyle(backgroundColor:MaterialStateProperty.all<Color>(color)),
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      floatingActionButton: signOutButton(RecipeAppColorStyles.navigationBarSelectedIconColor),
         appBar: AppBar(
           centerTitle: true,
           backgroundColor: RecipeAppColorStyles.navigationBarSelectedIconColor,
@@ -117,15 +133,11 @@ class _ProfilePageState extends State<ProfilePage> {
             ),
             Padding(
               padding: const EdgeInsets.fromLTRB(0, 10, 0, 0),
-              child: SettingButton(text: 'Nahrungsmittelpräferenzen', page: AppSettings()),
+              child: SettingButton(text: 'Nahrungsmittelpräferenzen', page: Preferences()),
             ),
             Padding(
               padding: const EdgeInsets.fromLTRB(0, 10, 0, 0),
-              child: SettingButton(text: 'Allergien', page: AppSettings()),
-            ),
-            Padding(
-              padding: const EdgeInsets.fromLTRB(0, 10, 0, 0),
-              child: SettingButton(text: 'Meine Rezepte', page: AppSettings()),
+              child: SettingButton(text: 'Allergien', page: Allergies()),
             ),
           ],
         ));

@@ -1,8 +1,9 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_frontend_recipes/pages/profile/components/tile_divider.dart';
 
 import '../../../authentification/auth.dart';
-import 'account_tile.dart';
+import '../components/text_tile.dart';
 
 class AccountSettings extends StatefulWidget {
   const AccountSettings({Key? key}) : super(key: key);
@@ -30,15 +31,15 @@ class _AccountSettingsState extends State<AccountSettings> {
       ),
       body: Column(
         children: [
-          AccountTile(text: "E-Mail-Adresse", info: email!),
-          Divider(thickness: 0.9, color: Colors.grey, height: 0,),
-          AccountTile(text: "Nutzername", info: name),
-          Divider(thickness: 0.9, color: Colors.grey, height: 0,),
-          AccountTile(text: "Passwort", info: "**********"),
+          TextTile(text: "E-Mail-Adresse", info: email!),
+          TileDivider(),
+          TextTile(text: "Nutzername", info: name),
+          TileDivider(),
+          TextTile(text: "Passwort", info: "**********"),
           SizedBox(
             height: 100,
           ),
-          AccountTile(text: "Account löschen", info: ""),
+          TextTile(text: "Account löschen", info: ""),
         ],
       ),
     );
