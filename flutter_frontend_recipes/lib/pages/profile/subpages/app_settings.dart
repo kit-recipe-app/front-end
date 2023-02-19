@@ -14,10 +14,12 @@ class AppSettings extends StatefulWidget {
   State<AppSettings> createState() => _AppSettingsState();
 }
 
+
 class _AppSettingsState extends State<AppSettings> {
   final User? user = RAAuthService().user;
   late String? email = user?.email;
   String name = "Johannes";
+
 
   @override
   Widget build(BuildContext context) {
@@ -33,9 +35,9 @@ class _AppSettingsState extends State<AppSettings> {
       ),
       body: Column(
         children: [
-          TextTile(text: "Sprache", info: "Deutsch"),
+          TextTile(text: "Sprache", info: "Deutsch", type: "language",),
           const TileDivider(),
-          TextTile(text: "Land", info: "Deutschland"),
+          TextTile(text: "Land", info: "Deutschland", type: "country"),
           const TileDivider(),
           WidgetTile(
               text: "Design",

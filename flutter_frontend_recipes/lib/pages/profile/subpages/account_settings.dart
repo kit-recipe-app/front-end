@@ -31,15 +31,15 @@ class _AccountSettingsState extends State<AccountSettings> {
       ),
       body: Column(
         children: [
-          TextTile(text: "E-Mail-Adresse", info: email!),
+          TextTile(text: "E-Mail-Adresse", info: email!, type: "email"),
           TileDivider(),
-          TextTile(text: "Nutzername", info: name),
+          TextTile(text: "Nutzername", info: name, type: 'text',),
           TileDivider(),
-          TextTile(text: "Passwort", info: "**********"),
+          TextTile(text: "Passwort", info: "**********", type: 'text',),
           SizedBox(
             height: 100,
           ),
-          TextTile(text: "Account löschen", info: ""),
+          TextTile(text: "Account löschen", info: "", type: 'text',),
         ],
       ),
     );

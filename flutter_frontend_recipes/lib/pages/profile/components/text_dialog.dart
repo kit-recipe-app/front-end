@@ -3,7 +3,8 @@ import 'package:flutter/material.dart';
 class TextDialog extends StatelessWidget {
   final TextEditingController controller;
   final String title;
-  const TextDialog({Key? key, required this.controller, required this.title}) : super(key: key);
+  final Function setText;
+  const TextDialog({Key? key, required this.controller, required this.title, required this.setText}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -22,6 +23,7 @@ class TextDialog extends StatelessWidget {
         TextButton(
           child: Text('OK'),
           onPressed: () {
+            setText(controller.text);
             Navigator.pop(context);
           },
         ),
