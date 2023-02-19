@@ -2,11 +2,11 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_frontend_recipes/authentification/auth.dart';
 import 'package:flutter_frontend_recipes/content_examples/initiating_examples.dart';
-import 'package:flutter_frontend_recipes/pages/profile/current-profile-tab.dart';
-import 'package:flutter_frontend_recipes/pages/profile/friend-profile-tab.dart';
-import 'package:flutter_frontend_recipes/pages/profile/profile-page-components/navigation.dart';
-import 'package:flutter_frontend_recipes/pages/profile/profile-page-components/profil-page-appbar.dart';
-import 'package:flutter_frontend_recipes/pages/profile/profile-sub-pages/setting-list.dart';
+import 'package:flutter_frontend_recipes/pages/profile_old/current-profile-tab.dart';
+import 'package:flutter_frontend_recipes/pages/profile_old/friend-profile-tab.dart';
+import 'package:flutter_frontend_recipes/pages/profile_old/profile-page-components/navigation.dart';
+import 'package:flutter_frontend_recipes/pages/profile_old/profile-page-components/profil-page-appbar.dart';
+import 'package:flutter_frontend_recipes/pages/profile_old/profile-sub-pages/setting-list.dart';
 
 import 'current-profil-card.dart';
 import 'example_profile.dart';

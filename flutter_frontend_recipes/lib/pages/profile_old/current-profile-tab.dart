@@ -1,7 +1,7 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_frontend_recipes/pages/profile/profile-page-components/current-profil-card.dart';
-import 'package:flutter_frontend_recipes/pages/profile/profile-sub-pages/setting-list.dart';
+import 'package:flutter_frontend_recipes/pages/profile_old/profile-page-components/current-profil-card.dart';
+import 'package:flutter_frontend_recipes/pages/profile_old/profile-sub-pages/setting-list.dart';
 
 import '../../authentification/auth.dart';
 import '../../constants/font_styles.dart';

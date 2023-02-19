@@ -7,7 +7,7 @@ class RecipeTitle extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.fromLTRB(8, 30, 8, 8),
+      padding: const EdgeInsets.fromLTRB(35, 30, 35, 8),
       child: Align(
         alignment: Alignment.center,
         child: Text(
