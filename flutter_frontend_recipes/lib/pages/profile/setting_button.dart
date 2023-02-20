@@ -18,12 +18,12 @@ class _SettingButtonState extends State<SettingButton> {
           height: 70,
           width: MediaQuery.of(context).size.width - 20,
           decoration: BoxDecoration(
-            color: Colors.white,
+            color: Theme.of(context).colorScheme.surface,
             borderRadius: BorderRadius.all(Radius.circular(35)),
             boxShadow: [
               BoxShadow(
                 color: Colors.grey.withOpacity(0.4),
-                spreadRadius: 3,
+                spreadRadius: 1,
                 blurRadius: 3,
                 offset: Offset(0, 3), // changes position of shadow
               ),

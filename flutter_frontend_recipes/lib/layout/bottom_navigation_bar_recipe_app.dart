@@ -13,10 +13,7 @@ class BottomNavigationBarRecipeApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       decoration: BoxDecoration(
-        gradient: LinearGradient(
-          begin: Alignment.bottomLeft,
-          colors: RecipeAppColorStyles.navigationBarBGFade,
-        ),
+        color: Theme.of(context).colorScheme.secondary
       ),
       child: SizedBox(
         height: MediaQuery.of(context).size.height / 12,

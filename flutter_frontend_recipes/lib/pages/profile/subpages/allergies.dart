@@ -28,50 +28,50 @@ class _AllergiesState extends State<Allergies> {
 
   @override
   Widget build(BuildContext context) {
-    Color primaryColor = Theme.of(context).colorScheme.onPrimary;
-    Color secondaryColor = Theme.of(context).colorScheme.onBackground;
-    Color opacityColor = Colors.grey.shade700;
-    if(primaryColor.value == Colors.white.value){
-      opacityColor = primaryColor.withOpacity(0.9);
-    }
+  Color activeColor = Theme.of(context).colorScheme.primary;
     return Scaffold(
-      backgroundColor: opacityColor,
+      backgroundColor: Theme.of(context).colorScheme.background,
       appBar: AppBar(
-        leading: BackButton(color: secondaryColor),
-        backgroundColor: primaryColor,
+        leading: BackButton(color: Theme.of(context).colorScheme.onSecondary),
         title: Text(
           title,
-          style: TextStyle(color: secondaryColor),
+          style: TextStyle(color: Theme.of(context).colorScheme.onSecondary),
         ),
       ),
       body: Column(
         children: [
           WidgetTile(text: nutsText, info: Switch(
+            activeColor: activeColor,
             value: nuts,
             onChanged: (bool value) => setState(() => nuts = value),
           )),
           const TileDivider(),
           WidgetTile(text: eggsText, info: Switch(
+            activeColor: activeColor,
             value: eggs,
             onChanged: (bool value) => setState(() => eggs = value),
           )),
           const TileDivider(),
           WidgetTile(text: milkText, info: Switch(
+            activeColor: activeColor,
             value: milk,
             onChanged: (bool value) => setState(() => milk = value),
           )),
           const TileDivider(),
           WidgetTile(text: fishText, info: Switch(
+            activeColor: activeColor,
             value: fish,
             onChanged: (bool value) => setState(() => fish = value),
           )),
           const TileDivider(),
           WidgetTile(text: glutenText, info: Switch(
+            activeColor: activeColor,
             value: gluten,
             onChanged: (bool value) => setState(() => gluten = value),
           )),
           const TileDivider(),
           WidgetTile(text: seafoodText, info: Switch(
+            activeColor: activeColor,
             value: seafood,
             onChanged: (bool value) => setState(() => seafood = value),
           )),

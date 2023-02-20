@@ -22,7 +22,7 @@ class _BuildIngredientState extends State<BuildIngredient> {
           Container(
             height: 50,
             decoration: BoxDecoration(
-              color: Colors.white,
+              color: Theme.of(context).colorScheme.surface,
               border: Border.all(color: Colors.grey),
                 borderRadius: BorderRadius.circular(16),
               boxShadow: [

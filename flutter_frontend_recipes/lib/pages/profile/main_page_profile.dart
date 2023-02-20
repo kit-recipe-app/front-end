@@ -58,7 +58,7 @@ class _ProfilePageState extends State<ProfilePage> {
                       height: 100,
                       width: MediaQuery.of(context).size.width - 20,
                       decoration: BoxDecoration(
-                        color: Colors.white,
+                        color: Theme.of(context).colorScheme.surface,
                         borderRadius: BorderRadius.all(Radius.circular(14)),
                         boxShadow: [
                           BoxShadow(

@@ -23,7 +23,7 @@ class MyApp extends StatefulWidget {
 }
 
 class _MyAppState extends State<MyApp> {
-  ThemeMode _themeMode = ThemeMode.system;
+  ThemeMode _themeMode = ThemeMode.dark;
 
   @override
   Widget build(BuildContext context) {
@@ -32,15 +32,39 @@ class _MyAppState extends State<MyApp> {
       title: 'Recipe App',
       theme: ThemeData(
           scaffoldBackgroundColor: Colors.white,
-          colorScheme: ColorScheme.light(),
-          appBarTheme: AppBarTheme(
+          colorScheme: ColorScheme(
+          brightness: Brightness.light,
+          primary: Color(0xff66aa44),
+          onPrimary: Colors.white,
+          secondary: Colors.white,
+          onSecondary: Colors.black,
+          error: Color(0xffb00020),
+          onError: Colors.white,
+          background:  Colors.white.withOpacity(0.9),
+          onBackground: Colors.black,
+          surface:  Colors.white,
+          onSurface: Colors.black,
+          secondaryContainer: Colors.white.withOpacity(0.9)),
+          appBarTheme: const AppBarTheme(
             backgroundColor: Colors.white,
           )),
       darkTheme: ThemeData(
-          scaffoldBackgroundColor: Colors.black,
-          colorScheme: const ColorScheme.dark(),
+          //scaffoldBackgroundColor: Colors.grey.shade800,
+          colorScheme: ColorScheme(
+              brightness: Brightness.dark,
+              primary: Color(0xff66aa44),
+              onPrimary: Colors.black,
+              secondary: Colors.black,
+              onSecondary: Colors.white,
+              error: Color(0xffcf6679),
+              onError: Colors.black,
+              background: Colors.grey.shade700,
+              onBackground: Colors.white,
+              surface: Color(0xff121212),
+              onSurface: Colors.white,
+              secondaryContainer: Colors.grey.shade700),
           appBarTheme: const AppBarTheme(
-            backgroundColor: Colors.black,
+            backgroundColor: Color(0xff121212),
           )),
       themeMode: _themeMode,
       home: WidgetTree(),

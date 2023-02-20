@@ -15,7 +15,7 @@ class _WidgetTileState extends State<WidgetTile> {
   @override
   Widget build(BuildContext context) {
     return Material(
-      color: Theme.of(context).colorScheme.onPrimary,
+      color: Theme.of(context).colorScheme.secondary,
       child: Container(
         padding: EdgeInsets.all(8),
         height: 55,

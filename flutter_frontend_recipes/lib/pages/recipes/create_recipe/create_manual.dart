@@ -53,29 +53,26 @@ class _CreateManualState extends State<CreateManual> {
       child: Material(
           child: Column(
         children: [
-          Padding(
-            padding: const EdgeInsets.fromLTRB(0, 20, 0, 0),
-            child: Stack(children: [
-              IconButton(
-                onPressed: () {
-                  setState(() {
-                    widget.back();
-                  });
+          Stack(children: [
+            IconButton(
+              onPressed: () {
+                setState(() {
+                  widget.back();
+                });
 
-                },
-                icon: const Icon(
-                  Icons.arrow_back,
-                  size: 32,
-                  color: Colors.black,
-                  shadows: [Shadow(color: Colors.black, blurRadius: 1.0)],
-                ),
+              },
+              icon: Icon(
+                Icons.arrow_back,
+                size: 32,
+                color: Theme.of(context).colorScheme.onSecondary,
+                shadows: [Shadow(color: Colors.black, blurRadius: 1.0)],
               ),
-              const Padding(
-                padding: EdgeInsets.fromLTRB(0, 20, 0, 0),
-                child: Progress(total: 4, current: 3),
-              ),
-            ]),
-          ),
+            ),
+            const Padding(
+              padding: EdgeInsets.fromLTRB(0, 20, 0, 0),
+              child: Progress(total: 4, current: 3),
+            ),
+          ]),
           const RecipeTitle(name: "Verrate uns, wie man dein Rezept zubereitet"),
           Padding(
             padding: const EdgeInsets.all(8.0),
@@ -103,8 +100,8 @@ class _CreateManualState extends State<CreateManual> {
                     shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(12), // <-- Radius
                     ),
-                    backgroundColor: Colors.white,
-                    foregroundColor: Colors.black,
+                    backgroundColor: Theme.of(context).colorScheme.secondary,
+                    foregroundColor: Theme.of(context).colorScheme.onSecondary,
                     textStyle: const TextStyle(
                         fontSize: 20, fontWeight: FontWeight.bold)),
               ),

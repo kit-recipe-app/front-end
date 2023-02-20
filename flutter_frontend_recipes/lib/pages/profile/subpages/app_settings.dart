@@ -24,13 +24,12 @@ class _AppSettingsState extends State<AppSettings> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.white.withOpacity(0.9),
+      backgroundColor: Theme.of(context).colorScheme.background,
       appBar: AppBar(
-        leading: const BackButton(color: Colors.black),
-        backgroundColor: Colors.white,
+        leading: BackButton(color: Theme.of(context).colorScheme.onSecondary),
         title: Text(
-          "Kontoeinstellungen",
-          style: TextStyle(color: Colors.black),
+          "Appeinstellungen",
+          style: TextStyle(color: Theme.of(context).colorScheme.onSecondary),
         ),
       ),
       body: Column(
@@ -42,6 +41,7 @@ class _AppSettingsState extends State<AppSettings> {
           WidgetTile(
               text: "Design",
               info: Switch(
+                activeColor: Theme.of(context).colorScheme.primary,
                   value: Theme.of(context).brightness == Brightness.dark,
                   onChanged: (bool value) {
                     value == true

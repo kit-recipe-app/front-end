@@ -22,7 +22,7 @@ class _TextTileState extends State<TextTile> {
   @override
   Widget build(BuildContext context) {
     return Material(
-      color: Theme.of(context).colorScheme.onPrimary,
+      color: Theme.of(context).colorScheme.secondary,
       child: InkWell(
         onTap: () {
           if(widget.type == "text") {

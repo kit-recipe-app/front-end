@@ -24,7 +24,7 @@ class _RecipeAppState extends State<RecipeApp> {
   @override
   Widget build(BuildContext context) {
     return Container(
-      color: RecipeAppColorStyles.backGroundColor,
+      color: Theme.of(context).canvasColor,
       child: SafeArea(
         bottom: false,
         left: false,

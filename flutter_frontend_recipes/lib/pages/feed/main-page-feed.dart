@@ -41,7 +41,11 @@ class _MainFeedState extends State<MainFeed> {
                   padding: const EdgeInsets.all(10),
                   child: Text(
                     welcome,
-                    style: FontStyles.titleText,
+                    style: TextStyle(
+                      fontSize: 20,
+                      color: Theme.of(context).colorScheme.onSecondary,
+                      fontWeight: FontWeight.bold,
+                    ),
                   ),
                 ),
               ],
