@@ -28,7 +28,7 @@ class _AllergiesState extends State<Allergies> {
 
   @override
   Widget build(BuildContext context) {
-
+  Color activeColor = Theme.of(context).colorScheme.primary;
     return Scaffold(
       backgroundColor: Theme.of(context).colorScheme.background,
       appBar: AppBar(
@@ -41,31 +41,37 @@ class _AllergiesState extends State<Allergies> {
       body: Column(
         children: [
           WidgetTile(text: nutsText, info: Switch(
+            activeColor: activeColor,
             value: nuts,
             onChanged: (bool value) => setState(() => nuts = value),
           )),
           const TileDivider(),
           WidgetTile(text: eggsText, info: Switch(
+            activeColor: activeColor,
             value: eggs,
             onChanged: (bool value) => setState(() => eggs = value),
           )),
           const TileDivider(),
           WidgetTile(text: milkText, info: Switch(
+            activeColor: activeColor,
             value: milk,
             onChanged: (bool value) => setState(() => milk = value),
           )),
           const TileDivider(),
           WidgetTile(text: fishText, info: Switch(
+            activeColor: activeColor,
             value: fish,
             onChanged: (bool value) => setState(() => fish = value),
           )),
           const TileDivider(),
           WidgetTile(text: glutenText, info: Switch(
+            activeColor: activeColor,
             value: gluten,
             onChanged: (bool value) => setState(() => gluten = value),
           )),
           const TileDivider(),
           WidgetTile(text: seafoodText, info: Switch(
+            activeColor: activeColor,
             value: seafood,
             onChanged: (bool value) => setState(() => seafood = value),
           )),

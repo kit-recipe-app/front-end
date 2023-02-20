@@ -168,7 +168,7 @@ class _SearchIngredientsState extends State<SearchIngredients> {
                               content: Text(
                             "Zutat hinzugefügt",
                             textAlign: TextAlign.center,
-                            style: TextStyle(fontSize: 20),
+                            style: TextStyle(fontSize: 20, color: Colors.white),
                           ));
                           ScaffoldMessenger.of(context).showSnackBar(snackBar);
                         },

@@ -41,6 +41,7 @@ class _AppSettingsState extends State<AppSettings> {
           WidgetTile(
               text: "Design",
               info: Switch(
+                activeColor: Theme.of(context).colorScheme.primary,
                   value: Theme.of(context).brightness == Brightness.dark,
                   onChanged: (bool value) {
                     value == true

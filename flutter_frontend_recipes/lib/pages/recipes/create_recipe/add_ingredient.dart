@@ -184,7 +184,7 @@ class _AddIngredientState extends State<AddIngredient> {
                     padding: const EdgeInsets.all(8.0),
                     child: Container(
                       decoration: BoxDecoration(
-                        color: Colors.white,
+                        color: Theme.of(context).colorScheme.surface,
                         border: Border.all(color: Colors.grey),
                         borderRadius: BorderRadius.circular(16),
                         boxShadow: [

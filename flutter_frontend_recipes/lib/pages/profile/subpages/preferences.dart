@@ -20,9 +20,9 @@ class _PreferencesState extends State<Preferences> {
   String vegetarianText = "Vegetarisch";
   String pescetarianText = "Pescetarisch";
 
-
   @override
   Widget build(BuildContext context) {
+    Color activeColor = Theme.of(context).colorScheme.primary;
     return Scaffold(
       backgroundColor: Theme.of(context).colorScheme.background,
       appBar: AppBar(
@@ -34,6 +34,7 @@ class _PreferencesState extends State<Preferences> {
       body: Column(
         children: [
           WidgetTile(text: allText, info: Checkbox(
+            activeColor: activeColor,
                   value: all,
                   onChanged: (bool? value) {
                     setState(() {
@@ -46,6 +47,7 @@ class _PreferencesState extends State<Preferences> {
                 )),
           const TileDivider(),
           WidgetTile(text: vegetarianText, info: Checkbox(
+            activeColor: activeColor,
             value: vegetarian,
             onChanged: (bool? value) {
               setState(() {
@@ -60,6 +62,7 @@ class _PreferencesState extends State<Preferences> {
           )),
           const TileDivider(),
           WidgetTile(text: veganText, info: Checkbox(
+            activeColor: activeColor,
             value: vegan,
             onChanged: (bool? value) {
               setState(() {
@@ -74,6 +77,7 @@ class _PreferencesState extends State<Preferences> {
           )),
           const TileDivider(),
           WidgetTile(text: pescetarianText, info: Checkbox(
+            activeColor: activeColor,
             value: pescetarian,
             onChanged: (bool? value) {
               setState(() {
