@@ -47,28 +47,25 @@ class _AddPictureState extends State<AddPicture> {
       child: Material(
           child: Column(
         children: [
-          Padding(
-            padding: const EdgeInsets.fromLTRB(0, 20, 0, 0),
-            child: Stack(children: [
-              IconButton(
-                onPressed: () {
-                  setState(() {
-                    widget.back();
-                  });
-                },
-                icon: const Icon(
-                  Icons.arrow_back,
-                  size: 32,
-                  color: Colors.black,
-                  shadows: [Shadow(color: Colors.black, blurRadius: 1.0)],
-                ),
+          Stack(children: [
+            IconButton(
+              onPressed: () {
+                setState(() {
+                  widget.back();
+                });
+              },
+              icon: Icon(
+                Icons.arrow_back,
+                size: 32,
+                color: Theme.of(context).colorScheme.onSecondary,
+                shadows: [Shadow(color: Colors.black, blurRadius: 1.0)],
               ),
-              const Padding(
-                padding: EdgeInsets.fromLTRB(0, 20, 0, 0),
-                child: Progress(total: 4, current: 4),
-              ),
-            ]),
-          ),
+            ),
+            const Padding(
+              padding: EdgeInsets.fromLTRB(0, 20, 0, 0),
+              child: Progress(total: 4, current: 4),
+            ),
+          ]),
           const RecipeTitle(name: "Wie sieht dein Gericht aus?"),
           const Padding(
             padding: EdgeInsets.fromLTRB(20, 40, 20, 20),

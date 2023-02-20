@@ -21,13 +21,12 @@ class _AccountSettingsState extends State<AccountSettings> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.white.withOpacity(0.9),
+      backgroundColor: Theme.of(context).colorScheme.background,
       appBar: AppBar(
-        leading: const BackButton(
-            color: Colors.black
+        leading: BackButton(
+            color: Theme.of(context).colorScheme.onSecondary
         ),
-        backgroundColor: Colors.white,
-        title: Text("Kontoeinstellungen", style: TextStyle(color: Colors.black),),
+        title: Text("Kontoeinstellungen", style: TextStyle(color: Theme.of(context).colorScheme.onSecondary),),
       ),
       body: Column(
         children: [

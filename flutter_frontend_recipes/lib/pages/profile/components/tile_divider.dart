@@ -5,7 +5,7 @@ class TileDivider extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    Color primaryColor = Theme.of(context).colorScheme.onPrimary;
+    Color primaryColor = Theme.of(context).colorScheme.secondary;
     Color dividerColor = Colors.grey;
     if(primaryColor.value != Colors.white.value){
       dividerColor = Colors.white;

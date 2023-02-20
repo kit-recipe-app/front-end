@@ -14,7 +14,7 @@ class RecipeOverview extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      color: RecipeAppColorStyles.backGroundColor,
+      color: Theme.of(context).canvasColor,
       child: SafeArea(
         left: false,
         bottom: false,

@@ -28,20 +28,14 @@ class _AllergiesState extends State<Allergies> {
 
   @override
   Widget build(BuildContext context) {
-    Color primaryColor = Theme.of(context).colorScheme.onPrimary;
-    Color secondaryColor = Theme.of(context).colorScheme.onBackground;
-    Color opacityColor = Colors.grey.shade700;
-    if(primaryColor.value == Colors.white.value){
-      opacityColor = primaryColor.withOpacity(0.9);
-    }
+
     return Scaffold(
-      backgroundColor: opacityColor,
+      backgroundColor: Theme.of(context).colorScheme.background,
       appBar: AppBar(
-        leading: BackButton(color: secondaryColor),
-        backgroundColor: primaryColor,
+        leading: BackButton(color: Theme.of(context).colorScheme.onSecondary),
         title: Text(
           title,
-          style: TextStyle(color: secondaryColor),
+          style: TextStyle(color: Theme.of(context).colorScheme.onSecondary),
         ),
       ),
       body: Column(

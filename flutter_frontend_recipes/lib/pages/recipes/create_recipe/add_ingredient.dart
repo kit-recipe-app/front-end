@@ -74,28 +74,25 @@ class _AddIngredientState extends State<AddIngredient> {
       child: Material(
           child: Column(
         children: [
-          Padding(
-            padding: const EdgeInsets.fromLTRB(0, 20, 0, 0),
-            child: Stack(children: [
-              IconButton(
-                onPressed: () {
-                  setState(() {
-                    widget.back();
-                  });
-                },
-                icon: const Icon(
-                  Icons.arrow_back,
-                  size: 32,
-                  color: Colors.black,
-                  shadows: [Shadow(color: Colors.black, blurRadius: 1.0)],
-                ),
+          Stack(children: [
+            IconButton(
+              onPressed: () {
+                setState(() {
+                  widget.back();
+                });
+              },
+              icon: Icon(
+                Icons.arrow_back,
+                size: 32,
+                color: Theme.of(context).colorScheme.onSecondary,
+                shadows: [Shadow(color: Colors.black, blurRadius: 1.0)],
               ),
-              const Padding(
-                padding: EdgeInsets.fromLTRB(0, 20, 0, 0),
-                child: Progress(total: 4, current: 2),
-              ),
-            ]),
-          ),
+            ),
+            const Padding(
+              padding: EdgeInsets.fromLTRB(0, 20, 0, 0),
+              child: Progress(total: 4, current: 2),
+            ),
+          ]),
           Expanded(
             child: ListView(
               children: [
