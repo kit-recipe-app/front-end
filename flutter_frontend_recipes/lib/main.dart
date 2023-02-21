@@ -1,4 +1,5 @@
 import 'package:firebase_core/firebase_core.dart';
+import 'package:flutter_frontend_recipes/shared/shared_prefs.dart';
 import 'package:flutter_frontend_recipes/widget_tree.dart';
 import 'firebase_options.dart';
 import 'package:flutter/material.dart';
@@ -9,6 +10,7 @@ Future<void> main() async {
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
   );
+  await SharedPrefs().init();
   runApp(const MyApp());
 }
 
@@ -23,7 +25,8 @@ class MyApp extends StatefulWidget {
 }
 
 class _MyAppState extends State<MyApp> {
-  ThemeMode _themeMode = ThemeMode.system;
+  ThemeMode _themeMode = SharedPrefs().getTheme() == null ? ThemeMode.system : (SharedPrefs().getTheme() == true ? ThemeMode.dark: ThemeMode.light);
+
 
   @override
   Widget build(BuildContext context) {
@@ -76,4 +79,5 @@ class _MyAppState extends State<MyApp> {
       _themeMode = themeMode;
     });
   }
+
 }

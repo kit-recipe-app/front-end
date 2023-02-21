@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_frontend_recipes/pages/profile/components/tile_divider.dart';
 import 'package:flutter_frontend_recipes/pages/profile/components/text_tile.dart';
 import 'package:flutter_frontend_recipes/pages/profile/components/widget_tile.dart';
+import 'package:flutter_frontend_recipes/shared/shared_prefs.dart';
 
 import '../../../authentification/auth.dart';
 import '../../../main.dart';
@@ -44,6 +45,7 @@ class _AppSettingsState extends State<AppSettings> {
                 activeColor: Theme.of(context).colorScheme.primary,
                   value: Theme.of(context).brightness == Brightness.dark,
                   onChanged: (bool value) {
+                  SharedPrefs().setTheme(value);
                     value == true
                         ? MyApp.of(context).changeTheme(ThemeMode.dark)
                         : MyApp.of(context).changeTheme(ThemeMode.light);
@@ -52,4 +54,5 @@ class _AppSettingsState extends State<AppSettings> {
       ),
     );
   }
+
 }
