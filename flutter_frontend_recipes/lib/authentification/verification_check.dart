@@ -5,7 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_frontend_recipes/authentification/auth.dart';
 import 'package:flutter_frontend_recipes/constants/color_styles.dart';
 import 'package:flutter_frontend_recipes/recipe_app.dart';
-import 'package:flutter_frontend_recipes/shared/submit_button.dart';
+import 'package:flutter_frontend_recipes/shared/button.dart';
 
 class EmailVerificationCheck extends StatefulWidget {
   const EmailVerificationCheck({super.key});
@@ -99,14 +99,14 @@ class _EmailVerificationCheckState extends State<EmailVerificationCheck> {
               children: [
                 const Text("Ihnen wurde eine Email zur Verifikation gesendet."),
                 canResendEmail
-                    ? RASubmitButton(
+                    ? RAButton(
                         onTap: sendVerificationEmail,
                         description: "Email Erneut senden",
                         backgroundColor:
                             RecipeAppColorStyles.recipeAppMainColor,
                         margin: 32,
                       )
-                    : RASubmitButton(
+                    : RAButton(
                         onTap: () {},
                         description: "Warte einen Moment",
                         margin: 32,
@@ -115,7 +115,7 @@ class _EmailVerificationCheckState extends State<EmailVerificationCheck> {
               ],
             ),
           ),
-          floatingActionButton: RASubmitButton(
+          floatingActionButton: RAButton(
             onTap: RAAuthService().signOut,
             description: "Abbrechen",
             margin: 8,

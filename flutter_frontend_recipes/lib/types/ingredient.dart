@@ -1,8 +1,12 @@
+import 'package:flutter_frontend_recipes/types/recipe.dart';
+
 class RAIngredient {
   String name;
   String unit;
   int amount;
   int calories;
+  String? category;
+  RARecipe? recipe;
 
   // umrechnungsfaktoren für unterstütze Einheiten im Backend speichern, falls Rezept gespeichert wird übergeben
   // z.B.:  {gramm_kilogramm: 1000, ...}
@@ -12,6 +16,8 @@ class RAIngredient {
     required this.unit,
     required this.amount,
     required this.calories,
+    this.category,
+    this.recipe,
   });
 
   factory RAIngredient.fromJson(Map<String, dynamic> json) {
@@ -23,10 +29,24 @@ class RAIngredient {
     );
   }
 
-  Map<String, dynamic> toJson() =>{
-    "ingredient": {"name": name},
-    "amount": {"amount": amount, "unit": unit}
-  };
+  Map<String, dynamic> toJson() => {
+        "ingredient": {"name": name},
+        "amount": {"amount": amount, "unit": unit}
+      };
+
+  factory RAIngredient.fromJsonLocal(Map<String, dynamic> json) {
+    return RAIngredient(
+      name: json['ingredient']['name'],
+      unit: json['amountInformation']['unit'],
+      amount: json['amountInformation']['amount'].round(),
+      calories: 0,
+    );
+  }
+
+  Map<String, dynamic> toJsonLocal() => {
+        "ingredient": {"name": name},
+        "amountInformation": {"amount": amount, "unit": unit}
+      };
 
   @override
   String toString() => '$amount $unit $name';

@@ -4,7 +4,7 @@ import 'package:flutter_frontend_recipes/layout/bottom_navigation_bar_recipe_app
 import 'package:flutter_frontend_recipes/pages/feed/main-page-feed.dart';
 import 'package:flutter_frontend_recipes/pages/profile/main-page-profile.dart';
 import 'package:flutter_frontend_recipes/pages/recipes/main_page_recipes.dart';
-import 'package:flutter_frontend_recipes/pages/shopping-lists/main-page-shopping-lists.dart';
+import 'package:flutter_frontend_recipes/pages/shopping-lists/new_main_page_shopping_lists.dart';
 
 class RecipeApp extends StatefulWidget {
   const RecipeApp({super.key});
@@ -18,7 +18,8 @@ class _RecipeAppState extends State<RecipeApp> {
   final List<Widget> _pages = [
     const MainFeed(),
     const RecipeScreen(),
-    const MainPageShoppingLists(),
+    //const MainPageShoppingLists(),
+    NewMainPageShoppingLists(),
     const ProfileMainPage(),
   ];
   @override

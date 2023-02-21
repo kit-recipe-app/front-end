@@ -3,7 +3,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter_frontend_recipes/authentification/auth.dart';
 import 'package:flutter_frontend_recipes/constants/color_styles.dart';
 import 'package:flutter_frontend_recipes/shared/input_field.dart';
-import 'package:flutter_frontend_recipes/shared/submit_button.dart';
+import 'package:flutter_frontend_recipes/shared/button.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 class LoginPage extends StatefulWidget {
@@ -159,20 +159,20 @@ class _LoginPageState extends State<LoginPage> {
                   ),
                   _errorMessage(),
                   isLogin
-                      ? RASubmitButton(
+                      ? RAButton(
                           onTap: signInWithEmailAndPassword,
                           description: "Login",
                           backgroundColor:
                               RecipeAppColorStyles.recipeAppMainColor,
                         )
-                      : RASubmitButton(
+                      : RAButton(
                           onTap: createUserWithEmailAndPassword,
                           description: "Registrieren",
                           backgroundColor:
                               RecipeAppColorStyles.recipeAppMainColor,
                         ),
                   isLogin
-                      ? RASubmitButton(
+                      ? RAButton(
                           onTap: signInWithGoogle,
                           description: "Mit Google anmelden",
                           backgroundColor: Colors.white,
@@ -187,7 +187,7 @@ class _LoginPageState extends State<LoginPage> {
             ),
             floatingActionButton: Visibility(
               visible: MediaQuery.of(context).viewInsets.bottom == 0.0,
-              child: RASubmitButton(
+              child: RAButton(
                 onTap: switchLoginOrRegister,
                 description: isLogin ? loginToRegister : registerToLogin,
                 margin: 16,
