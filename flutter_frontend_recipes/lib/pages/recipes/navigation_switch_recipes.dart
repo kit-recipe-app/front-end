@@ -30,7 +30,7 @@ class RecipeAppNavigationSwitchRecipes extends StatelessWidget {
                       style: TextStyle(
                         color: (selectedIndex == 0)
                             ? RecipeAppColorStyles.selectedTextColor
-                            : RecipeAppColorStyles.unSelectedTextColor,
+                            : Theme.of(context).colorScheme.onSecondary,
                       ),
                     ),
                   ),
@@ -48,7 +48,7 @@ class RecipeAppNavigationSwitchRecipes extends StatelessWidget {
                       style: TextStyle(
                         color: (selectedIndex == 1)
                             ? RecipeAppColorStyles.selectedTextColor
-                            : RecipeAppColorStyles.unSelectedTextColor,
+                            : Theme.of(context).colorScheme.onSecondary,
                       ),
                     ),
                   ),
@@ -76,7 +76,7 @@ class RecipeAppNavigationSwitchRecipes extends StatelessWidget {
               height: 2,
               width: (MediaQuery.of(context).size.width - 32),
               child: Container(
-                color: Colors.black12,
+                color: Theme.of(context).colorScheme.onSecondary.withOpacity(0.12),
               ),
             ),
           )

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_frontend_recipes/pages/profile/profile-sub-pages/manage-friends.dart';
-import 'package:flutter_frontend_recipes/pages/profile/profile-sub-pages/setting-option-card.dart';
-import 'package:flutter_frontend_recipes/pages/profile/profile-sub-pages/profile-settings.dart';
+import 'package:flutter_frontend_recipes/pages/profile_old/profile-sub-pages/manage-friends.dart';
+import 'package:flutter_frontend_recipes/pages/profile_old/profile-sub-pages/setting-option-card.dart';
+import 'package:flutter_frontend_recipes/pages/profile_old/profile-sub-pages/profile-settings.dart';
 
 import 'change-preferences.dart';
 

@@ -31,26 +31,23 @@ class _NameRecipeState extends State<NameRecipe> {
     return Material(
         child: Column(
       children: [
-        Padding(
-          padding: const EdgeInsets.fromLTRB(0, 20, 0, 0),
-          child: Stack(children: [
-            IconButton(
-              onPressed: () {
-                Navigator.pop(context);
-              },
-              icon: const Icon(
-                Icons.arrow_back,
-                size: 32,
-                color: Colors.black,
-                shadows: [Shadow(color: Colors.black, blurRadius: 1.0)],
-              ),
+        Stack(children: [
+          IconButton(
+            onPressed: () {
+              Navigator.pop(context);
+            },
+            icon: Icon(
+              Icons.arrow_back,
+              size: 32,
+              color: Theme.of(context).colorScheme.onSecondary,
+              shadows: [Shadow(color: Colors.black, blurRadius: 1.0)],
             ),
-            const Padding(
-              padding: EdgeInsets.fromLTRB(0, 20, 0, 0),
-              child: Progress(total: 4, current: 1),
-            ),
-          ]),
-        ),
+          ),
+          const Padding(
+            padding: EdgeInsets.fromLTRB(0, 20, 0, 0),
+            child: Progress(total: 4, current: 1),
+          ),
+        ]),
         const RecipeTitle(
             name: "Gib deinem Gericht einen Namen und eine Beschreibung"),
         Padding(
