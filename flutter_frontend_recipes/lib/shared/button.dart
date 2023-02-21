@@ -1,20 +1,22 @@
 import 'package:flutter/material.dart';
 
-class RASubmitButton extends StatelessWidget {
+class RAButton extends StatelessWidget {
   final Function onTap;
   final String description;
   final Color backgroundColor;
   final Color textColor;
   final double margin;
+  final EdgeInsets padding;
   final bool shadow;
   final IconData? icon;
   final Color? iconColor;
-  const RASubmitButton({
+  const RAButton({
     required this.onTap,
     required this.description,
     this.backgroundColor = Colors.black87,
     this.textColor = Colors.white,
     this.margin = 0,
+    this.padding = const EdgeInsets.fromLTRB(16, 8, 16, 8),
     this.shadow = true,
     this.icon,
     this.iconColor,
@@ -40,7 +42,7 @@ class RASubmitButton extends StatelessWidget {
             ),
           ],
         ),
-        padding: const EdgeInsets.fromLTRB(16, 8, 16, 8),
+        padding: padding,
         child: Row(
           mainAxisSize: MainAxisSize.min,
           children: [
@@ -51,7 +53,10 @@ class RASubmitButton extends StatelessWidget {
                   )
                 : Padding(
                     padding: const EdgeInsets.only(right: 8),
-                    child: Icon(icon, color: iconColor,),
+                    child: Icon(
+                      icon,
+                      color: iconColor,
+                    ),
                   ),
             Text(
               description,
