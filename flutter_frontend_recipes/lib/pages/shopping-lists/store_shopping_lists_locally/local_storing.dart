@@ -4,10 +4,17 @@ import 'package:flutter_frontend_recipes/types/shopping_list.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class LocalStorage {
+
+  final shoppingListPrefix = "shoppinglist_";
+
   Future<void> wipeData() async {
     final prefs = await SharedPreferences.getInstance();
-    prefs.clear();
-    print("cleared");
+    final shoppingListKeys = prefs
+        .getKeys()
+        .where((key) => key.isNotEmpty && key[0] != "_" && key.startsWith(shoppingListPrefix));
+    for (String key in shoppingListKeys){
+      await prefs.remove(key);
+    }
   }
 
   Future<void> saveShoppingList(RAShoppingList shoppingList) async {
@@ -22,7 +29,7 @@ class LocalStorage {
 
     //print(shoppingList.toJson().toString());
     await prefs.setString(
-        shoppingList.title, jsonEncode(shoppingList.toJson()));
+        shoppingListPrefix + shoppingList.title, jsonEncode(shoppingList.toJson()));
   }
 
   Future<List<RAShoppingList>> getShoppingLists() async {
@@ -30,7 +37,7 @@ class LocalStorage {
 
     final shoppingListKeys = prefs
         .getKeys()
-        .where((key) => key is String && key.isNotEmpty && key[0] != "_");
+        .where((key) => key.isNotEmpty && key[0] != "_" && key.startsWith(shoppingListPrefix));
     final List<RAShoppingList> shoppingLists = [];
 
     for (final shoppingListKey in shoppingListKeys) {

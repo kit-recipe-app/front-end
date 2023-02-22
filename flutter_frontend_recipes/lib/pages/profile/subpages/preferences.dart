@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_frontend_recipes/pages/profile/components/tile_divider.dart';
 import 'package:flutter_frontend_recipes/pages/profile/components/widget_tile.dart';
+import 'package:flutter_frontend_recipes/shared/shared_prefs.dart';
 
 class Preferences extends StatefulWidget {
   const Preferences({Key? key}) : super(key: key);
@@ -10,15 +11,17 @@ class Preferences extends StatefulWidget {
 }
 
 class _PreferencesState extends State<Preferences> {
-  bool all = true;
-  bool vegan = false;
-  bool vegetarian = false;
-  bool pescetarian = false;
+  bool all = SharedPrefs().getFoodPref(allText) == null ? false : SharedPrefs().getFoodPref(allText)!;
+  bool vegan = SharedPrefs().getFoodPref(veganText) == null ? false : SharedPrefs().getFoodPref(veganText)!;
+  bool vegetarian = SharedPrefs().getFoodPref(vegetarianText) == null ? false : SharedPrefs().getFoodPref(vegetarianText)!;
+  bool pescetarian = SharedPrefs().getFoodPref(pescetarianText) == null ? false : SharedPrefs().getFoodPref(pescetarianText)!;
+
   String title = "Nahrungsmittelpräferenzen";
-  String allText = "Omnivor";
-  String veganText = "Vegan";
-  String vegetarianText = "Vegetarisch";
-  String pescetarianText = "Pescetarisch";
+  static String allText = "Omnivor";
+  static String veganText = "Vegan";
+  static String vegetarianText = "Vegetarisch";
+  static String pescetarianText = "Pescetarisch";
+  List<String> prefTexts = [allText, vegetarianText, veganText, pescetarianText];
 
   @override
   Widget build(BuildContext context) {
@@ -41,7 +44,9 @@ class _PreferencesState extends State<Preferences> {
                      all = value!;
                      if (value){
                        vegan = vegetarian = pescetarian = false;
+                       SharedPrefs().setMultiplePref(prefTexts..remove(allText), !value);
                      }
+                     SharedPrefs().setFoodPref(allText, value);
                     });
                   },
                 )),
@@ -51,12 +56,13 @@ class _PreferencesState extends State<Preferences> {
             value: vegetarian,
             onChanged: (bool? value) {
               setState(() {
-                setState(() {
                   vegetarian = value!;
                   if (value){
                     vegan = all = pescetarian = false;
+                    SharedPrefs().setMultiplePref(prefTexts..remove(vegetarianText), !value);
                   }
-                });
+                  SharedPrefs().setFoodPref(vegetarianText, value);
+
               });
             },
           )),
@@ -66,12 +72,12 @@ class _PreferencesState extends State<Preferences> {
             value: vegan,
             onChanged: (bool? value) {
               setState(() {
-                setState(() {
                   vegan = value!;
                   if (value){
                     all = vegetarian = pescetarian = false;
+                    SharedPrefs().setMultiplePref(prefTexts..remove(veganText), !value);
                   }
-                });
+                  SharedPrefs().setFoodPref(veganText, value);
               });
             },
           )),
@@ -81,12 +87,12 @@ class _PreferencesState extends State<Preferences> {
             value: pescetarian,
             onChanged: (bool? value) {
               setState(() {
-                setState(() {
                   pescetarian = value!;
                   if (value){
                     vegan = vegetarian = all = false;
+                    SharedPrefs().setMultiplePref(prefTexts..remove(pescetarianText), !value);
                   }
-                });
+                  SharedPrefs().setFoodPref(pescetarianText, value);
               });
             },
           )),

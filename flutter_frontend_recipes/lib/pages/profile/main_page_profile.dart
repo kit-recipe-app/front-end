@@ -6,6 +6,7 @@ import 'package:flutter_frontend_recipes/pages/profile/subpages/app_settings.dar
 import 'package:flutter_frontend_recipes/pages/profile/subpages/preferences.dart';
 
 import '../../authentification/auth.dart';
+import '../../backend_connection/loader.dart';
 import '../../constants/color_styles.dart';
 import '../../constants/font_styles.dart';
 import '../../constants/icon_designs.dart';
@@ -18,8 +19,8 @@ class ProfilePage extends StatefulWidget {
 }
 
 class _ProfilePageState extends State<ProfilePage> {
+  Loader loader = Loader();
   String title = 'Dein Profil';
-  String name = "Johannes";
   String preference = "Vegetarier";
   String editProfile = "Profil bearbeiten";
 
@@ -83,8 +84,18 @@ class _ProfilePageState extends State<ProfilePage> {
                             child: Column(
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
-                                Text(
-                                  name, style: TextStyle(fontSize: 25, fontWeight: FontWeight.bold),
+                                FutureBuilder(
+                                  future: loader.getUsername(),
+                                  builder:
+                                      (BuildContext context, AsyncSnapshot<String> snapshot) {
+                                    if (snapshot.hasData) {
+                                      return Text(snapshot.data!, style: TextStyle(fontSize: 25),);
+                                    } else {
+                                      return const Center(
+                                        child: CircularProgressIndicator(),
+                                      );
+                                    }
+                                  },
                                 ),
                                 Padding(
                                   padding: const EdgeInsets.fromLTRB(0, 4, 0, 0),
