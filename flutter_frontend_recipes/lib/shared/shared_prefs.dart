@@ -19,12 +19,20 @@ class SharedPrefs {
     return _sharedPrefs.getBool(pref);
   }
 
+  bool? getAllergy(String allergy){
+    return _sharedPrefs.getBool(allergy);
+  }
+
   void setTheme(bool value) {
     _sharedPrefs.setBool("selectedTheme", value);  // Using selectedThemeIndex from constant
   }
 
   void setFoodPref(String pref, bool value){
     _sharedPrefs.setBool(pref, value);
+  }
+
+  void setAllergy(String allergy, bool value){
+    _sharedPrefs.setBool(allergy, value);
   }
 
   void setMultiplePref(List<String> prefs, bool value){
