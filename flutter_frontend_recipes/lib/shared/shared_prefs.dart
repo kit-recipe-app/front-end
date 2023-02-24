@@ -1,5 +1,6 @@
 import 'package:shared_preferences/shared_preferences.dart';
 
+
 class SharedPrefs {
   static late SharedPreferences _sharedPrefs;
 
@@ -17,6 +18,16 @@ class SharedPrefs {
 
   bool? getFoodPref(String pref){
     return _sharedPrefs.getBool(pref);
+  }
+
+  String getChosenPref(){
+    List<String> prefs = ["Omnivor", "Vegan", "Vegetarisch", "Pescetarisch"];
+    for (String pref in prefs){
+     if (_sharedPrefs.getBool(pref) ?? false == true){
+       return pref;
+     }
+    }
+    return "Omnivor";
   }
 
   bool? getAllergy(String allergy){
@@ -39,5 +50,9 @@ class SharedPrefs {
     for(String pref in prefs){
       _sharedPrefs.setBool(pref, value);
     }
+  }
+
+  void clear(){
+    _sharedPrefs.clear();
   }
 }

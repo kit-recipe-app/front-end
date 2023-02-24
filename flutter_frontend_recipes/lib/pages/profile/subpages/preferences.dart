@@ -44,7 +44,8 @@ class _PreferencesState extends State<Preferences> {
                      all = value!;
                      if (value){
                        vegan = vegetarian = pescetarian = false;
-                       SharedPrefs().setMultiplePref(prefTexts..remove(allText), !value);
+                       List <String> tmp = [...prefTexts];
+                       SharedPrefs().setMultiplePref(tmp..remove(allText), !value);
                      }
                      SharedPrefs().setFoodPref(allText, value);
                     });
@@ -59,7 +60,8 @@ class _PreferencesState extends State<Preferences> {
                   vegetarian = value!;
                   if (value){
                     vegan = all = pescetarian = false;
-                    SharedPrefs().setMultiplePref(prefTexts..remove(vegetarianText), !value);
+                    List <String> tmp = [...prefTexts];
+                    SharedPrefs().setMultiplePref(tmp..remove(vegetarianText), !value);
                   }
                   SharedPrefs().setFoodPref(vegetarianText, value);
 
@@ -75,7 +77,8 @@ class _PreferencesState extends State<Preferences> {
                   vegan = value!;
                   if (value){
                     all = vegetarian = pescetarian = false;
-                    SharedPrefs().setMultiplePref(prefTexts..remove(veganText), !value);
+                    List <String> tmp = [...prefTexts];
+                    SharedPrefs().setMultiplePref(tmp..remove(veganText), !value);
                   }
                   SharedPrefs().setFoodPref(veganText, value);
               });
@@ -90,7 +93,8 @@ class _PreferencesState extends State<Preferences> {
                   pescetarian = value!;
                   if (value){
                     vegan = vegetarian = all = false;
-                    SharedPrefs().setMultiplePref(prefTexts..remove(pescetarianText), !value);
+                    List <String> tmp = [...prefTexts];
+                    SharedPrefs().setMultiplePref(tmp..remove(pescetarianText), !value);
                   }
                   SharedPrefs().setFoodPref(pescetarianText, value);
               });

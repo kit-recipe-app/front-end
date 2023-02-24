@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 
+import '../../../shared/input_field.dart';
+
 class PasswordDialog extends StatefulWidget {
   final String title;
   final Function setPassword;
@@ -24,35 +26,26 @@ class _PasswordDialogState extends State<PasswordDialog> {
     return AlertDialog(
       title: Text(widget.title),
       content: SizedBox(
-        height: 200,
+        height: 220,
         child: Column(
           children: [
-            SizedBox(
-              width: MediaQuery.of(context).size.width - 170,
-              child: TextField(
-                controller: _controllerOld,
-                decoration: const InputDecoration(
-                  labelText: "altes Passwort"
-                ),
-              ),
+            RAInputField(
+              hintText: "altes Passwort",
+              controller: _controllerOld,
+              isPassword: true,
+              icon: Icons.key,
             ),
-            SizedBox(
-              width: MediaQuery.of(context).size.width - 170,
-              child: TextField(
-                controller: _controllerNew,
-                decoration: const InputDecoration(
-                    labelText: "neues Passwort"
-                ),
-              ),
+            RAInputField(
+              hintText: "neues Passwort",
+              controller: _controllerNew,
+              isPassword: true,
+              icon: Icons.key,
             ),
-            SizedBox(
-              width: MediaQuery.of(context).size.width - 170,
-              child: TextField(
-                controller: _controllerNewRepeat,
-                decoration: const InputDecoration(
-                    labelText: "neues Passwort wiederholen"
-                ),
-              ),
+            RAInputField(
+              hintText: "wiederholen",
+              controller: _controllerNewRepeat,
+              isPassword: true,
+              icon: Icons.key,
             ),
           ],
         ),

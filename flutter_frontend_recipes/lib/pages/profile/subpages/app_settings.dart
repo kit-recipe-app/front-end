@@ -49,7 +49,15 @@ class _AppSettingsState extends State<AppSettings> {
                     value == true
                         ? MyApp.of(context).changeTheme(ThemeMode.dark)
                         : MyApp.of(context).changeTheme(ThemeMode.light);
-                  }))
+                  })),
+          SizedBox(
+            height: 100,
+          ),
+          TextTile(
+            text: "Daten löschen",
+            info: "",
+            type: 'data',
+          ),
         ],
       ),
     );

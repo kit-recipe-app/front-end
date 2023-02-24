@@ -1,6 +1,8 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 
+import '../shared/shared_prefs.dart';
+
 class RAAuthService {
   final userStream = FirebaseAuth.instance.authStateChanges();
   final user = FirebaseAuth.instance.currentUser;
@@ -60,4 +62,22 @@ class RAAuthService {
       });
     }).catchError((err) {
     });}
+
+
+  deleteAccount(String password){
+    final user = FirebaseAuth.instance.currentUser;
+    final cred = EmailAuthProvider.credential(
+        email: user!.email!, password: password);
+
+    user.reauthenticateWithCredential(cred).then((value) {
+      user.delete().then((_) {
+        SharedPrefs().clear();
+        return "Erfolgreich";
+      }).catchError((error) {
+        return "Löschen fehlgeschlagen";
+      });
+    }).catchError((err) {
+    });
+    return "Passwort ungültig";
+  }
 }

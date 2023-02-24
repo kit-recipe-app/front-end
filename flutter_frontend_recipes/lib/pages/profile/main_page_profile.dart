@@ -4,6 +4,7 @@ import 'package:flutter_frontend_recipes/pages/profile/subpages/account_settings
 import 'package:flutter_frontend_recipes/pages/profile/subpages/allergies.dart';
 import 'package:flutter_frontend_recipes/pages/profile/subpages/app_settings.dart';
 import 'package:flutter_frontend_recipes/pages/profile/subpages/preferences.dart';
+import 'package:flutter_frontend_recipes/shared/shared_prefs.dart';
 
 import '../../authentification/auth.dart';
 import '../../backend_connection/loader.dart';
@@ -21,8 +22,9 @@ class ProfilePage extends StatefulWidget {
 class _ProfilePageState extends State<ProfilePage> {
   Loader loader = Loader();
   String title = 'Dein Profil';
-  String preference = "Vegetarier";
+  String preference = SharedPrefs().getChosenPref();
   String editProfile = "Profil bearbeiten";
+  late Future<String> usernameFuture;
 
   Future<void> signOut() async {
     await RAAuthService().signOut();
@@ -34,6 +36,12 @@ class _ProfilePageState extends State<ProfilePage> {
       child: const Text("sign out"),
       style: ButtonStyle(backgroundColor:MaterialStateProperty.all<Color>(color)),
     );
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    usernameFuture = loader.getUsername();
   }
 
   @override
@@ -85,7 +93,7 @@ class _ProfilePageState extends State<ProfilePage> {
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
                                 FutureBuilder(
-                                  future: loader.getUsername(),
+                                  future: usernameFuture,
                                   builder:
                                       (BuildContext context, AsyncSnapshot<String> snapshot) {
                                     if (snapshot.hasData) {
@@ -120,7 +128,7 @@ class _ProfilePageState extends State<ProfilePage> {
                         child: InkWell(
                             borderRadius: BorderRadius.circular(14),
                             onTap: (){
-                              Navigator.push(context, MaterialPageRoute(builder: (context) => AccountSettings()));
+                              Navigator.push(context, MaterialPageRoute(builder: (context) => AccountSettings())).then((value) => setMainPageState());
                             },
                             child: const SizedBox.shrink()),
                       ),
@@ -140,17 +148,25 @@ class _ProfilePageState extends State<ProfilePage> {
             ),
             Padding(
               padding: const EdgeInsets.fromLTRB(0, 20, 0, 0),
-              child: SettingButton(text: 'Einstellungen', page: AppSettings(),),
+              child: SettingButton(text: 'Einstellungen', page: AppSettings(), setMainPageState: setMainPageState,),
             ),
             Padding(
               padding: const EdgeInsets.fromLTRB(0, 10, 0, 0),
-              child: SettingButton(text: 'Nahrungsmittelpräferenzen', page: Preferences()),
+              child: SettingButton(text: 'Nahrungsmittelpräferenzen', page: Preferences(), setMainPageState: setMainPageState,),
             ),
             Padding(
               padding: const EdgeInsets.fromLTRB(0, 10, 0, 0),
-              child: SettingButton(text: 'Allergien', page: Allergies()),
+              child: SettingButton(text: 'Allergien', page: Allergies(), setMainPageState: setMainPageState,),
             ),
           ],
         ));
+  }
+
+
+  void setMainPageState(){
+    setState(() {
+      preference = SharedPrefs().getChosenPref();
+      usernameFuture = loader.getUsername();
+    });
   }
 }
