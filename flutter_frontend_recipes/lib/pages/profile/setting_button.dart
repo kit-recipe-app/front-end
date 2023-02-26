@@ -3,7 +3,8 @@ import 'package:flutter/material.dart';
 class SettingButton extends StatefulWidget {
   final String text;
   final Widget page;
-  const SettingButton({Key? key, required this.text, required this.page}) : super(key: key);
+  Function setMainPageState;
+  SettingButton({Key? key, required this.text, required this.page, required this.setMainPageState}) : super(key: key);
 
   @override
   State<SettingButton> createState() => _SettingButtonState();
@@ -49,7 +50,7 @@ class _SettingButtonState extends State<SettingButton> {
             child: InkWell(
                 borderRadius: BorderRadius.circular(35),
                 onTap: (){
-                  Navigator.push(context, MaterialPageRoute(builder: (context) => widget.page));
+                  Navigator.push(context, MaterialPageRoute(builder: (context) => widget.page)).then((value) => widget.setMainPageState());
                 },
                 child: const SizedBox.shrink()),
           ),

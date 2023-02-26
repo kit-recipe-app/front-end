@@ -22,7 +22,13 @@ class _AccountSettingsState extends State<AccountSettings> {
   String name = "Johannes";
   Loader loader = Loader();
   Putter putter = Putter();
+  late Future<String> futureUsername;
 
+  @override
+  void initState() {
+    futureUsername = loader.getUsername();
+    super.initState();
+  }
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -41,7 +47,7 @@ class _AccountSettingsState extends State<AccountSettings> {
           UsernameTile(
               title: "Nutzername",
               info: FutureBuilder(
-                future: loader.getUsername(),
+                future: futureUsername,
                 builder:
                     (BuildContext context, AsyncSnapshot<String> snapshot) {
                       if (snapshot.hasData) {
@@ -52,7 +58,7 @@ class _AccountSettingsState extends State<AccountSettings> {
                         );
                       }
                     },
-              ), setName: setUsername,
+              ), setName: setUsername, setFuture: setUsernameFuture,
           ),
           TileDivider(),
           PasswordTile(
@@ -65,7 +71,7 @@ class _AccountSettingsState extends State<AccountSettings> {
           TextTile(
             text: "Account löschen",
             info: "",
-            type: 'text',
+            type: 'account',
           ),
         ],
       ),
@@ -78,6 +84,11 @@ class _AccountSettingsState extends State<AccountSettings> {
     });
   }
 
+  void setUsernameFuture(){
+    setState(() {
+      futureUsername = loader.getUsername();
+    });
+  }
   //maybe async
   String changePassword(String currentPassword, String newPassword) {
     final user = FirebaseAuth.instance.currentUser;
