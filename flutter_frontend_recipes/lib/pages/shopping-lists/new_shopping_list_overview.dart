@@ -3,6 +3,8 @@ import 'dart:ui';
 import 'package:flutter/material.dart';
 import 'package:flutter_frontend_recipes/constants/color_styles.dart';
 import 'package:flutter_frontend_recipes/pages/shopping-lists/new_shopping_list_item_overview.dart';
+import 'package:flutter_frontend_recipes/shared/button.dart';
+import 'package:flutter_frontend_recipes/shared/input_field.dart';
 import 'package:flutter_frontend_recipes/types/shopping_list.dart';
 
 class RAShoppingListOverview extends StatefulWidget {
@@ -15,6 +17,51 @@ class RAShoppingListOverview extends StatefulWidget {
 
 class _RAShoppingListOverviewState extends State<RAShoppingListOverview> {
   bool orderedByCategory = false;
+
+  Widget getEditingDialogue(BuildContext context) {
+    TextEditingController titleController = TextEditingController();
+    return AlertDialog(
+      title: RAInputField(
+        hintText: "Titel ändern",
+        controller: titleController,
+      ),
+      content: Column(
+        mainAxisSize: MainAxisSize.min,
+        children: <Widget>[
+          RAButton(
+            onTap: () {
+              print("delete has to implemented");
+            },
+            description: "löschen",
+            padding: const EdgeInsets.fromLTRB(16, 12, 16, 12),
+            backgroundColor: Colors.red,
+            icon: Icons.delete,
+            iconColor: Colors.white,
+            shadow: false,
+          ),
+        ],
+      ),
+      actions: <Widget>[
+        RAButton(
+          onTap: () {
+            print("nothing happend");
+            Navigator.pop(context);
+          },
+          description: "abbrechen",
+          backgroundColor: Colors.black54,
+        ),
+        RAButton(
+          onTap: () {
+            print(titleController.text);
+            print("Change name has to be implemented");
+            Navigator.pop(context);
+          },
+          description: "ok",
+          backgroundColor: Colors.green,
+        ),
+      ],
+    );
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -41,7 +88,13 @@ class _RAShoppingListOverviewState extends State<RAShoppingListOverview> {
             ),
             actions: [
               IconButton(
-                onPressed: () {},
+                onPressed: () {
+                  showDialog(
+                    context: context,
+                    builder: (BuildContext context) =>
+                        getEditingDialogue(context),
+                  );
+                },
                 icon: const Icon(
                   Icons.edit,
                   size: 24,
