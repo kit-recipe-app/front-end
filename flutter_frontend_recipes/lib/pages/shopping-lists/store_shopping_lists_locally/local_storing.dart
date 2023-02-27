@@ -32,6 +32,10 @@ class LocalStorage {
         shoppingListPrefix + shoppingList.title, jsonEncode(shoppingList.toJson()));
   }
 
+  Future<void> deleteShoppingList(RAShoppingList shoppingList) async {
+    
+  }
+
   Future<List<RAShoppingList>> getShoppingLists() async {
     final prefs = await SharedPreferences.getInstance();
 
