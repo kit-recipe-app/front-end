@@ -33,6 +33,7 @@ class _NameRecipeState extends State<NameRecipe> {
       children: [
         Stack(children: [
           IconButton(
+            key: Key("IconButton"),
             onPressed: () {
               Navigator.pop(context);
             },

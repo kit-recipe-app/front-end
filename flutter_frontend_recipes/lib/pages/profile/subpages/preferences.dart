@@ -37,6 +37,7 @@ class _PreferencesState extends State<Preferences> {
       body: Column(
         children: [
           WidgetTile(text: allText, info: Checkbox(
+            key: const Key("Omnivor_Checkbox"),
             activeColor: activeColor,
                   value: all,
                   onChanged: (bool? value) {
@@ -53,6 +54,7 @@ class _PreferencesState extends State<Preferences> {
                 )),
           const TileDivider(),
           WidgetTile(text: vegetarianText, info: Checkbox(
+            key: const Key("Vegetarian_Checkbox"),
             activeColor: activeColor,
             value: vegetarian,
             onChanged: (bool? value) {
@@ -70,6 +72,7 @@ class _PreferencesState extends State<Preferences> {
           )),
           const TileDivider(),
           WidgetTile(text: veganText, info: Checkbox(
+            key: const Key("Vegan_Checkbox"),
             activeColor: activeColor,
             value: vegan,
             onChanged: (bool? value) {
@@ -86,6 +89,7 @@ class _PreferencesState extends State<Preferences> {
           )),
           const TileDivider(),
           WidgetTile(text: pescetarianText, info: Checkbox(
+            key: const Key("Pescetarian_Checkbox"),
             activeColor: activeColor,
             value: pescetarian,
             onChanged: (bool? value) {
