@@ -4,7 +4,11 @@ import 'package:flutter_frontend_recipes/types/ingredient.dart';
 
 class RAShoppingListItemOverview extends StatelessWidget {
   RAIngredient item;
-  RAShoppingListItemOverview({required this.item, super.key});
+  Function updateShoppingListIngredient;
+  RAShoppingListItemOverview(
+      {required this.item,
+      required this.updateShoppingListIngredient,
+      super.key});
 
   Widget getTopRow() {
     return Row(
@@ -25,9 +29,12 @@ class RAShoppingListItemOverview extends StatelessWidget {
           ),
         ),
         InkWell(
-          onTap: () {},
-          child: const Icon(
-            Icons.check_box_outline_blank,
+          onTap: () {
+            item.done = !item.done;
+            updateShoppingListIngredient(item);
+          },
+          child: Icon(
+            item.done ? Icons.check_box : Icons.check_box_outline_blank,
           ),
         )
       ],

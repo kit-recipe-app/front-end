@@ -4,44 +4,72 @@ import 'package:flutter_frontend_recipes/types/shopping_list.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class LocalStorage {
-
   final shoppingListPrefix = "shoppinglist_";
 
   Future<void> wipeData() async {
     final prefs = await SharedPreferences.getInstance();
-    final shoppingListKeys = prefs
-        .getKeys()
-        .where((key) => key.isNotEmpty && key[0] != "_" && key.startsWith(shoppingListPrefix));
-    for (String key in shoppingListKeys){
+    final shoppingListKeys = prefs.getKeys().where((key) =>
+        key.isNotEmpty && key[0] != "_" && key.startsWith(shoppingListPrefix));
+    for (String key in shoppingListKeys) {
       await prefs.remove(key);
     }
   }
 
-  Future<void> saveShoppingList(RAShoppingList shoppingList) async {
+  Future<bool> saveShoppingList(RAShoppingList shoppingList) async {
+    if (await shoppingListExists(shoppingList.title)) {
+      return false;
+    }
     final prefs = await SharedPreferences.getInstance();
-
-    /*
-    final List<String> itemsJson = shoppingList.items
-            ?.map((item) => json.encode(item.toJson()))
-            .toList() ??
-        [];
-    */
-
-    //print(shoppingList.toJson().toString());
-    await prefs.setString(
-        shoppingListPrefix + shoppingList.title, jsonEncode(shoppingList.toJson()));
+    String shoppingListKey = shoppingListPrefix + shoppingList.title;
+    await prefs.setString(shoppingListKey, jsonEncode(shoppingList.toJson()));
+    return true;
   }
 
-  Future<void> deleteShoppingList(RAShoppingList shoppingList) async {
-    
+  Future<void> updateShoppingList(RAShoppingList shoppingList) async {
+    final prefs = await SharedPreferences.getInstance();
+    String shoppingListKey = shoppingListPrefix + shoppingList.title;
+    await prefs.setString(shoppingListKey, jsonEncode(shoppingList.toJson()));
+  }
+
+  Future<void> deleteSingleShoppingList(String title) async {
+    final prefs = await SharedPreferences.getInstance();
+    final shoppingListKey = shoppingListPrefix + title;
+    await prefs.remove(shoppingListKey);
+  }
+
+  Future<bool> shoppingListExists(String title) async {
+    final prefs = await SharedPreferences.getInstance();
+    final shoppingListKeys = prefs.getKeys().where(
+        (String key) => key.isNotEmpty && key.startsWith(shoppingListPrefix));
+    return shoppingListKeys.contains(shoppingListPrefix + title);
+  }
+
+  Future<RAShoppingList?> getSingleShoppingList(
+      String shoppingListTitle) async {
+    if (!(await shoppingListExists(shoppingListTitle))) {
+      return null;
+    }
+    final prefs = await SharedPreferences.getInstance();
+    final shoppingListKey = shoppingListPrefix + shoppingListTitle;
+    final shoppingListJson = prefs.getString(shoppingListKey);
+    return RAShoppingList.fromJson(jsonDecode(shoppingListJson!));
+  }
+
+  Future<void> changeShoppingListTitle(String oldTitle, String newTitle) async {
+    final prefs = await SharedPreferences.getInstance();
+    RAShoppingList? shoppingList = await getSingleShoppingList(oldTitle);
+    shoppingList!.title = newTitle;
+    deleteSingleShoppingList(oldTitle);
+    String newShoppingListKey = shoppingListPrefix + newTitle;
+    await prefs.setString(
+        newShoppingListKey, jsonEncode(shoppingList.toJson()));
   }
 
   Future<List<RAShoppingList>> getShoppingLists() async {
     final prefs = await SharedPreferences.getInstance();
 
-    final shoppingListKeys = prefs
-        .getKeys()
-        .where((key) => key.isNotEmpty && key[0] != "_" && key.startsWith(shoppingListPrefix));
+    final shoppingListKeys = prefs.getKeys().where((key) =>
+        key.isNotEmpty && key[0] != "_" && key.startsWith(shoppingListPrefix));
     final List<RAShoppingList> shoppingLists = [];
 
     for (final shoppingListKey in shoppingListKeys) {

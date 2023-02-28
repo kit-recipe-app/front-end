@@ -7,6 +7,7 @@ class RAIngredient {
   int calories;
   String? category;
   RARecipe? recipe;
+  bool done;
 
   // umrechnungsfaktoren für unterstütze Einheiten im Backend speichern, falls Rezept gespeichert wird übergeben
   // z.B.:  {gramm_kilogramm: 1000, ...}
@@ -18,6 +19,7 @@ class RAIngredient {
     required this.calories,
     this.category,
     this.recipe,
+    this.done = false,
   });
 
   factory RAIngredient.fromJson(Map<String, dynamic> json) {
@@ -40,12 +42,14 @@ class RAIngredient {
       unit: json['amountInformation']['unit'],
       amount: json['amountInformation']['amount'].round(),
       calories: 0,
+      done: json["done"],
     );
   }
 
   Map<String, dynamic> toJsonLocal() => {
         "ingredient": {"name": name},
-        "amountInformation": {"amount": amount, "unit": unit}
+        "amountInformation": {"amount": amount, "unit": unit},
+        "done": done,
       };
 
   @override
