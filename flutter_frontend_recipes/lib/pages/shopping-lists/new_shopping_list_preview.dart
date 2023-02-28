@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_frontend_recipes/pages/shopping-lists/new_shopping_list_overview.dart';
+import 'package:flutter_frontend_recipes/pages/shopping-lists/store_shopping_lists_locally/local_storing.dart';
 import 'package:flutter_frontend_recipes/types/shopping_list.dart';
 
 class NewShoppingListPreview extends StatefulWidget {
@@ -41,7 +42,9 @@ class _NewShoppingListPreviewState extends State<NewShoppingListPreview> {
     return Text(
       (amountItems == "0")
           ? "noch nichts hinzugefügt"
-          : "$amountItems Gegenstände",
+          : (amountItems == "1")
+              ? "1 Gegenstand"
+              : "$amountItems Gegenstände",
       style: const TextStyle(
         fontSize: 10,
       ),
@@ -51,15 +54,23 @@ class _NewShoppingListPreviewState extends State<NewShoppingListPreview> {
   Widget getFavouriteButton() {
     return InkWell(
       onTap: () {
-        setState(() {
-          widget.shoppingList.favourite = !widget.shoppingList.favourite;
-        });
+        _updateShoppingList();
       },
       child: Icon(
         widget.shoppingList.favourite ? Icons.star : Icons.star_border,
         color: Colors.yellow,
       ),
     );
+  }
+
+  Future<void> _updateShoppingList() async {
+    final shoppingList = RAShoppingList(
+      title: widget.shoppingList.title,
+      creationDate: widget.shoppingList.creationDate,
+      items: widget.shoppingList.items,
+      favourite: !widget.shoppingList.favourite,
+    );
+    await LocalStorage().updateShoppingList(shoppingList);
   }
 
   @override
@@ -105,7 +116,7 @@ class _NewShoppingListPreviewState extends State<NewShoppingListPreview> {
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               crossAxisAlignment: CrossAxisAlignment.end,
               children: [
-                const Text("test"), //TODO
+                //const Text("test"), //TODO
                 getBottomInfo(),
               ],
             )

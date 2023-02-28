@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_frontend_recipes/pages/shopping-lists/store_shopping_lists_locally/local_storing.dart';
-import 'package:flutter_frontend_recipes/shared/button.dart';
+import 'package:flutter_frontend_recipes/shared/input_field.dart';
 import 'package:flutter_frontend_recipes/types/ingredient.dart';
 import 'package:flutter_frontend_recipes/types/shopping_list.dart';
 
@@ -14,6 +14,13 @@ class AddShoppingListScreen extends StatefulWidget {
 class _AddShoppingListScreenState extends State<AddShoppingListScreen> {
   final _titleController = TextEditingController();
   final _itemControllers = <RAIngredient>[];
+  bool titleMissing = false;
+
+  void resetTitleMissing() {
+    setState(() {
+      titleMissing = false;
+    });
+  }
 
   void _addItem() {
     setState(() {
@@ -30,8 +37,11 @@ class _AddShoppingListScreenState extends State<AddShoppingListScreen> {
     final shoppingList = RAShoppingList(
       title: _titleController.text.trim(),
       creationDate: DateTime.now(),
-      items: _itemControllers.isNotEmpty ? _itemControllers : null,
+      //items: _itemControllers.isNotEmpty ? _itemControllers : null,
     );
+    for (RAIngredient item in _itemControllers) {
+      shoppingList.addItem(item);
+    }
     await LocalStorage().saveShoppingList(shoppingList);
   }
 
@@ -39,29 +49,28 @@ class _AddShoppingListScreenState extends State<AddShoppingListScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Add Shopping List'),
-      ),
-      floatingActionButton: RAButton(
-        onTap: () {
-          LocalStorage().wipeData();
-        },
-        description: "alle Listen löschen",
+        leading: IconButton(
+          onPressed: () => Navigator.pop(context),
+          icon: const Icon(
+            Icons.arrow_back_ios,
+            color: Colors.black,
+          ),
+        ),
+        title: const Text(
+          'Neue Einkaufsliste erstellen',
+          style: TextStyle(color: Colors.black),
+        ),
       ),
       body: Form(
         child: ListView(
           padding: const EdgeInsets.all(16.0),
           children: [
-            TextFormField(
+            RAInputField(
+              hintText: "Titel",
               controller: _titleController,
-              decoration: const InputDecoration(
-                labelText: 'Title',
-              ),
-              validator: (value) {
-                if (value == null || value.trim().isEmpty) {
-                  return 'Please enter a title';
-                }
-                return null;
-              },
+              color:
+                  (titleMissing) ? Colors.red.withOpacity(0.4) : Colors.black12,
+              onNewFocus: resetTitleMissing,
             ),
             const SizedBox(height: 16.0),
             Text(
@@ -77,10 +86,16 @@ class _AddShoppingListScreenState extends State<AddShoppingListScreen> {
             const SizedBox(height: 16.0),
             ElevatedButton(
               onPressed: () {
+                if (_titleController.text.isEmpty) {
+                  setState(() {
+                    titleMissing = true;
+                  });
+                  return;
+                }
                 _saveShoppingList();
                 Navigator.pop(context);
               },
-              child: const Text('Save'),
+              child: const Text('Speichern'),
             ),
           ],
         ),

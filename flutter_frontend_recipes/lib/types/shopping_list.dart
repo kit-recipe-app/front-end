@@ -16,6 +16,27 @@ class RAShoppingList {
     return (items == null) ? 0 : items!.length;
   }
 
+  void addItem(RAIngredient item) {
+    if (items == null) {
+      items = [item];
+      return;
+    }
+    RAIngredient itemInList;
+    if (items!.map((e) => e.name).contains(item.name)) {
+      itemInList =
+          items!.where((element) => element.name == item.name).toList()[0];
+      if (itemInList.unit == item.unit) {
+        items![items!.indexOf(itemInList)].amount += itemInList.amount;
+        return;
+      }
+    }
+    items!.add(item);
+  }
+
+  void deleteItem(RAIngredient item) {
+    items!.remove(item);
+  }
+
   Map<String, dynamic> toJson() {
     List<Map<String, dynamic>> itemsJson =
         items?.map((item) => item.toJsonLocal()).toList() ?? [];
