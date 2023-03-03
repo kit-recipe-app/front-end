@@ -32,7 +32,6 @@ class LoadRecipes {
     };
     final response = await client.get(Uri.parse('https://recipebackendnew-qgf6rz2woa-ey.a.run.app/api/v1/user/recipes'), headers: headers);
     if (response.statusCode == 200) {
-
       List<dynamic> body = jsonDecode(utf8.decode(response.bodyBytes));
       List<RARecipe> recipes = body.map((dynamic item) => RARecipe.fromJson(item)).toList();
       return recipes;
