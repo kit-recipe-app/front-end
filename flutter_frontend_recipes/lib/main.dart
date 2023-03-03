@@ -1,4 +1,5 @@
 import 'package:firebase_core/firebase_core.dart';
+import 'package:flutter_frontend_recipes/backend_connection/ingredient_loader.dart';
 import 'package:flutter_frontend_recipes/shared/shared_prefs.dart';
 import 'package:flutter_frontend_recipes/widget_tree.dart';
 import 'firebase_options.dart';
@@ -11,6 +12,7 @@ Future<void> main() async {
     options: DefaultFirebaseOptions.currentPlatform,
   );
   await SharedPrefs().init();
+  await IngredientLoader().init();
   runApp(const MyApp());
 }
 

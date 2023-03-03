@@ -9,6 +9,7 @@ class RARecipe {
   List<String>? tags;
   int? time;
   String? difficulty;
+  bool favorite;
 
   RARecipe(
       {required this.picture,
@@ -16,6 +17,7 @@ class RARecipe {
       required this.description,
       required this.ingredients,
       required this.manual,
+        this.favorite = false,
       this.tags,
       this.time,
       this.difficulty});
