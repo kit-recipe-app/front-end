@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_frontend_recipes/constants/icon_designs.dart';
 import 'package:flutter_frontend_recipes/pages/recipes/recipe_overview.dart';
+import 'package:flutter_frontend_recipes/shared/shared_prefs.dart';
 import 'package:flutter_frontend_recipes/types/recipe.dart';
 
 class RecipeAppRecipePreviewExploring extends StatefulWidget {
@@ -15,7 +16,15 @@ class RecipeAppRecipePreviewExploring extends StatefulWidget {
   State<RecipeAppRecipePreviewExploring> createState() => _RecipeAppRecipePreviewExploringState();
 }
 
+
 class _RecipeAppRecipePreviewExploringState extends State<RecipeAppRecipePreviewExploring> {
+
+
+  @override
+  void initState() {
+    widget.recipe.favorite = SharedPrefs().getFavorite(widget.recipe.id) ?? false;
+    super.initState();
+  }
   @override
   Widget build(BuildContext context) {
     double width = !widget.own ? 200 : MediaQuery.of(context).size.width - 20;
@@ -187,6 +196,7 @@ class _RecipeAppRecipePreviewExploringState extends State<RecipeAppRecipePreview
               onTap: () {
                 setState(() {
                   widget.recipe.favorite = !widget.recipe.favorite;
+                  SharedPrefs().setFavorite(widget.recipe.id, widget.recipe.favorite);
                 });
               },
             ),

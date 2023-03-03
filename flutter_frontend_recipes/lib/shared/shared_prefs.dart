@@ -55,4 +55,12 @@ class SharedPrefs {
   void clear(){
     _sharedPrefs.clear();
   }
+
+  void setFavorite(String id, bool value){
+    _sharedPrefs.setBool(id, value);
+  }
+
+  bool? getFavorite(String id){
+    return _sharedPrefs.getBool(id);
+  }
 }

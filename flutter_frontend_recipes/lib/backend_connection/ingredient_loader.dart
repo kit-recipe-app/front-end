@@ -23,7 +23,6 @@ class IngredientLoader {
     http.StreamedResponse streamedResponse = await request.send();
     if (streamedResponse.statusCode == 200) {
       var response = await streamedResponse.stream.bytesToString();
-      print(response);
       List<dynamic> body = jsonDecode(response);
       ingredients = body.map((dynamic item) => RAIngredient.fromJsonBackend(item)).toList();
     } else {

@@ -3,6 +3,7 @@ import 'package:flutter_frontend_recipes/types/recipe.dart';
 
 class RecipeExamples {
   static RARecipe testRecipe1 = RARecipe(
+    id: "id1",
     picture: 'assets/example_pictures/hamburger.jpg',
     title: "Burger mit Basilikum und Pommes",
     description:
@@ -33,6 +34,7 @@ class RecipeExamples {
   );
 
   static RARecipe testRecipe2 = RARecipe(
+    id: "id2",
     picture: 'assets/example_pictures/salmon.jpg',
     title: "Lachsfilet mit Sesamsoße",
     description:
@@ -65,6 +67,7 @@ class RecipeExamples {
   );
 
   static RARecipe testRecipe3 = RARecipe(
+    id: "id3",
     picture: 'assets/example_pictures/pizza.jpg',
     title: "Pizza Margherita",
     description:
