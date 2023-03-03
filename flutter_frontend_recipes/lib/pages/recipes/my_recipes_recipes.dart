@@ -1,7 +1,10 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_frontend_recipes/backend_connection/load_recipes.dart';
 import 'package:flutter_frontend_recipes/pages/recipes/create_recipe/create_recipe_main_page.dart';
-import 'package:flutter_frontend_recipes/pages/recipes/create_recipe/name_recipe.dart';
 import 'package:flutter_frontend_recipes/pages/recipes/list_preview_recipes.dart';
+import 'package:http/http.dart' as http;
+
 
 import '../../types/recipe.dart';
 
@@ -20,6 +23,11 @@ class _RecipeAppSavedRecipesState extends State<RecipeAppSavedRecipes> {
   void pushRecipe(RARecipe recipe) {
     myRecipes.add(recipe);
   }
+  @override
+  void initState() {
+    loadIngredients();
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -29,7 +37,7 @@ class _RecipeAppSavedRecipesState extends State<RecipeAppSavedRecipes> {
         RecipeAppRecipeListPreview(
           recipes: myRecipes,
           title: "Eigene Rezepte",
-          numberRecipes: 0,
+          numberRecipes: myRecipes.length,
         ),
         RecipeAppRecipeListPreview(
           recipes: [],
@@ -70,6 +78,12 @@ class _RecipeAppSavedRecipesState extends State<RecipeAppSavedRecipes> {
         )],
     );
   }
-  
+
+  Future<void> loadIngredients() async {
+    List<RARecipe> recipe = await LoadRecipes().getRecipes(http.Client(), FirebaseAuth.instance);
+    setState(() {
+      myRecipes = recipe;
+    });
+  }
 
 }

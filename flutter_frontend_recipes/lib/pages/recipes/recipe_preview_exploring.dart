@@ -3,22 +3,32 @@ import 'package:flutter_frontend_recipes/constants/icon_designs.dart';
 import 'package:flutter_frontend_recipes/pages/recipes/recipe_overview.dart';
 import 'package:flutter_frontend_recipes/types/recipe.dart';
 
-class RecipeAppRecipePreviewExploring extends StatelessWidget {
+class RecipeAppRecipePreviewExploring extends StatefulWidget {
   final RARecipe recipe;
-  const RecipeAppRecipePreviewExploring({required this.recipe, super.key});
+  final bool own;
+  final Function? delete;
+
+  RecipeAppRecipePreviewExploring(
+      {required this.recipe, super.key, required this.own, this.delete});
 
   @override
+  State<RecipeAppRecipePreviewExploring> createState() => _RecipeAppRecipePreviewExploringState();
+}
+
+class _RecipeAppRecipePreviewExploringState extends State<RecipeAppRecipePreviewExploring> {
+  @override
   Widget build(BuildContext context) {
+    double width = !widget.own ? 200 : MediaQuery.of(context).size.width - 20;
     return GestureDetector(
       onTap: () {
         Navigator.push(
           context,
           MaterialPageRoute(
-              builder: (context) => RecipeOverview(recipe: recipe)),
+              builder: (context) => RecipeOverview(recipe: widget.recipe)),
         );
       },
       child: Container(
-        width: 200,
+        width: width,
         margin: const EdgeInsets.all(8),
         decoration: BoxDecoration(
           color: Theme.of(context).colorScheme.surface,
@@ -38,16 +48,16 @@ class RecipeAppRecipePreviewExploring extends StatelessWidget {
           children: [
             ClipRRect(
               borderRadius: BorderRadius.circular(16),
-              child: (recipe.picture.startsWith('http'))
+              child: (widget.recipe.picture.startsWith('http'))
                   ? Image.network(
-                      recipe.picture,
-                      width: 200,
+                      widget.recipe.picture,
+                      width: width,
                       height: 100,
                       fit: BoxFit.cover,
                     )
                   : Image.asset(
-                      recipe.picture,
-                      width: 200,
+                      widget.recipe.picture,
+                      width: width,
                       height: 100,
                       fit: BoxFit.cover,
                     ),
@@ -55,7 +65,7 @@ class RecipeAppRecipePreviewExploring extends StatelessWidget {
             Padding(
               padding: const EdgeInsets.fromLTRB(8, 0, 8, 0),
               child: Text(
-                recipe.title,
+                widget.recipe.title,
                 style: const TextStyle(
                   fontWeight: FontWeight.bold,
                   fontSize: 14,
@@ -67,14 +77,22 @@ class RecipeAppRecipePreviewExploring extends StatelessWidget {
             Padding(
               padding: const EdgeInsets.fromLTRB(8, 0, 8, 0),
               child: Text(
-                recipe.description,
+                widget.recipe.description,
                 maxLines: 2,
                 overflow: TextOverflow.fade,
               ),
             ),
-            Padding(
-              padding: const EdgeInsets.fromLTRB(0, 0, 0, 8),
-              child: getIconBar(),
+            !widget.own
+                ? Padding(
+                    padding: const EdgeInsets.fromLTRB(0, 0, 0, 8),
+                    child: getIconBar(),
+                  )
+                : Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                getIconBar(),
+                getButtonBar(),
+              ],
             )
           ],
         ),
@@ -84,13 +102,13 @@ class RecipeAppRecipePreviewExploring extends StatelessWidget {
 
   Widget getIconBar() {
     List<Widget> availableValues = [];
-    if (recipe.getCalories() != null) {
+    if (widget.recipe.getCalories() != null) {
       availableValues.add(
         Column(
           children: [
             Icon(RecipeAppIcons.calories),
             Text(
-              "${recipe.getCalories()} kcal",
+              "${widget.recipe.getCalories()} kcal",
               style: const TextStyle(
                 fontSize: 12,
               ),
@@ -99,13 +117,13 @@ class RecipeAppRecipePreviewExploring extends StatelessWidget {
         ),
       );
     }
-    if (recipe.time != null) {
+    if (widget.recipe.time != null) {
       availableValues.add(
         Column(
           children: [
             Icon(RecipeAppIcons.timeIcon),
             Text(
-              "${recipe.time} min.",
+              "${widget.recipe.time} min.",
               style: const TextStyle(
                 fontSize: 12,
               ),
@@ -114,13 +132,13 @@ class RecipeAppRecipePreviewExploring extends StatelessWidget {
         ),
       );
     }
-    if (recipe.difficulty != null) {
+    if (widget.recipe.difficulty != null) {
       availableValues.add(
         Column(
           children: [
             Icon(RecipeAppIcons.difficultyIcon),
             Text(
-              (recipe.difficulty != null) ? recipe.difficulty! : "",
+              (widget.recipe.difficulty != null) ? widget.recipe.difficulty! : "",
               style: const TextStyle(
                 fontSize: 12,
               ),
@@ -129,9 +147,81 @@ class RecipeAppRecipePreviewExploring extends StatelessWidget {
         ),
       );
     }
-    return Row(
+    return !widget.own ? Row(
       mainAxisAlignment: MainAxisAlignment.spaceAround,
       children: availableValues,
+    )
+    : Container(
+      width: (MediaQueryData.fromWindow(WidgetsBinding.instance.window).size.width - 20) / 2,
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+        children: availableValues,
+      ),
+    )
+    ;
+  }
+
+  Widget getButtonBar(){
+    return Material(
+      color: Colors.transparent,
+      child: Container(
+        width: (MediaQueryData.fromWindow(WidgetsBinding.instance.window).size.width - 20) / 2,
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+          children: [
+            InkWell(
+              customBorder: CircleBorder(),
+              child:Icon(Icons.delete),
+              onTap: () {
+                _showConfirmDialog();
+              },
+            ),
+            InkWell(
+              customBorder: CircleBorder(),
+              child:Icon(Icons.edit),
+              onTap: () {},
+            ),
+            InkWell(
+              customBorder: CircleBorder(),
+              child:widget.recipe.favorite ? Icon(Icons.star) : Icon(Icons.star_border),
+              onTap: () {
+                setState(() {
+                  widget.recipe.favorite = !widget.recipe.favorite;
+                });
+              },
+            ),
+          ],
+        ),
+      ),
     );
   }
+
+  Future<void> _showConfirmDialog() {
+    return showDialog(
+        context: context,
+        builder: (BuildContext context) {
+          return AlertDialog(
+            title: const Text("Rezept löschen"),
+            content: const Text("Möchten Sie das Rezept wirklich löschen?"),
+            actions: [
+              TextButton(
+                child: const Text('CANCEL'),
+                onPressed: () {
+                  Navigator.pop(context);
+                },
+              ),
+              TextButton(
+                child: Text('OK'),
+                onPressed: () {
+                  setState(() {
+                    widget.delete!();
+                  });
+                  Navigator.pop(context);
+                },
+              )
+            ],
+          );
+        });
+  }
+
 }

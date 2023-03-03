@@ -1,6 +1,7 @@
 import 'package:dropdown_button2/dropdown_button2.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_frontend_recipes/backend_connection/ingredient_loader.dart';
 import 'package:searchable_listview/searchable_listview.dart';
 
 import '../../../content_examples/ingredient_examples.dart';
@@ -33,7 +34,7 @@ class _SearchIngredientsState extends State<SearchIngredients> {
               children: [
                 Expanded(
                   child: SearchableList<RAIngredient>(
-                    initialList: IngredientExamples.ingredients2,
+                    initialList: IngredientLoader.ingredients,
                     builder: (RAIngredient ing) => BuildIngredient(
                       ingredient: ing,
                       addItem: widget.addItem,

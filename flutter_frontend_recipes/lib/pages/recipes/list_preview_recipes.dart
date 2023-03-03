@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_frontend_recipes/content_examples/recipe_examples.dart';
 import 'package:flutter_frontend_recipes/pages/recipes/list_recipes.dart';
 
 import '../../types/recipe.dart';
@@ -12,9 +13,16 @@ class RecipeAppRecipeListPreview extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    recipes.add(RecipeExamples.testRecipe1);
     return InkWell(
       onTap: () {
-        ListRecipes(recipes: recipes);
+        print(recipes);
+        Navigator.push(
+          context,
+          MaterialPageRoute(
+              builder: (context) => ListRecipes(recipes: recipes)),
+        );
+        ;
       },
       child: Container(
         margin: const EdgeInsets.all(8),

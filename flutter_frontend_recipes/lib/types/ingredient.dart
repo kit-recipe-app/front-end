@@ -29,6 +29,15 @@ class RAIngredient {
     );
   }
 
+  factory RAIngredient.fromJsonBackend(Map<String, dynamic> json){
+    return RAIngredient(
+      name: json['name'],
+      unit: "g",
+      amount: 0,
+      calories: 0,
+    );
+  }
+
   Map<String, dynamic> toJson() => {
         "ingredient": {"name": name},
         "amount": {"amount": amount, "unit": unit}

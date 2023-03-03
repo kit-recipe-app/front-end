@@ -40,12 +40,15 @@ class _RecipeAppExploringRecipesState extends State<RecipeAppExploringRecipes> {
                   children: [
                     RecipeAppRecipePreviewExploring(
                       recipe: RecipeExamples.testRecipe2,
+                      own: false,
                     ),
                     RecipeAppRecipePreviewExploring(
                       recipe: RecipeExamples.testRecipe3,
+                      own: false,
                     ),
                     RecipeAppRecipePreviewExploring(
                       recipe: RecipeExamples.testRecipe1,
+                      own: false,
                     ),
                   ],
                 ),
@@ -70,12 +73,15 @@ class _RecipeAppExploringRecipesState extends State<RecipeAppExploringRecipes> {
                   children: [
                     RecipeAppRecipePreviewExploring(
                       recipe: RecipeExamples.testRecipe1,
+                      own: false,
                     ),
                     RecipeAppRecipePreviewExploring(
                       recipe: RecipeExamples.testRecipe2,
+                      own: false,
                     ),
                     RecipeAppRecipePreviewExploring(
                       recipe: RecipeExamples.testRecipe3,
+                      own: false,
                     ),
                   ],
                 ),
@@ -108,6 +114,7 @@ class _RecipeAppExploringRecipesState extends State<RecipeAppExploringRecipes> {
                               (RARecipe recipe) =>
                                   RecipeAppRecipePreviewExploring(
                                 recipe: recipe,
+                                    own: false,
                               ),
                             )
                             .toList(),
