@@ -5,9 +5,9 @@ import 'package:flutter_frontend_recipes/types/recipe.dart';
 
 import '../../constants/color_styles.dart';
 import '../../constants/font_styles.dart';
+import '../../shared/shared_prefs.dart';
 import '../../types/ingredient.dart';
 import '../../types/shopping_list.dart';
-import '../shopping-lists/store_shopping_lists_locally/local_storing.dart';
 
 class ToShoppingList extends StatefulWidget {
   final RARecipe recipe;
@@ -39,18 +39,18 @@ class _ToShoppingListState extends State<ToShoppingList> {
         shoppingList.addItem(ing);
       }
     }
-    await LocalStorage().saveShoppingList(shoppingList);
+    SharedPrefs().saveShoppingList(shoppingList);
   }
 
   _updateShoppingList(RAShoppingList shoppingList) async{
     for(RAIngredient ing in widget.recipe.ingredients){
       shoppingList.addItem(ing);
     }
-    await LocalStorage().updateShoppingList(shoppingList);
+    SharedPrefs().updateShoppingList(shoppingList);
   }
   
   _loadShoppingLists() async {
-    List<RAShoppingList> loadedLists = await LocalStorage().getShoppingLists();
+    List<RAShoppingList> loadedLists = SharedPrefs().getShoppingLists();
     listsStored = loadedLists;
   }
   @override

@@ -132,8 +132,6 @@ class SharedPrefs {
     }
     return shoppingLists;
   }
-}
-
   void setFavorite(String id, bool value){
     _sharedPrefs.setBool(id, value);
   }
@@ -141,5 +139,9 @@ class SharedPrefs {
   bool? getFavorite(String id){
     return _sharedPrefs.getBool(id);
   }
+
 }
+
+
+
 
