@@ -79,7 +79,7 @@ class _AddPictureState extends State<AddPicture> {
           ElevatedButton(
             onPressed: () {
               showModalBottomSheet<void>(
-                  backgroundColor: Colors.white,
+                  backgroundColor: Theme.of(context).colorScheme.onPrimary,
                   shape: const RoundedRectangleBorder(
                     borderRadius: BorderRadius.only(
                       topLeft: Radius.circular(10),

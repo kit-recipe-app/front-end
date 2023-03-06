@@ -51,7 +51,7 @@ class RAIngredient {
       unit: json['amountInformation']['unit'],
       amount: json['amountInformation']['amount'].round(),
       calories: 0,
-      done: json["done"],
+      done: json['done'] ?? false,
     );
   }
 

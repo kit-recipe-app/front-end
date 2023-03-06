@@ -1,7 +1,8 @@
 import 'dart:io';
 
 import 'package:flutter/material.dart';
-import 'package:flutter_frontend_recipes/constants/color_styles.dart';
+
+import 'package:flutter_frontend_recipes/pages/recipes/to_shopping_list_page.dart';
 import 'package:flutter_frontend_recipes/types/recipe.dart';
 
 import '../../constants/icon_designs.dart';
@@ -9,6 +10,7 @@ import '../../types/ingredient.dart';
 
 class RecipeOverview extends StatelessWidget {
   final RARecipe recipe;
+
   const RecipeOverview({required this.recipe, super.key});
 
   @override
@@ -26,7 +28,9 @@ class RecipeOverview extends StatelessWidget {
                 children: [
                   (recipe.picture.startsWith('http'))
                       ? Image.network(recipe.picture)
-                      : ((recipe.picture.startsWith('assets')) ? Image.asset(recipe.picture) : Image.file(File(recipe.picture))),
+                      : ((recipe.picture.startsWith('assets'))
+                          ? Image.asset(recipe.picture)
+                          : Image.file(File(recipe.picture))),
                   Padding(
                     padding: const EdgeInsets.all(8.0),
                     child: Text(
@@ -113,6 +117,23 @@ class RecipeOverview extends StatelessWidget {
                             child: Text("${i + 1}. ${recipe.manual[i]}"),
                           )
                       ],
+                    ),
+                  ),
+                  Center(
+                    child: ElevatedButton(
+                      onPressed: () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => ToShoppingList(recipe: recipe,)),
+                        );
+                      },
+                      style: ElevatedButton.styleFrom(
+                          shape: const StadiumBorder(),
+                          backgroundColor: const Color(0xff66aa44),
+                          textStyle: const TextStyle(
+                              fontSize: 20, fontWeight: FontWeight.bold)),
+                      child: const Text("Zu Einkaufslisten hinzufügen"),
                     ),
                   )
                 ],

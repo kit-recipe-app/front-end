@@ -13,6 +13,9 @@ class IngredientLoader {
   IngredientLoader._internal();
 
   Future<void> init() async{
+    if(FirebaseAuth.instance.currentUser == null){
+      return;
+    }
     var token = await FirebaseAuth.instance.currentUser!.getIdToken();
     var headers = {
       'Authorization': 'Bearer $token',
