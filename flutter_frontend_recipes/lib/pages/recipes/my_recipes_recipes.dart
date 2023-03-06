@@ -1,7 +1,11 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_frontend_recipes/backend_connection/load_recipes.dart';
 import 'package:flutter_frontend_recipes/pages/recipes/create_recipe/create_recipe_main_page.dart';
-import 'package:flutter_frontend_recipes/pages/recipes/create_recipe/name_recipe.dart';
 import 'package:flutter_frontend_recipes/pages/recipes/list_preview_recipes.dart';
+import 'package:flutter_frontend_recipes/shared/shared_prefs.dart';
+import 'package:http/http.dart' as http;
+
 
 import '../../types/recipe.dart';
 
@@ -16,9 +20,13 @@ class RecipeAppSavedRecipes extends StatefulWidget {
 
 class _RecipeAppSavedRecipesState extends State<RecipeAppSavedRecipes> {
   List<RARecipe> myRecipes = [];
+  List<RARecipe> favoriteRecipes = [];
 
-  void pushRecipe(RARecipe recipe) {
-    myRecipes.add(recipe);
+
+  @override
+  void initState() {
+    loadRecipes();
+    super.initState();
   }
 
   @override
@@ -29,22 +37,24 @@ class _RecipeAppSavedRecipesState extends State<RecipeAppSavedRecipes> {
         RecipeAppRecipeListPreview(
           recipes: myRecipes,
           title: "Eigene Rezepte",
-          numberRecipes: 0,
+          numberRecipes: myRecipes.length,
+          reload: reloadFavorites,
         ),
         RecipeAppRecipeListPreview(
-          recipes: [],
+          recipes: favoriteRecipes,
           title: "Meine Favoriten",
-          numberRecipes: 18,
+          numberRecipes: favoriteRecipes.length,
+          reload: reloadFavorites,
         ),
         RecipeAppRecipeListPreview(
           recipes: [],
           title: "Zuletzt gekocht",
-          numberRecipes: 8,
+          numberRecipes: 0,
         ),
         RecipeAppRecipeListPreview(
           recipes: [],
           title: "Weihnachtsessen",
-          numberRecipes: 3,
+          numberRecipes: 0,
         ),
         Padding(
           padding: const EdgeInsets.all(8.0),
@@ -70,6 +80,33 @@ class _RecipeAppSavedRecipesState extends State<RecipeAppSavedRecipes> {
         )],
     );
   }
-  
+
+  Future<void> loadRecipes() async {
+    List<RARecipe> recipes = await LoadRecipes().getRecipes(http.Client(), FirebaseAuth.instance);
+    setState(() {
+      myRecipes = recipes;
+    });
+    for (RARecipe recipe in myRecipes) {
+      if(SharedPrefs().getFavorite(recipe.id) ?? false){
+        setState(() {
+          favoriteRecipes.add(recipe);
+        });
+      }
+    }
+  }
+
+  void reloadFavorites(){
+    setState(() {
+      favoriteRecipes = [];
+    });
+    for (RARecipe recipe in myRecipes) {
+      if(SharedPrefs().getFavorite(recipe.id) ?? false){
+        setState(() {
+          favoriteRecipes.add(recipe);
+        });
+      }
+    }
+  }
+
 
 }

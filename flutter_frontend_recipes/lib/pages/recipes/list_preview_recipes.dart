@@ -7,14 +7,20 @@ class RecipeAppRecipeListPreview extends StatelessWidget {
   final List<RARecipe> recipes;
   final String title;
   final int numberRecipes;
+  final Function? reload;
   const RecipeAppRecipeListPreview(
-      {required this.title, required this.numberRecipes, required this.recipes, super.key});
+      {required this.title, required this.numberRecipes, required this.recipes, super.key, this.reload});
 
   @override
   Widget build(BuildContext context) {
     return InkWell(
       onTap: () {
-        ListRecipes(recipes: recipes);
+        Navigator.push(
+          context,
+          MaterialPageRoute(
+              builder: (context) => ListRecipes(recipes: recipes, reload: reload, title: title,)),
+        );
+        ;
       },
       child: Container(
         margin: const EdgeInsets.all(8),

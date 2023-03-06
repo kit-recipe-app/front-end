@@ -42,7 +42,7 @@ class _AllergiesState extends State<Allergies> {
       ),
       body: Column(
         children: [
-          WidgetTile(text: nutsText, info: Switch(
+          WidgetTile(text: nutsText, info: Switch(key: const Key("NutsSwitch"),
             activeColor: activeColor,
             value: nuts,
             onChanged: (bool value) {

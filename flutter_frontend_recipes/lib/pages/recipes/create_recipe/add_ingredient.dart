@@ -1,6 +1,7 @@
 import 'package:dropdown_button2/dropdown_button2.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_frontend_recipes/pages/recipes/create_recipe/create_recipe_title.dart';
+import 'package:flutter_frontend_recipes/pages/recipes/create_recipe/ingredient_list_item.dart';
 import 'package:flutter_frontend_recipes/pages/recipes/create_recipe/search_ingredients.dart';
 import '../../../types/ingredient.dart';
 import 'create_recipe_progress.dart';
@@ -180,73 +181,7 @@ class _AddIngredientState extends State<AddIngredient> {
                   ),
                 ),
                 for (RAIngredient ing in lis)
-                  Padding(
-                    padding: const EdgeInsets.all(8.0),
-                    child: Container(
-                      decoration: BoxDecoration(
-                        color: Theme.of(context).colorScheme.surface,
-                        border: Border.all(color: Colors.grey),
-                        borderRadius: BorderRadius.circular(16),
-                        boxShadow: [
-                          BoxShadow(
-                            color: Colors.grey.withOpacity(0.5),
-                            spreadRadius: 1,
-                            blurRadius: 1,
-                            offset: const Offset(0, 3), // changes position of shadow
-                          ),
-                        ],
-                      ),
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          Padding(
-                            padding: const EdgeInsets.all(8.0),
-                            child: Text(ing.name),
-                          ),
-                          const Spacer(),
-                          Padding(
-                            padding: const EdgeInsets.all(8.0),
-                            child: SizedBox(
-                              width: 40,
-                              height: 40,
-                              child: Padding(
-                                padding: const EdgeInsets.fromLTRB(0, 10, 0, 10),
-                                child: TextField(
-                                  textAlign: TextAlign.center,
-                                  keyboardType: TextInputType.number,
-                                  inputFormatters: <TextInputFormatter>[
-                                    FilteringTextInputFormatter.digitsOnly
-                                  ],
-                                  decoration: const InputDecoration(
-                                    isDense: true,
-                                    contentPadding: EdgeInsets.symmetric(vertical: 0),
-                                  ),
-                                  controller: controllers[lis.indexOf(ing)],
-                                ),
-                              ),
-                            ),
-                          ),
-                          DropdownButtonHideUnderline(
-                              child: DropdownButton2(
-                                buttonWidth: 75,
-                                items: units.map((unit) =>
-                                DropdownMenuItem<String>(value: unit, child: Text(unit))).toList(),
-                                value: ing.unit,
-                                onChanged: (value) {
-                                  setState(() {
-                                    ing.unit = value as String;
-                                  });
-                                },
-                              )
-                          ),
-                          IconButton(
-                              onPressed: () => removeItem(ing, lis.indexOf(ing)),
-                              icon: const Icon(Icons.close))
-                        ],
-                      ),
-                    ),
-                  ),
-
+                  IngredientListItem(units: units, controllers: controllers, ing: ing, removeItem: removeItem, lis: lis)
               ],
             ),
           ),

@@ -8,15 +8,18 @@ import 'package:flutter_frontend_recipes/pages/recipes/create_recipe/add_picture
 import 'package:flutter_frontend_recipes/pages/recipes/create_recipe/confirm_screen.dart';
 import 'package:flutter_frontend_recipes/pages/recipes/create_recipe/create_manual.dart';
 import 'package:flutter_frontend_recipes/pages/recipes/create_recipe/name_recipe.dart';
+import 'package:flutter_frontend_recipes/types/ingredient.dart';
 import 'package:flutter_frontend_recipes/types/recipe.dart';
 
-import '../../../constants/color_styles.dart';
 
 import 'package:http/http.dart' as http;
 
 class CreateRecipeMainPage extends StatefulWidget {
 
-  const CreateRecipeMainPage({Key? key}) : super(key: key);
+  final bool? edit;
+  final RARecipe? oldRecipe;
+
+  const CreateRecipeMainPage({Key? key, this.edit, this.oldRecipe}) : super(key: key);
 
   @override
   State<CreateRecipeMainPage> createState() => _CreateRecipeMainPageState();
@@ -82,15 +85,31 @@ class _CreateRecipeMainPageState extends State<CreateRecipeMainPage> {
     }
   }
 
+  void editRecipe(){
+
+  }
+
 
    late final List<Widget> _pages = [
     NameRecipe(next: next, recipe: recipe),
     AddIngredient(next: next, back: back, ingredients: recipe.ingredients, controllers: controllers,),
     CreateManual(next: next, back: back, manual: recipe.manual,),
     AddPicture(setPicture: setPicture, next: next, back: back,),
-    ConfirmRecipe(upload: (){Navigator.pop(context); postRecipe();}),
+    ConfirmRecipe(upload: (){Navigator.pop(context); widget.edit ?? false ? editRecipe() : postRecipe(); }),
   ];
 
+  @override
+  void initState() {
+    if(widget.edit ?? false){
+      recipe = widget.oldRecipe!;
+      for(RAIngredient ing in recipe.ingredients){
+        TextEditingController controller = TextEditingController(text: ing.amount.toString());
+        controller.addListener(() {ing.amount = int.parse(controller.text);});
+        controllers.add(controller);
+      }
+    }
+    super.initState();
+  }
   @override
   Widget build(BuildContext context) {
     return Container(

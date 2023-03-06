@@ -1,6 +1,7 @@
 import 'package:flutter_frontend_recipes/types/ingredient.dart';
 
 class RARecipe {
+  String id;
   String picture;
   String title;
   String description;
@@ -9,6 +10,7 @@ class RARecipe {
   List<String>? tags;
   int? time;
   String? difficulty;
+  bool favorite;
 
   RARecipe(
       {required this.picture,
@@ -16,6 +18,8 @@ class RARecipe {
       required this.description,
       required this.ingredients,
       required this.manual,
+      this.id = "",
+        this.favorite = false,
       this.tags,
       this.time,
       this.difficulty});
@@ -26,6 +30,7 @@ class RARecipe {
           ? 'assets/example_pictures/standard_picture.jpg'
           : 'https://recipebackendnew-qgf6rz2woa-ey.a.run.app/api/v1/images/${json['imageData']['name']}',
       title: json['name'],
+      id: json['id'],
       description: json['description'],
       ingredients: [
         for (Map<String, dynamic> ingredient in json['ingredients'])
