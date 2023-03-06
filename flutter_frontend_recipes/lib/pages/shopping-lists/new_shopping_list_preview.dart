@@ -1,11 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_frontend_recipes/pages/shopping-lists/new_shopping_list_overview.dart';
-import 'package:flutter_frontend_recipes/pages/shopping-lists/store_shopping_lists_locally/local_storing.dart';
+import 'package:flutter_frontend_recipes/shared/shared_prefs.dart';
 import 'package:flutter_frontend_recipes/types/shopping_list.dart';
 
 class NewShoppingListPreview extends StatefulWidget {
   final RAShoppingList shoppingList;
-  const NewShoppingListPreview({required this.shoppingList, super.key});
+  final Function reLoadRecipes;
+  const NewShoppingListPreview(
+      {required this.shoppingList, required this.reLoadRecipes, super.key});
 
   @override
   State<NewShoppingListPreview> createState() => _NewShoppingListPreviewState();
@@ -16,24 +18,27 @@ class _NewShoppingListPreviewState extends State<NewShoppingListPreview> {
     String year = widget.shoppingList.creationDate.year.toString();
     String month = widget.shoppingList.creationDate.month.toString();
     String day = widget.shoppingList.creationDate.day.toString();
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        Text(
-          widget.shoppingList.title,
-          style: const TextStyle(
-            fontWeight: FontWeight.bold,
-            fontSize: 20,
+    return Flexible(
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Text(
+            widget.shoppingList.title,
+            overflow: TextOverflow.ellipsis,
+            style: const TextStyle(
+              fontWeight: FontWeight.bold,
+              fontSize: 20,
+            ),
           ),
-        ),
-        Text(
-          "Erstellt am $day.$month.$year",
-          style: const TextStyle(
-            color: Color(0xff6b7280),
-            fontSize: 10,
+          Text(
+            "Erstellt am $day.$month.$year",
+            style: const TextStyle(
+              color: Color(0xff6b7280),
+              fontSize: 10,
+            ),
           ),
-        ),
-      ],
+        ],
+      ),
     );
   }
 
@@ -55,6 +60,7 @@ class _NewShoppingListPreviewState extends State<NewShoppingListPreview> {
     return InkWell(
       onTap: () {
         _updateShoppingList();
+        widget.reLoadRecipes();
       },
       child: Icon(
         widget.shoppingList.favourite ? Icons.star : Icons.star_border,
@@ -63,14 +69,14 @@ class _NewShoppingListPreviewState extends State<NewShoppingListPreview> {
     );
   }
 
-  Future<void> _updateShoppingList() async {
+  void _updateShoppingList() {
     final shoppingList = RAShoppingList(
       title: widget.shoppingList.title,
       creationDate: widget.shoppingList.creationDate,
       items: widget.shoppingList.items,
       favourite: !widget.shoppingList.favourite,
     );
-    await LocalStorage().updateShoppingList(shoppingList);
+    SharedPrefs().updateShoppingList(shoppingList);
   }
 
   @override
@@ -82,7 +88,7 @@ class _NewShoppingListPreviewState extends State<NewShoppingListPreview> {
           MaterialPageRoute(
               builder: (context) =>
                   RAShoppingListOverview(shoppingList: widget.shoppingList)),
-        );
+        ).then(((value) => widget.reLoadRecipes()));
       },
       behavior: HitTestBehavior.translucent,
       child: Container(

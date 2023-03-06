@@ -1,8 +1,6 @@
-import 'dart:convert';
 
-import 'package:flutter_frontend_recipes/types/shopping_list.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 
+/*
 class LocalStorage {
   final shoppingListPrefix = "shoppinglist_";
 
@@ -15,6 +13,7 @@ class LocalStorage {
     }
   }
 
+///
   Future<bool> saveShoppingList(RAShoppingList shoppingList) async {
     if (await shoppingListExists(shoppingList.title)) {
       return false;
@@ -24,26 +23,26 @@ class LocalStorage {
     await prefs.setString(shoppingListKey, jsonEncode(shoppingList.toJson()));
     return true;
   }
-
+///
   Future<void> updateShoppingList(RAShoppingList shoppingList) async {
     final prefs = await SharedPreferences.getInstance();
     String shoppingListKey = shoppingListPrefix + shoppingList.title;
     await prefs.setString(shoppingListKey, jsonEncode(shoppingList.toJson()));
   }
-
+///
   Future<void> deleteSingleShoppingList(String title) async {
     final prefs = await SharedPreferences.getInstance();
     final shoppingListKey = shoppingListPrefix + title;
     await prefs.remove(shoppingListKey);
   }
-
+///
   Future<bool> shoppingListExists(String title) async {
     final prefs = await SharedPreferences.getInstance();
     final shoppingListKeys = prefs.getKeys().where(
         (String key) => key.isNotEmpty && key.startsWith(shoppingListPrefix));
     return shoppingListKeys.contains(shoppingListPrefix + title);
   }
-
+///
   Future<RAShoppingList?> getSingleShoppingList(
       String shoppingListTitle) async {
     if (!(await shoppingListExists(shoppingListTitle))) {
@@ -54,7 +53,7 @@ class LocalStorage {
     final shoppingListJson = prefs.getString(shoppingListKey);
     return RAShoppingList.fromJson(jsonDecode(shoppingListJson!));
   }
-
+///
   Future<void> changeShoppingListTitle(String oldTitle, String newTitle) async {
     final prefs = await SharedPreferences.getInstance();
     RAShoppingList? shoppingList = await getSingleShoppingList(oldTitle);
@@ -83,3 +82,4 @@ class LocalStorage {
     return shoppingLists;
   }
 }
+*/

@@ -3,9 +3,9 @@ import 'dart:ui';
 import 'package:flutter/material.dart';
 import 'package:flutter_frontend_recipes/constants/color_styles.dart';
 import 'package:flutter_frontend_recipes/pages/shopping-lists/new_shopping_list_item_overview.dart';
-import 'package:flutter_frontend_recipes/pages/shopping-lists/store_shopping_lists_locally/local_storing.dart';
 import 'package:flutter_frontend_recipes/shared/button.dart';
 import 'package:flutter_frontend_recipes/shared/input_field.dart';
+import 'package:flutter_frontend_recipes/shared/shared_prefs.dart';
 import 'package:flutter_frontend_recipes/types/ingredient.dart';
 import 'package:flutter_frontend_recipes/types/shopping_list.dart';
 
@@ -27,32 +27,47 @@ class _RAShoppingListOverviewState extends State<RAShoppingListOverview> {
     currentShoppingListState = widget.shoppingList;
   }
 
-  Future<void> changeShoppingListTitle(String newTitle) async {
-    await LocalStorage()
-        .changeShoppingListTitle(widget.shoppingList.title, newTitle);
+  void changeShoppingListTitle(String newTitle) {
+    SharedPrefs().changeShoppingListTitle(widget.shoppingList.title, newTitle);
     setState(() {
       currentShoppingListState.title = newTitle;
     });
   }
 
-  Future<void> deleteSingleShoppingList(BuildContext context) async {
-    LocalStorage().deleteSingleShoppingList(widget.shoppingList.title);
+  void deleteSingleShoppingList(BuildContext context) {
+    SharedPrefs().deleteSingleShoppingList(widget.shoppingList.title);
     Navigator.popUntil(context, ModalRoute.withName('/'));
   }
 
-  Future<void> updateShoppingListItem(RAIngredient ingredient) async {
+  void updateShoppingListItem(RAIngredient ingredient) {
     setState(() {
       currentShoppingListState.deleteItem(ingredient);
       currentShoppingListState.addItem(ingredient);
     });
-    await LocalStorage().updateShoppingList(currentShoppingListState);
+    SharedPrefs().updateShoppingList(currentShoppingListState);
   }
 
-  Future<void> addShoppingListItem(RAIngredient ingredient) async {
+  void changeShoppingListItem(
+      RAIngredient oldIngredient, RAIngredient newIngredient) {
+    setState(() {
+      currentShoppingListState.deleteItem(oldIngredient);
+      currentShoppingListState.addItem(newIngredient);
+    });
+    SharedPrefs().updateShoppingList(currentShoppingListState);
+  }
+
+  void deleteShoppingListItem(RAIngredient ingredient) {
+    setState(() {
+      currentShoppingListState.deleteItem(ingredient);
+    });
+    SharedPrefs().updateShoppingList(currentShoppingListState);
+  }
+
+  void addShoppingListItem(RAIngredient ingredient) {
     setState(() {
       currentShoppingListState.addItem(ingredient);
     });
-    await LocalStorage().updateShoppingList(currentShoppingListState);
+    SharedPrefs().updateShoppingList(currentShoppingListState);
   }
 
   Widget getItemAddDialogue(BuildContext context) {
@@ -70,11 +85,13 @@ class _RAShoppingListOverviewState extends State<RAShoppingListOverview> {
           RAInputField(
             hintText: "Einheit",
             controller: unitController,
+            charLimit: 10,
           ),
           RAInputField(
             hintText: "Menge",
             controller: amountController,
             onlyNumbers: true,
+            charLimit: 6,
           ),
         ],
       ),
@@ -117,19 +134,7 @@ class _RAShoppingListOverviewState extends State<RAShoppingListOverview> {
       ),
       content: Column(
         mainAxisSize: MainAxisSize.min,
-        children: <Widget>[
-          RAButton(
-            onTap: () {
-              deleteSingleShoppingList(context);
-            },
-            description: "löschen",
-            padding: const EdgeInsets.fromLTRB(16, 12, 16, 12),
-            backgroundColor: Colors.red,
-            icon: Icons.delete,
-            iconColor: Colors.white,
-            shadow: false,
-          ),
-        ],
+        children: const <Widget>[],
       ),
       actions: <Widget>[
         RAButton(
@@ -144,6 +149,88 @@ class _RAShoppingListOverviewState extends State<RAShoppingListOverview> {
             if (titleController.text.isNotEmpty) {
               changeShoppingListTitle(titleController.text);
             }
+            Navigator.pop(context);
+          },
+          description: "ok",
+          backgroundColor: Colors.green,
+        ),
+      ],
+    );
+  }
+
+  Widget getConfirmDeleteDialogue(BuildContext context) {
+    return AlertDialog(
+      content: Text(
+          "Sind Sie sicher, dass Sie die Einkaufsliste ${currentShoppingListState.title} löschen?"),
+      actions: [
+        RAButton(
+          onTap: () {
+            Navigator.pop(context);
+          },
+          description: "abbrechen",
+          backgroundColor: Colors.black54,
+        ),
+        RAButton(
+          onTap: () {
+            deleteSingleShoppingList(context);
+          },
+          description: "löschen",
+          backgroundColor: Colors.red,
+        ),
+      ],
+    );
+  }
+
+  Widget getItemEditDialogue(BuildContext context, RAIngredient ingredient) {
+    TextEditingController nameController = TextEditingController();
+    TextEditingController unitController = TextEditingController();
+    TextEditingController amountController = TextEditingController();
+    return AlertDialog(
+      content: Column(
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          RAInputField(
+            hintText: ingredient.name,
+            controller: nameController,
+          ),
+          RAInputField(
+            hintText: ingredient.unit,
+            controller: unitController,
+            charLimit: 10,
+          ),
+          RAInputField(
+            hintText: ingredient.amount.toString(),
+            controller: amountController,
+            onlyNumbers: true,
+            charLimit: 6,
+          ),
+        ],
+      ),
+      actions: [
+        RAButton(
+          onTap: () {
+            Navigator.pop(context);
+          },
+          description: "abbrechen",
+          backgroundColor: Colors.black54,
+        ),
+        RAButton(
+          onTap: () {
+            changeShoppingListItem(
+              ingredient,
+              RAIngredient(
+                name: (nameController.text.isEmpty)
+                    ? ingredient.name
+                    : nameController.text,
+                unit: (unitController.text.isEmpty)
+                    ? ingredient.unit
+                    : unitController.text,
+                amount: (amountController.text.isEmpty)
+                    ? ingredient.amount
+                    : int.parse(amountController.text),
+                calories: 0,
+              ),
+            );
             Navigator.pop(context);
           },
           description: "ok",
@@ -191,6 +278,20 @@ class _RAShoppingListOverviewState extends State<RAShoppingListOverview> {
                   color: Colors.black,
                 ),
               ),
+              IconButton(
+                onPressed: () {
+                  showDialog(
+                    context: context,
+                    builder: (BuildContext context) =>
+                        getConfirmDeleteDialogue(context),
+                  );
+                },
+                icon: const Icon(
+                  Icons.delete,
+                  size: 24,
+                  color: Colors.black,
+                ),
+              ),
             ],
             elevation: 0,
             backgroundColor: Colors.transparent,
@@ -215,6 +316,12 @@ class _RAShoppingListOverviewState extends State<RAShoppingListOverview> {
                         return RAShoppingListItemOverview(
                           updateShoppingListIngredient: updateShoppingListItem,
                           item: widget.shoppingList.items![index],
+                          onLongPress: () => showDialog(
+                            context: context,
+                            builder: (BuildContext context) =>
+                                getItemEditDialogue(
+                                    context, widget.shoppingList.items![index]),
+                          ),
                         );
                       }),
                     ),

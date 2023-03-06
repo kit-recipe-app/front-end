@@ -26,7 +26,7 @@ class RAShoppingList {
       itemInList =
           items!.where((element) => element.name == item.name).toList()[0];
       if (itemInList.unit == item.unit) {
-        items![items!.indexOf(itemInList)].amount += itemInList.amount;
+        items![items!.indexOf(itemInList)].amount += item.amount;
         return;
       }
     }
