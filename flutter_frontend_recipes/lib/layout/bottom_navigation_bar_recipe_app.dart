@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_frontend_recipes/constants/color_styles.dart';
 import 'package:flutter_frontend_recipes/constants/icon_designs.dart';
 import 'package:flutter_frontend_recipes/layout/navigation_bar_item.dart';
 
@@ -22,6 +21,7 @@ class BottomNavigationBarRecipeApp extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.spaceAround,
           children: [
             NavigationBarItem(
+              key: const Key("FeedNavigation"),
               // text: "feed",
               icon: RecipeAppIcons.homePageIcon,
               isSelected: selectedIndex == 0,
@@ -30,6 +30,7 @@ class BottomNavigationBarRecipeApp extends StatelessWidget {
               },
             ),
             NavigationBarItem(
+              key: const Key("RecipeNavigation"),
               // text: "recipes",
               icon: RecipeAppIcons.recipePageIcon,
               isSelected: selectedIndex == 1,
@@ -38,6 +39,7 @@ class BottomNavigationBarRecipeApp extends StatelessWidget {
               },
             ),
             NavigationBarItem(
+              key: const Key("ShoppingNavigation"),
               // text: "shopping",
               icon: RecipeAppIcons.shoppingListPageIcon,
               isSelected: selectedIndex == 2,
@@ -46,6 +48,7 @@ class BottomNavigationBarRecipeApp extends StatelessWidget {
               },
             ),
             NavigationBarItem(
+              key: const Key("ProfileNavigation"),
               // text: "profile",
               icon: RecipeAppIcons.profilePageIcon,
               isSelected: selectedIndex == 3,

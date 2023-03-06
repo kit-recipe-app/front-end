@@ -120,6 +120,7 @@ class _LoginPageState extends State<LoginPage> {
               centerTitle: true,
               title: Text(
                 isLogin ? "LOGIN" : "REGISTRIERUNG",
+                key: Key("Login"),
                 style: const TextStyle(
                   color: Colors.black,
                   fontSize: 32,
@@ -138,11 +139,13 @@ class _LoginPageState extends State<LoginPage> {
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: <Widget>[
                   RAInputField(
+                    key: Key("EmailInput"),
                     hintText: "Email",
                     controller: _controllerEmail,
                     icon: Icons.mail,
                   ),
                   RAInputField(
+                    key: Key("PasswordInput"),
                     hintText: "Passwort",
                     controller: _controllerPassword,
                     isPassword: true,
@@ -160,6 +163,7 @@ class _LoginPageState extends State<LoginPage> {
                   _errorMessage(),
                   isLogin
                       ? RAButton(
+                    key: Key("LoginButton"),
                           onTap: signInWithEmailAndPassword,
                           description: "Login",
                           backgroundColor:

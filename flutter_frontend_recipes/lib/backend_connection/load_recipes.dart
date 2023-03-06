@@ -39,4 +39,19 @@ class LoadRecipes {
       throw Exception('Failed to load recipes');
     }
   }
+
+  Future<List<RARecipe>> getAllRecipes(http.Client client, FirebaseAuth auth) async {
+    final token = await auth.currentUser!.getIdToken();
+    var headers = {
+      'Authorization': 'Bearer $token',
+    };
+    final response = await client.get(Uri.parse('https://recipebackendnew-qgf6rz2woa-ey.a.run.app/api/v1/recipes'), headers: headers);
+    if (response.statusCode == 200) {
+      List<dynamic> body = jsonDecode(utf8.decode(response.bodyBytes));
+      List<RARecipe> recipes = body.map((dynamic item) => RARecipe.fromJson(item)).toList();
+      return recipes;
+    } else {
+      throw Exception('Failed to load recipes');
+    }
+  }
 }

@@ -4,13 +4,16 @@ import 'package:flutter_frontend_recipes/pages/recipes/recipe_overview.dart';
 import 'package:flutter_frontend_recipes/shared/shared_prefs.dart';
 import 'package:flutter_frontend_recipes/types/recipe.dart';
 
+import 'create_recipe/create_recipe_main_page.dart';
+
 class RecipeAppRecipePreviewExploring extends StatefulWidget {
   final RARecipe recipe;
   final bool own;
   final Function? delete;
+  final Function? favorite;
 
   RecipeAppRecipePreviewExploring(
-      {required this.recipe, super.key, required this.own, this.delete});
+      {required this.recipe, super.key, required this.own, this.delete, this.favorite});
 
   @override
   State<RecipeAppRecipePreviewExploring> createState() => _RecipeAppRecipePreviewExploringState();
@@ -188,7 +191,14 @@ class _RecipeAppRecipePreviewExploringState extends State<RecipeAppRecipePreview
             InkWell(
               customBorder: CircleBorder(),
               child:Icon(Icons.edit),
-              onTap: () {},
+              onTap: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                      builder: (context) =>
+                          CreateRecipeMainPage(edit: true, oldRecipe: widget.recipe,)),
+                );
+              },
             ),
             InkWell(
               customBorder: CircleBorder(),
@@ -197,6 +207,7 @@ class _RecipeAppRecipePreviewExploringState extends State<RecipeAppRecipePreview
                 setState(() {
                   widget.recipe.favorite = !widget.recipe.favorite;
                   SharedPrefs().setFavorite(widget.recipe.id, widget.recipe.favorite);
+                  widget.favorite!();
                 });
               },
             ),
