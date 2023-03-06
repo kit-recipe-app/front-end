@@ -5,9 +5,11 @@ import 'package:flutter_frontend_recipes/types/ingredient.dart';
 class RAShoppingListItemOverview extends StatelessWidget {
   RAIngredient item;
   Function updateShoppingListIngredient;
+  Function onLongPress;
   RAShoppingListItemOverview(
       {required this.item,
       required this.updateShoppingListIngredient,
+      required this.onLongPress,
       super.key});
 
   Widget getTopRow() {
@@ -22,7 +24,7 @@ class RAShoppingListItemOverview extends StatelessWidget {
           ),
         ),
         Text(
-          item.amount.toString() + item.unit,
+          "${item.amount} ${item.unit}",
           style: const TextStyle(
             fontSize: 14,
             fontWeight: FontWeight.bold,
@@ -76,28 +78,31 @@ class RAShoppingListItemOverview extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      margin: const EdgeInsets.all(8),
-      padding: const EdgeInsets.all(8),
-      decoration: BoxDecoration(
-        color: Colors.white,
-        borderRadius: const BorderRadius.all(Radius.circular(16)),
-        boxShadow: [
-          BoxShadow(
-            color: Colors.black.withOpacity(0.25),
-            spreadRadius: 0,
-            blurRadius: 5,
-            offset: const Offset(0, 2),
-          ),
-        ],
-      ),
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          getTopRow(),
-          getBottomRow(context),
-        ],
+    return GestureDetector(
+      onLongPress: () => onLongPress(),
+      child: Container(
+        margin: const EdgeInsets.all(8),
+        padding: const EdgeInsets.all(8),
+        decoration: BoxDecoration(
+          color: Colors.white,
+          borderRadius: const BorderRadius.all(Radius.circular(16)),
+          boxShadow: [
+            BoxShadow(
+              color: Colors.black.withOpacity(0.25),
+              spreadRadius: 0,
+              blurRadius: 5,
+              offset: const Offset(0, 2),
+            ),
+          ],
+        ),
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            getTopRow(),
+            getBottomRow(context),
+          ],
+        ),
       ),
     );
   }

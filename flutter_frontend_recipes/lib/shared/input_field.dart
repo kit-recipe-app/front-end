@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 
 class RAInputField extends StatefulWidget {
   String hintText;
@@ -8,6 +9,7 @@ class RAInputField extends StatefulWidget {
   Color? color;
   Function? onNewFocus;
   bool onlyNumbers;
+  int? charLimit;
   RAInputField({
     required this.hintText,
     required this.controller,
@@ -16,6 +18,7 @@ class RAInputField extends StatefulWidget {
     this.color = Colors.black12,
     this.onNewFocus,
     this.onlyNumbers = false,
+    this.charLimit,
     super.key,
   });
 
@@ -50,8 +53,12 @@ class _RAInputFieldState extends State<RAInputField> {
         borderRadius: BorderRadius.circular(32),
       ),
       child: TextField(
+        maxLength: (widget.charLimit == null) ? 1000 : widget.charLimit,
         keyboardType:
             widget.onlyNumbers ? TextInputType.number : TextInputType.text,
+        inputFormatters: widget.onlyNumbers
+            ? <TextInputFormatter>[FilteringTextInputFormatter.digitsOnly]
+            : [],
         focusNode: focusNode,
         onTap: () {
           FocusScope.of(context).requestFocus(focusNode);
@@ -64,6 +71,7 @@ class _RAInputFieldState extends State<RAInputField> {
         obscureText: widget.isPassword && !isPasswordVisible,
         cursorColor: Colors.black,
         decoration: InputDecoration(
+          counterText: "",
           hintText: widget.hintText,
           border: InputBorder.none,
           contentPadding: const EdgeInsets.all(16),

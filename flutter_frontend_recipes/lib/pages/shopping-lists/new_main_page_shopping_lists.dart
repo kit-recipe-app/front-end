@@ -3,8 +3,8 @@ import 'dart:ui';
 import 'package:flutter/material.dart';
 import 'package:flutter_frontend_recipes/pages/shopping-lists/create_shopping_list/test.dart';
 import 'package:flutter_frontend_recipes/pages/shopping-lists/new_shopping_list_preview.dart';
-import 'package:flutter_frontend_recipes/pages/shopping-lists/store_shopping_lists_locally/local_storing.dart';
 import 'package:flutter_frontend_recipes/shared/button.dart';
+import 'package:flutter_frontend_recipes/shared/shared_prefs.dart';
 import 'package:flutter_frontend_recipes/types/shopping_list.dart';
 
 class NewMainPageShoppingLists extends StatefulWidget {
@@ -18,8 +18,8 @@ class NewMainPageShoppingLists extends StatefulWidget {
 class _NewMainPageShoppingListsState extends State<NewMainPageShoppingLists> {
   List<RAShoppingList> listsStored = [];
 
-  Future<void> loadShoppingLists() async {
-    List<RAShoppingList> loadedLists = await LocalStorage().getShoppingLists();
+  void loadShoppingLists() {
+    List<RAShoppingList> loadedLists = SharedPrefs().getShoppingLists();
     setState(() {
       listsStored = loadedLists;
     });
@@ -33,7 +33,6 @@ class _NewMainPageShoppingListsState extends State<NewMainPageShoppingLists> {
 
   @override
   Widget build(BuildContext context) {
-    loadShoppingLists();
     return Scaffold(
       appBar: AppBar(
         title: const Text(
@@ -58,7 +57,10 @@ class _NewMainPageShoppingListsState extends State<NewMainPageShoppingLists> {
           ? const Center(child: Text("Noch keine Einkaufslisten hier"))
           : ListView(
               children: listsStored
-                  .map((e) => NewShoppingListPreview(shoppingList: e))
+                  .map((e) => NewShoppingListPreview(
+                        shoppingList: e,
+                        reLoadRecipes: loadShoppingLists,
+                      ))
                   .toList()),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
       floatingActionButton: RAButton(
@@ -67,7 +69,7 @@ class _NewMainPageShoppingListsState extends State<NewMainPageShoppingLists> {
             context,
             MaterialPageRoute(
                 builder: (context) => const AddShoppingListScreen()),
-          );
+          ).then((value) => loadShoppingLists());
         },
         description: "Einkaufsliste erstellen",
         padding: const EdgeInsets.fromLTRB(48, 16, 48, 16),

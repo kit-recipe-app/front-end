@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_frontend_recipes/pages/shopping-lists/store_shopping_lists_locally/local_storing.dart';
 import 'package:flutter_frontend_recipes/shared/input_field.dart';
+import 'package:flutter_frontend_recipes/shared/shared_prefs.dart';
 import 'package:flutter_frontend_recipes/types/ingredient.dart';
 import 'package:flutter_frontend_recipes/types/shopping_list.dart';
 
@@ -33,7 +34,7 @@ class _AddShoppingListScreenState extends State<AddShoppingListScreen> {
     });
   }
 
-  Future<void> _saveShoppingList() async {
+  bool _saveShoppingList() {
     final shoppingList = RAShoppingList(
       title: _titleController.text.trim(),
       creationDate: DateTime.now(),
@@ -42,7 +43,7 @@ class _AddShoppingListScreenState extends State<AddShoppingListScreen> {
     for (RAIngredient item in _itemControllers) {
       shoppingList.addItem(item);
     }
-    await LocalStorage().saveShoppingList(shoppingList);
+    return SharedPrefs().saveShoppingList(shoppingList);
   }
 
   @override
