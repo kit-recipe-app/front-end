@@ -113,7 +113,7 @@ class _CreateManualState extends State<CreateManual> {
               child: Container(
                 height: 50,
                 decoration: BoxDecoration(
-                  color: Colors.white,
+                  color: Theme.of(context).colorScheme.onPrimary,
                   border: Border.all(color: Colors.grey),
                   borderRadius: BorderRadius.circular(16),
                   boxShadow: [
@@ -185,12 +185,15 @@ class _CreateManualState extends State<CreateManual> {
       MaterialPageRoute(builder: (context) => EditDialog(oldString: oldString)),
     );*/
 
-    final result = await showDialog(
+    var result = await showDialog(
         context: context,
         builder: (BuildContext context){
           return EditDialog(oldString: oldString);
         }
     );
+
+    result == null ? result = oldString : result = result;
+
 
     if (!mounted) return;
     setState(() {

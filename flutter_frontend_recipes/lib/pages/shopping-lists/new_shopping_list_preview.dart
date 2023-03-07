@@ -96,7 +96,7 @@ class _NewShoppingListPreviewState extends State<NewShoppingListPreview> {
         margin: const EdgeInsets.fromLTRB(12, 8, 12, 8),
         height: 112,
         decoration: BoxDecoration(
-          color: Colors.white,
+          color: Theme.of(context).colorScheme.surface,
           borderRadius: const BorderRadius.all(Radius.circular(16)),
           boxShadow: [
             BoxShadow(

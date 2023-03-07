@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_frontend_recipes/pages/shopping-lists/store_shopping_lists_locally/local_storing.dart';
 import 'package:flutter_frontend_recipes/shared/input_field.dart';
 import 'package:flutter_frontend_recipes/shared/shared_prefs.dart';
 import 'package:flutter_frontend_recipes/types/ingredient.dart';
@@ -52,14 +51,14 @@ class _AddShoppingListScreenState extends State<AddShoppingListScreen> {
       appBar: AppBar(
         leading: IconButton(
           onPressed: () => Navigator.pop(context),
-          icon: const Icon(
+          icon: Icon(
             Icons.arrow_back_ios,
-            color: Colors.black,
+            color: Theme.of(context).colorScheme.onSecondary,
           ),
         ),
-        title: const Text(
+        title: Text(
           'Neue Einkaufsliste erstellen',
-          style: TextStyle(color: Colors.black),
+          style: TextStyle(color: Theme.of(context).colorScheme.onSecondary),
         ),
       ),
       body: Form(
@@ -76,7 +75,7 @@ class _AddShoppingListScreenState extends State<AddShoppingListScreen> {
             const SizedBox(height: 16.0),
             Text(
               'Items',
-              style: Theme.of(context).textTheme.subtitle1,
+              style: Theme.of(context).textTheme.titleMedium,
             ),
             const SizedBox(height: 8.0),
             ..._itemControllers.map((controller) => _buildItem(controller)),
