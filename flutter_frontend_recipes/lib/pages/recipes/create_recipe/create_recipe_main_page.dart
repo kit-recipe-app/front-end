@@ -85,8 +85,27 @@ class _CreateRecipeMainPageState extends State<CreateRecipeMainPage> {
     }
   }
 
-  void editRecipe(){
+  void editRecipe() async{
+    var token = await FirebaseAuth.instance.currentUser!.getIdToken();
 
+    var headers = {
+      'Authorization': 'Bearer $token',
+      'Content-Type': 'application/json'
+    };
+    print(recipe.id);
+    var request = http.Request('PUT', Uri.parse('https://recipebackendnew-qgf6rz2woa-ey.a.run.app/api/v1/user/recipes/${recipe.id}'));
+    request.body = json.encode(recipe);
+    request.headers.addAll(headers);
+
+    http.StreamedResponse response = await request.send();
+
+    if (response.statusCode == 200) {
+      print(await response.stream.bytesToString());
+    }
+    else {
+    print(response.statusCode);
+    print(response.reasonPhrase);
+    }
   }
 
 

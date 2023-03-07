@@ -138,7 +138,6 @@ class _ToShoppingListState extends State<ToShoppingList> {
                                                         Navigator.pop(context);
                                                         Navigator.pop(context);
                                                         Navigator.pop(context);
-                                                        Navigator.pop(context);
                                                       },
                                                     ),
                                                   )

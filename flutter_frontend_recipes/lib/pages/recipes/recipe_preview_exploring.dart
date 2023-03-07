@@ -75,7 +75,7 @@ class _RecipeAppRecipePreviewExploringState extends State<RecipeAppRecipePreview
                     ),
             ),
             Padding(
-              padding: const EdgeInsets.fromLTRB(8, 0, 8, 0),
+              padding: widget.own ? EdgeInsets.fromLTRB(15, 10, 8, 0) : EdgeInsets.fromLTRB(8, 0, 8, 0),
               child: Text(
                 widget.recipe.title,
                 style: const TextStyle(
@@ -87,7 +87,7 @@ class _RecipeAppRecipePreviewExploringState extends State<RecipeAppRecipePreview
               ),
             ),
             Padding(
-              padding: const EdgeInsets.fromLTRB(8, 0, 8, 0),
+              padding: widget.own ? EdgeInsets.fromLTRB(15, 5, 8, 0) : EdgeInsets.fromLTRB(8, 0, 8, 0),
               child: Text(
                 widget.recipe.description,
                 maxLines: 2,
@@ -202,7 +202,7 @@ class _RecipeAppRecipePreviewExploringState extends State<RecipeAppRecipePreview
             ),
             InkWell(
               customBorder: CircleBorder(),
-              child:widget.recipe.favorite ? Icon(Icons.star) : Icon(Icons.star_border),
+              child:widget.recipe.favorite ? Icon(Icons.star, color: Colors.yellow,) : Icon(Icons.star_border, color: Colors.yellow,),
               onTap: () {
                 setState(() {
                   widget.recipe.favorite = !widget.recipe.favorite;

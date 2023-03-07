@@ -1,7 +1,6 @@
 import 'dart:ui';
 
 import 'package:flutter/material.dart';
-import 'package:flutter_frontend_recipes/constants/color_styles.dart';
 import 'package:flutter_frontend_recipes/pages/shopping-lists/new_shopping_list_item_overview.dart';
 import 'package:flutter_frontend_recipes/shared/button.dart';
 import 'package:flutter_frontend_recipes/shared/input_field.dart';
@@ -243,7 +242,7 @@ class _RAShoppingListOverviewState extends State<RAShoppingListOverview> {
   @override
   Widget build(BuildContext context) {
     return Container(
-      color: RecipeAppColorStyles.backGroundColor,
+      color: Theme.of(context).canvasColor,
       child: SafeArea(
         child: Scaffold(
           appBar: AppBar(
@@ -251,16 +250,16 @@ class _RAShoppingListOverviewState extends State<RAShoppingListOverview> {
               onPressed: () {
                 Navigator.pop(context);
               },
-              icon: const Icon(
+              icon: Icon(
                 Icons.arrow_back_ios,
                 size: 24,
-                color: Colors.black,
+                color: Theme.of(context).colorScheme.onSecondary,
               ),
             ),
             title: Text(
               widget.shoppingList.title,
-              style: const TextStyle(
-                color: Colors.black,
+              style: TextStyle(
+                color: Theme.of(context).colorScheme.onSecondary
               ),
             ),
             actions: [
@@ -272,10 +271,10 @@ class _RAShoppingListOverviewState extends State<RAShoppingListOverview> {
                         getEditingDialogue(context),
                   );
                 },
-                icon: const Icon(
+                icon: Icon(
                   Icons.edit,
                   size: 24,
-                  color: Colors.black,
+                  color: Theme.of(context).colorScheme.onSecondary,
                 ),
               ),
               IconButton(
@@ -286,10 +285,10 @@ class _RAShoppingListOverviewState extends State<RAShoppingListOverview> {
                         getConfirmDeleteDialogue(context),
                   );
                 },
-                icon: const Icon(
+                icon: Icon(
                   Icons.delete,
                   size: 24,
-                  color: Colors.black,
+                  color: Theme.of(context).colorScheme.onSecondary,
                 ),
               ),
             ],

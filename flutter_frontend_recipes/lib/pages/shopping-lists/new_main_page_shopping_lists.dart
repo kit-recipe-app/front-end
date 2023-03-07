@@ -35,10 +35,10 @@ class _NewMainPageShoppingListsState extends State<NewMainPageShoppingLists> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text(
+        title: Text(
           "Deine Einkaufslisten",
           style: TextStyle(
-            color: Colors.black,
+            color : Theme.of(context).colorScheme.onSecondary
           ),
         ),
         elevation: 0,
