@@ -3,6 +3,7 @@ import 'dart:convert';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:http/http.dart' as http;
 
+import '../content_examples/ingredient_examples.dart';
 import '../types/ingredient.dart';
 
 class IngredientLoader {
@@ -14,7 +15,8 @@ class IngredientLoader {
 
   Future<void> init() async{
     if(FirebaseAuth.instance.currentUser == null){
-      return;
+      ingredients = IngredientExamples.ingredients2;
+      return ;
     }
     var token = await FirebaseAuth.instance.currentUser!.getIdToken();
     var headers = {

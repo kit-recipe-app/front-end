@@ -81,16 +81,17 @@ class _RAShoppingListOverviewState extends State<RAShoppingListOverview> {
             hintText: "Name",
             controller: nameController,
           ),
-          RAInputField(
-            hintText: "Einheit",
-            controller: unitController,
-            charLimit: 10,
-          ),
+
           RAInputField(
             hintText: "Menge",
             controller: amountController,
             onlyNumbers: true,
             charLimit: 6,
+          ),
+          RAInputField(
+            hintText: "Einheit",
+            controller: unitController,
+            charLimit: 10,
           ),
         ],
       ),
@@ -192,16 +193,17 @@ class _RAShoppingListOverviewState extends State<RAShoppingListOverview> {
             hintText: ingredient.name,
             controller: nameController,
           ),
-          RAInputField(
-            hintText: ingredient.unit,
-            controller: unitController,
-            charLimit: 10,
-          ),
+
           RAInputField(
             hintText: ingredient.amount.toString(),
             controller: amountController,
             onlyNumbers: true,
             charLimit: 6,
+          ),
+          RAInputField(
+            hintText: ingredient.unit,
+            controller: unitController,
+            charLimit: 10,
           ),
         ],
       ),
@@ -258,9 +260,8 @@ class _RAShoppingListOverviewState extends State<RAShoppingListOverview> {
             ),
             title: Text(
               widget.shoppingList.title,
-              style: TextStyle(
-                color: Theme.of(context).colorScheme.onSecondary
-              ),
+              style:
+                  TextStyle(color: Theme.of(context).colorScheme.onSecondary),
             ),
             actions: [
               IconButton(
@@ -310,16 +311,40 @@ class _RAShoppingListOverviewState extends State<RAShoppingListOverview> {
               : Stack(
                   children: [
                     ListView.builder(
-                      itemCount: widget.shoppingList.getItemAmount(),
+                      itemCount: currentShoppingListState.getItemAmount(),
                       itemBuilder: ((context, index) {
-                        return RAShoppingListItemOverview(
-                          updateShoppingListIngredient: updateShoppingListItem,
-                          item: widget.shoppingList.items![index],
-                          onLongPress: () => showDialog(
-                            context: context,
-                            builder: (BuildContext context) =>
-                                getItemEditDialogue(
-                                    context, widget.shoppingList.items![index]),
+                        final item = currentShoppingListState.items![index];
+                        return Dismissible(
+                          background: Container(
+                            color: Colors.red,
+                            padding: EdgeInsets.only(left: 15),
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.start,
+                              children: [Icon(Icons.delete)],
+                            ),
+                          ),
+                          key: Key(item.toString()),
+                          onDismissed: (direction) {
+                            setState(() {
+                              deleteShoppingListItem(item);
+                              ScaffoldMessenger.of(context).showSnackBar(
+                                  SnackBar(
+                                      content: Text("${item.name} gelöscht"),
+                                      duration: const Duration(milliseconds: 1500),
+                                    action: SnackBarAction(label: "Undo", onPressed: () => setState(() => addShoppingListItem(item))),
+                                  )
+                              );
+                            });
+                          },
+                          child: RAShoppingListItemOverview(
+                            updateShoppingListIngredient:
+                                updateShoppingListItem,
+                            item: item,
+                            onLongPress: () => showDialog(
+                              context: context,
+                              builder: (BuildContext context) =>
+                                  getItemEditDialogue(context, item),
+                            ),
                           ),
                         );
                       }),
