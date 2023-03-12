@@ -1,4 +1,3 @@
-
 import 'dart:convert';
 
 import 'package:firebase_auth/firebase_auth.dart';
@@ -14,9 +13,14 @@ import 'package:flutter_frontend_recipes/types/recipe.dart';
 
 import 'package:http/http.dart' as http;
 
+
+///Main page of recipe creation/editing process, displays the different steps of the process
 class CreateRecipeMainPage extends StatefulWidget {
 
+  ///Whether this page is used to create or edit a recipe.
   final bool? edit;
+
+  ///If this page is used to edit recipe, this is the old recipe to be edited, else null.
   final RARecipe? oldRecipe;
 
   const CreateRecipeMainPage({Key? key, this.edit, this.oldRecipe}) : super(key: key);
@@ -26,6 +30,9 @@ class CreateRecipeMainPage extends StatefulWidget {
 }
 
 class _CreateRecipeMainPageState extends State<CreateRecipeMainPage> {
+
+
+  ///[RARecipe] that is initialized as empty and passed to the different pages
   RARecipe recipe = RARecipe(
     picture: "",
     title: "",
@@ -44,24 +51,29 @@ class _CreateRecipeMainPageState extends State<CreateRecipeMainPage> {
     });
   }
 
+
   void setPicture(String picture) {
     setState(() {
       recipe.picture = picture;
     });
   }
 
+
+  ///Goes to the next step of the recipe creation/editing process.
   void next() {
     setState(() {
       _currentIndex++;
     });
   }
 
+  ///Goes to the last step of the recipe creation/editing process.
   void back() {
     setState(() {
       _currentIndex--;
     });
   }
 
+  ///Send recipe to backend using POST Request.
   void postRecipe() async {
 
     var token = await FirebaseAuth.instance.currentUser!.getIdToken();
@@ -85,6 +97,7 @@ class _CreateRecipeMainPageState extends State<CreateRecipeMainPage> {
     }
   }
 
+  ///Send edited recipe to backend using PUT Request
   void editRecipe() async{
     var token = await FirebaseAuth.instance.currentUser!.getIdToken();
 
@@ -109,6 +122,7 @@ class _CreateRecipeMainPageState extends State<CreateRecipeMainPage> {
   }
 
 
+  ///Different pages to be displayed during the Recipe creation/editing process.
    late final List<Widget> _pages = [
     NameRecipe(next: next, recipe: recipe),
     AddIngredient(next: next, back: back, ingredients: recipe.ingredients, controllers: controllers,),
@@ -120,6 +134,7 @@ class _CreateRecipeMainPageState extends State<CreateRecipeMainPage> {
   @override
   void initState() {
     if(widget.edit ?? false){
+      ///If page is used to edit a recipe, the recipe held by this page is not initialized as empty, but as the old recipe.
       recipe = widget.oldRecipe!;
       for(RAIngredient ing in recipe.ingredients){
         TextEditingController controller = TextEditingController(text: ing.amount.toString());

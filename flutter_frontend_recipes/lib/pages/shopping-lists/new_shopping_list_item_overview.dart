@@ -95,13 +95,16 @@ class RAShoppingListItemOverview extends StatelessWidget {
             ),
           ],
         ),
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            getTopRow(),
-            getBottomRow(context),
-          ],
+        child: Padding(
+          padding: const EdgeInsets.fromLTRB(0, 2, 0, 2),
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              getTopRow(),
+              getBottomRow(context),
+            ],
+          ),
         ),
       ),
     );
