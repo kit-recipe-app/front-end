@@ -19,6 +19,7 @@ class RAShoppingListOverview extends StatefulWidget {
 class _RAShoppingListOverviewState extends State<RAShoppingListOverview> {
   bool orderedByCategory = false;
   late RAShoppingList currentShoppingListState;
+  List<String> units = ["g", "kg", "Stück", "ml", "l"];
 
   @override
   initState() {
@@ -42,6 +43,13 @@ class _RAShoppingListOverviewState extends State<RAShoppingListOverview> {
     setState(() {
       currentShoppingListState.deleteItem(ingredient);
       currentShoppingListState.addItem(ingredient);
+    });
+    SharedPrefs().updateShoppingList(currentShoppingListState);
+  }
+
+  void changeShoppingListItemDone(RAIngredient ingredient) {
+    setState(() {
+      currentShoppingListState.changeItemIsDone(ingredient);
     });
     SharedPrefs().updateShoppingList(currentShoppingListState);
   }
@@ -80,8 +88,8 @@ class _RAShoppingListOverviewState extends State<RAShoppingListOverview> {
           RAInputField(
             hintText: "Name",
             controller: nameController,
+            charLimit: 200,
           ),
-
           RAInputField(
             hintText: "Menge",
             controller: amountController,
@@ -92,6 +100,7 @@ class _RAShoppingListOverviewState extends State<RAShoppingListOverview> {
             hintText: "Einheit",
             controller: unitController,
             charLimit: 10,
+            quickSelect: units,
           ),
         ],
       ),
@@ -193,7 +202,6 @@ class _RAShoppingListOverviewState extends State<RAShoppingListOverview> {
             hintText: ingredient.name,
             controller: nameController,
           ),
-
           RAInputField(
             hintText: ingredient.amount.toString(),
             controller: amountController,
@@ -204,6 +212,7 @@ class _RAShoppingListOverviewState extends State<RAShoppingListOverview> {
             hintText: ingredient.unit,
             controller: unitController,
             charLimit: 10,
+            quickSelect: units,
           ),
         ],
       ),
@@ -317,26 +326,30 @@ class _RAShoppingListOverviewState extends State<RAShoppingListOverview> {
                         return Dismissible(
                           background: Container(
                             color: Colors.red,
-                            padding: EdgeInsets.only(left: 15),
+                            padding: const EdgeInsets.only(left: 15),
                             child: Row(
                               mainAxisAlignment: MainAxisAlignment.start,
-                              children: [Icon(Icons.delete)],
+                              children: const [Icon(Icons.delete)],
                             ),
                           ),
                           key: Key(item.toString()),
                           onDismissed: (direction) {
                             setState(() {
                               deleteShoppingListItem(item);
-                              ScaffoldMessenger.of(context).showSnackBar(
-                                  SnackBar(
-                                      content: Text("${item.name} gelöscht"),
-                                      duration: const Duration(milliseconds: 1500),
-                                    action: SnackBarAction(label: "Undo", onPressed: () => setState(() => addShoppingListItem(item))),
-                                  )
-                              );
+                              ScaffoldMessenger.of(context)
+                                  .showSnackBar(SnackBar(
+                                content: Text("${item.name} gelöscht"),
+                                duration: const Duration(milliseconds: 1500),
+                                action: SnackBarAction(
+                                    label: "Undo",
+                                    onPressed: () => setState(
+                                        () => addShoppingListItem(item))),
+                              ));
                             });
                           },
                           child: RAShoppingListItemOverview(
+                            updateShoppingListIngredientDone:
+                                changeShoppingListItemDone,
                             updateShoppingListIngredient:
                                 updateShoppingListItem,
                             item: item,
