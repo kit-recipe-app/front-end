@@ -46,6 +46,7 @@ class _ListRecipesState extends State<ListRecipes> {
                   Align(
                       alignment: Alignment.center,
                       child: RecipeAppRecipePreviewExploring(
+                        search: false,
                           recipe: recipe,
                           own: true,
                           delete: () {

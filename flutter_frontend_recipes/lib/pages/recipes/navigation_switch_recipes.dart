@@ -20,6 +20,7 @@ class RecipeAppNavigationSwitchRecipes extends StatelessWidget {
                 GestureDetector(
                   behavior: HitTestBehavior.translucent,
                   onTap: () {
+                    FocusManager.instance.primaryFocus?.unfocus();
                     onChange(0);
                   },
                   child: Container(
@@ -38,6 +39,7 @@ class RecipeAppNavigationSwitchRecipes extends StatelessWidget {
                 GestureDetector(
                   behavior: HitTestBehavior.translucent,
                   onTap: () {
+                    FocusManager.instance.primaryFocus?.unfocus();
                     onChange(1);
                   },
                   child: Container(

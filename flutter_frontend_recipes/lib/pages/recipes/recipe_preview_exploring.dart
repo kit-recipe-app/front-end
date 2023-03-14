@@ -9,11 +9,12 @@ import 'create_recipe/create_recipe_main_page.dart';
 class RecipeAppRecipePreviewExploring extends StatefulWidget {
   final RARecipe recipe;
   final bool own;
+  final bool search;
   final Function? delete;
   final Function? favorite;
 
   RecipeAppRecipePreviewExploring(
-      {required this.recipe, super.key, required this.own, this.delete, this.favorite});
+      {required this.recipe, super.key, required this.own, this.delete, this.favorite, required this.search});
 
   @override
   State<RecipeAppRecipePreviewExploring> createState() => _RecipeAppRecipePreviewExploringState();
@@ -30,7 +31,7 @@ class _RecipeAppRecipePreviewExploringState extends State<RecipeAppRecipePreview
   }
   @override
   Widget build(BuildContext context) {
-    double width = !widget.own ? 200 : MediaQuery.of(context).size.width - 20;
+    double width = !widget.own ? (widget.search ? MediaQuery.of(context).size.width - 20 : 200) : MediaQuery.of(context).size.width - 20;
     return GestureDetector(
       onTap: () {
         Navigator.push(
