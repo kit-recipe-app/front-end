@@ -3,7 +3,10 @@ import 'package:flutter_frontend_recipes/constants/icon_designs.dart';
 
 class RecipeAppSearchBar extends StatelessWidget {
   final bool withFilter;
-  const RecipeAppSearchBar({this.withFilter = true, super.key});
+  final Function onSearch;
+
+  const RecipeAppSearchBar(
+      {this.withFilter = true, super.key, required this.onSearch});
 
   @override
   Widget build(BuildContext context) {
@@ -27,10 +30,17 @@ class RecipeAppSearchBar extends StatelessWidget {
                     size: 26,
                   ),
                 ),
-                const Text(
-                  "Search here",
-                  style: TextStyle(
-                    fontSize: 16,
+                SizedBox(
+                  width: 300,
+                  child: TextField(
+                    onChanged: (String search){
+                      onSearch(search);
+                    },
+                    decoration: InputDecoration(
+                        hintText: "Search here",
+                        contentPadding: EdgeInsets.all(2),
+                        isDense: true,
+                        border: InputBorder.none),
                   ),
                 ),
               ],

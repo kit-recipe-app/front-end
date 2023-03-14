@@ -41,14 +41,17 @@ class _RecipeAppExploringRecipesState extends State<RecipeAppExploringRecipes> {
                     RecipeAppRecipePreviewExploring(
                       recipe: RecipeExamples.testRecipe2,
                       own: false,
+                      search: false,
                     ),
                     RecipeAppRecipePreviewExploring(
                       recipe: RecipeExamples.testRecipe3,
                       own: false,
+                      search: false,
                     ),
                     RecipeAppRecipePreviewExploring(
                       recipe: RecipeExamples.testRecipe1,
                       own: false,
+                      search: false,
                     ),
                   ],
                 ),
@@ -74,14 +77,17 @@ class _RecipeAppExploringRecipesState extends State<RecipeAppExploringRecipes> {
                     RecipeAppRecipePreviewExploring(
                       recipe: RecipeExamples.testRecipe1,
                       own: false,
+                      search: false,
                     ),
                     RecipeAppRecipePreviewExploring(
                       recipe: RecipeExamples.testRecipe2,
                       own: false,
+                      search: false,
                     ),
                     RecipeAppRecipePreviewExploring(
                       recipe: RecipeExamples.testRecipe3,
                       own: false,
+                      search: false,
                     ),
                   ],
                 ),
@@ -115,6 +121,7 @@ class _RecipeAppExploringRecipesState extends State<RecipeAppExploringRecipes> {
                                   RecipeAppRecipePreviewExploring(
                                 recipe: recipe,
                                     own: false,
+                                    search: false,
                               ),
                             )
                             .toList(),
