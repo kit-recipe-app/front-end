@@ -27,8 +27,6 @@ void main() {
       await tester.tap(find.byKey(Key("LoginButton")));
       await tester.pump(Duration(seconds: 2));
       expect(find.text("There is no user record corresponding to this identifier. The user may have been deleted."), findsOneWidget);
-      /*await tester.enterText(find.byKey(Key("EmailInput")), 'greendr4gon@protonmail.com');
-      await tester.enterText(find.byKey(Key("PasswordInput")), '12345678');*/
       await tester.enterText(find.byKey(Key("EmailInput")), 'testnutzer@tes.de');
       await tester.enterText(find.byKey(Key("PasswordInput")), '12345678');
       await tester.tap(find.byKey(Key("LoginButton")));

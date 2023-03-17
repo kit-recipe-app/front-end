@@ -13,22 +13,18 @@ class IngredientLoader {
 
   IngredientLoader._internal();
 
-  Future<void> init() async{
-    if(FirebaseAuth.instance.currentUser == null){
+  Future<void> init(http.Client client, FirebaseAuth instance) async{
+    if(instance.currentUser == null){
       ingredients = IngredientExamples.ingredients2;
       return ;
     }
-    var token = await FirebaseAuth.instance.currentUser!.getIdToken();
+    var token = await instance.currentUser!.getIdToken();
     var headers = {
       'Authorization': 'Bearer $token',
     };
-
-    var request = http.Request('GET', Uri.parse('https://recipebackendnew-qgf6rz2woa-ey.a.run.app/api/v1/ingredients'));
-    request.headers.addAll(headers);
-    http.StreamedResponse streamedResponse = await request.send();
-    if (streamedResponse.statusCode == 200) {
-      var response = await streamedResponse.stream.bytesToString();
-      List<dynamic> body = jsonDecode(response);
+    final response = await client.get(Uri.parse('https://recipebackendnew-qgf6rz2woa-ey.a.run.app/api/v1/ingredients'), headers: headers);
+    if (response.statusCode == 200) {
+      List<dynamic> body = jsonDecode(utf8.decode(response.bodyBytes));
       ingredients = body.map((dynamic item) => RAIngredient.fromJsonBackend(item)).toList();
     } else {
       throw Exception('Failed to load recipes');

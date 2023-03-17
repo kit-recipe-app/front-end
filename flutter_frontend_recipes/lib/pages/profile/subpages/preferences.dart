@@ -11,10 +11,10 @@ class Preferences extends StatefulWidget {
 }
 
 class _PreferencesState extends State<Preferences> {
-  bool all = SharedPrefs().getFoodPref(allText) == null ? false : SharedPrefs().getFoodPref(allText)!;
-  bool vegan = SharedPrefs().getFoodPref(veganText) == null ? false : SharedPrefs().getFoodPref(veganText)!;
-  bool vegetarian = SharedPrefs().getFoodPref(vegetarianText) == null ? false : SharedPrefs().getFoodPref(vegetarianText)!;
-  bool pescetarian = SharedPrefs().getFoodPref(pescetarianText) == null ? false : SharedPrefs().getFoodPref(pescetarianText)!;
+  bool all = SharedPrefs().getFoodPref(allText);
+  bool vegan = SharedPrefs().getFoodPref(veganText);
+  bool vegetarian = SharedPrefs().getFoodPref(vegetarianText);
+  bool pescetarian = SharedPrefs().getFoodPref(pescetarianText);
 
   String title = "Nahrungsmittelpräferenzen";
   static String allText = "Omnivor";

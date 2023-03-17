@@ -1,17 +1,16 @@
 import 'package:dropdown_button2/dropdown_button2.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:flutter_frontend_recipes/backend_connection/ingredient_loader.dart';
 import 'package:searchable_listview/searchable_listview.dart';
 
-import '../../../content_examples/ingredient_examples.dart';
 import '../../../types/ingredient.dart';
 import 'ingredient_builder.dart';
 
 class SearchIngredients extends StatefulWidget {
   final ValueSetter<RAIngredient> addItem;
+  final List<RAIngredient> ingredientList;
 
-  const SearchIngredients({Key? key, required this.addItem}) : super(key: key);
+  const SearchIngredients({Key? key, required this.addItem, required this.ingredientList}) : super(key: key);
 
   @override
   State<SearchIngredients> createState() => _SearchIngredientsState();
@@ -34,13 +33,12 @@ class _SearchIngredientsState extends State<SearchIngredients> {
               children: [
                 Expanded(
                   child: SearchableList<RAIngredient>(
-                    initialList: IngredientLoader.ingredients,
+                    initialList: widget.ingredientList,
                     builder: (RAIngredient ing) => BuildIngredient(
                       ingredient: ing,
-                      addItem: widget.addItem,
                       showDialog: showAddDialog,
                     ),
-                    filter: (value) => IngredientExamples.ingredients2
+                    filter: (value) => widget.ingredientList
                         .where((element) =>
                             element.name.toLowerCase().startsWith(value) ||
                             element.name.startsWith(value))

@@ -19,8 +19,8 @@ class SharedPrefs {
     return _sharedPrefs.getBool("selectedTheme");
   }
 
-  bool? getFoodPref(String pref) {
-    return _sharedPrefs.getBool(pref);
+  bool getFoodPref(String pref) {
+    return _sharedPrefs.getBool(pref) ?? false;
   }
 
   String getChosenPref() {
@@ -33,8 +33,8 @@ class SharedPrefs {
     return "Omnivor";
   }
 
-  bool? getAllergy(String allergy) {
-    return _sharedPrefs.getBool(allergy);
+  bool getAllergy(String allergy) {
+    return _sharedPrefs.getBool(allergy) ?? false;
   }
 
   void setTheme(bool value) {

@@ -82,7 +82,7 @@ class _RecipeAppSavedRecipesState extends State<RecipeAppSavedRecipes> {
   }
 
   Future<void> loadRecipes() async {
-    List<RARecipe> recipes = await LoadRecipes().getRecipes(http.Client(), FirebaseAuth.instance);
+    List<RARecipe> recipes = await LoadRecipes().getRecipes(http.Client(), FirebaseAuth.instance, false);
     setState(() {
       myRecipes = recipes;
     });

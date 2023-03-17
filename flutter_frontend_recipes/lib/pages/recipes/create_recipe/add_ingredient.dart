@@ -1,8 +1,8 @@
-import 'package:dropdown_button2/dropdown_button2.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_frontend_recipes/pages/recipes/create_recipe/create_recipe_title.dart';
 import 'package:flutter_frontend_recipes/pages/recipes/create_recipe/ingredient_list_item.dart';
 import 'package:flutter_frontend_recipes/pages/recipes/create_recipe/search_ingredients.dart';
+import '../../../backend_connection/ingredient_loader.dart';
 import '../../../types/ingredient.dart';
 import 'create_recipe_progress.dart';
 import 'package:flutter/services.dart';
@@ -168,6 +168,7 @@ class _AddIngredientState extends State<AddIngredient> {
                         context,
                         MaterialPageRoute(
                             builder: (context) => SearchIngredients(
+                              ingredientList: IngredientLoader.ingredients,
                                   addItem: addItem,
                                 )),
                       );
