@@ -4,8 +4,7 @@ import 'package:http/http.dart' as http;
 import 'dart:convert';
 
 class LoadRecipes {
-  //List<RARecipe> recipes = [];
-  Future<List<RARecipe>> getRecipesOld(http.Client client) async {
+  /*Future<List<RARecipe>> getRecipesOld(http.Client client) async {
     var token = await FirebaseAuth.instance.currentUser!.getIdToken();
     var headers = {
       'Authorization': 'Bearer $token',
@@ -23,14 +22,15 @@ class LoadRecipes {
     } else {
       throw Exception('Failed to load recipes');
     }
-  }
+  }*/
 
-  Future<List<RARecipe>> getRecipes(http.Client client, FirebaseAuth auth) async {
+  Future<List<RARecipe>> getRecipes(http.Client client, FirebaseAuth auth, bool all) async {
+    String uri = !all ? 'https://recipebackendnew-qgf6rz2woa-ey.a.run.app/api/v1/user/recipes' : 'https://recipebackendnew-qgf6rz2woa-ey.a.run.app/api/v1/recipes';
     final token = await auth.currentUser!.getIdToken();
     var headers = {
       'Authorization': 'Bearer $token',
     };
-    final response = await client.get(Uri.parse('https://recipebackendnew-qgf6rz2woa-ey.a.run.app/api/v1/user/recipes'), headers: headers);
+    final response = await client.get(Uri.parse(uri), headers: headers);
     if (response.statusCode == 200) {
       List<dynamic> body = jsonDecode(utf8.decode(response.bodyBytes));
       List<RARecipe> recipes = body.map((dynamic item) => RARecipe.fromJson(item)).toList();
@@ -40,7 +40,7 @@ class LoadRecipes {
     }
   }
 
-  Future<List<RARecipe>> getAllRecipes(http.Client client, FirebaseAuth auth) async {
+  /*Future<List<RARecipe>> getAllRecipes(http.Client client, FirebaseAuth auth) async {
     final token = await auth.currentUser!.getIdToken();
     var headers = {
       'Authorization': 'Bearer $token',
@@ -53,5 +53,5 @@ class LoadRecipes {
     } else {
       throw Exception('Failed to load recipes');
     }
-  }
+  }*/
 }

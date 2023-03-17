@@ -1,7 +1,9 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter_frontend_recipes/backend_connection/ingredient_loader.dart';
 import 'package:flutter_frontend_recipes/shared/shared_prefs.dart';
 import 'package:flutter_frontend_recipes/widget_tree.dart';
+import 'package:http/http.dart' as http;
 import 'firebase_options.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -12,7 +14,7 @@ Future<void> main() async {
     options: DefaultFirebaseOptions.currentPlatform,
   );
   await SharedPrefs().init();
-  await IngredientLoader().init();
+  await IngredientLoader().init(http.Client(), FirebaseAuth.instance);
   runApp(const MyApp());
 }
 

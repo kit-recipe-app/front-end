@@ -107,7 +107,7 @@ class _RecipeAppExploringRecipesState extends State<RecipeAppExploringRecipes> {
               child: SizedBox(
                 height: 250,
                 child: FutureBuilder(
-                  future: backendLoader.getAllRecipes(http.Client(), FirebaseAuth.instance),
+                  future: backendLoader.getRecipes(http.Client(), FirebaseAuth.instance, true),
                   builder: (BuildContext context,
                       AsyncSnapshot<List<RARecipe>> snapshot) {
                     if (snapshot.hasData) {

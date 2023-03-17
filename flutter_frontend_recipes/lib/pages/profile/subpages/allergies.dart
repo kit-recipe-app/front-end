@@ -13,12 +13,12 @@ class Allergies extends StatefulWidget {
 
 class _AllergiesState extends State<Allergies> {
   String title = "Allergien";
-  bool nuts = SharedPrefs().getAllergy(nutsText) == null ? false : SharedPrefs().getAllergy(nutsText)!;
-  bool milk = SharedPrefs().getAllergy(milkText) == null ? false : SharedPrefs().getAllergy(milkText)!;
-  bool eggs = SharedPrefs().getAllergy(eggsText) == null ? false : SharedPrefs().getAllergy(eggsText)!;
-  bool fish = SharedPrefs().getAllergy(fishText) == null ? false : SharedPrefs().getAllergy(fishText)!;
-  bool gluten = SharedPrefs().getAllergy(glutenText) == null ? false : SharedPrefs().getAllergy(glutenText)!;
-  bool seafood = SharedPrefs().getAllergy(seafoodText) == null ? false : SharedPrefs().getAllergy(seafoodText)!;
+  bool nuts = SharedPrefs().getAllergy(nutsText);
+  bool milk = SharedPrefs().getAllergy(milkText);
+  bool eggs = SharedPrefs().getAllergy(eggsText);
+  bool fish = SharedPrefs().getAllergy(fishText);
+  bool gluten = SharedPrefs().getAllergy(glutenText);
+  bool seafood = SharedPrefs().getAllergy(seafoodText);
   static String nutsText = "Nüsse";
   static String milkText = "Milch";
   static String eggsText = "Eier";
@@ -51,7 +51,7 @@ class _AllergiesState extends State<Allergies> {
             }
           )),
           const TileDivider(),
-          WidgetTile(text: eggsText, info: Switch(
+          WidgetTile(text: eggsText, info: Switch(key: const Key("EggsSwitch"),
             activeColor: activeColor,
             value: eggs,
               onChanged: (bool value) {
@@ -60,7 +60,7 @@ class _AllergiesState extends State<Allergies> {
               }
           )),
           const TileDivider(),
-          WidgetTile(text: milkText, info: Switch(
+          WidgetTile(text: milkText, info: Switch(key: const Key("MilkSwitch"),
             activeColor: activeColor,
             value: milk,
               onChanged: (bool value) {
@@ -69,7 +69,7 @@ class _AllergiesState extends State<Allergies> {
               }
           )),
           const TileDivider(),
-          WidgetTile(text: fishText, info: Switch(
+          WidgetTile(text: fishText, info: Switch(key: const Key("FishSwitch"),
             activeColor: activeColor,
             value: fish,
               onChanged: (bool value) {
@@ -78,7 +78,7 @@ class _AllergiesState extends State<Allergies> {
               }
           )),
           const TileDivider(),
-          WidgetTile(text: glutenText, info: Switch(
+          WidgetTile(text: glutenText, info: Switch(key: const Key("GlutenSwitch"),
             activeColor: activeColor,
             value: gluten,
               onChanged: (bool value) {
@@ -87,7 +87,7 @@ class _AllergiesState extends State<Allergies> {
               }
           )),
           const TileDivider(),
-          WidgetTile(text: seafoodText, info: Switch(
+          WidgetTile(text: seafoodText, info: Switch(key: const Key("SeafoodSwitch"),
             activeColor: activeColor,
             value: seafood,
               onChanged: (bool value) {

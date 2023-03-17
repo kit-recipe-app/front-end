@@ -3,10 +3,9 @@ import 'package:flutter_frontend_recipes/types/ingredient.dart';
 
 class BuildIngredient extends StatefulWidget {
   final RAIngredient ingredient;
-  final ValueSetter<RAIngredient> addItem;
   final Function(RAIngredient) showDialog;
 
-  const BuildIngredient({Key? key, required this.ingredient, required this.addItem, required this.showDialog}) : super(key: key);
+  const BuildIngredient({Key? key, required this.ingredient, required this.showDialog}) : super(key: key);
 
   @override
   State<BuildIngredient> createState() => _BuildIngredientState();

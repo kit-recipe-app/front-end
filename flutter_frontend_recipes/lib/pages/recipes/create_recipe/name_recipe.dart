@@ -80,7 +80,7 @@ class _NameRecipeState extends State<NameRecipe> {
         Padding(
           padding: const EdgeInsets.all(32),
           child: SizedBox(
-            height: 250,
+            height: 230,
             child: TextField(
               textInputAction: TextInputAction.done,
               maxLength: 250,
