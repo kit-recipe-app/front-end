@@ -19,8 +19,6 @@ class _LoginPageState extends State<LoginPage> {
   String? errorMessage = "";
   bool isLogin = true;
 
-  final TextEditingController _controllerTest = TextEditingController();
-
   final TextEditingController _controllerEmail = TextEditingController();
   final TextEditingController _controllerPassword = TextEditingController();
   final TextEditingController _controllerConfirmPassword =
