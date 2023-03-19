@@ -2,7 +2,7 @@ import 'dart:ui';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_frontend_recipes/pages/shopping-lists/create_shopping_list/test.dart';
-import 'package:flutter_frontend_recipes/pages/shopping-lists/new_shopping_list_preview.dart';
+import 'package:flutter_frontend_recipes/pages/shopping-lists/shopping_list_preview.dart';
 import 'package:flutter_frontend_recipes/shared/button.dart';
 import 'package:flutter_frontend_recipes/shared/shared_prefs.dart';
 import 'package:flutter_frontend_recipes/types/shopping_list.dart';
