@@ -1,3 +1,4 @@
+import 'package:dropdown_button2/dropdown_button2.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
@@ -10,6 +11,7 @@ class RAInputField extends StatefulWidget {
   Function? onNewFocus;
   bool onlyNumbers;
   int? charLimit;
+  List<String>? quickSelect;
   RAInputField({
     required this.hintText,
     required this.controller,
@@ -19,6 +21,7 @@ class RAInputField extends StatefulWidget {
     this.onNewFocus,
     this.onlyNumbers = false,
     this.charLimit,
+    this.quickSelect,
     super.key,
   });
 
@@ -81,9 +84,8 @@ class _RAInputFieldState extends State<RAInputField> {
                   widget.icon,
                   color: focusNode.hasFocus ? Colors.black : Colors.black45,
                 ),
-          suffixIcon: (!widget.isPassword)
-              ? null
-              : IconButton(
+          suffixIcon: (widget.isPassword)
+              ? IconButton(
                   icon: (isPasswordVisible
                       ? Icon(
                           Icons.visibility_off,
@@ -100,7 +102,27 @@ class _RAInputFieldState extends State<RAInputField> {
                   onPressed: () => setState(
                     () => isPasswordVisible = !isPasswordVisible,
                   ),
-                ),
+                )
+              : ((widget.quickSelect == null)
+                  ? null
+                  : Padding(
+                      padding: const EdgeInsets.only(right: 8),
+                      child: DropdownButtonHideUnderline(
+                        child: DropdownButton2(
+                          buttonWidth: 75,
+                          items: widget.quickSelect!
+                              .map((unit) => DropdownMenuItem<String>(
+                                  value: unit, child: Text(unit)))
+                              .toList(),
+                          //value: widget.ing.unit,
+                          onChanged: (value) {
+                            setState(() {
+                              widget.controller.text = value as String;
+                            });
+                          },
+                        ),
+                      ),
+                    )),
         ),
       ),
     );

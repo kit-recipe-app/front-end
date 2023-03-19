@@ -33,6 +33,10 @@ class RAShoppingList {
     items!.add(item);
   }
 
+  void changeItemIsDone(RAIngredient item) {
+    items![items!.indexOf(item)].done = !items![items!.indexOf(item)].done;
+  }
+
   void deleteItem(RAIngredient item) {
     items!.remove(item);
   }
