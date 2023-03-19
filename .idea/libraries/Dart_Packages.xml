@@ -303,13 +303,6 @@
             </list>
           </value>
         </entry>
-        <entry key="flutter_driver">
-          <value>
-            <list>
-              <option value="$PROJECT_DIR$/../../../../flutter/packages/flutter_driver/lib" />
-            </list>
-          </value>
-        </entry>
         <entry key="flutter_lints">
           <value>
             <list>
@@ -720,13 +713,6 @@
           <value>
             <list>
               <option value="$PROJECT_DIR$/../../../../flutter/bin/cache/pkg/sky_engine/lib" />
-            </list>
-          </value>
-        </entry>
-        <entry key="source_gen">
-          <value>
-            <list>
-              <option value="$USER_HOME$/AppData/Local/Pub/Cache/hosted/pub.dev/source_gen-1.2.7/lib" />
             </list>
           </value>
         </entry>
