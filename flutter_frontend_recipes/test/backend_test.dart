@@ -91,4 +91,16 @@ void main() {
     await IngredientLoader().init(client, auth);
     expect(IngredientLoader.ingredients.length, equals(1));
   });
+
+  test('load Ingredients throws exception if http call returns error', () async {
+    final client = MockClient();
+    final auth = MockFirebaseAuth();
+    auth.signInAnonymously();
+    when(client.get(
+        Uri.parse(
+            'https://recipebackendnew-qgf6rz2woa-ey.a.run.app/api/v1/ingredients'),
+        headers: anyNamed('headers')))
+        .thenAnswer((_) async => http.Response('Not Found', 404));
+    expect(IngredientLoader().init(client, auth), throwsException);
+  });
 }
