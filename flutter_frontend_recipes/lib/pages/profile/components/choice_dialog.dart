@@ -31,6 +31,7 @@ class _ChoiceDialogState extends State<ChoiceDialog> {
         children: [
           for (String value in widget.values)
             RadioListTile(
+              activeColor: Colors.black,
               title: Text(value),
                 value: value,
                 groupValue: groupValue,

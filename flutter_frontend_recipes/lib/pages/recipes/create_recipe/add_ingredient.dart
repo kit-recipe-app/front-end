@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_frontend_recipes/pages/recipes/create_recipe/create_recipe_title.dart';
 import 'package:flutter_frontend_recipes/pages/recipes/create_recipe/ingredient_list_item.dart';
 import 'package:flutter_frontend_recipes/pages/recipes/create_recipe/search_ingredients.dart';
-import '../../../backend_connection/ingredient_loader.dart';
 import '../../../types/ingredient.dart';
 import 'create_recipe_progress.dart';
 import 'package:flutter/services.dart';
@@ -14,14 +13,16 @@ class AddIngredient extends StatefulWidget {
   final Function() back;
   List<RAIngredient> ingredients;
   List<TextEditingController> controllers;
+  List<RAIngredient> allIngredients;
 
-  AddIngredient({Key? key, required this.next, required this.back, required this.ingredients, required this.controllers}) : super(key: key);
+  AddIngredient({Key? key, required this.next, required this.back, required this.ingredients, required this.controllers, required this.allIngredients}) : super(key: key);
 
   @override
-  State<AddIngredient> createState() => _AddIngredientState();
+  State<AddIngredient> createState() => AddIngredientState();
 }
 
-class _AddIngredientState extends State<AddIngredient> {
+@visibleForTesting
+class AddIngredientState extends State<AddIngredient> {
 
   List<TextEditingController> controllers = [];
   List<RAIngredient> lis = [];
@@ -168,7 +169,7 @@ class _AddIngredientState extends State<AddIngredient> {
                         context,
                         MaterialPageRoute(
                             builder: (context) => SearchIngredients(
-                              ingredientList: IngredientLoader.ingredients,
+                              ingredientList: widget.allIngredients,
                                   addItem: addItem,
                                 )),
                       );

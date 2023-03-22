@@ -1,4 +1,4 @@
-import 'package:firebase_auth/firebase_auth.dart';
+  import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_frontend_recipes/pages/recipes/recipe_preview_exploring.dart';
 
@@ -8,7 +8,8 @@ import 'package:http/http.dart' as http;
 
 class SearchRecipe extends StatefulWidget {
   final String searchWord;
-  const SearchRecipe({Key? key, required this.searchWord}) : super(key: key);
+  final String filterWord;
+  const SearchRecipe({Key? key, required this.searchWord, required this.filterWord}) : super(key: key);
 
   @override
   State<SearchRecipe> createState() => _SearchRecipeState();

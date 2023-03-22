@@ -65,12 +65,24 @@ void main() {
     });
 
     testWidgets('add ingredient', (WidgetTester tester) async{
-      FlutterError.onError = ignoreOverflowErrors;
       await tester.pumpWidget(MaterialApp(
-        home: AddIngredient(ingredients: [], next: nextCompleter.complete, back: backCompleter.complete, controllers: [],),));
+        home: AddIngredient(ingredients: [], next: nextCompleter.complete, back: backCompleter.complete, controllers: [], allIngredients: IngredientExamples.ingredients2,),));
       expect(find.text("Füge jetzt die Zutaten hinzu, die du brauchst"), findsOneWidget);
       expect(find.text("Zutaten:"), findsOneWidget);
-      testCompleter(nextCompleter, backCompleter, tester);
+      expect(find.text("Zutat hinzufügen"), findsOneWidget);
+      await testCompleter(nextCompleter, backCompleter, tester);
+      await tester.tap(find.text("Zutat hinzufügen"));
+      await tester.pump();
+      final AddIngredientState myWidgetState = tester.state(find.byType(AddIngredient));
+      expect(myWidgetState.lis.isEmpty, isTrue);
+      RAIngredient testIngredient = RAIngredient(name: "test", unit: "g", amount: 1, calories: 0);
+      myWidgetState.addItem(testIngredient);
+      expect(myWidgetState.lis, equals([testIngredient]));
+      myWidgetState.removeItem(testIngredient, 0);
+      expect(myWidgetState.lis.isEmpty, isTrue);
+      expect(myWidgetState.factor, equals(1));
+      await tester.enterText(find.byType(TextField), "2");
+      expect(myWidgetState.factor, equals(2));
     });
 
 

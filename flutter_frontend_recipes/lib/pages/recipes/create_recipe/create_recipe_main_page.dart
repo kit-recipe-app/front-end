@@ -2,6 +2,7 @@ import 'dart:convert';
 
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_frontend_recipes/backend_connection/ingredient_loader.dart';
 import 'package:flutter_frontend_recipes/pages/recipes/create_recipe/add_ingredient.dart';
 import 'package:flutter_frontend_recipes/pages/recipes/create_recipe/add_picture.dart';
 import 'package:flutter_frontend_recipes/pages/recipes/create_recipe/confirm_screen.dart';
@@ -89,12 +90,40 @@ class _CreateRecipeMainPageState extends State<CreateRecipeMainPage> {
     http.StreamedResponse response = await request.send();
 
     if (response.statusCode == 200) {
-      print(await response.stream.bytesToString());
+      var recipeId = await response.stream.bytesToString();
+      if (!recipe.picture.startsWith("assets")) {
+        var request = http.MultipartRequest('POST', Uri.parse('https://recipebackendnew-qgf6rz2woa-ey.a.run.app/api/v1/images'));
+        request.files.add(await http.MultipartFile.fromPath('image', recipe.picture));
+        request.headers.addAll(headers);
+
+        http.StreamedResponse response2 = await request.send();
+
+        if (response2.statusCode == 200) {
+          var pictureId = await response2.stream.bytesToString();
+          var request = http.Request('POST', Uri.parse('https://recipebackendnew-qgf6rz2woa-ey.a.run.app/api/v1/recipes/$recipeId/image/$pictureId'));
+
+          request.headers.addAll(headers);
+
+          http.StreamedResponse response3 = await request.send();
+
+          if (response3.statusCode == 200) {
+            print(await response3.stream.bytesToString());
+          }
+          else {
+            print(response.reasonPhrase);
+          }
+        }
+        else {
+          print(response2.reasonPhrase);
+        }
+      }
     }
     else {
       print(response.statusCode);
       print(response.reasonPhrase);
     }
+
+
   }
 
   ///Send edited recipe to backend using PUT Request
@@ -125,7 +154,7 @@ class _CreateRecipeMainPageState extends State<CreateRecipeMainPage> {
   ///Different pages to be displayed during the Recipe creation/editing process.
    late final List<Widget> _pages = [
     NameRecipe(next: next, recipe: recipe),
-    AddIngredient(next: next, back: back, ingredients: recipe.ingredients, controllers: controllers,),
+    AddIngredient(next: next, back: back, ingredients: recipe.ingredients, controllers: controllers, allIngredients: IngredientLoader.ingredients,),
     CreateManual(next: next, back: back, manual: recipe.manual,),
     AddPicture(setPicture: setPicture, next: next, back: back,),
     ConfirmRecipe(upload: (){Navigator.pop(context); widget.edit ?? false ? editRecipe() : postRecipe(); }),
