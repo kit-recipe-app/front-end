@@ -14,10 +14,11 @@ class RecipeScreen extends StatefulWidget {
 class _RecipeScreenState extends State<RecipeScreen> {
   int _selectedIndex = 0;
   String _searchWord = "";
+  String _filterWord = "Übersicht";
 
   final List<Widget> _tabs = [
     const RecipeAppExploringRecipes(),
-     RecipeAppSavedRecipes(),
+    RecipeAppSavedRecipes(),
   ];
 
   @override
@@ -28,17 +29,49 @@ class _RecipeScreenState extends State<RecipeScreen> {
       child: Column(
         children: [
           RecipeAppTopNavigation(
-            onSearch: (String searchWord){
+            choice: _filterWord,
+            onSearch: (String searchWord) {
               setState(() {
                 _searchWord = searchWord;
-                if(_searchWord != ""){
-                  if(_tabs.length == 2){
-                    _tabs.add(SearchRecipe(searchWord: _searchWord),);
-                  }else{
-                    _tabs[2] = SearchRecipe(searchWord: _searchWord);
+                if (_searchWord != "") {
+                  if (_tabs.length == 2) {
+                    _tabs.add(
+                      SearchRecipe(
+                        searchWord: _searchWord,
+                        filterWord: _filterWord,
+                      ),
+                    );
+                  } else {
+                    _tabs[2] = SearchRecipe(
+                      searchWord: _searchWord,
+                      filterWord: _filterWord,
+                    );
                   }
                   _selectedIndex = 2;
-                }else{
+                } else {
+                  _selectedIndex = 0;
+                }
+              });
+            },
+            onFilter: (String filterWord) {
+              setState(() {
+                _filterWord = filterWord;
+                if (_filterWord != "Übersicht") {
+                  if (_tabs.length == 2) {
+                    _tabs.add(
+                      SearchRecipe(
+                        searchWord: _searchWord,
+                        filterWord: _filterWord,
+                      ),
+                    );
+                  } else {
+                    _tabs[2] = SearchRecipe(
+                      searchWord: _searchWord,
+                      filterWord: _filterWord,
+                    );
+                  }
+                  _selectedIndex = 2;
+                } else {
                   _selectedIndex = 0;
                 }
               });

@@ -4,10 +4,12 @@ import 'package:flutter_frontend_recipes/shared/search_bar.dart';
 
 class RecipeAppTopNavigation extends StatelessWidget {
   Function onChange;
+  Function onFilter;
   int selectedIndex;
   Function onSearch;
+  String choice;
   RecipeAppTopNavigation(
-      {required this.onChange, required this.selectedIndex, required this.onSearch, super.key});
+      {required this.onChange, required this.selectedIndex, required this.onSearch, required this.onFilter, required this.choice,  super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -15,7 +17,7 @@ class RecipeAppTopNavigation extends StatelessWidget {
       padding: const EdgeInsets.all(8),
       child: Column(
         children: [
-          RecipeAppSearchBar(onSearch: onSearch,),
+          RecipeAppSearchBar(onSearch: onSearch, onFilter: onFilter, choice: choice,),
           Visibility(
             visible: selectedIndex < 2 ? true : false,
             child: RecipeAppNavigationSwitchRecipes(

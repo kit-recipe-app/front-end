@@ -1,12 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_frontend_recipes/constants/icon_designs.dart';
+import 'package:flutter_frontend_recipes/pages/profile/components/choice_dialog.dart';
 
 class RecipeAppSearchBar extends StatelessWidget {
   final bool withFilter;
   final Function onSearch;
+  final Function onFilter;
+  final String choice;
 
   const RecipeAppSearchBar(
-      {this.withFilter = true, super.key, required this.onSearch});
+      {this.withFilter = true, super.key, required this.onSearch, required this.onFilter, required this.choice});
 
   @override
   Widget build(BuildContext context) {
@@ -14,6 +17,7 @@ class RecipeAppSearchBar extends StatelessWidget {
       children: [
         Flexible(
           child: Container(
+            width: MediaQuery.of(context).size.width - 50,
             margin: const EdgeInsets.only(right: 8),
             padding: const EdgeInsets.all(4),
             decoration: BoxDecoration(
@@ -30,10 +34,9 @@ class RecipeAppSearchBar extends StatelessWidget {
                     size: 26,
                   ),
                 ),
-                SizedBox(
-                  width: 300,
+                Expanded(
                   child: TextField(
-                    onChanged: (String search){
+                    onChanged: (String search) {
                       onSearch(search);
                     },
                     decoration: InputDecoration(
@@ -49,12 +52,26 @@ class RecipeAppSearchBar extends StatelessWidget {
         ),
         Visibility(
           visible: withFilter,
-          child: Icon(
-            RecipeAppIcons.filerIcon,
-            size: 26,
+          child: InkWell(
+            customBorder: CircleBorder(),
+            onTap: () {
+              _dialogBuilder(context);
+            },
+            child: Icon(
+              RecipeAppIcons.filerIcon,
+              size: 26,
+            ),
           ),
         ),
       ],
     );
+  }
+
+  Future<void> _dialogBuilder(BuildContext context) {
+    return showDialog(
+        context: context,
+        builder: (BuildContext context) {
+          return ChoiceDialog(title: "Filter", values: ["Übersicht", "Alles", "Vegan", "Vegetarisch"], standard: choice, setText: onFilter);
+        });
   }
 }
