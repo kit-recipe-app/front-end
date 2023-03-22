@@ -1,9 +1,10 @@
 import 'dart:ui';
 
 import 'package:flutter/material.dart';
-import 'package:flutter_frontend_recipes/pages/shopping-lists/create_shopping_list/test.dart';
+import 'package:flutter_frontend_recipes/pages/shopping-lists/create_shopping_list/add_shopping_list_screen.dart';
 import 'package:flutter_frontend_recipes/pages/shopping-lists/shopping_list_preview.dart';
 import 'package:flutter_frontend_recipes/shared/button.dart';
+import 'package:flutter_frontend_recipes/shared/input_field.dart';
 import 'package:flutter_frontend_recipes/shared/shared_prefs.dart';
 import 'package:flutter_frontend_recipes/types/shopping_list.dart';
 
@@ -37,9 +38,7 @@ class _NewMainPageShoppingListsState extends State<NewMainPageShoppingLists> {
       appBar: AppBar(
         title: Text(
           "Deine Einkaufslisten",
-          style: TextStyle(
-            color : Theme.of(context).colorScheme.onSecondary
-          ),
+          style: TextStyle(color: Theme.of(context).colorScheme.onSecondary),
         ),
         elevation: 0,
         backgroundColor: Colors.transparent,
