@@ -3,6 +3,7 @@ import 'package:flutter_frontend_recipes/constants/color_styles.dart';
 import 'package:flutter_frontend_recipes/constants/font_styles.dart';
 import 'package:flutter_frontend_recipes/content_examples/recipe_examples.dart';
 import 'package:flutter_frontend_recipes/pages/feed/recipe_card.dart';
+import 'package:flutter_frontend_recipes/pages/recipes/last_viewed.dart';
 
 
 class MainFeed extends StatefulWidget {
@@ -20,6 +21,8 @@ class _MainFeedState extends State<MainFeed> {
 
   @override
   Widget build(BuildContext context) {
+    LastViewed _lastViewed = LastViewed();
+
     return Scaffold(
       appBar: AppBar(
         centerTitle: true,
@@ -57,7 +60,7 @@ class _MainFeedState extends State<MainFeed> {
                 //style: FontStyles.titleText,
               ),
             ),
-            RecipeCard(recipe: RecipeExamples.testRecipe2),
+            RecipeCard(recipe: _lastViewed.recipe),
 
             Padding(
               padding: const EdgeInsets.fromLTRB(2, 40, 0, 5),

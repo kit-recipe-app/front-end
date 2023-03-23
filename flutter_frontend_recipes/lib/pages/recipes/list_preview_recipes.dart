@@ -43,8 +43,20 @@ class RecipeAppRecipeListPreview extends StatelessWidget {
             children: [
               ClipRRect(
                 borderRadius: BorderRadius.circular(16),
-                child: Image.asset(
-                  'assets/example_pictures/hamburger.jpg',
+                child: numberRecipes == 0 ? Image.asset(
+                  'assets/example_pictures/standard_picture.jpg',
+                  width: 100,
+                  height: 100,
+                  fit: BoxFit.cover,
+                ) : (recipes[0].picture.startsWith('http'))
+                    ? Image.network(
+                  recipes[0].picture,
+                  width: 100,
+                  height: 100,
+                  fit: BoxFit.cover,
+                )
+                    : Image.asset(
+                  recipes[0].picture,
                   width: 100,
                   height: 100,
                   fit: BoxFit.cover,
