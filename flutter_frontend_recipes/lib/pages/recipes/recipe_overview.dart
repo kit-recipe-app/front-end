@@ -1,6 +1,7 @@
 import 'dart:io';
 
 import 'package:flutter/material.dart';
+import 'package:flutter_frontend_recipes/pages/recipes/last_viewed.dart';
 
 import 'package:flutter_frontend_recipes/pages/recipes/to_shopping_list_page.dart';
 import 'package:flutter_frontend_recipes/types/recipe.dart';
@@ -15,6 +16,7 @@ class RecipeOverview extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    LastViewed().recipe = recipe;
     return Container(
       color: Theme.of(context).canvasColor,
       child: SafeArea(

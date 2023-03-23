@@ -14,24 +14,32 @@ class RecipeAppRecipePreviewExploring extends StatefulWidget {
   final Function? favorite;
 
   RecipeAppRecipePreviewExploring(
-      {required this.recipe, super.key, required this.own, this.delete, this.favorite, required this.search});
+      {required this.recipe,
+      super.key,
+      required this.own,
+      this.delete,
+      this.favorite,
+      required this.search});
 
   @override
-  State<RecipeAppRecipePreviewExploring> createState() => _RecipeAppRecipePreviewExploringState();
+  State<RecipeAppRecipePreviewExploring> createState() =>
+      _RecipeAppRecipePreviewExploringState();
 }
 
-
-class _RecipeAppRecipePreviewExploringState extends State<RecipeAppRecipePreviewExploring> {
-
-
+class _RecipeAppRecipePreviewExploringState
+    extends State<RecipeAppRecipePreviewExploring> {
   @override
   void initState() {
-    widget.recipe.favorite = SharedPrefs().getFavorite(widget.recipe.id) ?? false;
+    widget.recipe.favorite =
+        SharedPrefs().getFavorite(widget.recipe.id) ?? false;
     super.initState();
   }
+
   @override
   Widget build(BuildContext context) {
-    double width = !widget.own ? (widget.search ? MediaQuery.of(context).size.width - 20 : 200) : MediaQuery.of(context).size.width - 20;
+    double width = !widget.own
+        ? (widget.search ? MediaQuery.of(context).size.width - 20 : 200)
+        : MediaQuery.of(context).size.width - 20;
     return GestureDetector(
       onTap: () {
         Navigator.push(
@@ -59,24 +67,75 @@ class _RecipeAppRecipePreviewExploringState extends State<RecipeAppRecipePreview
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            ClipRRect(
-              borderRadius: BorderRadius.circular(16),
-              child: (widget.recipe.picture.startsWith('http'))
-                  ? Image.network(
-                      widget.recipe.picture,
-                      width: width,
-                      height: 100,
-                      fit: BoxFit.cover,
-                    )
-                  : Image.asset(
-                      widget.recipe.picture,
-                      width: width,
-                      height: 100,
-                      fit: BoxFit.cover,
-                    ),
-            ),
+            !widget.own
+                ? Stack(
+                    children: [
+                      ClipRRect(
+                        borderRadius: BorderRadius.circular(16),
+                        child: (widget.recipe.picture.startsWith('http'))
+                            ? Image.network(
+                                widget.recipe.picture,
+                                width: width,
+                                height: 100,
+                                fit: BoxFit.cover,
+                              )
+                            : Image.asset(
+                                widget.recipe.picture,
+                                width: width,
+                                height: 100,
+                                fit: BoxFit.cover,
+                              ),
+                      ),
+                      Align(
+                        alignment: Alignment.topRight,
+                        child: Padding(
+                          padding: const EdgeInsets.all(8.0),
+                          child: InkWell(
+                            customBorder: CircleBorder(),
+                            child: widget.recipe.favorite
+                                ? Icon(
+                                    Icons.star,
+                                    color: Colors.yellow,
+                              shadows: [Shadow(color: Colors.black, blurRadius: 32.0)],
+                                  )
+                                : Icon(
+                                    Icons.star_border,
+                                    color: Colors.yellow,
+                              shadows: [Shadow(color: Colors.black, blurRadius: 32.0)],
+                                  ),
+                            onTap: () {
+                              setState(() {
+                                widget.recipe.favorite =
+                                    !widget.recipe.favorite;
+                                SharedPrefs().setFavorite(
+                                    widget.recipe.id, widget.recipe.favorite);
+                              });
+                            },
+                          ),
+                        ),
+                      ),
+                    ],
+                  )
+                : ClipRRect(
+                    borderRadius: BorderRadius.circular(16),
+                    child: (widget.recipe.picture.startsWith('http'))
+                        ? Image.network(
+                            widget.recipe.picture,
+                            width: width,
+                            height: 100,
+                            fit: BoxFit.cover,
+                          )
+                        : Image.asset(
+                            widget.recipe.picture,
+                            width: width,
+                            height: 100,
+                            fit: BoxFit.cover,
+                          ),
+                  ),
             Padding(
-              padding: widget.own ? EdgeInsets.fromLTRB(15, 10, 8, 0) : EdgeInsets.fromLTRB(8, 0, 8, 0),
+              padding: widget.own
+                  ? EdgeInsets.fromLTRB(15, 10, 8, 0)
+                  : EdgeInsets.fromLTRB(8, 0, 8, 0),
               child: Text(
                 widget.recipe.title,
                 style: const TextStyle(
@@ -88,7 +147,9 @@ class _RecipeAppRecipePreviewExploringState extends State<RecipeAppRecipePreview
               ),
             ),
             Padding(
-              padding: widget.own ? EdgeInsets.fromLTRB(15, 5, 8, 0) : EdgeInsets.fromLTRB(8, 0, 8, 0),
+              padding: widget.own
+                  ? EdgeInsets.fromLTRB(15, 5, 8, 0)
+                  : EdgeInsets.fromLTRB(8, 0, 8, 0),
               child: Text(
                 widget.recipe.description,
                 maxLines: 2,
@@ -101,12 +162,12 @@ class _RecipeAppRecipePreviewExploringState extends State<RecipeAppRecipePreview
                     child: getIconBar(),
                   )
                 : Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                getIconBar(),
-                getButtonBar(),
-              ],
-            )
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      getIconBar(),
+                      getButtonBar(),
+                    ],
+                  )
           ],
         ),
       ),
@@ -151,7 +212,9 @@ class _RecipeAppRecipePreviewExploringState extends State<RecipeAppRecipePreview
           children: [
             Icon(RecipeAppIcons.difficultyIcon),
             Text(
-              (widget.recipe.difficulty != null) ? widget.recipe.difficulty! : "",
+              (widget.recipe.difficulty != null)
+                  ? widget.recipe.difficulty!
+                  : "",
               style: const TextStyle(
                 fontSize: 12,
               ),
@@ -160,54 +223,73 @@ class _RecipeAppRecipePreviewExploringState extends State<RecipeAppRecipePreview
         ),
       );
     }
-    return !widget.own ? Row(
-      mainAxisAlignment: MainAxisAlignment.spaceAround,
-      children: availableValues,
-    )
-    : Container(
-      width: (MediaQueryData.fromWindow(WidgetsBinding.instance.window).size.width - 20) / 2,
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-        children: availableValues,
-      ),
-    )
-    ;
+    return !widget.own
+        ? Row(
+            mainAxisAlignment: MainAxisAlignment.spaceAround,
+            children: availableValues,
+          )
+        : Container(
+            width: (MediaQueryData.fromWindow(WidgetsBinding.instance.window)
+                        .size
+                        .width -
+                    20) /
+                2,
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              children: availableValues,
+            ),
+          );
   }
 
-  Widget getButtonBar(){
+  Widget getButtonBar() {
     return Material(
       color: Colors.transparent,
       child: Container(
-        width: (MediaQueryData.fromWindow(WidgetsBinding.instance.window).size.width - 20) / 2,
+        width: (MediaQueryData.fromWindow(WidgetsBinding.instance.window)
+                    .size
+                    .width -
+                20) /
+            2,
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           children: [
             InkWell(
               customBorder: CircleBorder(),
-              child:Icon(Icons.delete),
+              child: Icon(Icons.delete),
               onTap: () {
                 _showConfirmDialog();
               },
             ),
             InkWell(
               customBorder: CircleBorder(),
-              child:Icon(Icons.edit),
+              child: Icon(Icons.edit),
               onTap: () {
                 Navigator.push(
                   context,
                   MaterialPageRoute(
-                      builder: (context) =>
-                          CreateRecipeMainPage(edit: true, oldRecipe: widget.recipe,)),
+                      builder: (context) => CreateRecipeMainPage(
+                            edit: true,
+                            oldRecipe: widget.recipe,
+                          )),
                 );
               },
             ),
             InkWell(
               customBorder: CircleBorder(),
-              child:widget.recipe.favorite ? Icon(Icons.star, color: Colors.yellow,) : Icon(Icons.star_border, color: Colors.yellow,),
+              child: widget.recipe.favorite
+                  ? Icon(
+                      Icons.star,
+                      color: Colors.yellow,
+                    )
+                  : Icon(
+                      Icons.star_border,
+                      color: Colors.yellow,
+                    ),
               onTap: () {
                 setState(() {
                   widget.recipe.favorite = !widget.recipe.favorite;
-                  SharedPrefs().setFavorite(widget.recipe.id, widget.recipe.favorite);
+                  SharedPrefs()
+                      .setFavorite(widget.recipe.id, widget.recipe.favorite);
                   widget.favorite!();
                 });
               },
@@ -245,5 +327,4 @@ class _RecipeAppRecipePreviewExploringState extends State<RecipeAppRecipePreview
           );
         });
   }
-
 }
