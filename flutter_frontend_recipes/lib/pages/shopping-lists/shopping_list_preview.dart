@@ -3,17 +3,17 @@ import 'package:flutter_frontend_recipes/pages/shopping-lists/shopping_list_over
 import 'package:flutter_frontend_recipes/shared/shared_prefs.dart';
 import 'package:flutter_frontend_recipes/types/shopping_list.dart';
 
-class NewShoppingListPreview extends StatefulWidget {
+class shoppingListPreview extends StatefulWidget {
   final RAShoppingList shoppingList;
   final Function reLoadRecipes;
-  const NewShoppingListPreview(
+  const shoppingListPreview(
       {required this.shoppingList, required this.reLoadRecipes, super.key});
 
   @override
-  State<NewShoppingListPreview> createState() => _NewShoppingListPreviewState();
+  State<shoppingListPreview> createState() => _shoppingListPreviewState();
 }
 
-class _NewShoppingListPreviewState extends State<NewShoppingListPreview> {
+class _shoppingListPreviewState extends State<shoppingListPreview> {
   Widget getHeading() {
     String year = widget.shoppingList.creationDate.year.toString();
     String month = widget.shoppingList.creationDate.month.toString();
