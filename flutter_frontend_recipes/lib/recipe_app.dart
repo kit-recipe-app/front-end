@@ -3,7 +3,7 @@ import 'package:flutter_frontend_recipes/layout/bottom_navigation_bar_recipe_app
 import 'package:flutter_frontend_recipes/pages/feed/main-page-feed.dart';
 import 'package:flutter_frontend_recipes/pages/profile/main_page_profile.dart';
 import 'package:flutter_frontend_recipes/pages/recipes/main_page_recipes.dart';
-import 'package:flutter_frontend_recipes/pages/shopping-lists/new_main_page_shopping_lists.dart';
+import 'package:flutter_frontend_recipes/pages/shopping-lists/main_page_shopping_lists.dart';
 
 class RecipeApp extends StatefulWidget {
   const RecipeApp({super.key});
