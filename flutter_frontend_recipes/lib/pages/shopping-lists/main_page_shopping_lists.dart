@@ -56,7 +56,7 @@ class _NewMainPageShoppingListsState extends State<NewMainPageShoppingLists> {
           ? const Center(child: Text("Noch keine Einkaufslisten hier"))
           : ListView(
               children: listsStored
-                  .map((e) => shoppingListPreview(
+                  .map((e) => ShoppingListPreview(
                         shoppingList: e,
                         reLoadRecipes: loadShoppingLists,
                       ))
