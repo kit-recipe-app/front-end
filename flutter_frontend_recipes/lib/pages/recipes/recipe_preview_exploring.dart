@@ -41,6 +41,7 @@ class _RecipeAppRecipePreviewExploringState
         ? (widget.search ? MediaQuery.of(context).size.width - 20 : 200)
         : MediaQuery.of(context).size.width - 20;
     return GestureDetector(
+      key: const Key("OverviewDetector"),
       onTap: () {
         Navigator.push(
           context,
@@ -91,6 +92,7 @@ class _RecipeAppRecipePreviewExploringState
                         child: Padding(
                           padding: const EdgeInsets.all(8.0),
                           child: InkWell(
+                            key: const Key("StarInkWell"),
                             customBorder: CircleBorder(),
                             child: widget.recipe.favorite
                                 ? Icon(
@@ -261,6 +263,7 @@ class _RecipeAppRecipePreviewExploringState
               },
             ),
             InkWell(
+              key: const Key("ButtonBarStar"),
               customBorder: CircleBorder(),
               child: Icon(Icons.edit),
               onTap: () {

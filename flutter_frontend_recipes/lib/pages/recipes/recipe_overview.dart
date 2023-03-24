@@ -123,6 +123,7 @@ class RecipeOverview extends StatelessWidget {
                   ),
                   Center(
                     child: ElevatedButton(
+                      key: const Key("ToShoppingListButton"),
                       onPressed: () {
                         Navigator.push(
                           context,

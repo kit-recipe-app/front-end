@@ -2,12 +2,15 @@ import 'dart:async';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_frontend_recipes/content_examples/ingredient_examples.dart';
+import 'package:flutter_frontend_recipes/content_examples/recipe_examples.dart';
 import 'package:flutter_frontend_recipes/pages/feed/main-page-feed.dart';
 import 'package:flutter_frontend_recipes/pages/feed/recipe_card.dart';
 import 'package:flutter_frontend_recipes/pages/profile/components/choice_dialog.dart';
 import 'package:flutter_frontend_recipes/pages/profile/components/password_dialog.dart';
 import 'package:flutter_frontend_recipes/pages/profile/components/password_tile.dart';
 import 'package:flutter_frontend_recipes/pages/profile/components/text_dialog.dart';
+import 'package:flutter_frontend_recipes/pages/profile/components/text_tile.dart';
+import 'package:flutter_frontend_recipes/pages/profile/components/widget_tile.dart';
 import 'package:flutter_frontend_recipes/pages/profile/main_page_profile.dart';
 import 'package:flutter_frontend_recipes/pages/profile/subpages/allergies.dart';
 import 'package:flutter_frontend_recipes/pages/profile/subpages/app_settings.dart';
@@ -21,6 +24,13 @@ import 'package:flutter_frontend_recipes/pages/recipes/create_recipe/ingredient_
 import 'package:flutter_frontend_recipes/pages/recipes/create_recipe/name_recipe.dart';
 import 'package:flutter_frontend_recipes/pages/recipes/create_recipe/search_ingredients.dart';
 import 'package:flutter_frontend_recipes/pages/recipes/create_recipe/step_dialog.dart';
+import 'package:flutter_frontend_recipes/pages/recipes/last_viewed.dart';
+import 'package:flutter_frontend_recipes/pages/recipes/list_preview_recipes.dart';
+import 'package:flutter_frontend_recipes/pages/recipes/list_recipes.dart';
+import 'package:flutter_frontend_recipes/pages/recipes/navigation_switch_recipes.dart';
+import 'package:flutter_frontend_recipes/pages/recipes/recipe_overview.dart';
+import 'package:flutter_frontend_recipes/pages/recipes/recipe_preview_exploring.dart';
+import 'package:flutter_frontend_recipes/pages/recipes/to_shopping_list_page.dart';
 import 'package:flutter_frontend_recipes/shared/shared_prefs.dart';
 import 'package:flutter_frontend_recipes/types/ingredient.dart';
 import 'package:flutter_frontend_recipes/types/recipe.dart';
@@ -28,184 +38,23 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 void main() {
-  group('create recipe widget tests', () {
-    var backCompleter;
-    var nextCompleter;
 
-    Future<void> testCompleter(Completer nextCompleter, Completer backCompleter, WidgetTester tester) async {
-      //Test back button
-      expect(find.byIcon(Icons.arrow_back), findsOneWidget);
-      await tester.tap(find.byIcon(Icons.arrow_back));
-      await tester.pump();
-      expect(backCompleter.isCompleted, isTrue);
-
-      //Test next button
-      expect(find.text("Nächster Schritt"), findsOneWidget);
-      await tester.tap(find.text("Nächster Schritt"), warnIfMissed: false);
-      await tester.pump();
-      expect(nextCompleter.isCompleted, isTrue);
-    }
-
-    setUp(() {
-      backCompleter = Completer<void>();
-      nextCompleter = Completer<void>();
+  group('Feed', () {
+    testWidgets('Main Page Feed', (WidgetTester tester) async{
+      await tester.pumpWidget(MaterialApp(home: MainFeed()));
+      expect(find.text("Willkommen zurück"), findsOneWidget);
+      expect(find.text("Zuletzt angesehenes Rezept"), findsOneWidget);
+      expect(find.text("Das könnte Ihnen schmecken"), findsOneWidget);
     });
 
-    testWidgets('Name Recipe Page test', (WidgetTester tester) async {
-      FlutterError.onError = ignoreOverflowErrors;
-      //
-      final recipe = RARecipe(picture: '',
-          title: '',
-          description: '',
-          ingredients: [],
-          manual: []);
-
-      await tester.pumpWidget(
-          MaterialApp(home: NameRecipe(next: nextCompleter.complete, recipe: recipe,)));
-      expect(find.byType(IconButton), findsOneWidget);
-      expect(find.text("Gib deinem Gericht einen Namen und eine Beschreibung"),
-          findsOneWidget);
-      expect(find.text("Beschreibung"), findsOneWidget);
-      expect(find.text("Rezeptname"), findsOneWidget);
-
-      expect(find.text("Nächster Schritt"), findsOneWidget);
-      await tester.tap(find.text("Nächster Schritt"));
-      await tester.pump();
-      expect(nextCompleter.isCompleted, isTrue);
-    });
-
-    testWidgets('add ingredient', (WidgetTester tester) async{
-      await tester.pumpWidget(MaterialApp(
-        home: AddIngredient(ingredients: [], next: nextCompleter.complete, back: backCompleter.complete, controllers: [], allIngredients: IngredientExamples.ingredients2,),));
-      expect(find.text("Füge jetzt die Zutaten hinzu, die du brauchst"), findsOneWidget);
-      expect(find.text("Zutaten:"), findsOneWidget);
-      expect(find.text("Zutat hinzufügen"), findsOneWidget);
-      await testCompleter(nextCompleter, backCompleter, tester);
-      await tester.tap(find.text("Zutat hinzufügen"));
-      await tester.pump();
-      final AddIngredientState myWidgetState = tester.state(find.byType(AddIngredient));
-      expect(myWidgetState.lis.isEmpty, isTrue);
-      RAIngredient testIngredient = RAIngredient(name: "test", unit: "g", amount: 1, calories: 0);
-      myWidgetState.addItem(testIngredient);
-      expect(myWidgetState.lis, equals([testIngredient]));
-      myWidgetState.removeItem(testIngredient, 0);
-      expect(myWidgetState.lis.isEmpty, isTrue);
-      expect(myWidgetState.factor, equals(1));
-      await tester.enterText(find.byType(TextField), "2");
-      expect(myWidgetState.factor, equals(2));
-    });
-
-    testWidgets('WillPopScope test', (WidgetTester tester) async{
-      await tester.pumpWidget(MaterialApp(
-        home: AddIngredient(ingredients: [], next: nextCompleter.complete, back: backCompleter.complete, controllers: [], allIngredients: IngredientExamples.ingredients2,),));
-      final dynamic widgetsAppState = tester.state(find.byType(WidgetsApp));
-      expect(await widgetsAppState.didPopRoute(), isTrue);
-      expect(backCompleter.isCompleted, isTrue);
-    });
-
-    testWidgets('search ingredient', (WidgetTester tester) async {
-      FlutterError.onError = ignoreOverflowErrors;
-      await tester.pumpWidget(MaterialApp(home: SearchIngredients(
-          ingredientList: IngredientExamples.ingredients2,
-          addItem: (RAIngredient value) {})));
-      expect(find.text("Kirschtomaten"), findsOneWidget);
-      expect(find.byType(ElevatedButton), findsOneWidget);
-      await tester.tap(find.text("Kirschtomaten"), warnIfMissed: false);
-      await tester.pump();
-      expect(find.text("Kirschtomaten hinzufügen"), findsOneWidget);
-      expect(find.text("Hinzufügen"), findsOneWidget);
-      expect(find.byType(DropdownButtonHideUnderline), findsOneWidget);
-      await tester.tap(find.byType(DropdownButtonHideUnderline));
-      await tester.pump();
-      expect(find.text("g"), findsNWidgets(2));
-      await tester.tap(
-          find.byType(DropdownButtonHideUnderline), warnIfMissed: false);
-      await tester.pump();
-      expect(find.text("g"), findsNWidgets(1));
-      await tester.tap(find.byType(TextButton));
-      await tester.pump();
-      expect(find.text("g"), findsNWidgets(0));
-    });
-
-    testWidgets('ingredient_list_item', (WidgetTester tester) async {
-      RAIngredient ing = RAIngredient(name: "test", unit: "g", amount: 1, calories: 0);
-      await tester.pumpWidget(MaterialApp(home: Material(child: IngredientListItem(units: [], controllers: [TextEditingController()], ing: ing, removeItem: (){}, lis: [ing]))));
-      expect(find.byType(DropdownButtonHideUnderline), findsOneWidget);
-      expect(find.byType(IconButton), findsOneWidget);
-    });
-    
-    testWidgets('ingredient builder', (WidgetTester tester) async{
-      Completer dialogCompleter = Completer<RAIngredient>();
-      FlutterError.onError = ignoreOverflowErrors;
-      RAIngredient ingredient = RAIngredient(name: "test", unit: "g", amount: 10, calories: 0);
-      await tester.pumpWidget(MaterialApp(home: BuildIngredient(ingredient: ingredient, showDialog: dialogCompleter.complete)));
-      expect(find.text("test"), findsOneWidget);
-      await tester.tap(find.byIcon(Icons.add), warnIfMissed: false);
-      await tester.pump();
-      expect(dialogCompleter.isCompleted, isTrue);
-      expect(await dialogCompleter.future, equals(ingredient));
-    });
-
-    testWidgets('add manual steps', (WidgetTester tester) async {
-      FlutterError.onError = ignoreOverflowErrors;
-      await tester.pumpWidget(MaterialApp(
-        home: CreateManual(manual: [], next: nextCompleter.complete, back: backCompleter.complete),));
-      expect(find.text("Verrate uns, wie man dein Rezept zubereitet"),
-          findsOneWidget);
-      expect(find.text("Neuer Schritt"), findsOneWidget);
-      await tester.tap(find.text("Neuer Schritt"));
-      await tester.pump();
-      expect(find.text("Speichern"), findsOneWidget);
-      expect(find.byType(TextField), findsOneWidget);
-      expect(find.byType(StepDialog), findsOneWidget);
-      await tester.enterText(find.byType(TextField), 'Schritt 1');
-      await tester.tap(find.text("Speichern"));
-      await tester.pump();
-      expect(find.text('1.Schritt 1'), findsOneWidget);
-      expect(find.byIcon(Icons.edit), findsOneWidget);
-      await tester.tap(find.byIcon(Icons.edit));
-      await tester.pump();
-      expect(find.text('Schritt 1'), findsOneWidget);
-      await tester.enterText(find.byType(TextField), 'Neu');
-      await tester.tap(find.text("Speichern"));
-      await tester.pump();
-      expect(find.text('1.Neu'), findsOneWidget);
-      expect(find.text('1.Schritt 1'), findsNothing);
-      expect(find.byIcon(Icons.close), findsOneWidget);
-      await tester.tap(find.byIcon(Icons.close));
-      await tester.pump();
-      expect(find.byIcon(Icons.close), findsNothing);
-      expect(find.text('1.Neu'), findsNothing);
-      await testCompleter(nextCompleter, backCompleter, tester);
-    });
-
-    testWidgets('choose recipe picture', (WidgetTester tester) async {
-      FlutterError.onError = ignoreOverflowErrors;
-      await tester.pumpWidget(MaterialApp(home: AddPicture(
-        next: nextCompleter.complete, back: backCompleter.complete, setPicture: (String picture) {},),));
-      expect(find.text("Wie sieht dein Gericht aus?"), findsOneWidget);
-      expect(find.text("Füge jetzt ein Foto hinzu"), findsOneWidget);
-      expect(find.byType(ElevatedButton), findsNWidgets(2));
-      await testCompleter(nextCompleter, backCompleter, tester);
-      await tester.tap(find.text("Foto auswählen"));
-      await tester.pump();
-      expect(find.text("Galerie"), findsOneWidget);
-      expect(find.text("Kamera"), findsOneWidget);
-      expect(find.byIcon(Icons.collections), findsOneWidget);
-      expect(find.byIcon(Icons.camera_alt), findsOneWidget);
-      await tester.tap(find.byIcon(Icons.collections), warnIfMissed: false);
-      await tester.pumpAndSettle();
-      await tester.tap(find.byIcon(Icons.camera_alt), warnIfMissed: false);
+    testWidgets('Recipe Card', (WidgetTester tester) async{
+      RARecipe recipe = RARecipe(picture: "assets/example_pictures/standard_picture.jpg", title: "title", description: "description", ingredients: [], manual: []);
+      await tester.pumpWidget(MaterialApp(home: RecipeCard(recipe: recipe)));
+      await tester.tap(find.text("title"));
       await tester.pumpAndSettle();
     });
 
-    testWidgets('confirm screen', (WidgetTester tester) async{
-      final uploadCompleter = Completer<void>();
-      await tester.pumpWidget(MaterialApp(home: ConfirmRecipe(upload: uploadCompleter.complete)));
-      await tester.tap(find.text("Zurück"));
-      await tester.pumpAndSettle();
-      expect(uploadCompleter.isCompleted, isTrue);
-    });
+
   });
 
   group('App Settings tests', () {
@@ -451,25 +300,287 @@ void main() {
       await tester.pumpAndSettle();
     });
 
-
-  });
-
-  group('Feed', () {
-    testWidgets('Main Page Feed', (WidgetTester tester) async{
-      await tester.pumpWidget(MaterialApp(home: MainFeed()));
-      expect(find.text("Willkommen zurück"), findsOneWidget);
-      expect(find.text("Zuletzt angesehenes Rezept"), findsOneWidget);
-      expect(find.text("Das könnte Ihnen schmecken"), findsOneWidget);
-    });
-
-    testWidgets('Recipe Card', (WidgetTester tester) async{
-      RARecipe recipe = RARecipe(picture: "assets/example_pictures/standard_picture.jpg", title: "title", description: "description", ingredients: [], manual: []);
-      await tester.pumpWidget(MaterialApp(home: RecipeCard(recipe: recipe)));
-      await tester.tap(find.text("title"));
+    testWidgets('Text Tile type text', (WidgetTester tester) async{
+      await tester.pumpWidget(MaterialApp(home: TextTile(text: "text", info: "info", type: "text")));
+      await tester.tap(find.byType(InkWell));
       await tester.pumpAndSettle();
     });
 
+    testWidgets('Text Tile type language', (WidgetTester tester) async{
+      await tester.pumpWidget(MaterialApp(home: TextTile(text: "text", info: "info", type: "language")));
+      await tester.tap(find.byType(InkWell));
+      await tester.pumpAndSettle();
+    });
 
+    testWidgets('Text Tile type country', (WidgetTester tester) async{
+      await tester.pumpWidget(MaterialApp(home: TextTile(text: "text", info: "info", type: "country")));
+      await tester.tap(find.byType(InkWell));
+      await tester.pumpAndSettle();
+    });
+
+    testWidgets('Text Tile type email', (WidgetTester tester) async{
+      await tester.pumpWidget(MaterialApp(home: TextTile(text: "text", info: "info", type: "email")));
+      await tester.tap(find.byType(InkWell));
+      await tester.pumpAndSettle();
+    });
+
+    testWidgets('Text Tile type account', (WidgetTester tester) async{
+      await tester.pumpWidget(MaterialApp(home: TextTile(text: "text", info: "info", type: "account")));
+      await tester.tap(find.byType(InkWell));
+      await tester.pumpAndSettle();
+    });
+
+    testWidgets('Text Tile type data', (WidgetTester tester) async{
+      await tester.pumpWidget(MaterialApp(home: TextTile(text: "text", info: "info", type: "data")));
+      await tester.tap(find.byType(InkWell));
+      await tester.pumpAndSettle();
+    });
+
+    testWidgets('Widget Tile', (WidgetTester tester) async{
+      await tester.pumpWidget(MaterialApp(home: WidgetTile(text: "text", info: Text("info"))));
+    });
+  });
+
+  group('create recipe tests', () {
+    var backCompleter;
+    var nextCompleter;
+
+    Future<void> testCompleter(Completer nextCompleter, Completer backCompleter, WidgetTester tester) async {
+      //Test back button
+      expect(find.byIcon(Icons.arrow_back), findsOneWidget);
+      await tester.tap(find.byIcon(Icons.arrow_back));
+      await tester.pump();
+      expect(backCompleter.isCompleted, isTrue);
+
+      //Test next button
+      expect(find.text("Nächster Schritt"), findsOneWidget);
+      await tester.tap(find.text("Nächster Schritt"), warnIfMissed: false);
+      await tester.pump();
+      expect(nextCompleter.isCompleted, isTrue);
+    }
+
+    setUp(() {
+      backCompleter = Completer<void>();
+      nextCompleter = Completer<void>();
+    });
+
+    testWidgets('Name Recipe Page test', (WidgetTester tester) async {
+      FlutterError.onError = ignoreOverflowErrors;
+      //
+      final recipe = RARecipe(picture: '',
+          title: '',
+          description: '',
+          ingredients: [],
+          manual: []);
+
+      await tester.pumpWidget(
+          MaterialApp(home: NameRecipe(next: nextCompleter.complete, recipe: recipe,)));
+      expect(find.byType(IconButton), findsOneWidget);
+      expect(find.text("Gib deinem Gericht einen Namen und eine Beschreibung"),
+          findsOneWidget);
+      expect(find.text("Beschreibung"), findsOneWidget);
+      expect(find.text("Rezeptname"), findsOneWidget);
+
+      expect(find.text("Nächster Schritt"), findsOneWidget);
+      await tester.tap(find.text("Nächster Schritt"));
+      await tester.pump();
+      expect(nextCompleter.isCompleted, isTrue);
+    });
+
+    testWidgets('add ingredient', (WidgetTester tester) async{
+      await tester.pumpWidget(MaterialApp(
+        home: AddIngredient(ingredients: [], next: nextCompleter.complete, back: backCompleter.complete, controllers: [], allIngredients: IngredientExamples.ingredients2,),));
+      expect(find.text("Füge jetzt die Zutaten hinzu, die du brauchst"), findsOneWidget);
+      expect(find.text("Zutaten:"), findsOneWidget);
+      expect(find.text("Zutat hinzufügen"), findsOneWidget);
+      await testCompleter(nextCompleter, backCompleter, tester);
+      await tester.tap(find.text("Zutat hinzufügen"));
+      await tester.pump();
+      final AddIngredientState myWidgetState = tester.state(find.byType(AddIngredient));
+      expect(myWidgetState.lis.isEmpty, isTrue);
+      RAIngredient testIngredient = RAIngredient(name: "test", unit: "g", amount: 1, calories: 0);
+      myWidgetState.addItem(testIngredient);
+      expect(myWidgetState.lis, equals([testIngredient]));
+      myWidgetState.removeItem(testIngredient, 0);
+      expect(myWidgetState.lis.isEmpty, isTrue);
+      expect(myWidgetState.factor, equals(1));
+      await tester.enterText(find.byType(TextField), "2");
+      expect(myWidgetState.factor, equals(2));
+    });
+
+    testWidgets('WillPopScope test', (WidgetTester tester) async{
+      await tester.pumpWidget(MaterialApp(
+        home: AddIngredient(ingredients: [], next: nextCompleter.complete, back: backCompleter.complete, controllers: [], allIngredients: IngredientExamples.ingredients2,),));
+      final dynamic widgetsAppState = tester.state(find.byType(WidgetsApp));
+      expect(await widgetsAppState.didPopRoute(), isTrue);
+      expect(backCompleter.isCompleted, isTrue);
+    });
+
+    testWidgets('search ingredient', (WidgetTester tester) async {
+      FlutterError.onError = ignoreOverflowErrors;
+      await tester.pumpWidget(MaterialApp(home: SearchIngredients(
+          ingredientList: IngredientExamples.ingredients2,
+          addItem: (RAIngredient value) {})));
+      expect(find.text("Kirschtomaten"), findsOneWidget);
+      expect(find.byType(ElevatedButton), findsOneWidget);
+      await tester.tap(find.text("Kirschtomaten"), warnIfMissed: false);
+      await tester.pump();
+      expect(find.text("Kirschtomaten hinzufügen"), findsOneWidget);
+      expect(find.text("Hinzufügen"), findsOneWidget);
+      expect(find.byType(DropdownButtonHideUnderline), findsOneWidget);
+      await tester.tap(find.byType(DropdownButtonHideUnderline));
+      await tester.pump();
+      expect(find.text("g"), findsNWidgets(2));
+      await tester.tap(
+          find.byType(DropdownButtonHideUnderline), warnIfMissed: false);
+      await tester.pump();
+      expect(find.text("g"), findsNWidgets(1));
+      await tester.tap(find.byType(TextButton));
+      await tester.pump();
+      expect(find.text("g"), findsNWidgets(0));
+    });
+
+    testWidgets('ingredient_list_item', (WidgetTester tester) async {
+      RAIngredient ing = RAIngredient(name: "test", unit: "g", amount: 1, calories: 0);
+      await tester.pumpWidget(MaterialApp(home: Material(child: IngredientListItem(units: [], controllers: [TextEditingController()], ing: ing, removeItem: (){}, lis: [ing]))));
+      expect(find.byType(DropdownButtonHideUnderline), findsOneWidget);
+      expect(find.byType(IconButton), findsOneWidget);
+    });
+    
+    testWidgets('ingredient builder', (WidgetTester tester) async{
+      Completer dialogCompleter = Completer<RAIngredient>();
+      FlutterError.onError = ignoreOverflowErrors;
+      RAIngredient ingredient = RAIngredient(name: "test", unit: "g", amount: 10, calories: 0);
+      await tester.pumpWidget(MaterialApp(home: BuildIngredient(ingredient: ingredient, showDialog: dialogCompleter.complete)));
+      expect(find.text("test"), findsOneWidget);
+      await tester.tap(find.byIcon(Icons.add), warnIfMissed: false);
+      await tester.pump();
+      expect(dialogCompleter.isCompleted, isTrue);
+      expect(await dialogCompleter.future, equals(ingredient));
+    });
+
+    testWidgets('add manual steps', (WidgetTester tester) async {
+      FlutterError.onError = ignoreOverflowErrors;
+      await tester.pumpWidget(MaterialApp(
+        home: CreateManual(manual: [], next: nextCompleter.complete, back: backCompleter.complete),));
+      expect(find.text("Verrate uns, wie man dein Rezept zubereitet"),
+          findsOneWidget);
+      expect(find.text("Neuer Schritt"), findsOneWidget);
+      await tester.tap(find.text("Neuer Schritt"));
+      await tester.pump();
+      expect(find.text("Speichern"), findsOneWidget);
+      expect(find.byType(TextField), findsOneWidget);
+      expect(find.byType(StepDialog), findsOneWidget);
+      await tester.enterText(find.byType(TextField), 'Schritt 1');
+      await tester.tap(find.text("Speichern"));
+      await tester.pump();
+      expect(find.text('1.Schritt 1'), findsOneWidget);
+      expect(find.byIcon(Icons.edit), findsOneWidget);
+      await tester.tap(find.byIcon(Icons.edit));
+      await tester.pump();
+      expect(find.text('Schritt 1'), findsOneWidget);
+      await tester.enterText(find.byType(TextField), 'Neu');
+      await tester.tap(find.text("Speichern"));
+      await tester.pump();
+      expect(find.text('1.Neu'), findsOneWidget);
+      expect(find.text('1.Schritt 1'), findsNothing);
+      expect(find.byIcon(Icons.close), findsOneWidget);
+      await tester.tap(find.byIcon(Icons.close));
+      await tester.pump();
+      expect(find.byIcon(Icons.close), findsNothing);
+      expect(find.text('1.Neu'), findsNothing);
+      await testCompleter(nextCompleter, backCompleter, tester);
+    });
+
+    testWidgets('choose recipe picture', (WidgetTester tester) async {
+      FlutterError.onError = ignoreOverflowErrors;
+      await tester.pumpWidget(MaterialApp(home: AddPicture(
+        next: nextCompleter.complete, back: backCompleter.complete, setPicture: (String picture) {},),));
+      expect(find.text("Wie sieht dein Gericht aus?"), findsOneWidget);
+      expect(find.text("Füge jetzt ein Foto hinzu"), findsOneWidget);
+      expect(find.byType(ElevatedButton), findsNWidgets(2));
+      await testCompleter(nextCompleter, backCompleter, tester);
+      await tester.tap(find.text("Foto auswählen"));
+      await tester.pump();
+      expect(find.text("Galerie"), findsOneWidget);
+      expect(find.text("Kamera"), findsOneWidget);
+      expect(find.byIcon(Icons.collections), findsOneWidget);
+      expect(find.byIcon(Icons.camera_alt), findsOneWidget);
+      await tester.tap(find.byIcon(Icons.collections), warnIfMissed: false);
+      await tester.pumpAndSettle();
+      await tester.tap(find.byIcon(Icons.camera_alt), warnIfMissed: false);
+      await tester.pumpAndSettle();
+    });
+
+    testWidgets('confirm screen', (WidgetTester tester) async{
+      final uploadCompleter = Completer<void>();
+      await tester.pumpWidget(MaterialApp(home: ConfirmRecipe(upload: uploadCompleter.complete)));
+      await tester.tap(find.text("Zurück"));
+      await tester.pumpAndSettle();
+      expect(uploadCompleter.isCompleted, isTrue);
+    });
+  });
+
+  group('recipe overview tests', () {
+
+    test('Last Viewed', () {
+      LastViewed _lastviewed = LastViewed();
+      _lastviewed.recipe = RecipeExamples.testRecipe2;
+
+    });
+
+    testWidgets('Recipe List Preview', (WidgetTester tester) async{
+      SharedPreferences.setMockInitialValues({});
+      await SharedPrefs().init();
+      await tester.pumpWidget(MaterialApp(home: Material(child: RecipeAppRecipeListPreview(title: "title", numberRecipes: 1, recipes: [RecipeExamples.testRecipe1]))));
+      await tester.tap(find.byType(InkWell));
+      await tester.pumpAndSettle();
+    });
+
+    testWidgets('List Recipes', (WidgetTester tester) async{
+      SharedPreferences.setMockInitialValues({});
+      await SharedPrefs().init();
+      await tester.pumpWidget(MaterialApp(home: ListRecipes(recipes: [RecipeExamples.testRecipe1], title: "")));
+      await tester.tap(find.byIcon(Icons.delete));
+      await tester.pumpAndSettle();
+    });
+
+    testWidgets('Navigation Switch Recipes', (WidgetTester tester) async{
+      await tester.pumpWidget(MaterialApp(home: RecipeAppNavigationSwitchRecipes(onChange: (int index){}, selectedIndex: 0)));
+      await tester.tap(find.byKey(Key("Detector 1")));
+      await tester.pumpAndSettle();
+      await tester.tap(find.byKey(Key("Detector 0")));
+      await tester.pumpAndSettle();
+    });
+
+    testWidgets('Recipe Overview', (WidgetTester tester) async{
+      SharedPreferences.setMockInitialValues({});
+      await SharedPrefs().init();
+      RARecipe recipe = RARecipe(picture: 'assets/example_pictures/hamburger.jpg', title: "title", description: "description", ingredients: IngredientExamples.ingredients2, manual: ["manual"], tags: ["tag1"], time: 1, difficulty: "test");
+      await tester.pumpWidget(MaterialApp(home: RecipeOverview(recipe: recipe)));
+      await tester.dragUntilVisible(find.text("Zu Einkaufslisten hinzufügen"), find.byType(ListView), const Offset(0, -500));
+      await tester.tap(find.text("Zu Einkaufslisten hinzufügen"));
+      await tester.pumpAndSettle();
+    });
+
+    testWidgets('Recipe Preview Exploring All Recipes', (WidgetTester tester) async{
+      SharedPreferences.setMockInitialValues({});
+      await SharedPrefs().init();
+      RARecipe recipe = RARecipe(picture: 'assets/example_pictures/hamburger.jpg', title: "title", description: "description", ingredients: IngredientExamples.ingredients2, manual: ["manual"], tags: ["tag1"], time: 1, difficulty: "test");
+      await tester.pumpWidget(MaterialApp(home: Material(child: RecipeAppRecipePreviewExploring(recipe: recipe, own: false, search: false))));
+      await tester.tap(find.byKey(const Key("StarInkWell")));
+      await tester.pumpAndSettle();
+      await tester.tap(find.byKey(const Key("OverviewDetector")));
+      await tester.pumpAndSettle();
+    });
+
+    testWidgets('To Shopping List', (WidgetTester tester) async{
+      SharedPreferences.setMockInitialValues({});
+      await SharedPrefs().init();
+      RARecipe recipe = RARecipe(picture: 'assets/example_pictures/hamburger.jpg', title: "title", description: "description", ingredients: IngredientExamples.ingredients2, manual: ["manual"], tags: ["tag1"], time: 1, difficulty: "test");
+      await tester.pumpWidget(MaterialApp(home: ToShoppingList(recipe: recipe)));
+      await tester.tap(find.byType(FloatingActionButton));
+    });
   });
 }
 
