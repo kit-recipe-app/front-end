@@ -2,12 +2,22 @@ import 'dart:async';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_frontend_recipes/content_examples/ingredient_examples.dart';
+import 'package:flutter_frontend_recipes/pages/feed/main-page-feed.dart';
+import 'package:flutter_frontend_recipes/pages/feed/recipe_card.dart';
+import 'package:flutter_frontend_recipes/pages/profile/components/choice_dialog.dart';
+import 'package:flutter_frontend_recipes/pages/profile/components/password_dialog.dart';
+import 'package:flutter_frontend_recipes/pages/profile/components/password_tile.dart';
+import 'package:flutter_frontend_recipes/pages/profile/components/text_dialog.dart';
+import 'package:flutter_frontend_recipes/pages/profile/main_page_profile.dart';
 import 'package:flutter_frontend_recipes/pages/profile/subpages/allergies.dart';
+import 'package:flutter_frontend_recipes/pages/profile/subpages/app_settings.dart';
 import 'package:flutter_frontend_recipes/pages/profile/subpages/preferences.dart';
 import 'package:flutter_frontend_recipes/pages/recipes/create_recipe/add_ingredient.dart';
 import 'package:flutter_frontend_recipes/pages/recipes/create_recipe/add_picture.dart';
+import 'package:flutter_frontend_recipes/pages/recipes/create_recipe/confirm_screen.dart';
 import 'package:flutter_frontend_recipes/pages/recipes/create_recipe/create_manual.dart';
 import 'package:flutter_frontend_recipes/pages/recipes/create_recipe/ingredient_builder.dart';
+import 'package:flutter_frontend_recipes/pages/recipes/create_recipe/ingredient_list_item.dart';
 import 'package:flutter_frontend_recipes/pages/recipes/create_recipe/name_recipe.dart';
 import 'package:flutter_frontend_recipes/pages/recipes/create_recipe/search_ingredients.dart';
 import 'package:flutter_frontend_recipes/pages/recipes/create_recipe/step_dialog.dart';
@@ -31,7 +41,7 @@ void main() {
 
       //Test next button
       expect(find.text("Nächster Schritt"), findsOneWidget);
-      await tester.tap(find.text("Nächster Schritt"));
+      await tester.tap(find.text("Nächster Schritt"), warnIfMissed: false);
       await tester.pump();
       expect(nextCompleter.isCompleted, isTrue);
     }
@@ -85,6 +95,13 @@ void main() {
       expect(myWidgetState.factor, equals(2));
     });
 
+    testWidgets('WillPopScope test', (WidgetTester tester) async{
+      await tester.pumpWidget(MaterialApp(
+        home: AddIngredient(ingredients: [], next: nextCompleter.complete, back: backCompleter.complete, controllers: [], allIngredients: IngredientExamples.ingredients2,),));
+      final dynamic widgetsAppState = tester.state(find.byType(WidgetsApp));
+      expect(await widgetsAppState.didPopRoute(), isTrue);
+      expect(backCompleter.isCompleted, isTrue);
+    });
 
     testWidgets('search ingredient', (WidgetTester tester) async {
       FlutterError.onError = ignoreOverflowErrors;
@@ -109,6 +126,13 @@ void main() {
       await tester.pump();
       expect(find.text("g"), findsNWidgets(0));
     });
+
+    testWidgets('ingredient_list_item', (WidgetTester tester) async {
+      RAIngredient ing = RAIngredient(name: "test", unit: "g", amount: 1, calories: 0);
+      await tester.pumpWidget(MaterialApp(home: Material(child: IngredientListItem(units: [], controllers: [TextEditingController()], ing: ing, removeItem: (){}, lis: [ing]))));
+      expect(find.byType(DropdownButtonHideUnderline), findsOneWidget);
+      expect(find.byType(IconButton), findsOneWidget);
+    });
     
     testWidgets('ingredient builder', (WidgetTester tester) async{
       Completer dialogCompleter = Completer<RAIngredient>();
@@ -121,8 +145,6 @@ void main() {
       expect(dialogCompleter.isCompleted, isTrue);
       expect(await dialogCompleter.future, equals(ingredient));
     });
-
-
 
     testWidgets('add manual steps', (WidgetTester tester) async {
       FlutterError.onError = ignoreOverflowErrors;
@@ -154,24 +176,35 @@ void main() {
       await tester.pump();
       expect(find.byIcon(Icons.close), findsNothing);
       expect(find.text('1.Neu'), findsNothing);
-      testCompleter(nextCompleter, backCompleter, tester);
+      await testCompleter(nextCompleter, backCompleter, tester);
     });
-
-
 
     testWidgets('choose recipe picture', (WidgetTester tester) async {
       FlutterError.onError = ignoreOverflowErrors;
       await tester.pumpWidget(MaterialApp(home: AddPicture(
-        next: () {}, back: () {}, setPicture: (String picture) {},),));
+        next: nextCompleter.complete, back: backCompleter.complete, setPicture: (String picture) {},),));
       expect(find.text("Wie sieht dein Gericht aus?"), findsOneWidget);
       expect(find.text("Füge jetzt ein Foto hinzu"), findsOneWidget);
       expect(find.byType(ElevatedButton), findsNWidgets(2));
+      await testCompleter(nextCompleter, backCompleter, tester);
       await tester.tap(find.text("Foto auswählen"));
       await tester.pump();
       expect(find.text("Galerie"), findsOneWidget);
       expect(find.text("Kamera"), findsOneWidget);
       expect(find.byIcon(Icons.collections), findsOneWidget);
       expect(find.byIcon(Icons.camera_alt), findsOneWidget);
+      await tester.tap(find.byIcon(Icons.collections), warnIfMissed: false);
+      await tester.pumpAndSettle();
+      await tester.tap(find.byIcon(Icons.camera_alt), warnIfMissed: false);
+      await tester.pumpAndSettle();
+    });
+
+    testWidgets('confirm screen', (WidgetTester tester) async{
+      final uploadCompleter = Completer<void>();
+      await tester.pumpWidget(MaterialApp(home: ConfirmRecipe(upload: uploadCompleter.complete)));
+      await tester.tap(find.text("Zurück"));
+      await tester.pumpAndSettle();
+      expect(uploadCompleter.isCompleted, isTrue);
     });
   });
 
@@ -352,6 +385,91 @@ void main() {
         expect(finder, findsOneWidget);
       }
     });
+
+    testWidgets('App Settings', (WidgetTester tester) async{
+      SharedPreferences.setMockInitialValues({});
+      await SharedPrefs().init();
+      await tester.pumpWidget(MaterialApp(home: AppSettings()));
+      expect(find.byType(Switch), findsOneWidget);
+    });
+  });
+
+  group('Profile components', () {
+    testWidgets('Profile Page', (WidgetTester tester) async{
+      SharedPreferences.setMockInitialValues({});
+      await SharedPrefs().init();
+      await tester.pumpWidget(MaterialApp(home: ProfilePage()));
+    });
+
+    testWidgets('Choice Dialog Cancel', (WidgetTester tester) async{
+      await tester.pumpWidget(MaterialApp(home: ChoiceDialog(title: "test", values: ["a", "b"], standard: "a", setText: (String value){})));
+      await tester.tap(find.text("CANCEL"));
+      await tester.pumpAndSettle();
+    });
+
+    testWidgets('Choice Dialog OK', (WidgetTester tester) async{
+      await tester.pumpWidget(MaterialApp(home: ChoiceDialog(title: "test", values: ["a", "b"], standard: "a", setText: (String value){})));
+      await tester.tap(find.text("b"));
+      await tester.pumpAndSettle();
+      await tester.tap(find.text("OK"));
+      await tester.pumpAndSettle();
+    });
+
+    testWidgets('Password Dialog OK', (WidgetTester tester) async{
+      await tester.pumpWidget(MaterialApp(home: PasswordDialog(title: "test", setPassword: (String oldStr, String newStr){})));
+      await tester.tap(find.text("OK"));
+      await tester.pumpAndSettle();
+    });
+
+    testWidgets('Password Dialog Cancel', (WidgetTester tester) async{
+      await tester.pumpWidget(MaterialApp(home: PasswordDialog(title: "test", setPassword: (String oldStr, String newStr){})));
+      await tester.tap(find.text("CANCEL"));
+      await tester.pumpAndSettle();
+    });
+
+    testWidgets('Password Tile', (WidgetTester tester) async{
+      await tester.pumpWidget(MaterialApp(home: PasswordTile(title: "title", setPassword: (){})));
+      await tester.tap(find.byType(InkWell));
+      await tester.pumpAndSettle();
+    });
+
+    testWidgets('Text Dialog OK', (WidgetTester tester) async{
+      final textCompleter = Completer<String>();
+      TextEditingController controller = TextEditingController();
+      await tester.pumpWidget(MaterialApp(home: TextDialog(controller: controller, title: "title", setText: textCompleter.complete)));
+      await tester.tap(find.text("OK"));
+      await tester.pumpAndSettle();
+      await tester.enterText(find.byType(TextField), "a");
+      await tester.pumpAndSettle();
+      await tester.tap(find.text("OK"));
+      expect(textCompleter.isCompleted, isTrue);
+    });
+
+    testWidgets('Text Dialog CANCEL', (WidgetTester tester) async{
+      await tester.pumpWidget(MaterialApp(home: TextDialog(controller: TextEditingController(), title: "title", setText: (String str){})));
+      await tester.tap(find.text("CANCEL"));
+      await tester.pumpAndSettle();
+    });
+
+
+  });
+
+  group('Feed', () {
+    testWidgets('Main Page Feed', (WidgetTester tester) async{
+      await tester.pumpWidget(MaterialApp(home: MainFeed()));
+      expect(find.text("Willkommen zurück"), findsOneWidget);
+      expect(find.text("Zuletzt angesehenes Rezept"), findsOneWidget);
+      expect(find.text("Das könnte Ihnen schmecken"), findsOneWidget);
+    });
+
+    testWidgets('Recipe Card', (WidgetTester tester) async{
+      RARecipe recipe = RARecipe(picture: "assets/example_pictures/standard_picture.jpg", title: "title", description: "description", ingredients: [], manual: []);
+      await tester.pumpWidget(MaterialApp(home: RecipeCard(recipe: recipe)));
+      await tester.tap(find.text("title"));
+      await tester.pumpAndSettle();
+    });
+
+
   });
 }
 
