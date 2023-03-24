@@ -86,8 +86,10 @@ class _NewShoppingListPreviewState extends State<NewShoppingListPreview> {
         Navigator.push(
           context,
           MaterialPageRoute(
-              builder: (context) =>
-                  RAShoppingListOverview(shoppingList: widget.shoppingList)),
+              builder: (context) => RAShoppingListOverview(
+                    key: Key("${widget.shoppingList.title} Overview"),
+                    shoppingList: widget.shoppingList,
+                  )),
         ).then(((value) => widget.reLoadRecipes()));
       },
       behavior: HitTestBehavior.translucent,

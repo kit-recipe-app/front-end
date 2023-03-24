@@ -50,6 +50,7 @@ class _AddShoppingListScreenState extends State<AddShoppingListScreen> {
         child: Column(
           children: [
             RAInputField(
+              key: const Key('NewShoppingListTitleInput'),
               hintText: "Titel",
               controller: _titleController,
               color:
@@ -60,6 +61,7 @@ class _AddShoppingListScreenState extends State<AddShoppingListScreen> {
               height: 64,
             ),
             RAButton(
+              key: const Key("NewShoppingListSaveButton"),
               onTap: () {
                 if (_titleController.text.isEmpty) {
                   setState(() {

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-class RAButton extends StatelessWidget {
+class RAButton extends StatefulWidget {
   final Function onTap;
   final String description;
   final Color backgroundColor;
@@ -24,29 +24,56 @@ class RAButton extends StatelessWidget {
   });
 
   @override
+  State<RAButton> createState() => _RAButtonState();
+}
+
+class _RAButtonState extends State<RAButton> {
+  bool _currentlyTapped = false;
+
+  @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      onTap: () => onTap(),
+      onTap: () {
+        widget.onTap();
+        setState(() {
+          _currentlyTapped = false;
+        });
+      },
+      onPanDown: (details) {
+        setState(() {
+          _currentlyTapped = true;
+        });
+      },
+      onPanEnd: (details) {
+        setState(() {
+          _currentlyTapped = false;
+        });
+      },
       behavior: HitTestBehavior.translucent,
       child: Container(
-        margin: EdgeInsets.all(margin),
+        margin: EdgeInsets.all(widget.margin),
         decoration: BoxDecoration(
-          color: backgroundColor,
+          color: widget.backgroundColor,
           borderRadius: BorderRadius.circular(18),
+          border: Border.all(
+              color: _currentlyTapped ? Colors.black12 : Colors.transparent),
           boxShadow: [
             BoxShadow(
-              color: Colors.black.withOpacity(shadow ? 0.25 : 0),
-              spreadRadius: 0,
-              blurRadius: 5,
-              offset: const Offset(0, 2),
+              color: _currentlyTapped
+                  ? Colors.black.withOpacity(0.5)
+                  : Colors.black.withOpacity(widget.shadow ? 0.25 : 0),
+              spreadRadius: _currentlyTapped ? -5 : 0,
+              blurRadius: _currentlyTapped ? 10 : 5,
+              offset:
+                  _currentlyTapped ? const Offset(0, 0) : const Offset(0, 4),
             ),
           ],
         ),
-        padding: padding,
+        padding: widget.padding,
         child: Row(
           mainAxisSize: MainAxisSize.min,
           children: [
-            (icon == null)
+            (widget.icon == null)
                 ? const SizedBox(
                     width: 0,
                     height: 0,
@@ -54,16 +81,16 @@ class RAButton extends StatelessWidget {
                 : Padding(
                     padding: const EdgeInsets.only(right: 8),
                     child: Icon(
-                      icon,
-                      color: iconColor,
+                      widget.icon,
+                      color: widget.iconColor,
                     ),
                   ),
             Text(
-              description,
+              widget.description,
               textAlign: TextAlign.center,
               style: TextStyle(
                 fontSize: 16,
-                color: textColor,
+                color: widget.textColor,
                 fontWeight: FontWeight.bold,
               ),
             ),

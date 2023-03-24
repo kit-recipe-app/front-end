@@ -82,21 +82,25 @@ class _RAShoppingListOverviewState extends State<RAShoppingListOverview> {
     TextEditingController unitController = TextEditingController();
     TextEditingController amountController = TextEditingController();
     return AlertDialog(
+      key: const Key("ItemAddDialogue"),
       content: Column(
         mainAxisSize: MainAxisSize.min,
         children: [
           RAInputField(
+            key: const Key("NewItemName"),
             hintText: "Name",
             controller: nameController,
             charLimit: 200,
           ),
           RAInputField(
+            key: const Key("NewItemAmount"),
             hintText: "Menge",
             controller: amountController,
             onlyNumbers: true,
             charLimit: 6,
           ),
           RAInputField(
+            key: const Key("NewItemUnit"),
             hintText: "Einheit",
             controller: unitController,
             charLimit: 10,
@@ -113,6 +117,7 @@ class _RAShoppingListOverviewState extends State<RAShoppingListOverview> {
           backgroundColor: Colors.black54,
         ),
         RAButton(
+          key: const Key("AddItemConfirmButton"),
           onTap: () {
             if (nameController.text.isNotEmpty &&
                 unitController.text.isNotEmpty &&
@@ -348,6 +353,8 @@ class _RAShoppingListOverviewState extends State<RAShoppingListOverview> {
                             });
                           },
                           child: RAShoppingListItemOverview(
+                            key:
+                                Key("${item.name} ${item.amount} ${item.unit}"),
                             updateShoppingListIngredientDone:
                                 changeShoppingListItemDone,
                             updateShoppingListIngredient:
@@ -367,6 +374,7 @@ class _RAShoppingListOverviewState extends State<RAShoppingListOverview> {
           floatingActionButtonLocation:
               FloatingActionButtonLocation.centerFloat,
           floatingActionButton: RAButton(
+            key: const Key("AddItemToShoppingListButton"),
             description: "Sache hinzufügen",
             onTap: () {
               showDialog(
