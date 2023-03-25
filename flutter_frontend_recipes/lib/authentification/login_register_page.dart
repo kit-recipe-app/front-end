@@ -17,8 +17,8 @@ class LoginPage extends StatefulWidget {
 class _LoginPageState extends State<LoginPage> {
   final String loginToRegister = "Du hast noch keinen Account?";
   final String registerToLogin = "Zurück zum Login.";
-  String? errorMessage = "";
-  bool isLogin = true;
+  String? errorMessage = ""; // The error message, empty if no error exists.
+  bool isLogin = true; // Flag showing if user tries to login or to register.
 
   final TextEditingController _controllerEmail = TextEditingController();
   final TextEditingController _controllerPassword = TextEditingController();

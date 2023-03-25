@@ -2,15 +2,22 @@ import 'package:flutter/material.dart';
 import 'package:flutter_frontend_recipes/constants/icon_designs.dart';
 import 'package:flutter_frontend_recipes/pages/profile/components/choice_dialog.dart';
 
+/// A general, customizable SearchBar.
+/// The 'controller' is used to show and set the input text.
 class RecipeAppSearchBar extends StatelessWidget {
-  final bool withFilter;
-  final Function onSearch;
-  final Function onFilter;
-  final String choice;
+  final bool withFilter;// A boolean flag indicating whether the search bar includes a filter button.
+  final Function onSearch;// Function that is called when the user types in the search bar.
+  final Function onFilter;// Function that is called when the user taps the filter button.
+  final String choice;// A string representing the chosen filter option.
 
   const RecipeAppSearchBar(
-      {this.withFilter = true, super.key, required this.onSearch, required this.onFilter, required this.choice});
+      {this.withFilter = true,
+      super.key,
+      required this.onSearch,
+      required this.onFilter,
+      required this.choice});
 
+  /// Returns what is shown in the 'RecipeAppSearchBar'.
   @override
   Widget build(BuildContext context) {
     return Row(
@@ -39,7 +46,7 @@ class RecipeAppSearchBar extends StatelessWidget {
                     onChanged: (String search) {
                       onSearch(search);
                     },
-                    decoration: InputDecoration(
+                    decoration: const InputDecoration(
                         hintText: "Search here",
                         contentPadding: EdgeInsets.all(2),
                         isDense: true,
@@ -53,7 +60,7 @@ class RecipeAppSearchBar extends StatelessWidget {
         Visibility(
           visible: withFilter,
           child: InkWell(
-            customBorder: CircleBorder(),
+            customBorder: const CircleBorder(),
             onTap: () {
               _dialogBuilder(context);
             },
@@ -67,11 +74,16 @@ class RecipeAppSearchBar extends StatelessWidget {
     );
   }
 
+  /// Shows a dialog box to select filter options when the filter button is tapped.
   Future<void> _dialogBuilder(BuildContext context) {
     return showDialog(
         context: context,
         builder: (BuildContext context) {
-          return ChoiceDialog(title: "Filter", values: ["Übersicht", "Alles", "Vegan", "Vegetarisch"], standard: choice, setText: onFilter);
+          return ChoiceDialog(
+              title: "Filter",
+              values: const ["Übersicht", "Alles", "Vegan", "Vegetarisch"],
+              standard: choice,
+              setText: onFilter);
         });
   }
 }

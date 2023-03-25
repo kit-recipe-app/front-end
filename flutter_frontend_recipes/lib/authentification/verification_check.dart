@@ -17,12 +17,12 @@ class EmailVerificationCheck extends StatefulWidget {
 }
 
 class _EmailVerificationCheckState extends State<EmailVerificationCheck> {
-  User? user = RAAuthService().user;
-  bool emailIsVerified = false;
-  Timer? timer;
-  bool hasError = false;
-  String errorMessage = "";
-  bool canResendEmail = false;
+  User? user = RAAuthService().user; // The currently quthenticated user.
+  bool emailIsVerified = false; // Flag showing if users email is verified.
+  Timer? timer; // Timer that gets initialized in the initState-method and used to reload the user
+  bool hasError = false; // Flag showing if an error occured.
+  String errorMessage = ""; // The error message, empty if no error exists.
+  bool canResendEmail = false; // Flag showing if last email has been sent more than 10 seconds ago.
 
   /// Initializes the WidgetState's attributes and checks every 5 seconds if something has changed.
   @override
