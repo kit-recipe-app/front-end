@@ -4,6 +4,8 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:flutter_frontend_recipes/content_examples/ingredient_examples.dart';
 import 'package:flutter_frontend_recipes/content_examples/recipe_examples.dart';
+import 'package:flutter_frontend_recipes/layout/bottom_navigation_bar_recipe_app.dart';
+import 'package:flutter_frontend_recipes/layout/navigation_bar_item.dart';
 import 'package:flutter_frontend_recipes/pages/feed/main-page-feed.dart';
 import 'package:flutter_frontend_recipes/pages/feed/recipe_card.dart';
 import 'package:flutter_frontend_recipes/pages/profile/components/choice_dialog.dart';
@@ -40,6 +42,7 @@ import 'package:flutter_frontend_recipes/pages/shopping-lists/shopping_list_over
 import 'package:flutter_frontend_recipes/pages/shopping-lists/shopping_list_preview.dart';
 import 'package:flutter_frontend_recipes/shared/button.dart';
 import 'package:flutter_frontend_recipes/shared/input_field.dart';
+import 'package:flutter_frontend_recipes/shared/search_bar.dart';
 import 'package:flutter_frontend_recipes/shared/shared_prefs.dart';
 import 'package:flutter_frontend_recipes/types/ingredient.dart';
 import 'package:flutter_frontend_recipes/types/recipe.dart';
@@ -786,6 +789,54 @@ void main() {
       await SharedPrefs().init();
       await tester.pumpWidget(MaterialApp(home: Material(child: ShoppingListPreview(shoppingList: list, reLoadRecipes: (){}))));
     });
+  });
+
+  group('Layout', () {
+    testWidgets("NavigationBarItem", (WidgetTester tester) async{
+      await tester.pumpWidget(MaterialApp(home: NavigationBarItem(icon: Icons.home, isSelected: true, onPressed: (){})));
+    });
+
+    testWidgets("NavigationBar", (WidgetTester tester) async{
+      await tester.pumpWidget(MaterialApp(home: BottomNavigationBarRecipeApp(onChange: (int index){}, selectedIndex: 0)));
+      await tester.tap(find.byKey(const Key("FeedNavigation")));
+      await tester.pumpAndSettle();
+      await tester.tap(find.byKey(const Key("RecipeNavigation")));
+      await tester.pumpAndSettle();
+      await tester.tap(find.byKey(const Key("ShoppingNavigation")));
+      await tester.pumpAndSettle();
+      await tester.tap(find.byKey(const Key("ProfileNavigation")));
+      await tester.pumpAndSettle();
+    });
+
+  });
+
+  group('Shared', () {
+    testWidgets("Shared Button with Icon", (WidgetTester tester) async{
+      await tester.pumpWidget(MaterialApp(home: RAButton(onTap: (){}, description: "description", icon: Icons.add, iconColor: Colors.black,)));
+      await tester.pumpAndSettle();
+    });
+
+    testWidgets("Shared Input Field", (WidgetTester tester) async{
+      await tester.pumpWidget(MaterialApp(home: Material(child: RAInputField(hintText: "hintText", controller: TextEditingController()))));
+      await tester.tap(find.byType(TextField));
+      await tester.pumpAndSettle();
+    });
+
+    testWidgets("Shared Input Password Field", (WidgetTester tester) async{
+      await tester.pumpWidget(MaterialApp(home: Material(child: RAInputField(hintText: "hintText", controller: TextEditingController(), isPassword: true))));
+      await tester.tap(find.byType(IconButton));
+      await tester.pumpAndSettle();
+      await tester.tap(find.byType(IconButton));
+      await tester.pumpAndSettle();
+    });
+
+    testWidgets("Shared Search Bar", (WidgetTester tester) async{
+      await tester.pumpWidget(MaterialApp(home: Material(child: RecipeAppSearchBar(onSearch: (){}, onFilter: (){}, choice: ""))));
+      await tester.tap(find.byIcon(Icons.filter_alt_outlined));
+      await tester.pumpAndSettle();
+      expect(find.text("Filter"), findsOneWidget);
+    });
+
   });
 }
 

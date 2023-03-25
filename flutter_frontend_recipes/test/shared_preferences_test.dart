@@ -46,11 +46,21 @@ void main(){
 
     group('Get and set settings', () {
       test('Get and Set Theme', () async{
+        SharedPreferences.setMockInitialValues({});
         await SharedPrefs().init();
-
-
+        SharedPrefs().setTheme(true);
+        expect(SharedPrefs().getTheme(), true);
+        SharedPrefs().setTheme(false);
+        expect(SharedPrefs().getTheme(), false);
       });
+    });
 
+    test('clear Shared Prefs', () async{
+      SharedPreferences.setMockInitialValues({});
+      await SharedPrefs().init();
+      SharedPrefs().setTheme(true);
+      SharedPrefs().clear();
+      SharedPrefs().getTheme() == null;
     });
 
   });
