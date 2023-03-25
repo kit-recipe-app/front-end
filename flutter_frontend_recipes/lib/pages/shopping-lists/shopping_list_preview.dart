@@ -58,6 +58,7 @@ class _ShoppingListPreviewState extends State<ShoppingListPreview> {
 
   Widget getFavouriteButton() {
     return InkWell(
+      key: const Key("StarInkWell"),
       onTap: () {
         _updateShoppingList();
         widget.reLoadRecipes();
@@ -82,6 +83,7 @@ class _ShoppingListPreviewState extends State<ShoppingListPreview> {
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
+      key: const Key("ShoppingListDetector"),
       onTap: () {
         Navigator.push(
           context,

@@ -18,6 +18,7 @@ class ToShoppingList extends StatefulWidget {
   State<ToShoppingList> createState() => _ToShoppingListState();
 }
 
+
 class _ToShoppingListState extends State<ToShoppingList> {
 
 
@@ -99,7 +100,7 @@ class _ToShoppingListState extends State<ToShoppingList> {
                                     _toShoppingList();
                                     Navigator.pop(context);
                                     Navigator.pop(context);
-                                    Navigator.pop(context);
+                                    //Navigator.pop(context);
                                   },
                                   child:Padding(
                                     padding: const EdgeInsets.fromLTRB(0, 10, 0, 10),
@@ -137,7 +138,7 @@ class _ToShoppingListState extends State<ToShoppingList> {
                                                         Navigator.pop(context);
                                                         Navigator.pop(context);
                                                         Navigator.pop(context);
-                                                        Navigator.pop(context);
+                                                        //Navigator.pop(context);
                                                       },
                                                     ),
                                                   )
@@ -230,6 +231,7 @@ class _ToShoppingListState extends State<ToShoppingList> {
 
   Widget button(bool positive) {
     return GestureDetector(
+      key: positive ? const Key("Plus Button") : const Key("Minus Button"),
       behavior: HitTestBehavior.translucent,
       onLongPress: () {
         timer = Timer.periodic(const Duration(milliseconds: 100), (timer) {

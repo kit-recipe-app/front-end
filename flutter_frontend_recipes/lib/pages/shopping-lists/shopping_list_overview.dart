@@ -19,7 +19,7 @@ class RAShoppingListOverview extends StatefulWidget {
 class _RAShoppingListOverviewState extends State<RAShoppingListOverview> {
   bool orderedByCategory = false;
   late RAShoppingList currentShoppingListState;
-  List<String> units = ["g", "kg", "Stück", "ml", "l"];
+  List<String> units = ["g", "kg", "St", "ml", "l"];
 
   @override
   initState() {
@@ -37,14 +37,6 @@ class _RAShoppingListOverviewState extends State<RAShoppingListOverview> {
   void deleteSingleShoppingList(BuildContext context) {
     SharedPrefs().deleteSingleShoppingList(widget.shoppingList.title);
     Navigator.popUntil(context, ModalRoute.withName('/'));
-  }
-
-  void updateShoppingListItem(RAIngredient ingredient) {
-    setState(() {
-      currentShoppingListState.deleteItem(ingredient);
-      currentShoppingListState.addItem(ingredient);
-    });
-    SharedPrefs().updateShoppingList(currentShoppingListState);
   }
 
   void changeShoppingListItemDone(RAIngredient ingredient) {
@@ -86,17 +78,20 @@ class _RAShoppingListOverviewState extends State<RAShoppingListOverview> {
         mainAxisSize: MainAxisSize.min,
         children: [
           RAInputField(
+            key: const Key("NameInput"),
             hintText: "Name",
             controller: nameController,
             charLimit: 200,
           ),
           RAInputField(
+            key: const Key("MengeInput"),
             hintText: "Menge",
             controller: amountController,
             onlyNumbers: true,
             charLimit: 6,
           ),
           RAInputField(
+            key: const Key("EinheitInput"),
             hintText: "Einheit",
             controller: unitController,
             charLimit: 10,
@@ -137,6 +132,7 @@ class _RAShoppingListOverviewState extends State<RAShoppingListOverview> {
   Widget getEditingDialogue(BuildContext context) {
     TextEditingController titleController = TextEditingController();
     return AlertDialog(
+      key: const Key("EditingDialouge"),
       title: RAInputField(
         hintText: "Titel ändern",
         controller: titleController,
@@ -350,8 +346,6 @@ class _RAShoppingListOverviewState extends State<RAShoppingListOverview> {
                           child: RAShoppingListItemOverview(
                             updateShoppingListIngredientDone:
                                 changeShoppingListItemDone,
-                            updateShoppingListIngredient:
-                                updateShoppingListItem,
                             item: item,
                             onLongPress: () => showDialog(
                               context: context,

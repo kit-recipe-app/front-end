@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'dart:convert';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_frontend_recipes/content_examples/ingredient_examples.dart';
@@ -31,9 +32,18 @@ import 'package:flutter_frontend_recipes/pages/recipes/navigation_switch_recipes
 import 'package:flutter_frontend_recipes/pages/recipes/recipe_overview.dart';
 import 'package:flutter_frontend_recipes/pages/recipes/recipe_preview_exploring.dart';
 import 'package:flutter_frontend_recipes/pages/recipes/to_shopping_list_page.dart';
+import 'package:flutter_frontend_recipes/pages/recipes/top_navigation_recipes.dart';
+import 'package:flutter_frontend_recipes/pages/shopping-lists/create_shopping_list/add_shopping_list_screen.dart';
+import 'package:flutter_frontend_recipes/pages/shopping-lists/main_page_shopping_lists.dart';
+import 'package:flutter_frontend_recipes/pages/shopping-lists/shopping_list_item_overview.dart';
+import 'package:flutter_frontend_recipes/pages/shopping-lists/shopping_list_overview.dart';
+import 'package:flutter_frontend_recipes/pages/shopping-lists/shopping_list_preview.dart';
+import 'package:flutter_frontend_recipes/shared/button.dart';
+import 'package:flutter_frontend_recipes/shared/input_field.dart';
 import 'package:flutter_frontend_recipes/shared/shared_prefs.dart';
 import 'package:flutter_frontend_recipes/types/ingredient.dart';
 import 'package:flutter_frontend_recipes/types/recipe.dart';
+import 'package:flutter_frontend_recipes/types/shopping_list.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -574,12 +584,207 @@ void main() {
       await tester.pumpAndSettle();
     });
 
-    testWidgets('To Shopping List', (WidgetTester tester) async{
-      SharedPreferences.setMockInitialValues({});
+    testWidgets('To old Shopping List', (WidgetTester tester) async{
+      SharedPreferences.setMockInitialValues({"shoppinglist_testlist" : jsonEncode(RAShoppingList(title: "testlist", creationDate: DateTime(2017, 9, 7, 17, 30)))});
       await SharedPrefs().init();
       RARecipe recipe = RARecipe(picture: 'assets/example_pictures/hamburger.jpg', title: "title", description: "description", ingredients: IngredientExamples.ingredients2, manual: ["manual"], tags: ["tag1"], time: 1, difficulty: "test");
       await tester.pumpWidget(MaterialApp(home: ToShoppingList(recipe: recipe)));
       await tester.tap(find.byType(FloatingActionButton));
+      await tester.pumpAndSettle(Duration(seconds: 1));
+      await tester.tap(find.text("Zu bestender Liste hinzufügen"));
+      await tester.pump();
+      expect(find.text("Bestehende Einkaufslisten"), findsOneWidget);
+      expect(find.text("testlist"), findsOneWidget);
+      await tester.tap(find.text("testlist"));
+      await tester.pumpAndSettle();
+    });
+
+    testWidgets('To new Shopping List', (WidgetTester tester) async{
+      SharedPreferences.setMockInitialValues({});
+      await SharedPrefs().init();
+      RARecipe recipe = RARecipe(picture: 'assets/example_pictures/hamburger.jpg', title: "title", description: "description", ingredients: IngredientExamples.ingredients2, manual: ["manual"], tags: ["tag1"], time: 1, difficulty: "test");
+      await tester.pumpWidget(MaterialApp(home: ToShoppingList(recipe: recipe)));
+      await tester.tap(find.byKey(Key("Plus Button")));
+      await tester.pump();
+      await tester.longPress(find.byKey(Key("Plus Button")));
+      await tester.pumpAndSettle();
+      await tester.tap(find.byIcon(Icons.remove));
+      await tester.pump();
+      await tester.tap(find.byType(FloatingActionButton));
+      await tester.pumpAndSettle(Duration(seconds: 1));
+      await tester.tap(find.text("Neue Liste erstellen"));
+      await tester.pump();
+    });
+
+    testWidgets('Top Navigation', (WidgetTester tester) async{
+      await tester.pumpWidget(MaterialApp(home: Material(child: RecipeAppTopNavigation(onChange: (){}, selectedIndex: 0, onSearch: (){}, onFilter: (){}, choice: "choice"))));
+    });
+  });
+
+  group('Shopping Lists', () {
+
+    testWidgets('Add Shoppinglist Screen', (WidgetTester tester) async{
+      SharedPreferences.setMockInitialValues({});
+      await SharedPrefs().init();
+      await tester.pumpWidget(MaterialApp(home: AddShoppingListScreen()));
+      await tester.tap(find.byType(RAButton));
+      await tester.pump();
+      await tester.enterText(find.byType(RAInputField), "title");
+      await tester.pump();
+      await tester.tap(find.byType(RAButton));
+      await tester.pump();
+    });
+
+    testWidgets('Add Shoppinglist Screen extra tests', (WidgetTester tester) async{
+      SharedPreferences.setMockInitialValues({});
+      await SharedPrefs().init();
+      await tester.pumpWidget(MaterialApp(home: AddShoppingListScreen()));
+      await tester.tap(find.byIcon(Icons.arrow_back_ios));
+      await tester.pump();
+      final AddShoppingListScreenState myWidgetState = tester.state(find.byType(AddShoppingListScreen));
+      myWidgetState.titleMissing = true;
+      expect(myWidgetState.titleMissing, isTrue);
+      myWidgetState.resetTitleMissing();
+      expect(myWidgetState.titleMissing, isFalse);
+    });
+
+    testWidgets('Empty Shoppinglist Main Page', (WidgetTester tester) async{
+      SharedPreferences.setMockInitialValues({});
+      await SharedPrefs().init();
+      await tester.pumpWidget(MaterialApp(home: NewMainPageShoppingLists()));
+    });
+
+    testWidgets('Not Empty Shoppinglist Main Page', (WidgetTester tester) async{
+      SharedPreferences.setMockInitialValues({"shoppinglist_testlist" : jsonEncode(RAShoppingList(title: "testlist", creationDate: DateTime(2017, 9, 7, 17, 30)))});
+      await SharedPrefs().init();
+      await tester.pumpWidget(MaterialApp(home: NewMainPageShoppingLists()));
+      await tester.tap(find.text("Einkaufsliste erstellen"));
+      await tester.pump();
+    });
+
+    testWidgets('Shopping List Item Overview long press', (WidgetTester tester) async{
+      RAIngredient ing = RAIngredient(name: "name", unit: "g", amount: 1, calories: 0);
+      await tester.pumpWidget(MaterialApp(home: Material(child: RAShoppingListItemOverview(item: ing, updateShoppingListIngredientDone: (){}, onLongPress: (){}))));
+      await tester.longPress(find.byKey(const Key("LongPressDetector")));
+      await tester.pumpAndSettle();
+    });
+
+    testWidgets('Shopping List Item Overview', (WidgetTester tester) async{
+      RAIngredient ing = RAIngredient(name: "name", unit: "g", amount: 1, calories: 0);
+      await tester.pumpWidget(MaterialApp(home: Material(child: RAShoppingListItemOverview(item: ing, updateShoppingListIngredientDone: (RAIngredient ing){}, onLongPress: (){}))));
+      await tester.tap(find.byKey(const Key("Checkbox")));
+    });
+
+    testWidgets('Shopping List Item Overview with ingredient from recipe', (WidgetTester tester) async{
+      RAIngredient ing = RAIngredient(name: "name", unit: "g", amount: 1, calories: 0, recipe: RecipeExamples.testRecipe1);
+      await tester.pumpWidget(MaterialApp(home: Material(child: RAShoppingListItemOverview(item: ing, updateShoppingListIngredientDone: (RAIngredient ing){}, onLongPress: (){}))));
+      await tester.tap(find.byKey(const Key("RecipeLink")));
+      await tester.pump();
+    });
+
+    testWidgets('Empty Shopping List Overview', (WidgetTester tester) async{
+      await tester.pumpWidget(MaterialApp(home: RAShoppingListOverview(shoppingList: RAShoppingList(title: "title", creationDate: DateTime(2023)))));
+      await tester.tap(find.byIcon(Icons.arrow_back_ios));
+      await tester.pump();
+    });
+
+    testWidgets('Delete Shopping List', (WidgetTester tester) async{
+      SharedPreferences.setMockInitialValues({});
+      await SharedPrefs().init();
+      await tester.pumpWidget(MaterialApp(home: RAShoppingListOverview(shoppingList: RAShoppingList(title: "title", creationDate: DateTime(2023)))));
+      await tester.tap(find.byIcon(Icons.delete));
+      await tester.pump();
+      await tester.tap(find.text("abbrechen"));
+      await tester.pump();
+      await tester.tap(find.byIcon(Icons.delete));
+      await tester.pump();
+      await tester.tap(find.text("löschen"));
+      await tester.pump();
+    });
+
+    testWidgets('Edit Shopping List', (WidgetTester tester) async{
+      RAShoppingList list = RAShoppingList(title: "title", creationDate: DateTime(2023), items: [RAIngredient(name: "name", unit: "unit", amount: 1, calories: 0)]);
+      SharedPreferences.setMockInitialValues({"shoppinglist_title" : jsonEncode(list)});
+      await SharedPrefs().init();
+      await tester.pumpWidget(MaterialApp(home: RAShoppingListOverview(shoppingList: list)));
+      expect(find.text("name"), findsOneWidget);
+      await tester.tap(find.byIcon(Icons.edit));
+      await tester.pump();
+      await tester.tap(find.text("abbrechen"));
+      await tester.pump();
+      await tester.tap(find.byIcon(Icons.edit));
+      await tester.pump();
+      await tester.enterText(find.byKey(const Key("EditingDialouge")), "newtitle");
+      await tester.pump();
+      await tester.tap(find.text("ok"));
+      await tester.pump();
+    });
+
+    testWidgets('Add item to Shopping List', (WidgetTester tester) async{
+      RAShoppingList list = RAShoppingList(title: "title", creationDate: DateTime(2023), items: [RAIngredient(name: "name", unit: "unit", amount: 1, calories: 0)]);
+      SharedPreferences.setMockInitialValues({"shoppinglist_title" : jsonEncode(list)});
+      await SharedPrefs().init();
+      await tester.pumpWidget(MaterialApp(home: RAShoppingListOverview(shoppingList: list)));
+      await tester.tap(find.text("Sache hinzufügen"));
+      await tester.pump();
+      await tester.tap(find.text("abbrechen"));
+      await tester.pump();
+      await tester.tap(find.text("Sache hinzufügen"));
+      await tester.pump();
+      await tester.tap(find.text("ok"));
+      await tester.pump();
+      await tester.tap(find.text("Sache hinzufügen"));
+      await tester.pumpAndSettle();
+      await tester.enterText(find.byKey(const Key("NameInput")), "itemname");
+      await tester.pumpAndSettle();
+      await tester.enterText(find.byKey(const Key("MengeInput")), "1");
+      await tester.pumpAndSettle();
+      await tester.enterText(find.byKey(const Key("EinheitInput")), "g");
+      await tester.pumpAndSettle();
+      await tester.tap(find.text("ok"));
+      await tester.pump();
+    });
+
+    testWidgets('Edit Shopping List item', (WidgetTester tester) async{
+      RAShoppingList list = RAShoppingList(title: "title", creationDate: DateTime(2023), items: [RAIngredient(name: "name", unit: "unit", amount: 1, calories: 0)]);
+      SharedPreferences.setMockInitialValues({"shoppinglist_title" : jsonEncode(list)});
+      await SharedPrefs().init();
+      await tester.pumpWidget(MaterialApp(home: RAShoppingListOverview(shoppingList: list)));
+      await tester.longPress(find.text("name"));
+      await tester.pumpAndSettle();
+      await tester.tap(find.text("abbrechen"));
+      await tester.pumpAndSettle();
+      await tester.longPress(find.text("name"));
+      await tester.pumpAndSettle();
+      await tester.longPress(find.text("ok"));
+      await tester.pumpAndSettle();
+    });
+
+    testWidgets('Dismiss/Delete Shopping List item', (WidgetTester tester) async{
+      RAShoppingList list = RAShoppingList(title: "title", creationDate: DateTime(2023), items: [RAIngredient(name: "name", unit: "unit", amount: 1, calories: 0)]);
+      SharedPreferences.setMockInitialValues({"shoppinglist_title" : jsonEncode(list)});
+      await SharedPrefs().init();
+      await tester.pumpWidget(MaterialApp(home: RAShoppingListOverview(shoppingList: list)));
+      await tester.drag(find.byType(Dismissible), const Offset(500.0, 0.0));
+      await tester.pumpAndSettle();
+    });
+
+    testWidgets('ShoppingListPreview 1 Gegenstand', (WidgetTester tester) async{
+      RAShoppingList list = RAShoppingList(title: "title", creationDate: DateTime(2023), items: [RAIngredient(name: "name", unit: "unit", amount: 1, calories: 0)]);
+      SharedPreferences.setMockInitialValues({"shoppinglist_title" : jsonEncode(list)});
+      await SharedPrefs().init();
+      await tester.pumpWidget(MaterialApp(home: Material(child: ShoppingListPreview(shoppingList: list, reLoadRecipes: (){}))));
+      await tester.tap(find.byKey(const Key("StarInkWell")));
+      await tester.pump();
+      await tester.tap(find.byKey(const Key("ShoppingListDetector")));
+      await tester.pumpAndSettle();
+    });
+
+    testWidgets('ShoppingListPreview 2 Gegenstände', (WidgetTester tester) async{
+      RAShoppingList list = RAShoppingList(title: "title", creationDate: DateTime(2023), items: [RAIngredient(name: "name1", unit: "unit", amount: 1, calories: 0), RAIngredient(name: "name2", unit: "unit", amount: 1, calories: 0)]);
+      SharedPreferences.setMockInitialValues({"shoppinglist_title" : jsonEncode(list)});
+      await SharedPrefs().init();
+      await tester.pumpWidget(MaterialApp(home: Material(child: ShoppingListPreview(shoppingList: list, reLoadRecipes: (){}))));
     });
   });
 }

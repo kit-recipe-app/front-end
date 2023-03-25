@@ -5,12 +5,10 @@ import 'package:flutter_frontend_recipes/types/ingredient.dart';
 class RAShoppingListItemOverview extends StatelessWidget {
   RAIngredient item;
   Function updateShoppingListIngredientDone;
-  Function updateShoppingListIngredient;
   Function onLongPress;
   RAShoppingListItemOverview(
       {required this.item,
       required this.updateShoppingListIngredientDone,
-      required this.updateShoppingListIngredient,
       required this.onLongPress,
       super.key});
 
@@ -38,6 +36,7 @@ class RAShoppingListItemOverview extends StatelessWidget {
             updateShoppingListIngredientDone(item);
           },
           child: Icon(
+            key: Key("Checkbox"),
             item.done ? Icons.check_box : Icons.check_box_outline_blank,
           ),
         )
@@ -51,6 +50,7 @@ class RAShoppingListItemOverview extends StatelessWidget {
 
   Widget getRecipeLink(context) {
     return InkWell(
+      key: const Key("RecipeLink"),
       onTap: () {
         Navigator.push(
           context,
@@ -81,6 +81,7 @@ class RAShoppingListItemOverview extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
+      key: const Key("LongPressDetector"),
       onLongPress: () => onLongPress(),
       child: Container(
         margin: const EdgeInsets.all(8),
