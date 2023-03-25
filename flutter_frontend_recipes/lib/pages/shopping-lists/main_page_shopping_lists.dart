@@ -26,13 +26,31 @@ class _NewMainPageShoppingListsState extends State<NewMainPageShoppingLists> {
         sortByFavorite = !sortByFavorite;
         return;
       }
-      listsStored.sort(((a, b) => a.favourite ? -1 : 1));
+      sortShoppingLists();
       sortByFavorite = !sortByFavorite;
+    });
+  }
+
+  void sortShoppingLists() {
+    setState(() {
+      listsStored.sort(((a, b) {
+        if (a.favourite) {
+          if (b.favourite) {
+            return a.creationDate.compareTo(b.creationDate);
+          }
+          return -1;
+        }
+        if (!b.favourite) {
+          return a.creationDate.compareTo(b.creationDate);
+        }
+        return 1;
+      }));
     });
   }
 
   void loadShoppingLists() {
     List<RAShoppingList> loadedLists = SharedPrefs().getShoppingLists();
+    loadedLists.sort(((a, b) => a.creationDate.compareTo(b.creationDate)));
     setState(() {
       listsStored = loadedLists;
     });
@@ -83,7 +101,12 @@ class _NewMainPageShoppingListsState extends State<NewMainPageShoppingLists> {
                   .map((e) => ShoppingListPreview(
                         key: Key("${e.title} Preview"),
                         shoppingList: e,
-                        reLoadRecipes: loadShoppingLists,
+                        reLoadRecipes: () {
+                          loadShoppingLists();
+                          if (sortByFavorite) {
+                            sortShoppingLists();
+                          }
+                        },
                       ))
                   .toList()),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
