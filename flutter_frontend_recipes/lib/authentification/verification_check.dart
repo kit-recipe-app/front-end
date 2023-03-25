@@ -7,6 +7,8 @@ import 'package:flutter_frontend_recipes/constants/color_styles.dart';
 import 'package:flutter_frontend_recipes/recipe_app.dart';
 import 'package:flutter_frontend_recipes/shared/button.dart';
 
+/// EmailVerificationPage that shows a verificationPage if user is authenticated but has not
+/// verified email yet. Or the App itself if email is verified.
 class EmailVerificationCheck extends StatefulWidget {
   const EmailVerificationCheck({super.key});
 
@@ -15,13 +17,14 @@ class EmailVerificationCheck extends StatefulWidget {
 }
 
 class _EmailVerificationCheckState extends State<EmailVerificationCheck> {
-  final User? user = RAAuthService().user;
+  User? user = RAAuthService().user;
   bool emailIsVerified = false;
   Timer? timer;
   bool hasError = false;
   String errorMessage = "";
   bool canResendEmail = false;
 
+  /// Initializes the WidgetState's attributes and checks every 5 seconds if something has changed.
   @override
   void initState() {
     super.initState();
@@ -37,14 +40,17 @@ class _EmailVerificationCheckState extends State<EmailVerificationCheck> {
     }
   }
 
+  /// Disposes the timer and the widget itself.
   @override
   void dispose() {
     timer?.cancel();
     super.dispose();
   }
 
+  /// Reloads the current user's data and updates the 'emailIsVerified' atteribute.
   Future checkEmailVerified() async {
     await user!.reload();
+    user = RAAuthService().user;
 
     setState(() {
       emailIsVerified = user!.emailVerified;
@@ -53,6 +59,8 @@ class _EmailVerificationCheckState extends State<EmailVerificationCheck> {
     if (emailIsVerified) timer?.cancel();
   }
 
+  /// Sends a verification-email to the authenticated user and sets the
+  /// 'canResendEmail' attribute to false for 10 seconds.
   Future sendVerificationEmail() async {
     try {
       await user!.sendEmailVerification();
@@ -72,6 +80,7 @@ class _EmailVerificationCheckState extends State<EmailVerificationCheck> {
     }
   }
 
+  /// Returns an button with which the user can return to the LoginPage.
   Widget cancelVerificationButton() {
     return ElevatedButton(
       onPressed: RAAuthService().signOut,
@@ -79,6 +88,12 @@ class _EmailVerificationCheckState extends State<EmailVerificationCheck> {
     );
   }
 
+  /// Returns what is shown in 'EmailVerificationCheck'.
+  /// Shows the App itself, if the user has verified email or a page to resend
+  /// verification-email.
+  /// RecipeApp
+  /// OR
+  /// VerificationPage (ResendEmailButton, QuitButton, InfoText)
   @override
   Widget build(BuildContext context) {
     if (emailIsVerified) {
