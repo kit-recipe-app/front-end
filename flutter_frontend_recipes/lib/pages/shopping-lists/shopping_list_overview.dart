@@ -263,6 +263,7 @@ class _RAShoppingListOverviewState extends State<RAShoppingListOverview> {
         child: Scaffold(
           appBar: AppBar(
             leading: IconButton(
+              key: const Key("BackButtonShoppingListOverview"),
               onPressed: () {
                 Navigator.pop(context);
               },

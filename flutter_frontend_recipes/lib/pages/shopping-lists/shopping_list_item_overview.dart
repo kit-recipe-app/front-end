@@ -33,11 +33,13 @@ class RAShoppingListItemOverview extends StatelessWidget {
           ),
         ),
         InkWell(
+          key: const Key("ShoppingListsItemDoneButton"),
           onTap: () {
             //item.done = !item.done;
             updateShoppingListIngredientDone(item);
           },
           child: Icon(
+            key: const Key("ShoppingListsItemDoneButtonIcon"),
             item.done ? Icons.check_box : Icons.check_box_outline_blank,
           ),
         )

@@ -58,11 +58,13 @@ class _NewShoppingListPreviewState extends State<NewShoppingListPreview> {
 
   Widget getFavouriteButton() {
     return InkWell(
+      key: const Key("ShoppingListsFavoriteButton"),
       onTap: () {
         _updateShoppingList();
         widget.reLoadRecipes();
       },
       child: Icon(
+        key: const Key("ShoppingListsFavoriteButtonIcon"),
         widget.shoppingList.favourite ? Icons.star : Icons.star_border,
         color: Colors.yellow,
       ),

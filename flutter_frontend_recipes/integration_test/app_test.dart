@@ -1,4 +1,3 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:integration_test/integration_test.dart';
@@ -18,9 +17,9 @@ void main() {
       expect(find.byKey(const Key("EmailInput")), findsOneWidget);
       expect(find.byKey(const Key("PasswordInput")), findsOneWidget);
       await tester.enterText(find.byKey(const Key("EmailInput")), 'test');
-      await tester.pump(const Duration(seconds: 1));
+      await tester.pump(const Duration(seconds: 2));
       await tester.enterText(find.byKey(const Key("PasswordInput")), 'test');
-      await tester.pump(const Duration(seconds: 1));
+      await tester.pump(const Duration(seconds: 2));
       await tester.tap(find.byKey(const Key("LoginButton")));
       await tester.pump(const Duration(seconds: 2));
       expect(
@@ -71,40 +70,46 @@ void main() {
     });
 
     testWidgets("create shopping-list with item", (tester) async {
-      String testListName = "Test-Liste";
+      // test data
+      String testListName = "Test-List";
       String testItemName = "Banane";
       String testItemAmount = "5";
       String testItemUnit = "Stück";
+
+      // start app and give time to settle
       app.main();
       await tester.pump(const Duration(seconds: 5));
       await tester.pumpAndSettle();
       await tester.pump(const Duration(seconds: 5));
 
+      // navigate to shopping-list-page and check if correct page is shown
       await tester.tap(find.byKey(const Key("ShoppingNavigation")));
       await tester.pump(const Duration(seconds: 1));
       expect(find.byKey(const Key("ShoppingListsPage")), findsOneWidget);
 
+      // click create-shoppping-list button and check if correct page is shown
       await tester.tap(find.byKey(const Key("createShoppingListButton")));
       await tester.pump(const Duration(seconds: 1));
-
       expect(find.byKey(const Key("AddShoppingListPage")), findsOneWidget);
 
+      // enter shopping-list title, save and check if stored
       await tester.enterText(
           find.byKey(const Key("NewShoppingListTitleInput")), testListName);
       await tester.tap(find.byKey(const Key("NewShoppingListSaveButton")));
       await tester.pump(const Duration(seconds: 1));
-
       expect(find.byKey(Key("$testListName Preview")), findsOneWidget);
 
+      // navigate to test-list-overview and check if correct widget is shown
       await tester.tap(find.byKey(Key("$testListName Preview")));
       await tester.pump(const Duration(seconds: 1));
-
       expect(find.byKey(Key("$testListName Overview")), findsOneWidget);
 
+      // click add-item-button and check if correct dialoguer is showed
       await tester.tap(find.byKey(const Key("AddItemToShoppingListButton")));
       await tester.pump(const Duration(seconds: 1));
       expect(find.byKey(const Key("ItemAddDialogue")), findsOneWidget);
 
+      // enter data for new item, save if and check if stored
       await tester.enterText(
           find.byKey(const Key("NewItemName")), testItemName);
       await tester.enterText(
@@ -113,9 +118,147 @@ void main() {
           find.byKey(const Key("NewItemUnit")), testItemUnit);
       await tester.tap(find.byKey(const Key("AddItemConfirmButton")));
       await tester.pump(const Duration(seconds: 1));
-
       expect(find.byKey(Key("$testItemName $testItemAmount $testItemUnit")),
           findsOneWidget);
+
+      // navigate back to main-feed-page
+      await tester.tap(find.byKey(const Key("BackButtonShoppingListOverview")));
+      await tester.pump(const Duration(seconds: 1));
+      await tester.tap(find.byKey(const Key("FeedNavigation")));
+      await tester.pump(const Duration(seconds: 1));
+      expect(find.byKey(const Key("MainFeedPage")), findsOneWidget);
+    });
+
+    testWidgets("favorite shopping-lists and mark items done", (tester) async {
+      String testListName = "Test-List";
+
+      // start app and give time to settle
+      app.main();
+      await tester.pump(const Duration(seconds: 5));
+      await tester.pumpAndSettle();
+      await tester.pump(const Duration(seconds: 5));
+
+      // navigate to shopping-lists and check if non-favorite-list found
+      await tester.tap(find.byKey(const Key("ShoppingNavigation")));
+      await tester.pump(const Duration(seconds: 1));
+      expect(
+          find
+              .byKey(const Key("ShoppingListsFavoriteButtonIcon"))
+              .evaluate()
+              .single
+              .widget
+              .toString(),
+          const Icon(
+            key: Key("ShoppingListsFavoriteButtonIcon"),
+            Icons.star_border,
+            color: Colors.yellow,
+          ).toString());
+
+      // click favorite-button and check if then favorite
+      await tester.tap(find.byKey(const Key("ShoppingListsFavoriteButton")));
+      await tester.pump(const Duration(seconds: 1));
+      expect(
+          find
+              .byKey(const Key("ShoppingListsFavoriteButtonIcon"))
+              .evaluate()
+              .single
+              .widget
+              .toString(),
+          const Icon(
+            key: Key("ShoppingListsFavoriteButtonIcon"),
+            Icons.star,
+            color: Colors.yellow,
+          ).toString());
+
+      // open shopping-list-overview, and check if non-done-item found
+      await tester.tap(find.byKey(Key("$testListName Preview")));
+      await tester.pump(const Duration(seconds: 1));
+      expect(
+          find
+              .byKey(const Key("ShoppingListsItemDoneButtonIcon"))
+              .evaluate()
+              .single
+              .widget
+              .toString(),
+          const Icon(
+            key: Key("ShoppingListsItemDoneButtonIcon"),
+            Icons.check_box_outline_blank,
+          ).toString());
+
+      // click done-button and check if then done
+      await tester.tap(find.byKey(const Key("ShoppingListsItemDoneButton")));
+      await tester.pump(const Duration(seconds: 1));
+      expect(
+          find
+              .byKey(const Key("ShoppingListsItemDoneButtonIcon"))
+              .evaluate()
+              .single
+              .widget
+              .toString(),
+          const Icon(
+            key: Key("ShoppingListsItemDoneButtonIcon"),
+            Icons.check_box,
+          ).toString());
+
+      // switch screen to make sure favorite and done info is not stored only in widget
+      await tester.tap(find.byKey(const Key("BackButtonShoppingListOverview")));
+      await tester.pump(const Duration(seconds: 1));
+      await tester.tap(find.byKey(const Key("FeedNavigation")));
+      await tester.pump(const Duration(seconds: 5));
+      await tester.tap(find.byKey(const Key("ShoppingNavigation")));
+      await tester.pump(const Duration(seconds: 1));
+
+      // check if list is still favorite
+      expect(
+          find
+              .byKey(const Key("ShoppingListsFavoriteButtonIcon"))
+              .evaluate()
+              .single
+              .widget
+              .toString(),
+          const Icon(
+            key: Key("ShoppingListsFavoriteButtonIcon"),
+            Icons.star,
+            color: Colors.yellow,
+          ).toString());
+
+      // open shopping-list-overview, and check if item is still done
+      await tester.tap(find.byKey(Key("$testListName Preview")));
+      await tester.pump(const Duration(seconds: 1));
+      expect(
+          find
+              .byKey(const Key("ShoppingListsItemDoneButtonIcon"))
+              .evaluate()
+              .single
+              .widget
+              .toString(),
+          const Icon(
+            key: Key("ShoppingListsItemDoneButtonIcon"),
+            Icons.check_box,
+          ).toString());
+
+      // navigate back to main-feed-page
+      await tester.tap(find.byKey(const Key("BackButtonShoppingListOverview")));
+      await tester.pump(const Duration(seconds: 1));
+      await tester.tap(find.byKey(const Key("FeedNavigation")));
+      await tester.pump(const Duration(seconds: 1));
+      expect(find.byKey(const Key("MainFeedPage")), findsOneWidget);
+    });
+
+    testWidgets("log out", (tester) async {
+      app.main();
+      await tester.pump(const Duration(seconds: 5));
+      await tester.pumpAndSettle();
+      await tester.pump(const Duration(seconds: 5));
+
+      //expect(find.byKey(Key("ProfileNavigation")), findsOneWidget);
+      await tester.tap(find.byKey(const Key("ProfileNavigation")));
+      await tester.pump(const Duration(seconds: 1));
+      expect(find.byKey(const Key("ProfilePage")), findsOneWidget);
+
+      await tester.tap(find.byKey(const Key("SignOutButton")));
+      await tester.pump(const Duration(seconds: 1));
+      expect(find.byKey(const Key("LoginPage")), findsOneWidget);
     });
   });
 }
