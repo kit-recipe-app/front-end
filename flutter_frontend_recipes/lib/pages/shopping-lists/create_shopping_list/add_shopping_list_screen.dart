@@ -8,10 +8,11 @@ class AddShoppingListScreen extends StatefulWidget {
   const AddShoppingListScreen({Key? key}) : super(key: key);
 
   @override
-  _AddShoppingListScreenState createState() => _AddShoppingListScreenState();
+  AddShoppingListScreenState createState() => AddShoppingListScreenState();
 }
 
-class _AddShoppingListScreenState extends State<AddShoppingListScreen> {
+@visibleForTesting
+class AddShoppingListScreenState extends State<AddShoppingListScreen> {
   final _titleController = TextEditingController();
   bool titleMissing = false;
 

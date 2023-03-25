@@ -18,6 +18,7 @@ void main() {
       expect(find.byKey(Key("EmailInput")), findsOneWidget);
       expect(find.byKey(Key("PasswordInput")), findsOneWidget);
       await tester.enterText(find.byKey(Key("EmailInput")), 'test');
+      await tester.pumpAndSettle(Duration(seconds: 1));
       await tester.enterText(find.byKey(Key("PasswordInput")), 'test');
       await tester.tap(find.byKey(Key("LoginButton")));
       await tester.pump(Duration(seconds: 2));

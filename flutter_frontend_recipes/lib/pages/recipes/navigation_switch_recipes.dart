@@ -18,6 +18,7 @@ class RecipeAppNavigationSwitchRecipes extends StatelessWidget {
             child: Row(
               children: [
                 GestureDetector(
+                  key: const Key("Detector 0"),
                   behavior: HitTestBehavior.translucent,
                   onTap: () {
                     FocusManager.instance.primaryFocus?.unfocus();
@@ -37,6 +38,7 @@ class RecipeAppNavigationSwitchRecipes extends StatelessWidget {
                   ),
                 ),
                 GestureDetector(
+                  key: const Key("Detector 1"),
                   behavior: HitTestBehavior.translucent,
                   onTap: () {
                     FocusManager.instance.primaryFocus?.unfocus();

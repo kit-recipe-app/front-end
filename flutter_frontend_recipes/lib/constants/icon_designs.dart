@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
 
-// TODO: Die Inhalte sind erstmal nur Platzhalter, bis das endültige Design Feststeht
-// TODO: Sobald das Design endgültig ist, müssen alle Werte geändert werden
 
 // Diese Klasse beinhaltet die Icon Designs, die dann später in der App verwendet werden
 class RecipeAppIcons {
@@ -19,17 +17,17 @@ class RecipeAppIcons {
 
   //Icons Recipe Screen
 
-  static IconData caloriesIcon = Icons.local_fire_department_outlined;
+  //static IconData caloriesIcon = Icons.local_fire_department_outlined;
   static IconData timeIcon = Icons.schedule_outlined;
   static IconData difficultyIcon = Icons.speed_outlined;
 
   //Icons für die Rezpte
   static IconData calories = Icons.local_fire_department_rounded;
-  static IconData duration = Icons.access_time;
-  static IconData price = Icons.speed_outlined;
-  static IconData chain = Icons.all_inclusive_outlined;
+  //static IconData duration = Icons.access_time;
+  //static IconData price = Icons.speed_outlined;
+  //static IconData chain = Icons.all_inclusive_outlined;
 
-  static IconData clearText = Icons.clear;
+  //static IconData clearText = Icons.clear;
 
   // Platzhalter Icons
   IconData notFinalIcon = Icons.not_interested;
