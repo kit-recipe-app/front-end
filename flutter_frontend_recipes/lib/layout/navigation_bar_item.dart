@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_frontend_recipes/constants/color_styles.dart';
 
+/// Helper Widget, to be shown in the 'BottomNavigationBarRecipeApp'.
+/// An icon with optional text below.
+/// Calls the given 'onPressed' method if the 'NavigationBarItem' is pressed.
 class NavigationBarItem extends StatelessWidget {
   final String text;
   final IconData icon;
@@ -14,6 +17,8 @@ class NavigationBarItem extends StatelessWidget {
       required this.onPressed,
       super.key});
 
+  /// Returns what is shown in 'NavigationBarItem'.
+  /// The corresponding icon and text to the given data (isSelected)
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
@@ -26,16 +31,8 @@ class NavigationBarItem extends StatelessWidget {
             size: 40,
             color: isSelected
                 ? RecipeAppColorStyles.navigationBarSelectedIconColor
-                : Theme.of(context).colorScheme.onSecondary, // black54
-            /*
-            shadows: <Shadow>[
-              Shadow(
-                  color: RecipeAppColorStyles.navigationBarSelectedIconColor,
-                  blurRadius: isSelected ? 5.0 : 0)
-            ],
-            */
+                : Theme.of(context).colorScheme.onSecondary,
           ),
-          // oder (text != null) ? Text(...) : Container()
           Visibility(
             visible: text != "",
             child: Text(
