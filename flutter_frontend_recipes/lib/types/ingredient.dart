@@ -1,17 +1,16 @@
 import 'package:flutter_frontend_recipes/types/recipe.dart';
 
+/// 'RAIngredient' represents an ingredient of a recipe or an ite in a shopping-list.
 class RAIngredient {
-  String name;
-  String unit;
-  int amount;
-  int calories;
-  String? category;
-  RARecipe? recipe;
-  bool done;
+  String name; // A string that holds the name of the ingredient.
+  String unit; // A string that holds the unit of unit of the ingredient.
+  int amount; // An integer that holds the amount of the ingredient required.
+  int calories; // An integer that holds the amount of calories per serving.
+  String? category; // An optional string that holds the category of the ingredient (e.g. dairy, meat, vegetable).
+  RARecipe? recipe; // An optional reference to the recipe object the ingredient belongs to.
+  bool done; // A boolean that indicates whether the ingredient has been marked as done.
 
-  // umrechnungsfaktoren für unterstütze Einheiten im Backend speichern, falls Rezept gespeichert wird übergeben
-  // z.B.:  {gramm_kilogramm: 1000, ...}
-
+  /// Constructor
   RAIngredient({
     required this.name,
     required this.unit,
@@ -22,6 +21,7 @@ class RAIngredient {
     this.done = false,
   });
 
+  /// A factory constructor for creating an instance of RAIngredient from a JSON object returned by an API.
   factory RAIngredient.fromJson(Map<String, dynamic> json) {
     return RAIngredient(
       name: json['ingredient']['name'],
@@ -31,6 +31,7 @@ class RAIngredient {
     );
   }
 
+  /// A factory constructor for creating an instance of RAIngredient from a JSON object returned by the backend API.
   factory RAIngredient.fromJsonBackend(Map<String, dynamic> json){
     return RAIngredient(
       name: json['name'],
@@ -40,11 +41,13 @@ class RAIngredient {
     );
   }
 
+  /// A method that converts an instance of RAIngredient to a JSON object.
   Map<String, dynamic> toJson() => {
         "ingredient": {"name": name},
         "amount": {"amount": amount, "unit": unit}
       };
 
+  /// A factory constructor for creating an instance of RAIngredient from a JSON object returned by the local database.
   factory RAIngredient.fromJsonLocal(Map<String, dynamic> json) {
     return RAIngredient(
       name: json['ingredient']['name'],
@@ -55,6 +58,7 @@ class RAIngredient {
     );
   }
 
+  /// A method that converts an instance of RAIngredient to a JSON object to be stored in the local database.
   Map<String, dynamic> toJsonLocal() => {
         "ingredient": {"name": name},
         "amountInformation": {"amount": amount, "unit": unit},
@@ -64,6 +68,7 @@ class RAIngredient {
   @override
   String toString() => '$amount $unit $name';
 
+  /// A method that multiplies the amount of the ingredient by a given factor.
   multiply(int factor) {
     amount *= factor;
   }
