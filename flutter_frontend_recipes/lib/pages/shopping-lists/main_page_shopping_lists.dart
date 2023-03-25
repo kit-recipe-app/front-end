@@ -17,6 +17,19 @@ class NewMainPageShoppingLists extends StatefulWidget {
 
 class _NewMainPageShoppingListsState extends State<NewMainPageShoppingLists> {
   List<RAShoppingList> listsStored = [];
+  bool sortByFavorite = false;
+
+  void toggleListsStored() {
+    setState(() {
+      if (sortByFavorite) {
+        loadShoppingLists();
+        sortByFavorite = !sortByFavorite;
+        return;
+      }
+      listsStored.sort(((a, b) => a.favourite ? -1 : 1));
+      sortByFavorite = !sortByFavorite;
+    });
+  }
 
   void loadShoppingLists() {
     List<RAShoppingList> loadedLists = SharedPrefs().getShoppingLists();
@@ -39,6 +52,18 @@ class _NewMainPageShoppingListsState extends State<NewMainPageShoppingLists> {
           "Deine Einkaufslisten",
           style: TextStyle(color: Theme.of(context).colorScheme.onSecondary),
         ),
+        actions: [
+          IconButton(
+            onPressed: () {
+              toggleListsStored();
+            },
+            icon: Icon(
+              sortByFavorite ? Icons.star : Icons.star_border,
+              size: 24,
+              color: Theme.of(context).colorScheme.onSecondary,
+            ),
+          ),
+        ],
         elevation: 0,
         backgroundColor: Colors.transparent,
         flexibleSpace: ClipRect(
