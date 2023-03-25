@@ -22,7 +22,14 @@ class RecipeCard extends StatelessWidget {
         child: Stack(
           alignment: Alignment.bottomLeft,
           children: <Widget>[
-            Image.asset(
+            (recipe.picture.startsWith('http'))
+                ? Image.network(
+              recipe.picture,
+              width: MediaQuery.of(context).size.width,
+              height: 150,
+              fit: BoxFit.cover,
+            )
+                : Image.asset(
               recipe.picture,
               width: MediaQuery.of(context).size.width,
               height: 150,

@@ -1,11 +1,9 @@
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_frontend_recipes/pages/profile/components/tile_divider.dart';
 import 'package:flutter_frontend_recipes/pages/profile/components/text_tile.dart';
 import 'package:flutter_frontend_recipes/pages/profile/components/widget_tile.dart';
 import 'package:flutter_frontend_recipes/shared/shared_prefs.dart';
 
-import '../../../authentification/auth.dart';
 import '../../../main.dart';
 
 class AppSettings extends StatefulWidget {
@@ -16,9 +14,6 @@ class AppSettings extends StatefulWidget {
 }
 
 class _AppSettingsState extends State<AppSettings> {
-  final User? user = RAAuthService().user;
-  late String? email = user?.email;
-  String name = "Johannes";
 
   @override
   Widget build(BuildContext context) {

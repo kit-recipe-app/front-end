@@ -122,13 +122,10 @@ class _ProfilePageState extends State<ProfilePage> {
                               ],
                             ),
                           ),
-                          const Spacer(),
-                          const Padding(
-                            padding: EdgeInsets.fromLTRB(0, 0, 25, 0),
-                            child: Icon(
-                              Icons.settings,
-                              size: 30,
-                            ),
+                          Spacer(),
+                          Padding(
+                            padding: const EdgeInsets.fromLTRB(0, 0, 25, 0),
+                            child: Icon(RecipeAppIcons.settingIcon, size: 30,),
                           )
                         ],
                       ),

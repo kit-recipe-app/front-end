@@ -42,6 +42,7 @@ void main() {
           find.byKey(const Key("PasswordInput")), validTestUserPassword);
       await tester.tap(find.byKey(const Key("LoginButton")));
       await tester.pump(const Duration(seconds: 2));
+
       expect(find.byKey(const Key("MainFeedPage")), findsOneWidget);
     });
 

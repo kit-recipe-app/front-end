@@ -1,5 +1,6 @@
-  import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_frontend_recipes/content_examples/recipe_examples.dart';
 import 'package:flutter_frontend_recipes/pages/recipes/recipe_preview_exploring.dart';
 
 import '../../backend_connection/load_recipes.dart';
@@ -22,7 +23,6 @@ class _SearchRecipeState extends State<SearchRecipe> {
 
   @override
   void initState() {
-    print(myRecipes);
     loadRecipes();
     super.initState();
   }
@@ -40,8 +40,9 @@ class _SearchRecipeState extends State<SearchRecipe> {
 
   Future<void> loadRecipes() async {
     List<RARecipe> recipes = await LoadRecipes().getRecipes(http.Client(), FirebaseAuth.instance, false);
+    List<RARecipe> allRecipes = await LoadRecipes().getRecipes(http.Client(), FirebaseAuth.instance, true);
     setState(() {
-      myRecipes = recipes;
+      myRecipes = recipes + allRecipes + [RecipeExamples.testRecipe1, RecipeExamples.testRecipe2, RecipeExamples.testRecipe3];
     });
   }
 }
