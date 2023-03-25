@@ -32,9 +32,11 @@ class _ProfilePageState extends State<ProfilePage> {
 
   Widget signOutButton(Color color) {
     return ElevatedButton(
+      key: const Key("SignOutButton"),
       onPressed: signOut,
+      style:
+          ButtonStyle(backgroundColor: MaterialStateProperty.all<Color>(color)),
       child: const Text("sign out"),
-      style: ButtonStyle(backgroundColor:MaterialStateProperty.all<Color>(color)),
     );
   }
 
@@ -47,7 +49,8 @@ class _ProfilePageState extends State<ProfilePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      floatingActionButton: signOutButton(RecipeAppColorStyles.navigationBarSelectedIconColor),
+        floatingActionButton:
+            signOutButton(RecipeAppColorStyles.navigationBarSelectedIconColor),
         appBar: AppBar(
           centerTitle: true,
           backgroundColor: RecipeAppColorStyles.navigationBarSelectedIconColor,
@@ -64,17 +67,20 @@ class _ProfilePageState extends State<ProfilePage> {
                 child: Stack(
                   children: [
                     Container(
+                      key: const Key("ProfilePreviewButton"),
                       height: 100,
                       width: MediaQuery.of(context).size.width - 20,
                       decoration: BoxDecoration(
                         color: Theme.of(context).colorScheme.surface,
-                        borderRadius: BorderRadius.all(Radius.circular(14)),
+                        borderRadius:
+                            const BorderRadius.all(Radius.circular(14)),
                         boxShadow: [
                           BoxShadow(
                             color: Colors.grey.withOpacity(0.5),
                             spreadRadius: 2,
                             blurRadius: 4,
-                            offset: Offset(0, 5), // changes position of shadow
+                            offset: const Offset(
+                                0, 5), // changes position of shadow
                           ),
                         ],
                       ),
@@ -94,10 +100,13 @@ class _ProfilePageState extends State<ProfilePage> {
                               children: [
                                 FutureBuilder(
                                   future: usernameFuture,
-                                  builder:
-                                      (BuildContext context, AsyncSnapshot<String> snapshot) {
+                                  builder: (BuildContext context,
+                                      AsyncSnapshot<String> snapshot) {
                                     if (snapshot.hasData) {
-                                      return Text(snapshot.data!, style: TextStyle(fontSize: 25),);
+                                      return Text(
+                                        snapshot.data!,
+                                        style: const TextStyle(fontSize: 25),
+                                      );
                                     } else {
                                       return const Center(
                                         child: CircularProgressIndicator(),
@@ -106,10 +115,9 @@ class _ProfilePageState extends State<ProfilePage> {
                                   },
                                 ),
                                 Padding(
-                                  padding: const EdgeInsets.fromLTRB(0, 4, 0, 0),
-                                  child: Text(
-                                    preference
-                                  ),
+                                  padding:
+                                      const EdgeInsets.fromLTRB(0, 4, 0, 0),
+                                  child: Text(preference),
                                 )
                               ],
                             ),
@@ -127,8 +135,15 @@ class _ProfilePageState extends State<ProfilePage> {
                         color: Colors.transparent,
                         child: InkWell(
                             borderRadius: BorderRadius.circular(14),
-                            onTap: (){
-                              Navigator.push(context, MaterialPageRoute(builder: (context) => AccountSettings())).then((value) => setMainPageState());
+                            onTap: () {
+                              Navigator.push(
+                                      context,
+                                      MaterialPageRoute(
+                                          builder: (context) =>
+                                              const AccountSettings(
+                                                key: Key("AccountSettings"),
+                                              )))
+                                  .then((value) => setMainPageState());
                             },
                             child: const SizedBox.shrink()),
                       ),
@@ -142,28 +157,50 @@ class _ProfilePageState extends State<ProfilePage> {
               child: Padding(
                 padding: const EdgeInsets.fromLTRB(20, 25, 0, 0),
                 child: Text(
-                  editProfile, style: TextStyle(fontSize: 25, fontWeight: FontWeight.bold),
+                  editProfile,
+                  style: const TextStyle(
+                      fontSize: 25, fontWeight: FontWeight.bold),
                 ),
               ),
             ),
             Padding(
+              key: const Key("SettingsButtonEinstellungen"),
               padding: const EdgeInsets.fromLTRB(0, 20, 0, 0),
-              child: SettingButton(text: 'Einstellungen', page: AppSettings(), setMainPageState: setMainPageState,),
+              child: SettingButton(
+                text: 'Einstellungen',
+                page: const AppSettings(
+                  key: Key("SettingsPage"),
+                ),
+                setMainPageState: setMainPageState,
+              ),
             ),
             Padding(
+              key: const Key("SettingsButtonPräferenzen"),
               padding: const EdgeInsets.fromLTRB(0, 10, 0, 0),
-              child: SettingButton(text: 'Nahrungsmittelpräferenzen', page: Preferences(), setMainPageState: setMainPageState,),
+              child: SettingButton(
+                text: 'Nahrungsmittelpräferenzen',
+                page: const Preferences(
+                  key: Key("PreferencesPage"),
+                ),
+                setMainPageState: setMainPageState,
+              ),
             ),
             Padding(
+              key: const Key("SettingsButtonAllergien"),
               padding: const EdgeInsets.fromLTRB(0, 10, 0, 0),
-              child: SettingButton(text: 'Allergien', page: Allergies(), setMainPageState: setMainPageState,),
+              child: SettingButton(
+                text: 'Allergien',
+                page: const Allergies(
+                  key: Key("AllergiesPage"),
+                ),
+                setMainPageState: setMainPageState,
+              ),
             ),
           ],
         ));
   }
 
-
-  void setMainPageState(){
+  void setMainPageState() {
     setState(() {
       preference = SharedPrefs().getChosenPref();
       usernameFuture = loader.getUsername();

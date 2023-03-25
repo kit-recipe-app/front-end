@@ -29,12 +29,15 @@ class _AccountSettingsState extends State<AccountSettings> {
     futureUsername = loader.getUsername();
     super.initState();
   }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Theme.of(context).colorScheme.background,
       appBar: AppBar(
-        leading: BackButton(color: Theme.of(context).colorScheme.onSecondary),
+        leading: BackButton(
+            key: const Key("BackButton"),
+            color: Theme.of(context).colorScheme.onSecondary),
         title: Text(
           "Kontoeinstellungen",
           style: TextStyle(color: Theme.of(context).colorScheme.onSecondary),
@@ -43,29 +46,30 @@ class _AccountSettingsState extends State<AccountSettings> {
       body: Column(
         children: [
           TextTile(text: "E-Mail-Adresse", info: email!, type: "email"),
-          TileDivider(),
+          const TileDivider(),
           UsernameTile(
-              title: "Nutzername",
-              info: FutureBuilder(
-                future: futureUsername,
-                builder:
-                    (BuildContext context, AsyncSnapshot<String> snapshot) {
-                      if (snapshot.hasData) {
-                        return Text(snapshot.data!);
-                      } else {
-                        return const Center(
-                          child: CircularProgressIndicator(),
-                        );
-                      }
-                    },
-              ), setName: setUsername, setFuture: setUsernameFuture,
+            title: "Nutzername",
+            info: FutureBuilder(
+              future: futureUsername,
+              builder: (BuildContext context, AsyncSnapshot<String> snapshot) {
+                if (snapshot.hasData) {
+                  return Text(snapshot.data!);
+                } else {
+                  return const Center(
+                    child: CircularProgressIndicator(),
+                  );
+                }
+              },
+            ),
+            setName: setUsername,
+            setFuture: setUsernameFuture,
           ),
-          TileDivider(),
+          const TileDivider(),
           PasswordTile(
             title: "Passwort",
             setPassword: changePassword,
           ),
-          SizedBox(
+          const SizedBox(
             height: 100,
           ),
           TextTile(
@@ -78,17 +82,18 @@ class _AccountSettingsState extends State<AccountSettings> {
     );
   }
 
-  void setUsername(String result){
+  void setUsername(String result) {
     setState(() {
       putter.putUsername(result);
     });
   }
 
-  void setUsernameFuture(){
+  void setUsernameFuture() {
     setState(() {
       futureUsername = loader.getUsername();
     });
   }
+
   //maybe async
   String changePassword(String currentPassword, String newPassword) {
     final user = FirebaseAuth.instance.currentUser;
@@ -101,9 +106,7 @@ class _AccountSettingsState extends State<AccountSettings> {
       }).catchError((error) {
         return "neues Passwort ungültig";
       });
-    }).catchError((err) {
-    });
+    }).catchError((err) {});
     return "altes Passwort ungültig";
   }
-
 }

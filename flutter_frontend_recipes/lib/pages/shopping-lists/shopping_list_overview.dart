@@ -74,24 +74,25 @@ class _RAShoppingListOverviewState extends State<RAShoppingListOverview> {
     TextEditingController unitController = TextEditingController();
     TextEditingController amountController = TextEditingController();
     return AlertDialog(
+      key: const Key("ItemAddDialogue"),
       content: Column(
         mainAxisSize: MainAxisSize.min,
         children: [
           RAInputField(
-            key: const Key("NameInput"),
+            key: const Key("NewItemName"),
             hintText: "Name",
             controller: nameController,
             charLimit: 200,
           ),
           RAInputField(
-            key: const Key("MengeInput"),
+            key: const Key("NewItemAmount"),
             hintText: "Menge",
             controller: amountController,
             onlyNumbers: true,
             charLimit: 6,
           ),
           RAInputField(
-            key: const Key("EinheitInput"),
+            key: const Key("NewItemUnit"),
             hintText: "Einheit",
             controller: unitController,
             charLimit: 10,
@@ -108,6 +109,7 @@ class _RAShoppingListOverviewState extends State<RAShoppingListOverview> {
           backgroundColor: Colors.black54,
         ),
         RAButton(
+          key: const Key("AddItemConfirmButton"),
           onTap: () {
             if (nameController.text.isNotEmpty &&
                 unitController.text.isNotEmpty &&
@@ -254,6 +256,7 @@ class _RAShoppingListOverviewState extends State<RAShoppingListOverview> {
         child: Scaffold(
           appBar: AppBar(
             leading: IconButton(
+              key: const Key("BackButtonShoppingListOverview"),
               onPressed: () {
                 Navigator.pop(context);
               },
@@ -344,6 +347,8 @@ class _RAShoppingListOverviewState extends State<RAShoppingListOverview> {
                             });
                           },
                           child: RAShoppingListItemOverview(
+                            key:
+                                Key("${item.name} ${item.amount} ${item.unit}"),
                             updateShoppingListIngredientDone:
                                 changeShoppingListItemDone,
                             item: item,
@@ -361,6 +366,7 @@ class _RAShoppingListOverviewState extends State<RAShoppingListOverview> {
           floatingActionButtonLocation:
               FloatingActionButtonLocation.centerFloat,
           floatingActionButton: RAButton(
+            key: const Key("AddItemToShoppingListButton"),
             description: "Sache hinzufügen",
             onTap: () {
               showDialog(

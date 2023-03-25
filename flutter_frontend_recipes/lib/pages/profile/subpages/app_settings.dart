@@ -13,7 +13,6 @@ class AppSettings extends StatefulWidget {
   State<AppSettings> createState() => _AppSettingsState();
 }
 
-
 class _AppSettingsState extends State<AppSettings> {
 
   @override
@@ -21,7 +20,9 @@ class _AppSettingsState extends State<AppSettings> {
     return Scaffold(
       backgroundColor: Theme.of(context).colorScheme.background,
       appBar: AppBar(
-        leading: BackButton(color: Theme.of(context).colorScheme.onSecondary),
+        leading: BackButton(
+            key: const Key("BackButton"),
+            color: Theme.of(context).colorScheme.onSecondary),
         title: Text(
           "Appeinstellungen",
           style: TextStyle(color: Theme.of(context).colorScheme.onSecondary),
@@ -29,17 +30,21 @@ class _AppSettingsState extends State<AppSettings> {
       ),
       body: Column(
         children: [
-          TextTile(text: "Sprache", info: "Deutsch", type: "language",),
+          TextTile(
+            text: "Sprache",
+            info: "Deutsch",
+            type: "language",
+          ),
           const TileDivider(),
           TextTile(text: "Land", info: "Deutschland", type: "country"),
           const TileDivider(),
           WidgetTile(
               text: "Design",
               info: Switch(
-                activeColor: Theme.of(context).colorScheme.primary,
+                  activeColor: Theme.of(context).colorScheme.primary,
                   value: Theme.of(context).brightness == Brightness.dark,
                   onChanged: (bool value) {
-                  SharedPrefs().setTheme(value);
+                    SharedPrefs().setTheme(value);
                     value == true
                         ? MyApp.of(context).changeTheme(ThemeMode.dark)
                         : MyApp.of(context).changeTheme(ThemeMode.light);
@@ -56,5 +61,4 @@ class _AppSettingsState extends State<AppSettings> {
       ),
     );
   }
-
 }

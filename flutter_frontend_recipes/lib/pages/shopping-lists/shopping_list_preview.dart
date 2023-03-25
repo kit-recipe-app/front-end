@@ -58,12 +58,13 @@ class _ShoppingListPreviewState extends State<ShoppingListPreview> {
 
   Widget getFavouriteButton() {
     return InkWell(
-      key: const Key("StarInkWell"),
+      key: const Key("ShoppingListsFavoriteButton"),
       onTap: () {
         _updateShoppingList();
         widget.reLoadRecipes();
       },
       child: Icon(
+        key: const Key("ShoppingListsFavoriteButtonIcon"),
         widget.shoppingList.favourite ? Icons.star : Icons.star_border,
         color: Colors.yellow,
       ),
@@ -88,8 +89,10 @@ class _ShoppingListPreviewState extends State<ShoppingListPreview> {
         Navigator.push(
           context,
           MaterialPageRoute(
-              builder: (context) =>
-                  RAShoppingListOverview(shoppingList: widget.shoppingList)),
+              builder: (context) => RAShoppingListOverview(
+                    key: Key("${widget.shoppingList.title} Overview"),
+                    shoppingList: widget.shoppingList,
+                  )),
         ).then(((value) => widget.reLoadRecipes()));
       },
       behavior: HitTestBehavior.translucent,
