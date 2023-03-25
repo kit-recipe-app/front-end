@@ -67,6 +67,7 @@ class _ProfilePageState extends State<ProfilePage> {
                 child: Stack(
                   children: [
                     Container(
+                      key: const Key("ProfilePreviewButton"),
                       height: 100,
                       width: MediaQuery.of(context).size.width - 20,
                       decoration: BoxDecoration(
@@ -142,7 +143,9 @@ class _ProfilePageState extends State<ProfilePage> {
                                       context,
                                       MaterialPageRoute(
                                           builder: (context) =>
-                                              const AccountSettings()))
+                                              const AccountSettings(
+                                                key: Key("AccountSettings"),
+                                              )))
                                   .then((value) => setMainPageState());
                             },
                             child: const SizedBox.shrink()),
@@ -164,26 +167,35 @@ class _ProfilePageState extends State<ProfilePage> {
               ),
             ),
             Padding(
+              key: const Key("SettingsButtonEinstellungen"),
               padding: const EdgeInsets.fromLTRB(0, 20, 0, 0),
               child: SettingButton(
                 text: 'Einstellungen',
-                page: const AppSettings(),
+                page: const AppSettings(
+                  key: Key("SettingsPage"),
+                ),
                 setMainPageState: setMainPageState,
               ),
             ),
             Padding(
+              key: const Key("SettingsButtonPräferenzen"),
               padding: const EdgeInsets.fromLTRB(0, 10, 0, 0),
               child: SettingButton(
                 text: 'Nahrungsmittelpräferenzen',
-                page: const Preferences(),
+                page: const Preferences(
+                  key: Key("PreferencesPage"),
+                ),
                 setMainPageState: setMainPageState,
               ),
             ),
             Padding(
+              key: const Key("SettingsButtonAllergien"),
               padding: const EdgeInsets.fromLTRB(0, 10, 0, 0),
               child: SettingButton(
                 text: 'Allergien',
-                page: const Allergies(),
+                page: const Allergies(
+                  key: Key("AllergiesPage"),
+                ),
                 setMainPageState: setMainPageState,
               ),
             ),

@@ -21,91 +21,110 @@ class _PreferencesState extends State<Preferences> {
   static String veganText = "Vegan";
   static String vegetarianText = "Vegetarisch";
   static String pescetarianText = "Pescetarisch";
-  List<String> prefTexts = [allText, vegetarianText, veganText, pescetarianText];
+  List<String> prefTexts = [
+    allText,
+    vegetarianText,
+    veganText,
+    pescetarianText
+  ];
 
   @override
   Widget build(BuildContext context) {
     Color activeColor = Theme.of(context).colorScheme.primary;
     return Scaffold(
-      backgroundColor: Theme.of(context).colorScheme.background,
-      appBar: AppBar(
-        leading: BackButton(
+        backgroundColor: Theme.of(context).colorScheme.background,
+        appBar: AppBar(
+          leading: BackButton(
+            key: const Key("BackButton"),
             color: Theme.of(context).colorScheme.onSecondary,
+          ),
+          title: Text(
+            title,
+            style: TextStyle(color: Theme.of(context).colorScheme.onSecondary),
+          ),
         ),
-        title: Text(title, style: TextStyle(color: Theme.of(context).colorScheme.onSecondary),),
-      ),
-      body: Column(
-        children: [
-          WidgetTile(text: allText, info: Checkbox(
-            key: const Key("Omnivor_Checkbox"),
-            activeColor: activeColor,
+        body: Column(
+          children: [
+            WidgetTile(
+                text: allText,
+                info: Checkbox(
+                  key: const Key("Omnivor_Checkbox"),
+                  activeColor: activeColor,
                   value: all,
                   onChanged: (bool? value) {
                     setState(() {
-                     all = value!;
-                     if (value){
-                       vegan = vegetarian = pescetarian = false;
-                       List <String> tmp = [...prefTexts];
-                       SharedPrefs().setMultiplePref(tmp..remove(allText), !value);
-                     }
-                     SharedPrefs().setFoodPref(allText, value);
+                      all = value!;
+                      if (value) {
+                        vegan = vegetarian = pescetarian = false;
+                        List<String> tmp = [...prefTexts];
+                        SharedPrefs()
+                            .setMultiplePref(tmp..remove(allText), !value);
+                      }
+                      SharedPrefs().setFoodPref(allText, value);
                     });
                   },
                 )),
-          const TileDivider(),
-          WidgetTile(text: vegetarianText, info: Checkbox(
-            key: const Key("Vegetarian_Checkbox"),
-            activeColor: activeColor,
-            value: vegetarian,
-            onChanged: (bool? value) {
-              setState(() {
-                  vegetarian = value!;
-                  if (value){
-                    vegan = all = pescetarian = false;
-                    List <String> tmp = [...prefTexts];
-                    SharedPrefs().setMultiplePref(tmp..remove(vegetarianText), !value);
-                  }
-                  SharedPrefs().setFoodPref(vegetarianText, value);
-
-              });
-            },
-          )),
-          const TileDivider(),
-          WidgetTile(text: veganText, info: Checkbox(
-            key: const Key("Vegan_Checkbox"),
-            activeColor: activeColor,
-            value: vegan,
-            onChanged: (bool? value) {
-              setState(() {
-                  vegan = value!;
-                  if (value){
-                    all = vegetarian = pescetarian = false;
-                    List <String> tmp = [...prefTexts];
-                    SharedPrefs().setMultiplePref(tmp..remove(veganText), !value);
-                  }
-                  SharedPrefs().setFoodPref(veganText, value);
-              });
-            },
-          )),
-          const TileDivider(),
-          WidgetTile(text: pescetarianText, info: Checkbox(
-            key: const Key("Pescetarian_Checkbox"),
-            activeColor: activeColor,
-            value: pescetarian,
-            onChanged: (bool? value) {
-              setState(() {
-                  pescetarian = value!;
-                  if (value){
-                    vegan = vegetarian = all = false;
-                    List <String> tmp = [...prefTexts];
-                    SharedPrefs().setMultiplePref(tmp..remove(pescetarianText), !value);
-                  }
-                  SharedPrefs().setFoodPref(pescetarianText, value);
-              });
-            },
-          )),
-        ],
-      )
-    );
+            const TileDivider(),
+            WidgetTile(
+                text: vegetarianText,
+                info: Checkbox(
+                  key: const Key("Vegetarian_Checkbox"),
+                  activeColor: activeColor,
+                  value: vegetarian,
+                  onChanged: (bool? value) {
+                    setState(() {
+                      vegetarian = value!;
+                      if (value) {
+                        vegan = all = pescetarian = false;
+                        List<String> tmp = [...prefTexts];
+                        SharedPrefs().setMultiplePref(
+                            tmp..remove(vegetarianText), !value);
+                      }
+                      SharedPrefs().setFoodPref(vegetarianText, value);
+                    });
+                  },
+                )),
+            const TileDivider(),
+            WidgetTile(
+                text: veganText,
+                info: Checkbox(
+                  key: const Key("Vegan_Checkbox"),
+                  activeColor: activeColor,
+                  value: vegan,
+                  onChanged: (bool? value) {
+                    setState(() {
+                      vegan = value!;
+                      if (value) {
+                        all = vegetarian = pescetarian = false;
+                        List<String> tmp = [...prefTexts];
+                        SharedPrefs()
+                            .setMultiplePref(tmp..remove(veganText), !value);
+                      }
+                      SharedPrefs().setFoodPref(veganText, value);
+                    });
+                  },
+                )),
+            const TileDivider(),
+            WidgetTile(
+                text: pescetarianText,
+                info: Checkbox(
+                  key: const Key("Pescetarian_Checkbox"),
+                  activeColor: activeColor,
+                  value: pescetarian,
+                  onChanged: (bool? value) {
+                    setState(() {
+                      pescetarian = value!;
+                      if (value) {
+                        vegan = vegetarian = all = false;
+                        List<String> tmp = [...prefTexts];
+                        SharedPrefs().setMultiplePref(
+                            tmp..remove(pescetarianText), !value);
+                      }
+                      SharedPrefs().setFoodPref(pescetarianText, value);
+                    });
+                  },
+                )),
+          ],
+        ));
   }
 }

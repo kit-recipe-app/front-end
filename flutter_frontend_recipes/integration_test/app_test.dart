@@ -11,6 +11,9 @@ void main() {
     testWidgets("login", (tester) async {
 /*        final auth = MockFirebaseAuth();
         auth.signInAnonymously();*/
+
+      String validTestUserName = "testnutzer@tes.de";
+      String validTestUserPassword = "12345678";
       app.main();
       await tester.pump(const Duration(seconds: 5));
       expect(find.byKey(const Key("Login")), findsOneWidget);
@@ -34,9 +37,9 @@ void main() {
               "There is no user record corresponding to this identifier. The user may have been deleted."),
           findsOneWidget);
       await tester.enterText(
-          find.byKey(const Key("EmailInput")), 'testnutzer@tes.de');
+          find.byKey(const Key("EmailInput")), validTestUserName);
       await tester.enterText(
-          find.byKey(const Key("PasswordInput")), '12345678');
+          find.byKey(const Key("PasswordInput")), validTestUserPassword);
       await tester.tap(find.byKey(const Key("LoginButton")));
       await tester.pump(const Duration(seconds: 2));
       expect(find.byKey(const Key("MainFeedPage")), findsOneWidget);
@@ -129,7 +132,9 @@ void main() {
       expect(find.byKey(const Key("MainFeedPage")), findsOneWidget);
     });
 
-    testWidgets("favorite shopping-lists and mark items done", (tester) async {
+    testWidgets(
+        "favorite shopping-lists and mark items done (shared-prefs-test)",
+        (tester) async {
       String testListName = "Test-List";
 
       // start app and give time to settle
@@ -243,6 +248,60 @@ void main() {
       await tester.tap(find.byKey(const Key("FeedNavigation")));
       await tester.pump(const Duration(seconds: 1));
       expect(find.byKey(const Key("MainFeedPage")), findsOneWidget);
+    });
+
+    testWidgets("navigate through login-page", (tester) async {
+
+      // start app and give time to settle
+      app.main();
+      await tester.pump(const Duration(seconds: 5));
+      await tester.pumpAndSettle();
+      await tester.pump(const Duration(seconds: 5));
+
+      // navigate to profile page and check if all buttons are present
+      await tester.tap(find.byKey(const Key("ProfileNavigation")));
+      await tester.pump(const Duration(seconds: 1));
+      expect(find.byKey(const Key("ProfilePreviewButton")), findsOneWidget);
+      expect(
+          find.byKey(const Key("SettingsButtonEinstellungen")), findsOneWidget);
+      expect(
+          find.byKey(const Key("SettingsButtonPräferenzen")), findsOneWidget);
+      expect(find.byKey(const Key("SettingsButtonAllergien")), findsOneWidget);
+
+      // click on all buttons and check if they work correct
+      await tester.tap(find.byKey(const Key("ProfilePreviewButton")));
+      await tester.pump(const Duration(seconds: 1));
+      expect(find.byKey(const Key("AccountSettings")), findsOneWidget);
+      await tester.tap(find.byKey(const Key("BackButton")));
+      await tester.pump(const Duration(seconds: 1));
+
+      await tester.tap(find.byKey(const Key("SettingsButtonEinstellungen")));
+      await tester.pump(const Duration(seconds: 1));
+      expect(find.byKey(const Key("SettingsPage")), findsOneWidget);
+      await tester.tap(find.byKey(const Key("BackButton")));
+      await tester.pump(const Duration(seconds: 1));
+
+      await tester.tap(find.byKey(const Key("SettingsButtonPräferenzen")));
+      await tester.pump(const Duration(seconds: 1));
+      expect(find.byKey(const Key("PreferencesPage")), findsOneWidget);
+      await tester.tap(find.byKey(const Key("BackButton")));
+      await tester.pump(const Duration(seconds: 1));
+
+      await tester.tap(find.byKey(const Key("SettingsButtonAllergien")));
+      await tester.pump(const Duration(seconds: 1));
+      expect(find.byKey(const Key("AllergiesPage")), findsOneWidget);
+      await tester.tap(find.byKey(const Key("BackButton")));
+      await tester.pump(const Duration(seconds: 1));
+
+
+      // navigate back to main-feed-page
+      await tester.tap(find.byKey(const Key("FeedNavigation")));
+      await tester.pump(const Duration(seconds: 1));
+      expect(find.byKey(const Key("MainFeedPage")), findsOneWidget);
+    });
+
+    testWidgets("navigate through recipes", (tester) async {
+
     });
 
     testWidgets("log out", (tester) async {
