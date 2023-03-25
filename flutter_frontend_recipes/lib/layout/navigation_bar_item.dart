@@ -5,10 +5,10 @@ import 'package:flutter_frontend_recipes/constants/color_styles.dart';
 /// An icon with optional text below.
 /// Calls the given 'onPressed' method if the 'NavigationBarItem' is pressed.
 class NavigationBarItem extends StatelessWidget {
-  final String text;
-  final IconData icon;
-  final bool isSelected;
-  final void Function()? onPressed;
+  final String text; // A string representing the label text of the item. Defaults to an empty string.
+  final IconData icon; // An IconData object representing the icon of the item.
+  final bool isSelected; // A boolean value indicating whether this item is currently selected or not.
+  final void Function()? onPressed; // A function that is called when the item is pressed. Can be null.
 
   const NavigationBarItem(
       {this.text = "",

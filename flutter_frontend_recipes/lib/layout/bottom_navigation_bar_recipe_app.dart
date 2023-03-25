@@ -5,8 +5,9 @@ import 'package:flutter_frontend_recipes/layout/navigation_bar_item.dart';
 /// A BottomNavigationBar, that shows the current screen-icon
 /// and lets the user navigate between the pages.
 class BottomNavigationBarRecipeApp extends StatelessWidget {
-  Function onChange;
-  int selectedIndex;
+  Function onChange; // A required function that is called when a navigation bar item is pressed.
+                     // It takes an integer parameter that represents the selected index.
+  int selectedIndex; // A required integer that represents the currently selected index.
   BottomNavigationBarRecipeApp(
       {required this.onChange, required this.selectedIndex, super.key});
 
