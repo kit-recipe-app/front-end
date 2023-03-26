@@ -1,5 +1,13 @@
 import 'package:flutter/material.dart';
 
+
+/// A widget that displays a confirmation message and a button to go back.
+///
+/// The [ConfirmRecipe] widget is a [StatelessWidget] that takes in a [Function]
+/// called [upload] as a required parameter. This function is called when the
+/// user presses the back button. The [ConfirmRecipe] widget displays a message
+/// to confirm that the recipe has been successfully created and a button to go
+/// back to the previous screen.
 class ConfirmRecipe extends StatelessWidget {
 
   final Function() upload;

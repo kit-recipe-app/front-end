@@ -8,6 +8,7 @@ import 'create_recipe_title.dart';
 
 enum ImageType { gallery, camera }
 
+/// This widget allows the user to add a picture for a recipe.
 class AddPicture extends StatefulWidget {
   final Function(String picture) setPicture;
   final Function() next;

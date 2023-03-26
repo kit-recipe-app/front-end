@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 
+///Title of the different pages in the recipe creation process
 class RecipeTitle extends StatelessWidget {
   final String name;
   const RecipeTitle({Key? key, required this.name}) : super(key: key);
