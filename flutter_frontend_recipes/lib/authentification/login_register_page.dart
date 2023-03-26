@@ -6,6 +6,7 @@ import 'package:flutter_frontend_recipes/shared/input_field.dart';
 import 'package:flutter_frontend_recipes/shared/button.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
+/// Login and register page that is shown when no user is authenticated
 class LoginPage extends StatefulWidget {
   const LoginPage({super.key});
 
@@ -16,16 +17,15 @@ class LoginPage extends StatefulWidget {
 class _LoginPageState extends State<LoginPage> {
   final String loginToRegister = "Du hast noch keinen Account?";
   final String registerToLogin = "Zurück zum Login.";
-  String? errorMessage = "";
-  bool isLogin = true;
-
-  final TextEditingController _controllerTest = TextEditingController();
+  String? errorMessage = ""; // The error message, empty if no error exists.
+  bool isLogin = true; // Flag showing if user tries to login or to register.
 
   final TextEditingController _controllerEmail = TextEditingController();
   final TextEditingController _controllerPassword = TextEditingController();
   final TextEditingController _controllerConfirmPassword =
       TextEditingController();
 
+  /// Calls the signInWithGoogle method of the authService and updates the page to show error, if occuring
   Future<void> signInWithGoogle() async {
     try {
       await RAAuthService().signInWithGoogle();
@@ -36,6 +36,7 @@ class _LoginPageState extends State<LoginPage> {
     }
   }
 
+  /// Calls the signInWithEmailAndPassword method of the authService and updates the page to show error, if occuring
   Future<void> signInWithEmailAndPassword() async {
     try {
       await RAAuthService().signInWithEmailAndPassword(
@@ -49,6 +50,7 @@ class _LoginPageState extends State<LoginPage> {
     }
   }
 
+  /// Calls the createUserWithEmailAndPassword method of the authService and updates the page to show error, if occuring
   Future<void> createUserWithEmailAndPassword() async {
     if (_controllerPassword.text != _controllerConfirmPassword.text) {
       setState(() {
@@ -68,27 +70,12 @@ class _LoginPageState extends State<LoginPage> {
     }
   }
 
-  Widget _pageTitle() {
-    return Container(
-      padding: EdgeInsets.only(
-          bottom: isLogin
-              ? MediaQuery.of(context).size.height / 8 + 66
-              : MediaQuery.of(context).size.height / 8),
-      child: Text(
-        isLogin ? "LOGIN" : "REGISTRIERUNG",
-        style: const TextStyle(
-          color: Colors.black,
-          fontSize: 32,
-          fontWeight: FontWeight.bold,
-        ),
-      ),
-    );
-  }
-
+  /// Returns a TextWidget, which holds empty text or an errorMessage, if error is current
   Widget _errorMessage() {
     return Text(errorMessage == '' ? '' : '$errorMessage');
   }
 
+  /// Changes the state of the page to either login or register, depending on current state
   void switchLoginOrRegister() {
     setState(
       () {
@@ -100,6 +87,8 @@ class _LoginPageState extends State<LoginPage> {
     );
   }
 
+  /// Returns what is shown in 'LoginPage'.
+  /// PageTitle, InputFields, Login-/RegisterButton, StateSwitchButton
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -120,7 +109,7 @@ class _LoginPageState extends State<LoginPage> {
               centerTitle: true,
               title: Text(
                 isLogin ? "LOGIN" : "REGISTRIERUNG",
-                key: Key("Login"),
+                key: const Key("Login"),
                 style: const TextStyle(
                   color: Colors.black,
                   fontSize: 32,
@@ -139,13 +128,13 @@ class _LoginPageState extends State<LoginPage> {
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: <Widget>[
                   RAInputField(
-                    key: Key("EmailInput"),
+                    key: const Key("EmailInput"),
                     hintText: "Email",
                     controller: _controllerEmail,
                     icon: Icons.mail,
                   ),
                   RAInputField(
-                    key: Key("PasswordInput"),
+                    key: const Key("PasswordInput"),
                     hintText: "Passwort",
                     controller: _controllerPassword,
                     isPassword: true,
@@ -163,7 +152,7 @@ class _LoginPageState extends State<LoginPage> {
                   _errorMessage(),
                   isLogin
                       ? RAButton(
-                    key: Key("LoginButton"),
+                          key: const Key("LoginButton"),
                           onTap: signInWithEmailAndPassword,
                           description: "Login",
                           backgroundColor:
@@ -175,6 +164,7 @@ class _LoginPageState extends State<LoginPage> {
                           backgroundColor:
                               RecipeAppColorStyles.recipeAppMainColor,
                         ),
+                  /*
                   isLogin
                       ? RAButton(
                           onTap: signInWithGoogle,
@@ -186,6 +176,7 @@ class _LoginPageState extends State<LoginPage> {
                           iconColor: Colors.red,
                         )
                       : Container(),
+                  */
                 ],
               ),
             ),

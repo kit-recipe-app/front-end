@@ -5,6 +5,10 @@ import 'package:flutter_frontend_recipes/pages/profile/main_page_profile.dart';
 import 'package:flutter_frontend_recipes/pages/recipes/main_page_recipes.dart';
 import 'package:flutter_frontend_recipes/pages/shopping-lists/main_page_shopping_lists.dart';
 
+/// The RecipeApp widget is the top-level widget for the Recipe App.
+/// It is a stateful widget which toggles the page shown to the user.
+/// It contains a bottom navigation bar and a list of pages, where each
+/// page is represented by a widget.
 class RecipeApp extends StatefulWidget {
   const RecipeApp({super.key});
 
@@ -13,16 +17,21 @@ class RecipeApp extends StatefulWidget {
 }
 
 class _RecipeAppState extends State<RecipeApp> {
-  int _currentIndex = 0;
+  int _currentIndex = 0; // The index of the current page.
   final List<Widget> _pages = [
-    const MainFeed(key: Key("MainFeedPage"),),
+    const MainFeed(
+      key: Key("MainFeedPage"),
+    ),
     const RecipeScreen(key: Key("RecipePage")),
+    const NewMainPageShoppingLists(
+      key: Key("ShoppingListsPage"),
+    ),
+    const ProfilePage(
+      key: Key("ProfilePage"),
+    ),
+  ]; // contains the widgets that represent the different pages in the app.
 
-    //const MainPageShoppingLists(),
-    const NewMainPageShoppingLists(key: Key("ShoppingListsPage"),),
-    const ProfilePage(key: Key("ProfilePage"),),
-
-  ];
+  /// Returns what is shown in the app.
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -44,11 +53,5 @@ class _RecipeAppState extends State<RecipeApp> {
         ),
       ),
     );
-  }
-
-  gotoPage(int index){
-    setState(() {
-      _currentIndex = index;
-    });
   }
 }

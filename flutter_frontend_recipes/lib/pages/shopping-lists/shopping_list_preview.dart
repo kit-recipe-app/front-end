@@ -3,9 +3,11 @@ import 'package:flutter_frontend_recipes/pages/shopping-lists/shopping_list_over
 import 'package:flutter_frontend_recipes/shared/shared_prefs.dart';
 import 'package:flutter_frontend_recipes/types/shopping_list.dart';
 
+/// Widget displaying a preview of a shopping List
+/// (title, creationDate, itemAmount, favoriteFlag)
 class ShoppingListPreview extends StatefulWidget {
-  final RAShoppingList shoppingList;
-  final Function reLoadRecipes;
+  final RAShoppingList shoppingList; // The shopping list to be showed
+  final Function reLoadRecipes; // Function, used to reload the ShoppingListMainPage
   const ShoppingListPreview(
       {required this.shoppingList, required this.reLoadRecipes, super.key});
 
@@ -14,6 +16,8 @@ class ShoppingListPreview extends StatefulWidget {
 }
 
 class _ShoppingListPreviewState extends State<ShoppingListPreview> {
+  /// Returns a Widget that contains the title of the shopping list
+  /// and the date it was created.
   Widget getHeading() {
     String year = widget.shoppingList.creationDate.year.toString();
     String month = widget.shoppingList.creationDate.month.toString();
@@ -42,6 +46,7 @@ class _ShoppingListPreviewState extends State<ShoppingListPreview> {
     );
   }
 
+  /// Returns a Text displaying the amount of items stored in the list
   Widget getBottomInfo() {
     String amountItems = widget.shoppingList.getItemAmount().toString();
     return Text(
@@ -56,6 +61,7 @@ class _ShoppingListPreviewState extends State<ShoppingListPreview> {
     );
   }
 
+  /// The button used to change the favoriteFlag of the shopping list
   Widget getFavouriteButton() {
     return InkWell(
       key: const Key("ShoppingListsFavoriteButton"),
@@ -71,6 +77,7 @@ class _ShoppingListPreviewState extends State<ShoppingListPreview> {
     );
   }
 
+  /// Uses SharedPrefs-Class to update the shopping list
   void _updateShoppingList() {
     final shoppingList = RAShoppingList(
       title: widget.shoppingList.title,
@@ -81,6 +88,7 @@ class _ShoppingListPreviewState extends State<ShoppingListPreview> {
     SharedPrefs().updateShoppingList(shoppingList);
   }
 
+  /// returns what is shown in 'hoppingListPreview'
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
