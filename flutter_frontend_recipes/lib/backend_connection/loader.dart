@@ -4,6 +4,7 @@ import 'dart:convert';
 
 class Loader {
 
+  ///Get username from Backend
   Future<String> getUsername() async {
     var token = await FirebaseAuth.instance.currentUser!.getIdToken();
 

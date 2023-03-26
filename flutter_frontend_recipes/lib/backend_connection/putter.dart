@@ -4,6 +4,7 @@ import 'dart:convert';
 
 class Putter {
 
+  ///Set Username in Backend to [newUsername]
   void putUsername(String newUsername) async {
     var token = await FirebaseAuth.instance.currentUser!.getIdToken();
 
