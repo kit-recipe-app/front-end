@@ -85,7 +85,7 @@ class RecipeOverview extends StatelessWidget {
                         const Padding(
                           padding: EdgeInsets.only(bottom: 8),
                           child: Text(
-                            "Zutaten",
+                            "Zutaten (4 Personen)",
                             style: TextStyle(
                               fontWeight: FontWeight.bold,
                               fontSize: 18,
@@ -130,7 +130,9 @@ class RecipeOverview extends StatelessWidget {
                         Navigator.push(
                           context,
                           MaterialPageRoute(
-                              builder: (context) => ToShoppingList(recipe: recipe,)),
+                              builder: (context) => ToShoppingList(
+                                    recipe: recipe,
+                                  )),
                         );
                       },
                       style: ElevatedButton.styleFrom(
@@ -164,13 +166,13 @@ class RecipeOverview extends StatelessWidget {
   // iconbar showing calories, difficulty and time
   Widget getIconBar() {
     List<Widget> availableValues = [];
-    if (recipe.getCalories() != null) {
+    if (recipe.calories != null) {
       availableValues.add(
         Column(
           children: [
             Icon(RecipeAppIcons.calories),
             Text(
-              "${recipe.getCalories()} kcal",
+              "${recipe.calories} kcal",
               style: const TextStyle(
                 fontSize: 12,
               ),

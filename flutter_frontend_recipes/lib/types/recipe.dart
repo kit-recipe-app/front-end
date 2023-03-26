@@ -48,8 +48,7 @@ class RARecipe {
         time: json['durationInMin'].round(),
         difficulty: json['difficulty'],
         tags: [for (String tag in json['tag']) tag],
-        calories: json['calories']
-            .round()); // int.parse(json['calories'].toString()))
+        calories: (json['calories'].round() / 4).round());
     return recipe;
   }
 
@@ -67,7 +66,6 @@ class RARecipe {
         "difficulty": "mittel",
         "durationInMin": 0,
       };
-
 
   /// Method that calculates and returns the total number of calories in the recipe.
   int? getCalories() {

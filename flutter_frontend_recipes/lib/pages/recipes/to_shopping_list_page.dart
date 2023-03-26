@@ -20,7 +20,7 @@ class ToShoppingList extends StatefulWidget {
 }
 
 class _ToShoppingListState extends State<ToShoppingList> {
-  int counter = 1;
+  int counter = 4;
 
   Timer? timer;
 
@@ -30,11 +30,11 @@ class _ToShoppingListState extends State<ToShoppingList> {
     final shoppingList = RAShoppingList(
         title: widget.recipe.title, creationDate: DateTime.now());
     for (RAIngredient ing in widget.recipe.ingredients) {
-      if (counter != 1) {
+      if (counter != 4) {
         RAIngredient newIng = RAIngredient(
             name: ing.name,
             unit: ing.unit,
-            amount: counter * ing.amount,
+            amount: (counter / 4 * ing.amount).round(),
             calories: ing.calories);
         shoppingList.addItem(newIng);
       } else {
@@ -241,7 +241,7 @@ class _ToShoppingListState extends State<ToShoppingList> {
                     Padding(
                       padding: const EdgeInsets.all(10),
                       child: Text(
-                          '${counter * ing.amount} ${ing.unit} ${ing.name}'),
+                          '${counter / 4 * ing.amount} ${ing.unit} ${ing.name}'),
                     ),
                 ],
               ),
