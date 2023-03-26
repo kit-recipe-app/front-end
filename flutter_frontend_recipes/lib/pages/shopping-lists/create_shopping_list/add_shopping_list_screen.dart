@@ -5,7 +5,7 @@ import 'package:flutter_frontend_recipes/shared/shared_prefs.dart';
 import 'package:flutter_frontend_recipes/types/shopping_list.dart';
 
 /// Page that is shown when the user creates a new shopping-list.
-/// The user can input a title
+/// The user can input a title and then save the List locally
 class AddShoppingListScreen extends StatefulWidget {
   const AddShoppingListScreen({Key? key}) : super(key: key);
 
@@ -15,15 +15,20 @@ class AddShoppingListScreen extends StatefulWidget {
 
 @visibleForTesting
 class AddShoppingListScreenState extends State<AddShoppingListScreen> {
-  final _titleController = TextEditingController();
-  bool titleMissing = false;
+  final _titleController = TextEditingController(); // Controller of the input title
+  bool titleMissing = false; // Flag showing if no title is given
 
+  /// Sets the 'titleMissing' flag to false.
+  /// Triggered when User taps the titleInputField.
   void resetTitleMissing() {
     setState(() {
       titleMissing = false;
     });
   }
 
+  /// creates a new RAShoppingList object using the entered title and
+  /// the current date and time, and saves it to the device's local 
+  /// storage using the SharedPrefs utility class.
   bool _saveShoppingList() {
     final shoppingList = RAShoppingList(
       title: _titleController.text.trim(),
@@ -32,6 +37,7 @@ class AddShoppingListScreenState extends State<AddShoppingListScreen> {
     return SharedPrefs().saveShoppingList(shoppingList);
   }
 
+  /// Returns what is shown in 'AddShoppingListScreen'.
   @override
   Widget build(BuildContext context) {
     return Scaffold(

@@ -8,8 +8,10 @@ import 'package:flutter_frontend_recipes/shared/shared_prefs.dart';
 import 'package:flutter_frontend_recipes/types/ingredient.dart';
 import 'package:flutter_frontend_recipes/types/shopping_list.dart';
 
+/// Page that is shown when user clicks on shopping list.
+/// Title, buttons to change list and items stored in the list
 class RAShoppingListOverview extends StatefulWidget {
-  RAShoppingList shoppingList;
+  RAShoppingList shoppingList; // The shopping list to be displayed
   RAShoppingListOverview({required this.shoppingList, super.key});
 
   @override
@@ -17,8 +19,7 @@ class RAShoppingListOverview extends StatefulWidget {
 }
 
 class _RAShoppingListOverviewState extends State<RAShoppingListOverview> {
-  bool orderedByCategory = false;
-  late RAShoppingList currentShoppingListState;
+  late RAShoppingList currentShoppingListState; // The shopping lists current state during widget runtime
   List<String> units = ["g", "kg", "St", "ml", "l"];
 
   @override
@@ -27,6 +28,10 @@ class _RAShoppingListOverviewState extends State<RAShoppingListOverview> {
     currentShoppingListState = widget.shoppingList;
   }
 
+  /// A method that changes the title of the current shopping list
+  /// to the new title passed as a parameter. It calls a method
+  /// changeShoppingListTitle from the SharedPrefs class to persist
+  /// the change and updates the state of the widget by calling setState().
   void changeShoppingListTitle(String newTitle) {
     SharedPrefs().changeShoppingListTitle(widget.shoppingList.title, newTitle);
     setState(() {
@@ -34,11 +39,19 @@ class _RAShoppingListOverviewState extends State<RAShoppingListOverview> {
     });
   }
 
+  /// A method that deletes the current shopping list from the local storage
+  /// and navigates back to the previous screen. It calls a method
+  /// deleteSingleShoppingList from the SharedPrefs class to delete the shopping
+  /// list and navigates back to the previous screen.
   void deleteSingleShoppingList(BuildContext context) {
     SharedPrefs().deleteSingleShoppingList(widget.shoppingList.title);
     Navigator.popUntil(context, ModalRoute.withName('/'));
   }
 
+  /// A method that toggles the done status of an ingredient in the current
+  /// shopping list. It calls a method changeItemIsDone on the currentShoppingListState
+  /// and updates the local storage by calling a method updateShoppingList from the
+  /// SharedPrefs class. It also updates the state of the widget by calling setState().
   void changeShoppingListItemDone(RAIngredient ingredient) {
     setState(() {
       currentShoppingListState.changeItemIsDone(ingredient);
@@ -46,6 +59,10 @@ class _RAShoppingListOverviewState extends State<RAShoppingListOverview> {
     SharedPrefs().updateShoppingList(currentShoppingListState);
   }
 
+  /// A method that replaces an old ingredient with a new one in the current shopping
+  /// list. It calls methods deleteItem and addItem on the currentShoppingListState
+  /// and updates the local storage by calling a method updateShoppingList from the
+  /// SharedPrefs class. It also updates the state of the widget by calling setState().
   void changeShoppingListItem(
       RAIngredient oldIngredient, RAIngredient newIngredient) {
     setState(() {
@@ -55,6 +72,10 @@ class _RAShoppingListOverviewState extends State<RAShoppingListOverview> {
     SharedPrefs().updateShoppingList(currentShoppingListState);
   }
 
+  /// A method that removes an ingredient from the current shopping list. It calls a
+  /// method deleteItem on the currentShoppingListState and updates the local storage
+  /// by calling a method updateShoppingList from the SharedPrefs class. It also updates
+  /// the state of the widget by calling setState().
   void deleteShoppingListItem(RAIngredient ingredient) {
     setState(() {
       currentShoppingListState.deleteItem(ingredient);
@@ -62,6 +83,10 @@ class _RAShoppingListOverviewState extends State<RAShoppingListOverview> {
     SharedPrefs().updateShoppingList(currentShoppingListState);
   }
 
+  /// A method that adds a new ingredient to the current shopping list. It calls a
+  /// method addItem on the currentShoppingListState and updates the local storage
+  /// by calling a method updateShoppingList from the SharedPrefs class. It also
+  /// updates the state of the widget by calling setState().
   void addShoppingListItem(RAIngredient ingredient) {
     setState(() {
       currentShoppingListState.addItem(ingredient);
@@ -69,6 +94,7 @@ class _RAShoppingListOverviewState extends State<RAShoppingListOverview> {
     SharedPrefs().updateShoppingList(currentShoppingListState);
   }
 
+  /// Returns a Dialogue which can be used to add a new item to the shopping list
   Widget getItemAddDialogue(BuildContext context) {
     TextEditingController nameController = TextEditingController();
     TextEditingController unitController = TextEditingController();
@@ -131,6 +157,7 @@ class _RAShoppingListOverviewState extends State<RAShoppingListOverview> {
     );
   }
 
+  /// Returns a Dialogue which can be used to edit the title of the shopping list
   Widget getEditingDialogue(BuildContext context) {
     TextEditingController titleController = TextEditingController();
     return AlertDialog(
@@ -165,6 +192,7 @@ class _RAShoppingListOverviewState extends State<RAShoppingListOverview> {
     );
   }
 
+  /// Returns a Dialogue which makes the user consent deleting the shopping list
   Widget getConfirmDeleteDialogue(BuildContext context) {
     return AlertDialog(
       content: Text(
@@ -188,6 +216,7 @@ class _RAShoppingListOverviewState extends State<RAShoppingListOverview> {
     );
   }
 
+  /// Returns a Dialogue which can be used to edit an existing item in the shopping list
   Widget getItemEditDialogue(BuildContext context, RAIngredient ingredient) {
     TextEditingController nameController = TextEditingController();
     TextEditingController unitController = TextEditingController();
@@ -248,6 +277,7 @@ class _RAShoppingListOverviewState extends State<RAShoppingListOverview> {
     );
   }
 
+  /// Returns what is shown in 'RAShoppingListOverview'
   @override
   Widget build(BuildContext context) {
     return Container(
