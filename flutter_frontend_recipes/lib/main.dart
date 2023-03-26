@@ -1,6 +1,7 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter_frontend_recipes/backend_connection/ingredient_loader.dart';
+import 'package:flutter_frontend_recipes/backend_connection/unit_loader.dart';
 import 'package:flutter_frontend_recipes/shared/shared_prefs.dart';
 import 'package:flutter_frontend_recipes/widget_tree.dart';
 import 'package:http/http.dart' as http;
@@ -16,6 +17,7 @@ Future<void> main() async {
   );
   await SharedPrefs().init();
   await IngredientLoader().init(http.Client(), FirebaseAuth.instance);
+  await UnitLoader().init(http.Client(), FirebaseAuth.instance);
   runApp(const MyApp());
 }
 
@@ -30,8 +32,9 @@ class MyApp extends StatefulWidget {
 }
 
 class _MyAppState extends State<MyApp> {
-  ThemeMode _themeMode = SharedPrefs().getTheme() == null ? ThemeMode.system : (SharedPrefs().getTheme() == true ? ThemeMode.dark: ThemeMode.light);
-
+  ThemeMode _themeMode = SharedPrefs().getTheme() == null
+      ? ThemeMode.system
+      : (SharedPrefs().getTheme() == true ? ThemeMode.dark : ThemeMode.light);
 
   @override
   Widget build(BuildContext context) {
@@ -41,7 +44,7 @@ class _MyAppState extends State<MyApp> {
       theme: RecipeAppColorStyles.lightTheme,
       darkTheme: RecipeAppColorStyles.darkTheme,
       themeMode: _themeMode,
-      home: WidgetTree(),
+      home: const WidgetTree(),
     );
   }
 
@@ -50,5 +53,4 @@ class _MyAppState extends State<MyApp> {
       _themeMode = themeMode;
     });
   }
-
 }

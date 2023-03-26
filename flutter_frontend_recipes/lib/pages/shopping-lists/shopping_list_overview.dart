@@ -1,6 +1,7 @@
 import 'dart:ui';
 
 import 'package:flutter/material.dart';
+import 'package:flutter_frontend_recipes/backend_connection/unit_loader.dart';
 import 'package:flutter_frontend_recipes/pages/shopping-lists/shopping_list_item_overview.dart';
 import 'package:flutter_frontend_recipes/shared/button.dart';
 import 'package:flutter_frontend_recipes/shared/input_field.dart';
@@ -19,7 +20,7 @@ class RAShoppingListOverview extends StatefulWidget {
 class _RAShoppingListOverviewState extends State<RAShoppingListOverview> {
   bool orderedByCategory = false;
   late RAShoppingList currentShoppingListState;
-  List<String> units = ["g", "kg", "St", "ml", "l"];
+  List<String> units = UnitLoader.units;
 
   @override
   initState() {
