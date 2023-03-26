@@ -22,7 +22,7 @@ class RARecipe {
       this.calories,
       this.id = "",
       this.favorite = false,
-      this.tags,
+      this.tags = const [],
       this.time,
       this.difficulty});
 

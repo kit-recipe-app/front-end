@@ -19,7 +19,6 @@ class _RecipeAppExploringRecipesState extends State<RecipeAppExploringRecipes> {
 
   @override
   Widget build(BuildContext context) {
-
     return ListView(
       padding: EdgeInsets.zero,
       children: [
@@ -100,14 +99,15 @@ class _RecipeAppExploringRecipesState extends State<RecipeAppExploringRecipes> {
           children: [
             const Padding(
               padding: EdgeInsets.all(8),
-              child: Text("Aus dem Backend"),
+              child: Text("Alle Rezepte"),
             ),
             Padding(
               padding: const EdgeInsets.only(bottom: 16),
               child: SizedBox(
                 height: 250,
                 child: FutureBuilder(
-                  future: backendLoader.getRecipes(http.Client(), FirebaseAuth.instance, true),
+                  future: backendLoader.getRecipes(
+                      http.Client(), FirebaseAuth.instance, true),
                   builder: (BuildContext context,
                       AsyncSnapshot<List<RARecipe>> snapshot) {
                     if (snapshot.hasData) {
@@ -120,8 +120,8 @@ class _RecipeAppExploringRecipesState extends State<RecipeAppExploringRecipes> {
                               (RARecipe recipe) =>
                                   RecipeAppRecipePreviewExploring(
                                 recipe: recipe,
-                                    own: false,
-                                    search: false,
+                                own: false,
+                                search: false,
                               ),
                             )
                             .toList(),
