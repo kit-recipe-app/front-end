@@ -675,7 +675,7 @@ void main() {
     testWidgets('Shopping List Item Overview', (WidgetTester tester) async{
       RAIngredient ing = RAIngredient(name: "name", unit: "g", amount: 1, calories: 0);
       await tester.pumpWidget(MaterialApp(home: Material(child: RAShoppingListItemOverview(item: ing, updateShoppingListIngredientDone: (RAIngredient ing){}, onLongPress: (){}))));
-      await tester.tap(find.byKey(const Key("Checkbox")));
+      await tester.tap(find.byKey(const Key("ShoppingListsItemDoneButtonIcon")));
     });
 
     testWidgets('Shopping List Item Overview with ingredient from recipe', (WidgetTester tester) async{
@@ -738,11 +738,11 @@ void main() {
       await tester.pump();
       await tester.tap(find.text("Sache hinzufügen"));
       await tester.pumpAndSettle();
-      await tester.enterText(find.byKey(const Key("NameInput")), "itemname");
+      await tester.enterText(find.byKey(const Key("NewItemName")), "itemname");
       await tester.pumpAndSettle();
-      await tester.enterText(find.byKey(const Key("MengeInput")), "1");
+      await tester.enterText(find.byKey(const Key("NewItemAmount")), "1");
       await tester.pumpAndSettle();
-      await tester.enterText(find.byKey(const Key("EinheitInput")), "g");
+      await tester.enterText(find.byKey(const Key("NewItemUnit")), "g");
       await tester.pumpAndSettle();
       await tester.tap(find.text("ok"));
       await tester.pump();
@@ -777,7 +777,7 @@ void main() {
       SharedPreferences.setMockInitialValues({"shoppinglist_title" : jsonEncode(list)});
       await SharedPrefs().init();
       await tester.pumpWidget(MaterialApp(home: Material(child: ShoppingListPreview(shoppingList: list, reLoadRecipes: (){}))));
-      await tester.tap(find.byKey(const Key("StarInkWell")));
+      await tester.tap(find.byKey(const Key("ShoppingListsFavoriteButton")));
       await tester.pump();
       await tester.tap(find.byKey(const Key("ShoppingListDetector")));
       await tester.pumpAndSettle();

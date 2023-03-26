@@ -4,6 +4,7 @@ import 'package:flutter_frontend_recipes/backend_connection/ingredient_loader.da
 import 'package:flutter_frontend_recipes/shared/shared_prefs.dart';
 import 'package:flutter_frontend_recipes/widget_tree.dart';
 import 'package:http/http.dart' as http;
+import 'constants/color_styles.dart';
 import 'firebase_options.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -57,41 +58,8 @@ class _MyAppState extends State<MyApp> {
     SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp]);
     return MaterialApp(
       title: 'Recipe App',
-      theme: ThemeData(
-          scaffoldBackgroundColor: Colors.white,
-          colorScheme: ColorScheme(
-              brightness: Brightness.light,
-              primary: const Color(0xff66aa44),
-              onPrimary: Colors.white,
-              secondary: Colors.white,
-              onSecondary: Colors.black,
-              error: const Color(0xffb00020),
-              onError: Colors.white,
-              background: Colors.white.withOpacity(0.9),
-              onBackground: Colors.black,
-              surface: Colors.white,
-              onSurface: Colors.black,
-              secondaryContainer: Colors.white.withOpacity(0.9)),
-          appBarTheme: const AppBarTheme(
-            backgroundColor: Colors.white,
-          )),
-      darkTheme: ThemeData(
-          colorScheme: ColorScheme(
-              brightness: Brightness.dark,
-              primary: const Color(0xff66aa44),
-              onPrimary: Colors.black,
-              secondary: Colors.black,
-              onSecondary: Colors.white,
-              error: const Color(0xffcf6679),
-              onError: Colors.black,
-              background: Colors.grey.shade700,
-              onBackground: Colors.white,
-              surface: const Color(0xff121212),
-              onSurface: Colors.white,
-              secondaryContainer: Colors.grey.shade700),
-          appBarTheme: const AppBarTheme(
-            backgroundColor: Color(0xff121212),
-          )),
+      theme: RecipeAppColorStyles.lightTheme,
+      darkTheme: RecipeAppColorStyles.darkTheme,
       themeMode: _themeMode,
       home: const WidgetTree(),
     );

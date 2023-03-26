@@ -1,10 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_frontend_recipes/pages/profile/components/password_dialog.dart';
 
-
+///Password tile that shows [PasswordDialog] when tapped
 class PasswordTile extends StatefulWidget {
 
+  ///Title of tile
   final String title;
+
+  ///Function that is called once the password is changed
   Function setPassword;
   PasswordTile({Key? key, required this.title, required this.setPassword}) : super(key: key);
 

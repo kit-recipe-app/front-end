@@ -1,9 +1,14 @@
 import 'package:flutter/material.dart';
 
+///Dialog with different exclusive choices
 class ChoiceDialog extends StatefulWidget {
+  ///Title of the Dialog
   final String title;
+  ///Standard value of the choices that is selected
   final String standard;
+  ///Different choices
   final List<String> values;
+  ///Called after hitting the "OK" Button
   final Function setText;
 
   const ChoiceDialog({Key? key, required this.title, required this.values, required this.standard, required this.setText})
