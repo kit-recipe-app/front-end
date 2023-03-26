@@ -13,7 +13,7 @@ class RecipeAppRecipePreviewExploring extends StatefulWidget {
   final Function? delete;
   final Function? favorite;
 
-  RecipeAppRecipePreviewExploring(
+  const RecipeAppRecipePreviewExploring(
       {required this.recipe,
       super.key,
       required this.own,
@@ -93,17 +93,23 @@ class _RecipeAppRecipePreviewExploringState
                           padding: const EdgeInsets.all(8.0),
                           child: InkWell(
                             key: const Key("StarInkWell"),
-                            customBorder: CircleBorder(),
+                            customBorder: const CircleBorder(),
                             child: widget.recipe.favorite
-                                ? Icon(
+                                ? const Icon(
                                     Icons.star,
                                     color: Colors.yellow,
-                              shadows: [Shadow(color: Colors.black, blurRadius: 32.0)],
+                                    shadows: [
+                                      Shadow(
+                                          color: Colors.black, blurRadius: 32.0)
+                                    ],
                                   )
-                                : Icon(
+                                : const Icon(
                                     Icons.star_border,
                                     color: Colors.yellow,
-                              shadows: [Shadow(color: Colors.black, blurRadius: 32.0)],
+                                    shadows: [
+                                      Shadow(
+                                          color: Colors.black, blurRadius: 32.0)
+                                    ],
                                   ),
                             onTap: () {
                               setState(() {
@@ -136,8 +142,8 @@ class _RecipeAppRecipePreviewExploringState
                   ),
             Padding(
               padding: widget.own
-                  ? EdgeInsets.fromLTRB(15, 10, 8, 0)
-                  : EdgeInsets.fromLTRB(8, 0, 8, 0),
+                  ? const EdgeInsets.fromLTRB(15, 10, 8, 0)
+                  : const EdgeInsets.fromLTRB(8, 0, 8, 0),
               child: Text(
                 widget.recipe.title,
                 style: const TextStyle(
@@ -150,8 +156,8 @@ class _RecipeAppRecipePreviewExploringState
             ),
             Padding(
               padding: widget.own
-                  ? EdgeInsets.fromLTRB(15, 5, 8, 0)
-                  : EdgeInsets.fromLTRB(8, 0, 8, 0),
+                  ? const EdgeInsets.fromLTRB(15, 5, 8, 0)
+                  : const EdgeInsets.fromLTRB(8, 0, 8, 0),
               child: Text(
                 widget.recipe.description,
                 maxLines: 2,
@@ -178,21 +184,19 @@ class _RecipeAppRecipePreviewExploringState
 
   Widget getIconBar() {
     List<Widget> availableValues = [];
-    if (widget.recipe.getCalories() != null) {
-      availableValues.add(
-        Column(
-          children: [
-            Icon(RecipeAppIcons.calories),
-            Text(
-              "${widget.recipe.getCalories()} kcal",
-              style: const TextStyle(
-                fontSize: 12,
-              ),
+    availableValues.add(
+      Column(
+        children: [
+          Icon(RecipeAppIcons.calories),
+          Text(
+            "${widget.recipe.calories} kcal",
+            style: const TextStyle(
+              fontSize: 12,
             ),
-          ],
-        ),
-      );
-    }
+          ),
+        ],
+      ),
+    );
     if (widget.recipe.time != null) {
       availableValues.add(
         Column(
@@ -230,7 +234,7 @@ class _RecipeAppRecipePreviewExploringState
             mainAxisAlignment: MainAxisAlignment.spaceAround,
             children: availableValues,
           )
-        : Container(
+        : SizedBox(
             width: (MediaQueryData.fromWindow(WidgetsBinding.instance.window)
                         .size
                         .width -
@@ -246,7 +250,7 @@ class _RecipeAppRecipePreviewExploringState
   Widget getButtonBar() {
     return Material(
       color: Colors.transparent,
-      child: Container(
+      child: SizedBox(
         width: (MediaQueryData.fromWindow(WidgetsBinding.instance.window)
                     .size
                     .width -
@@ -256,16 +260,16 @@ class _RecipeAppRecipePreviewExploringState
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           children: [
             InkWell(
-              customBorder: CircleBorder(),
-              child: Icon(Icons.delete),
+              customBorder: const CircleBorder(),
+              child: const Icon(Icons.delete),
               onTap: () {
                 _showConfirmDialog();
               },
             ),
             InkWell(
               key: const Key("ButtonBarStar"),
-              customBorder: CircleBorder(),
-              child: Icon(Icons.edit),
+              customBorder: const CircleBorder(),
+              child: const Icon(Icons.edit),
               onTap: () {
                 Navigator.push(
                   context,
@@ -278,13 +282,13 @@ class _RecipeAppRecipePreviewExploringState
               },
             ),
             InkWell(
-              customBorder: CircleBorder(),
+              customBorder: const CircleBorder(),
               child: widget.recipe.favorite
-                  ? Icon(
+                  ? const Icon(
                       Icons.star,
                       color: Colors.yellow,
                     )
-                  : Icon(
+                  : const Icon(
                       Icons.star_border,
                       color: Colors.yellow,
                     ),
@@ -318,7 +322,7 @@ class _RecipeAppRecipePreviewExploringState
                 },
               ),
               TextButton(
-                child: Text('OK'),
+                child: const Text('OK'),
                 onPressed: () {
                   setState(() {
                     widget.delete!();

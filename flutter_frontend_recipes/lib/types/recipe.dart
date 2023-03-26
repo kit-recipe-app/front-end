@@ -11,6 +11,7 @@ class RARecipe {
   int? time;
   String? difficulty;
   bool favorite;
+  int calories;
 
   RARecipe(
       {required this.picture,
@@ -18,36 +19,50 @@ class RARecipe {
       required this.description,
       required this.ingredients,
       required this.manual,
+      this.calories = 0,
       this.id = "",
-        this.favorite = false,
+      this.favorite = false,
       this.tags,
       this.time,
       this.difficulty});
 
   factory RARecipe.fromJson(Map<String, dynamic> json) {
     return RARecipe(
-      picture: (json['imageData'] == null)
-          ? 'assets/example_pictures/standard_picture.jpg'
-          : 'https://recipebackendnew-qgf6rz2woa-ey.a.run.app/api/v1/images/${json['imageData']['name']}',
-      title: json['name'],
-      id: json['id'],
-      description: json['description'],
-      ingredients: [
-        for (Map<String, dynamic> ingredient in json['ingredients'])
-          RAIngredient.fromJson(ingredient)
-      ],
-      manual: [
-        for (Map step in json['cookingInstructions']) step['instruction']
-      ],
-    );
+        picture: (json['imageData'] == null)
+            ? 'assets/example_pictures/standard_picture.jpg'
+            : 'https://recipebackendnew-qgf6rz2woa-ey.a.run.app/api/v1/images/${json['imageData']['name']}',
+        title: json['name'],
+        id: json['id'],
+        description: json['description'],
+        ingredients: [
+          for (Map<String, dynamic> ingredient in json['ingredients'])
+            RAIngredient.fromJson(ingredient)
+        ],
+        manual: [
+          for (Map step in json['cookingInstructions']) step['instruction']
+        ],
+        time: json['durationInMin'],
+        difficulty: json['difficulty'],
+        tags: json['tag'] == null ? null : [json['tag'][0]],
+        calories: json['calories']);
   }
 
-  Map<String, dynamic> toJson() =>{
-    "name": title,
-    "description": description,
-    "cookingInstructions": [for (String instruction in manual) {"instruction": instruction}],
-    "ingredients": [for (RAIngredient ingredient in ingredients) ingredient.toJson()]
-  };
+  Map<String, dynamic> toJson() => {
+        "name": title,
+        "description": description,
+        "cookingInstructions": [
+          for (String instruction in manual) {"instruction": instruction}
+        ],
+        "ingredients": [
+          for (RAIngredient ingredient in ingredients) ingredient.toJson()
+        ],
+        "calories": calories,
+        "time": time,
+        "difficulty": difficulty,
+        "tags": [
+          for (String tag in tags!) {"tag": tag}
+        ],
+      };
 
   int? getCalories() {
     int summedCalories = 0;
