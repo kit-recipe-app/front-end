@@ -9,6 +9,7 @@ import '../../shared/shared_prefs.dart';
 import '../../types/ingredient.dart';
 import '../../types/shopping_list.dart';
 
+/// Page that is displayed when user decides to add recipe to a shopping list.
 class ToShoppingList extends StatefulWidget {
   final RARecipe recipe;
 
@@ -18,23 +19,23 @@ class ToShoppingList extends StatefulWidget {
   State<ToShoppingList> createState() => _ToShoppingListState();
 }
 
-
 class _ToShoppingListState extends State<ToShoppingList> {
-
-
   int counter = 1;
 
   Timer? timer;
 
   List<RAShoppingList> listsStored = [];
-  
-  
+
   _toShoppingList() async {
     final shoppingList = RAShoppingList(
         title: widget.recipe.title, creationDate: DateTime.now());
     for (RAIngredient ing in widget.recipe.ingredients) {
-      if(counter != 1){
-        RAIngredient newIng = RAIngredient(name: ing.name, unit: ing.unit, amount: counter * ing.amount, calories: ing.calories);
+      if (counter != 1) {
+        RAIngredient newIng = RAIngredient(
+            name: ing.name,
+            unit: ing.unit,
+            amount: counter * ing.amount,
+            calories: ing.calories);
         shoppingList.addItem(newIng);
       } else {
         shoppingList.addItem(ing);
@@ -43,23 +44,24 @@ class _ToShoppingListState extends State<ToShoppingList> {
     SharedPrefs().saveShoppingList(shoppingList);
   }
 
-  _updateShoppingList(RAShoppingList shoppingList) async{
-    for(RAIngredient ing in widget.recipe.ingredients){
+  _updateShoppingList(RAShoppingList shoppingList) async {
+    for (RAIngredient ing in widget.recipe.ingredients) {
       shoppingList.addItem(ing);
     }
     SharedPrefs().updateShoppingList(shoppingList);
   }
-  
+
   _loadShoppingLists() async {
     List<RAShoppingList> loadedLists = SharedPrefs().getShoppingLists();
     listsStored = loadedLists;
   }
+
   @override
   void initState() {
     _loadShoppingLists();
     super.initState();
   }
-  
+
   @override
   Widget build(BuildContext context) {
     return Material(
@@ -91,7 +93,7 @@ class _ToShoppingListState extends State<ToShoppingList> {
                             topLeft: Radius.circular(10),
                             topRight: Radius.circular(10),
                           ),
-                          child: Container(
+                          child: SizedBox(
                             height: 110,
                             child: Column(
                               children: [
@@ -102,12 +104,17 @@ class _ToShoppingListState extends State<ToShoppingList> {
                                     Navigator.pop(context);
                                     //Navigator.pop(context);
                                   },
-                                  child:Padding(
-                                    padding: const EdgeInsets.fromLTRB(0, 10, 0, 10),
+                                  child: Padding(
+                                    padding:
+                                        const EdgeInsets.fromLTRB(0, 10, 0, 10),
                                     child: Row(
-                                      mainAxisAlignment: MainAxisAlignment.center,
-                                      children: [
-                                        Text("Neue Liste erstellen", style: TextStyle(fontSize: 23),)
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.center,
+                                      children: const [
+                                        Text(
+                                          "Neue Liste erstellen",
+                                          style: TextStyle(fontSize: 23),
+                                        )
                                       ],
                                     ),
                                   ),
@@ -118,44 +125,56 @@ class _ToShoppingListState extends State<ToShoppingList> {
                                 ),
                                 InkWell(
                                   onTap: () {
-                                    showDialog(context: context, builder: (context){
-                                      return AlertDialog(
-                                        title: Text("Bestehende Einkaufslisten"),
-                                        content: SizedBox(
-                                          height: 300,
-                                          width: 400,
-                                          child: Scrollbar(
-                                            thumbVisibility: true,
-                                            child: ListView(
-                                              children: [
-                                                for (RAShoppingList list in listsStored)
-                                                  Card(
-                                                    child: ListTile(
-                                                      leading: Icon(Icons.add),
-                                                      title: Text(list.title),
-                                                      onTap: (){
-                                                        _updateShoppingList(list);
-                                                        Navigator.pop(context);
-                                                        Navigator.pop(context);
-                                                        Navigator.pop(context);
-                                                        //Navigator.pop(context);
-                                                      },
-                                                    ),
-                                                  )
-
-                                              ],
+                                    showDialog(
+                                        context: context,
+                                        builder: (context) {
+                                          return AlertDialog(
+                                            title: const Text(
+                                                "Bestehende Einkaufslisten"),
+                                            content: SizedBox(
+                                              height: 300,
+                                              width: 400,
+                                              child: Scrollbar(
+                                                thumbVisibility: true,
+                                                child: ListView(
+                                                  children: [
+                                                    for (RAShoppingList list
+                                                        in listsStored)
+                                                      Card(
+                                                        child: ListTile(
+                                                          leading: const Icon(
+                                                              Icons.add),
+                                                          title:
+                                                              Text(list.title),
+                                                          onTap: () {
+                                                            _updateShoppingList(
+                                                                list);
+                                                            Navigator.pop(
+                                                                context);
+                                                            Navigator.pop(
+                                                                context);
+                                                            Navigator.pop(
+                                                                context);
+                                                            //Navigator.pop(context);
+                                                          },
+                                                        ),
+                                                      )
+                                                  ],
+                                                ),
+                                              ),
                                             ),
-                                          ),
-                                        ),
-                                      );
-                                    });
+                                          );
+                                        });
                                   },
-                                  child:Padding(
-                                    padding: const EdgeInsets.fromLTRB(0, 10, 0, 10),
+                                  child: Padding(
+                                    padding:
+                                        const EdgeInsets.fromLTRB(0, 10, 0, 10),
                                     child: Row(
-                                      mainAxisAlignment: MainAxisAlignment.center,
-                                      children: [
-                                        Text("Zu bestender Liste hinzufügen", style: TextStyle(fontSize: 23))
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.center,
+                                      children: const [
+                                        Text("Zu bestender Liste hinzufügen",
+                                            style: TextStyle(fontSize: 23))
                                       ],
                                     ),
                                   ),
@@ -184,7 +203,8 @@ class _ToShoppingListState extends State<ToShoppingList> {
                         alignment: Alignment.centerLeft,
                         child: Text(
                           "Portion",
-                          style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+                          style: TextStyle(
+                              fontSize: 20, fontWeight: FontWeight.bold),
                         )),
                   ),
                   Center(
@@ -192,28 +212,29 @@ class _ToShoppingListState extends State<ToShoppingList> {
                       mainAxisSize: MainAxisSize.min,
                       children: [
                         button(false),
-                        SizedBox(
+                        const SizedBox(
                           width: 20,
                         ),
                         Text(
                           counter.toString(),
-                          style: TextStyle(fontSize: 30),
+                          style: const TextStyle(fontSize: 30),
                         ),
-                        SizedBox(
+                        const SizedBox(
                           width: 20,
                         ),
                         button(true),
                       ],
                     ),
                   ),
-                  SizedBox(
+                  const SizedBox(
                     height: 50,
                   ),
                   const Padding(
                     padding: EdgeInsets.all(10),
                     child: Text(
                       "Zutaten",
-                      style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+                      style:
+                          TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
                     ),
                   ),
                   for (RAIngredient ing in widget.recipe.ingredients)
@@ -246,7 +267,7 @@ class _ToShoppingListState extends State<ToShoppingList> {
         timer?.cancel();
       },
       child: InkWell(
-        customBorder: CircleBorder(),
+        customBorder: const CircleBorder(),
         onTap: () {
           if (positive ? counter < 100 : counter > 1) {
             setState(() {

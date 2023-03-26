@@ -2,6 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_frontend_recipes/pages/recipes/navigation_switch_recipes.dart';
 import 'package:flutter_frontend_recipes/shared/search_bar.dart';
 
+
+/// Whole navigation of the recipe-tab.
+/// Including searchbar ,and navigation switch.
 class RecipeAppTopNavigation extends StatelessWidget {
   Function onChange;
   Function onFilter;

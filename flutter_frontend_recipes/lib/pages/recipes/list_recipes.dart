@@ -9,8 +9,8 @@ import '../../types/recipe.dart';
 /// Widget that displays a List of recipes.
 /// Used when user clicks on 'list_preview_recipes'
 class ListRecipes extends StatefulWidget {
-  final List<RARecipe> recipes; // recipes to be shown
-  final Function? reload; // function to 
+  final List<RARecipe> recipes; // recipes in the list
+  final Function? reload; // function to reload page
   final String title; // title of the list
 
   const ListRecipes({Key? key, required this.recipes, this.reload, required this.title}) : super(key: key);

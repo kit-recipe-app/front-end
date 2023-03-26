@@ -9,8 +9,10 @@ import 'package:flutter_frontend_recipes/types/recipe.dart';
 import '../../constants/icon_designs.dart';
 import '../../types/ingredient.dart';
 
+/// Overview of a recipe.
+/// Gets rendered if user clicks on any recipe.
 class RecipeOverview extends StatelessWidget {
-  final RARecipe recipe;
+  final RARecipe recipe; // the recipe to be shown
 
   const RecipeOverview({required this.recipe, super.key});
 
@@ -159,6 +161,7 @@ class RecipeOverview extends StatelessWidget {
     );
   }
 
+  // iconbar showing calories, difficulty and time
   Widget getIconBar() {
     List<Widget> availableValues = [];
     if (recipe.getCalories() != null) {

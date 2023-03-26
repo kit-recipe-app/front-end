@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_frontend_recipes/constants/color_styles.dart';
 
+// animated navigation-switch to navigate in the recipe tab
 class RecipeAppNavigationSwitchRecipes extends StatelessWidget {
-  Function onChange;
-  int selectedIndex;
+  Function onChange; // function to be called when switch gets changed
+  int selectedIndex; // current index
   RecipeAppNavigationSwitchRecipes(
       {required this.onChange, required this.selectedIndex, super.key});
 

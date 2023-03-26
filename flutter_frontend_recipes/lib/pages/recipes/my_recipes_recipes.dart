@@ -9,6 +9,7 @@ import 'package:http/http.dart' as http;
 
 import '../../types/recipe.dart';
 
+// myRecipes subtab of the recipe tab
 class RecipeAppSavedRecipes extends StatefulWidget {
   const RecipeAppSavedRecipes({super.key});
 
@@ -17,8 +18,8 @@ class RecipeAppSavedRecipes extends StatefulWidget {
 }
 
 class _RecipeAppSavedRecipesState extends State<RecipeAppSavedRecipes> {
-  List<RARecipe> myRecipes = [];
-  List<RARecipe> favoriteRecipes = [];
+  List<RARecipe> myRecipes = []; // recipes created by the user
+  List<RARecipe> favoriteRecipes = []; // recipes the user favorites
 
   @override
   void initState() {
