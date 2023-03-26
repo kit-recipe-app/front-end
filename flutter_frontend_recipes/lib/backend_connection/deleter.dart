@@ -1,8 +1,10 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:http/http.dart' as http;
 
+
 class Deleter{
 
+  ///Sends DELETE HTTP Request to backend to delete [RARecipe] with given [id]
   static void deleteRecipe(String id) async {
     var token = await FirebaseAuth.instance.currentUser!.getIdToken();
 

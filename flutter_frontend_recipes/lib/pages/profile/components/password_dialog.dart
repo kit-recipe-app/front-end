@@ -2,8 +2,11 @@ import 'package:flutter/material.dart';
 
 import '../../../shared/input_field.dart';
 
+///Dialog for changing password
 class PasswordDialog extends StatefulWidget {
+  ///Title of the dialog
   final String title;
+  ///Function to set new password
   final Function setPassword;
 
   const PasswordDialog(

@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_frontend_recipes/pages/recipes/recipe_overview.dart';
 import 'package:flutter_frontend_recipes/types/recipe.dart';
 
+
+/// Preview of [recipe] to be displayed on the Main Feed
 class RecipeCard extends StatelessWidget {
   final RARecipe recipe;
 
@@ -9,6 +11,7 @@ class RecipeCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    ///Tapping the Widget opens up a Recipe Overview of the [recipe]
     return GestureDetector(
       onTap: () {
         Navigator.push(
