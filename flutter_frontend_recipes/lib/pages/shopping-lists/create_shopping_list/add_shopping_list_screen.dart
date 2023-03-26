@@ -4,6 +4,8 @@ import 'package:flutter_frontend_recipes/shared/input_field.dart';
 import 'package:flutter_frontend_recipes/shared/shared_prefs.dart';
 import 'package:flutter_frontend_recipes/types/shopping_list.dart';
 
+/// Page that is shown when the user creates a new shopping-list.
+/// The user can input a title
 class AddShoppingListScreen extends StatefulWidget {
   const AddShoppingListScreen({Key? key}) : super(key: key);
 
