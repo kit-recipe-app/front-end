@@ -1,15 +1,17 @@
 import 'package:flutter/material.dart';
 
+/// A general, customizable Button that is used all over the app.
+/// The 'onTap' function is called, when the widget is pressed.
 class RAButton extends StatefulWidget {
-  final Function onTap;
-  final String description;
-  final Color backgroundColor;
-  final Color textColor;
-  final double margin;
-  final EdgeInsets padding;
-  final bool shadow;
-  final IconData? icon;
-  final Color? iconColor;
+  final Function onTap; // a required callback function that is called when the button is tapped.
+  final String description; // a required string that is displayed on the button.
+  final Color backgroundColor; // a color that is used as the background color of the button. The default color is black87.
+  final Color textColor; // a color that is used as the text color of the button. The default color is white.
+  final double margin; // a double that is used as the margin around the button. The default value is 0.
+  final EdgeInsets padding; // an EdgeInsets object that is used as the padding inside the button. The default value is EdgeInsets.fromLTRB(16, 8, 16, 8).
+  final bool shadow; // a boolean that determines whether a shadow is displayed around the button. The default value is true.
+  final IconData? icon; // an optional IconData object that is displayed to the left of the text on the button.
+  final Color? iconColor; // an optional color that is used as the color of the icon. If this value is null, the default color is used.
   const RAButton({
     required this.onTap,
     required this.description,
@@ -30,6 +32,7 @@ class RAButton extends StatefulWidget {
 class _RAButtonState extends State<RAButton> {
   bool _currentlyTapped = false;
 
+  /// Returns what is shown in the 'RAButton'.
   @override
   Widget build(BuildContext context) {
     return GestureDetector(

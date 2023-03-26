@@ -2,16 +2,18 @@ import 'package:dropdown_button2/dropdown_button2.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
+/// A general, customizable TextInputField that is used all over the app.
+/// The 'controller' is used to show and set the input text.
 class RAInputField extends StatefulWidget {
-  String hintText;
-  TextEditingController controller;
-  bool isPassword;
-  IconData? icon;
-  Color? color;
-  Function? onNewFocus;
-  bool onlyNumbers;
-  int? charLimit;
-  List<String>? quickSelect;
+  String hintText; /// Hint text to show in the input field
+  TextEditingController controller; // Text controller to manage the input
+  bool isPassword; // Whether the input is a password field or not
+  IconData? icon; // Icon to show as prefix of input field
+  Color? color; // Color of input field background
+  Function? onNewFocus; // Callback function to call when input field is focused
+  bool onlyNumbers; // Whether to allow only numbers as input or not
+  int? charLimit; // Maximum length of input
+  List<String>? quickSelect; // List of options for quick select dropdown
   RAInputField({
     required this.hintText,
     required this.controller,
@@ -30,8 +32,8 @@ class RAInputField extends StatefulWidget {
 }
 
 class _RAInputFieldState extends State<RAInputField> {
-  FocusNode focusNode = FocusNode();
-  bool isPasswordVisible = false;
+  FocusNode focusNode = FocusNode(); // Focus node for input field
+  bool isPasswordVisible = false; // Whether the password is visible or not
 
   @override
   void initState() {
@@ -47,6 +49,8 @@ class _RAInputFieldState extends State<RAInputField> {
     super.dispose();
   }
 
+  /// Returns what is shown in the 'RAInputField'.
+  /// HintText, (PrefixIcon), (ToggleVisibilityIcon)
   @override
   Widget build(BuildContext context) {
     return Container(

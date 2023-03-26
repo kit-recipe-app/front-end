@@ -1,18 +1,21 @@
 import 'package:flutter_frontend_recipes/types/ingredient.dart';
 
+///RARecipe represents a recipe object in the Recipe App.
+///It contains information about the recipe, such as its name, picture, description, ingredients, and manual.
 class RARecipe {
-  String id;
-  String picture;
-  String title;
-  String description;
-  List<RAIngredient> ingredients;
-  List<String> manual;
-  List<String>? tags;
-  int? time;
-  String? difficulty;
-  bool favorite;
-  int? calories;
+  String id; // The unique ID of the recipe.
+  String picture; // The URL of the recipe's picture.
+  String title; // The title of the recipe.
+  String description; // The description of the recipe.
+  List<RAIngredient> ingredients; // The list of ingredients of the recipe.
+  List<String> manual; // The list of steps to cook the recipe.
+  List<String>? tags; // The list of tags associated with the recipe.
+  int? time; // The expected time required to cook the recipe.
+  String? difficulty; // The difficulty level of the recipe.
+  bool favorite; // Whether the recipe is marked as a favorite.
+  int? calories; // Calories of the recipe
 
+  /// Constructor
   RARecipe(
       {required this.picture,
       required this.title,
@@ -26,6 +29,7 @@ class RARecipe {
       this.time,
       this.difficulty});
 
+  /// Factory-Constructor that creates a RARecipe object from a JSON object.
   factory RARecipe.fromJson(Map<String, dynamic> json) {
     RARecipe recipe = RARecipe(
         picture: (json['imageData'] == null)
@@ -49,6 +53,7 @@ class RARecipe {
     return recipe;
   }
 
+  /// Method that returns the recipe object as a JSON object.
   Map<String, dynamic> toJson() => {
         "name": title,
         "description": description,
@@ -63,6 +68,8 @@ class RARecipe {
         "durationInMin": 0,
       };
 
+
+  /// Method that calculates and returns the total number of calories in the recipe.
   int? getCalories() {
     int summedCalories = 0;
     for (RAIngredient ingredient in ingredients) {

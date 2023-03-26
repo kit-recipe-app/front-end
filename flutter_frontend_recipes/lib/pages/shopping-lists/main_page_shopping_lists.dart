@@ -7,6 +7,8 @@ import 'package:flutter_frontend_recipes/shared/button.dart';
 import 'package:flutter_frontend_recipes/shared/shared_prefs.dart';
 import 'package:flutter_frontend_recipes/types/shopping_list.dart';
 
+/// Main Page of the ShoppingList-Section of the App.
+/// All stored shopping lists are shown and can be sorted by favorites
 class NewMainPageShoppingLists extends StatefulWidget {
   const NewMainPageShoppingLists({super.key});
 
@@ -16,9 +18,10 @@ class NewMainPageShoppingLists extends StatefulWidget {
 }
 
 class _NewMainPageShoppingListsState extends State<NewMainPageShoppingLists> {
-  List<RAShoppingList> listsStored = [];
-  bool sortByFavorite = false;
+  List<RAShoppingList> listsStored = []; // Lists, that are displayed and stored
+  bool sortByFavorite = false; // Flag, showing if lists are sorted by favorite
 
+  /// Used to toggle between sorting the shopping lists by favorite or by date (default).
   void toggleListsStored() {
     setState(() {
       if (sortByFavorite) {
@@ -26,13 +29,33 @@ class _NewMainPageShoppingListsState extends State<NewMainPageShoppingLists> {
         sortByFavorite = !sortByFavorite;
         return;
       }
-      listsStored.sort(((a, b) => a.favourite ? -1 : 1));
+      sortShoppingLists();
       sortByFavorite = !sortByFavorite;
     });
   }
 
+  /// Sorts the shopping lists first by favorite, then by creationDate
+  void sortShoppingLists() {
+    setState(() {
+      listsStored.sort(((a, b) {
+        if (a.favourite) {
+          if (b.favourite) {
+            return a.creationDate.compareTo(b.creationDate);
+          }
+          return -1;
+        }
+        if (!b.favourite) {
+          return a.creationDate.compareTo(b.creationDate);
+        }
+        return 1;
+      }));
+    });
+  }
+
+  /// used to load the shopping lists from shared preferences and sort them by date.
   void loadShoppingLists() {
     List<RAShoppingList> loadedLists = SharedPrefs().getShoppingLists();
+    loadedLists.sort(((a, b) => a.creationDate.compareTo(b.creationDate)));
     setState(() {
       listsStored = loadedLists;
     });
@@ -44,6 +67,7 @@ class _NewMainPageShoppingListsState extends State<NewMainPageShoppingLists> {
     super.initState();
   }
 
+  /// Returns what is shown in 'NewMainPageShoppingLists'
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -83,7 +107,12 @@ class _NewMainPageShoppingListsState extends State<NewMainPageShoppingLists> {
                   .map((e) => ShoppingListPreview(
                         key: Key("${e.title} Preview"),
                         shoppingList: e,
-                        reLoadRecipes: loadShoppingLists,
+                        reLoadRecipes: () {
+                          loadShoppingLists();
+                          if (sortByFavorite) {
+                            sortShoppingLists();
+                          }
+                        },
                       ))
                   .toList()),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,

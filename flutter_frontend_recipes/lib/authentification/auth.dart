@@ -3,10 +3,14 @@ import 'package:google_sign_in/google_sign_in.dart';
 
 import '../shared/shared_prefs.dart';
 
+/// Class, that handles the authentication-process with firebase.
+/// The current user and a stream that informes the client about auth-changes (e.g. login, registration).
 class RAAuthService {
   final userStream = FirebaseAuth.instance.authStateChanges();
   final user = FirebaseAuth.instance.currentUser;
 
+  /// Logs in the client with google. Currently works only in Debugmode and on ios-devices.
+  /// Uses the google-sign-in package to open an extern window for account-selection.
   Future signInWithGoogle() async {
     final GoogleSignInAccount? googleUser = await GoogleSignIn(
       scopes: ['email'],
@@ -25,6 +29,8 @@ class RAAuthService {
     await FirebaseAuth.instance.signInWithCredential(credential);
   }
 
+  /// Logs in the client with email and password.
+  /// Uses the firebase-auth package to send the corresponding request to firebase.
   Future<void> signInWithEmailAndPassword({
     required String email,
     required String password,
@@ -35,6 +41,8 @@ class RAAuthService {
     );
   }
 
+  /// Creates a new user in firebase with email and password.
+  /// Uses the firebase-auth package to send the corresponding request to firebase.
   Future<void> createUserWithEmailAndPassword({
     required String email,
     required String password,
@@ -45,10 +53,14 @@ class RAAuthService {
     );
   }
 
+  /// Logs out the current user.
+  /// Uses the firebase-auth package to send the corresponding request to firebase.
   Future<void> signOut() async {
     FirebaseAuth.instance.signOut();
   }
 
+  /// Sets the users 'currentPassword' in firebase to 'newPassword'.
+  /// Uses the firebase-auth package to send the corresponding request to firebase.
   void changePassword(String currentPassword, String newPassword) async {
     final user = FirebaseAuth.instance.currentUser;
     final cred = EmailAuthProvider.credential(
@@ -60,14 +72,15 @@ class RAAuthService {
       }).catchError((error) {
         //Error, show something
       });
-    }).catchError((err) {
-    });}
+    }).catchError((err) {});
+  }
 
-
-  deleteAccount(String password){
+  /// Deletes the current users account from firebase.
+  /// Uses the firebase-auth package to send the corresponding request to firebase.
+  deleteAccount(String password) {
     final user = FirebaseAuth.instance.currentUser;
-    final cred = EmailAuthProvider.credential(
-        email: user!.email!, password: password);
+    final cred =
+        EmailAuthProvider.credential(email: user!.email!, password: password);
 
     user.reauthenticateWithCredential(cred).then((value) {
       user.delete().then((_) {
@@ -76,8 +89,7 @@ class RAAuthService {
       }).catchError((error) {
         return "Löschen fehlgeschlagen";
       });
-    }).catchError((err) {
-    });
+    }).catchError((err) {});
     return "Passwort ungültig";
   }
 }
