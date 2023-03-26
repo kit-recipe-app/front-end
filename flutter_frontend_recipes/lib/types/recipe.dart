@@ -27,7 +27,7 @@ class RARecipe {
       this.difficulty});
 
   factory RARecipe.fromJson(Map<String, dynamic> json) {
-    return RARecipe(
+    RARecipe recipe = RARecipe(
         picture: (json['imageData'] == null)
             ? 'assets/example_pictures/standard_picture.jpg'
             : 'https://recipebackendnew-qgf6rz2woa-ey.a.run.app/api/v1/images/${json['imageData']['name']}',
@@ -41,10 +41,12 @@ class RARecipe {
         manual: [
           for (Map step in json['cookingInstructions']) step['instruction']
         ],
-        time: json['durationInMin'],
+        time: json['durationInMin'].round(),
         difficulty: json['difficulty'],
-        tags: json['tag'] == null ? null : [json['tag'][0]],
-        calories: json['calories']);
+        tags: [for (String tag in json['tag']) tag],
+        calories: json['calories']
+            .round()); // int.parse(json['calories'].toString()))
+    return recipe;
   }
 
   Map<String, dynamic> toJson() => {

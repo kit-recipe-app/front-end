@@ -36,6 +36,8 @@ class LoadRecipes {
     final response = await client.get(Uri.parse(uri), headers: headers);
     if (response.statusCode == 200) {
       List<dynamic> body = jsonDecode(utf8.decode(response.bodyBytes));
+      print("test loader");
+      print(body);
       List<RARecipe> recipes =
           body.map((dynamic item) => RARecipe.fromJson(item)).toList();
       return recipes;
