@@ -128,7 +128,9 @@ class RecipeOverview extends StatelessWidget {
                         Navigator.push(
                           context,
                           MaterialPageRoute(
-                              builder: (context) => ToShoppingList(recipe: recipe,)),
+                              builder: (context) => ToShoppingList(
+                                    recipe: recipe,
+                                  )),
                         );
                       },
                       style: ElevatedButton.styleFrom(
@@ -161,13 +163,13 @@ class RecipeOverview extends StatelessWidget {
 
   Widget getIconBar() {
     List<Widget> availableValues = [];
-    if (recipe.getCalories() != null) {
+    if (recipe.calories != null) {
       availableValues.add(
         Column(
           children: [
             Icon(RecipeAppIcons.calories),
             Text(
-              "${recipe.getCalories()} kcal",
+              "${recipe.calories} kcal",
               style: const TextStyle(
                 fontSize: 12,
               ),
