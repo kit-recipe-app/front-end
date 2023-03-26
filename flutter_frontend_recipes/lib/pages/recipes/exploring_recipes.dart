@@ -5,6 +5,8 @@ import 'package:flutter_frontend_recipes/pages/recipes/recipe_preview_exploring.
 import 'package:flutter_frontend_recipes/types/recipe.dart';
 import 'package:http/http.dart' as http;
 
+/// Widget that displays a list of recipes. It fetches the recipes from
+/// a backend server using HTTP requests and displays them in a horizontal list.
 class RecipeAppExploringRecipes extends StatefulWidget {
   const RecipeAppExploringRecipes({super.key});
 

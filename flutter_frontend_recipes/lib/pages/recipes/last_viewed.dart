@@ -2,6 +2,7 @@ import 'package:flutter_frontend_recipes/content_examples/recipe_examples.dart';
 
 import '../../types/recipe.dart';
 
+/// Singleton, providing access to the most recently viewed recipe
 class LastViewed {
   static final LastViewed _instance = LastViewed._internal();
 
