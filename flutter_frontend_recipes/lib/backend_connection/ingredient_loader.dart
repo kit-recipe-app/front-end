@@ -14,6 +14,7 @@ class IngredientLoader {
   IngredientLoader._internal();
 
   Future<void> init(http.Client client, FirebaseAuth instance) async{
+    /*
     if(instance.currentUser == null){
       ingredients = IngredientExamples.ingredients2;
       return ;
@@ -22,7 +23,8 @@ class IngredientLoader {
     var headers = {
       'Authorization': 'Bearer $token',
     };
-    final response = await client.get(Uri.parse('https://recipebackendnew-qgf6rz2woa-ey.a.run.app/api/v1/ingredients'), headers: headers);
+    */
+    final response = await client.get(Uri.parse('https://recipebackendnew-qgf6rz2woa-ey.a.run.app/api/v1/ingredients')/*, headers: headers*/);
     if (response.statusCode == 200) {
       List<dynamic> body = jsonDecode(utf8.decode(response.bodyBytes));
       ingredients = body.map((dynamic item) => RAIngredient.fromJsonBackend(item)).toList();

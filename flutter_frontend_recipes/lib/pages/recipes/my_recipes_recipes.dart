@@ -74,13 +74,13 @@ class _RecipeAppSavedRecipesState extends State<RecipeAppSavedRecipes> {
 
   Future<void> loadRecipes() async {
     List<RARecipe> recipes = await LoadRecipes().getRecipes(
-        http.Client(), FirebaseAuth.instance, false);
+        http.Client(), FirebaseAuth.instance, 'user/recipes');
     setState(() {
       myRecipes = recipes;
       favoriteRecipes = [];
     });
     List<RARecipe> allRecipes = await LoadRecipes().getRecipes(
-        http.Client(), FirebaseAuth.instance, true);
+        http.Client(), FirebaseAuth.instance, 'recipes');
     for (RARecipe recipe in myRecipes) {
       if (SharedPrefs().getFavorite(recipe.id) ?? false) {
         setState(() {
