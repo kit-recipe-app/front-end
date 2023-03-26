@@ -33,12 +33,15 @@ class _SearchRecipeState extends State<SearchRecipe> {
       children: [
         for (RARecipe recipe in myRecipes)
           if (recipe.title
-                      .toLowerCase()
-                      .contains(widget.searchWord.toLowerCase()) &&
-                  (widget.filterWord == "Übersicht" ||
+                  .toLowerCase()
+                  .contains(widget.searchWord.toLowerCase()) &&
+              ((widget.filterWord == "Übersicht" ||
                       widget.filterWord == "Alles")
-              ? true
-              : recipe.tags!.contains(widget.filterWord))
+                  ? true
+                  : (widget.filterWord == "Vegan")
+                      ? recipe.tags!.contains(widget.filterWord)
+                      : (recipe.tags!.contains(widget.filterWord) ||
+                          recipe.tags!.contains("Vegan"))))
             RecipeAppRecipePreviewExploring(
               recipe: recipe,
               own: false,
