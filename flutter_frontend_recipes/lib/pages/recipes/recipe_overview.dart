@@ -83,7 +83,7 @@ class RecipeOverview extends StatelessWidget {
                         const Padding(
                           padding: EdgeInsets.only(bottom: 8),
                           child: Text(
-                            "Zutaten",
+                            "Zutaten (4 Personen)",
                             style: TextStyle(
                               fontWeight: FontWeight.bold,
                               fontSize: 18,

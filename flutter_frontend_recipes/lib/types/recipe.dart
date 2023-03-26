@@ -48,7 +48,7 @@ class RARecipe {
         time: json['durationInMin'].round(),
         difficulty: json['difficulty'],
         tags: [for (String tag in json['tag']) tag],
-        calories: json['calories'].round() / 4);
+        calories: (json['calories'].round() / 4).round());
     return recipe;
   }
 
