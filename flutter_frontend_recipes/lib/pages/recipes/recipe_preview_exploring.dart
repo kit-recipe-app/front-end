@@ -184,19 +184,21 @@ class _RecipeAppRecipePreviewExploringState
 
   Widget getIconBar() {
     List<Widget> availableValues = [];
-    availableValues.add(
-      Column(
-        children: [
-          Icon(RecipeAppIcons.calories),
-          Text(
-            "${widget.recipe.calories} kcal",
-            style: const TextStyle(
-              fontSize: 12,
+    if (widget.recipe.calories != null) {
+      availableValues.add(
+        Column(
+          children: [
+            Icon(RecipeAppIcons.calories),
+            Text(
+              "${widget.recipe.calories} kcal",
+              style: const TextStyle(
+                fontSize: 12,
+              ),
             ),
-          ),
-        ],
-      ),
-    );
+          ],
+        ),
+      );
+    }
     if (widget.recipe.time != null) {
       availableValues.add(
         Column(

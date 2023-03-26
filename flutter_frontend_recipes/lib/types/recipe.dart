@@ -11,7 +11,7 @@ class RARecipe {
   int? time;
   String? difficulty;
   bool favorite;
-  int calories;
+  int? calories;
 
   RARecipe(
       {required this.picture,
@@ -19,7 +19,7 @@ class RARecipe {
       required this.description,
       required this.ingredients,
       required this.manual,
-      this.calories = 0,
+      this.calories,
       this.id = "",
       this.favorite = false,
       this.tags,
