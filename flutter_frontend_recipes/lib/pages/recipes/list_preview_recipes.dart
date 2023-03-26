@@ -3,6 +3,11 @@ import 'package:flutter_frontend_recipes/pages/recipes/list_recipes.dart';
 
 import '../../types/recipe.dart';
 
+/// Widget that displays a preview of a list of recipes.
+/// Tapping on the widget will navigate to the full list of recipes.
+/// The preview displays the title of the recipe list, the number of
+/// recipes in the list, and an image of the first recipe in the
+/// list (if available).
 class RecipeAppRecipeListPreview extends StatelessWidget {
   final List<RARecipe> recipes;
   final String title;

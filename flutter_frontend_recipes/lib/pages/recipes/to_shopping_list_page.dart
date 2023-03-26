@@ -9,6 +9,7 @@ import '../../shared/shared_prefs.dart';
 import '../../types/ingredient.dart';
 import '../../types/shopping_list.dart';
 
+/// Page that is displayed when user decides to add recipe to a shopping list.
 class ToShoppingList extends StatefulWidget {
   final RARecipe recipe;
 
