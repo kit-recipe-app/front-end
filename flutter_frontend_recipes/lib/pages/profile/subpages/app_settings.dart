@@ -6,6 +6,7 @@ import 'package:flutter_frontend_recipes/shared/shared_prefs.dart';
 
 import '../../../main.dart';
 
+/// A widget that displays the application settings.
 class AppSettings extends StatefulWidget {
   const AppSettings({Key? key}) : super(key: key);
 
@@ -30,14 +31,17 @@ class _AppSettingsState extends State<AppSettings> {
       ),
       body: Column(
         children: [
+          /// A tile widget that displays the language information.
           TextTile(
             text: "Sprache",
             info: "Deutsch",
             type: "language",
           ),
           const TileDivider(),
+          /// A tile widget that displays the country information.
           TextTile(text: "Land", info: "Deutschland", type: "country"),
           const TileDivider(),
+          /// A widget tile that displays the design information and has a switch to toggle the theme.
           WidgetTile(
               text: "Design",
               info: Switch(
@@ -52,6 +56,7 @@ class _AppSettingsState extends State<AppSettings> {
           const SizedBox(
             height: 100,
           ),
+          /// Tile to delete Data
           TextTile(
             text: "Daten löschen",
             info: "",

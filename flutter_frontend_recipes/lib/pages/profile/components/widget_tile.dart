@@ -1,8 +1,12 @@
 import 'package:flutter/material.dart';
 
+///A stateful widget that displays a text and a widget side by side in a material container. The widget can be updated dynamically.
 class WidgetTile extends StatefulWidget {
 
+  /// The text to display on the left side of the widget.
   final String text;
+
+  /// The widget to display on the right side of the text.
   Widget info;
 
   WidgetTile({Key? key, required this.text, required this.info}) : super(key: key);

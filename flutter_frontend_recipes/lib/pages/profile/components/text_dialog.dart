@@ -1,5 +1,10 @@
 import 'package:flutter/material.dart';
 
+/// A dialog box that allows the user to enter text input.
+///
+/// This dialog contains a title, a text input field, and two buttons (OK and CANCEL).
+/// The user can enter any text input in the text field. If the user attempts to press the OK button without entering any text,
+/// the dialog displays an error message.
 class TextDialog extends StatefulWidget {
   final TextEditingController controller;
   final String title;
@@ -31,6 +36,7 @@ class _TextDialogState extends State<TextDialog> {
               controller: widget.controller,
             ),
           ),
+          //error message that is displayed when Textfield is empty
           Visibility(
             maintainSize: true,
             maintainAnimation: true,
@@ -41,6 +47,7 @@ class _TextDialogState extends State<TextDialog> {
         ],
       ),
       actions: <Widget>[
+        //Cancel Button
         TextButton(
           child: Text('CANCEL'),
           onPressed: () {
@@ -48,6 +55,7 @@ class _TextDialogState extends State<TextDialog> {
           },
         ),
         TextButton(
+          //Ok Button
           child: Text('OK'),
           onPressed: () {
             if (widget.controller.text.isNotEmpty) {

@@ -4,6 +4,8 @@ import 'package:flutter_frontend_recipes/pages/profile/components/widget_tile.da
 
 import '../../../shared/shared_prefs.dart';
 
+/// A [StatefulWidget] that displays a list of allergy types and allows the user
+/// to toggle their allergy status.
 class Allergies extends StatefulWidget {
   const Allergies({Key? key}) : super(key: key);
 
@@ -42,6 +44,7 @@ class _AllergiesState extends State<Allergies> {
       ),
       body: Column(
         children: [
+          //Switches for different allergies
           WidgetTile(
               text: nutsText,
               info: Switch(

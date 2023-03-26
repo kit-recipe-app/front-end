@@ -32,18 +32,21 @@ class _PasswordDialogState extends State<PasswordDialog> {
         height: 220,
         child: Column(
           children: [
+            //Inputfield for old password
             RAInputField(
               hintText: "altes Passwort",
               controller: _controllerOld,
               isPassword: true,
               icon: Icons.key,
             ),
+            //Inputfield for new password
             RAInputField(
               hintText: "neues Passwort",
               controller: _controllerNew,
               isPassword: true,
               icon: Icons.key,
             ),
+            //Inputfield for repeating new password
             RAInputField(
               hintText: "wiederholen",
               controller: _controllerNewRepeat,
@@ -54,6 +57,7 @@ class _PasswordDialogState extends State<PasswordDialog> {
         ),
       ),
       actions: <Widget>[
+        //Cancel Button
         TextButton(
           child: Text('CANCEL'),
           onPressed: () {
@@ -61,6 +65,7 @@ class _PasswordDialogState extends State<PasswordDialog> {
           },
         ),
         TextButton(
+          //Ok Button
           child: Text('OK'),
           onPressed: () {
             if (_controllerNewRepeat.text == _controllerNew.text) {

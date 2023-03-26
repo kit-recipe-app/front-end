@@ -32,7 +32,7 @@ void main() {
           .thenAnswer((_) async => http.Response(
               '[{"name":"Recipe1","id":"1","description":"Recipe1 description","imageData":null,"ingredients":[{"amountInformation":{"unit":{"name":"g"},"amount":20.0},"ingredient":{"name":"Kirschtomaten"}}],"cookingInstructions":[{"instruction":"cook slowly"}]},{"name":"Recipe2","id":"2","description":"recipe 2 description","imageData":null,"ingredients":[{"amountInformation":{"unit":{"name":"g"},"amount":20.0},"ingredient":{"name":"Kirschtomaten"}}],"cookingInstructions":[{"instruction":"cook with fire"}]}]',
               200));
-      final recipes = await loader.getRecipes(client, auth, false);
+      final recipes = await loader.getRecipes(client, auth, "/user/recipes");
       expect(recipes, isA<List<RARecipe>>());
       expect(recipes.length, equals(2));
       expect(recipes[0].title, equals("Recipe1"));
@@ -45,7 +45,7 @@ void main() {
           .thenAnswer((_) async => http.Response(
               '[{"name":"AllRecipe1","id":"1","description":"AllRecipe1 description","imageData":null,"ingredients":[{"amountInformation":{"unit":{"name":"g"},"amount":20.0},"ingredient":{"name":"Kirschtomaten"}}],"cookingInstructions":[{"instruction":"cook slowly"}]},{"name":"AllRecipe2","id":"2","description":"AllRecipe 2 description","imageData":null,"ingredients":[{"amountInformation":{"unit":{"name":"g"},"amount":20.0},"ingredient":{"name":"Kirschtomaten"}}],"cookingInstructions":[{"instruction":"cook with fire"}]}]',
               200));
-      final allRecipes = await loader.getRecipes(client, auth, true);
+      final allRecipes = await loader.getRecipes(client, auth, "/recipes");
       expect(allRecipes, isA<List<RARecipe>>());
       expect(allRecipes.length, equals(2));
       expect(allRecipes[0].title, equals("AllRecipe1"));
@@ -70,8 +70,8 @@ void main() {
           headers: anyNamed('headers')))
           .thenAnswer((_) async => http.Response('Not Found', 404));
 
-      expect(LoadRecipes().getRecipes(client, auth, false), throwsException);
-      expect(LoadRecipes().getRecipes(client, auth, true), throwsException);
+      expect(LoadRecipes().getRecipes(client, auth, "/user/recipes"), throwsException);
+      expect(LoadRecipes().getRecipes(client, auth, "/recipes"), throwsException);
     });
   });
 
