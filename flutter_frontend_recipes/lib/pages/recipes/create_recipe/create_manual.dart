@@ -5,6 +5,14 @@ import 'package:flutter_frontend_recipes/pages/recipes/create_recipe/step_dialog
 
 import 'create_recipe_progress.dart';
 
+/// A stateful widget that creates a manual for a recipe.
+///
+/// This widget requires a next and back function to handle navigation, as well as
+/// a manual list of strings that represents the current manual.
+///
+/// Upon adding a step, the addStep function is called, and upon removing a step, the
+/// removeStep function is called. The _edit function is used to edit a step and
+/// the selectedValueSingleDialog variable holds the current selected step.
 class CreateManual extends StatefulWidget {
 
   final Function() next;

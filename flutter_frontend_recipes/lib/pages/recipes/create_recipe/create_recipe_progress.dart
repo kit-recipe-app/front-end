@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:step_progress_indicator/step_progress_indicator.dart';
 
 
+///Progress bar used in the recipe creation process
 class Progress extends StatelessWidget {
   final int total;
   final int current;

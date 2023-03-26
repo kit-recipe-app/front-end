@@ -1,6 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_frontend_recipes/types/ingredient.dart';
 
+/// A widget that displays a single ingredient in a recipe and allows the user to add more of it.
+///
+/// Requires an [RAIngredient] object and a function that displays a dialog box allowing the user to edit the ingredient.
+///
+/// The widget displays the ingredient's name and an "add" icon. When the user taps the widget, the dialog box is displayed.
 class BuildIngredient extends StatefulWidget {
   final RAIngredient ingredient;
   final Function(RAIngredient) showDialog;

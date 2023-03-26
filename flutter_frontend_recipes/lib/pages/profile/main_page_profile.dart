@@ -12,6 +12,9 @@ import '../../constants/color_styles.dart';
 import '../../constants/font_styles.dart';
 import '../../constants/icon_designs.dart';
 
+
+/// A stateful widget that represents the profile page of the app. The profile page shows
+/// the user's information such as their username, food preferences, and profile picture.
 class ProfilePage extends StatefulWidget {
   const ProfilePage({Key? key}) : super(key: key);
 

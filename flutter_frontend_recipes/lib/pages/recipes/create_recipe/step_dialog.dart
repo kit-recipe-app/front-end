@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 
+/// A dialog that allows users to input a step description and save it.
 class StepDialog extends StatefulWidget {
 
   final ValueSetter<String> addStep;

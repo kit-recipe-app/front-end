@@ -3,6 +3,23 @@ import 'package:flutter_frontend_recipes/pages/profile/components/tile_divider.d
 import 'package:flutter_frontend_recipes/pages/profile/components/widget_tile.dart';
 import 'package:flutter_frontend_recipes/shared/shared_prefs.dart';
 
+
+/// A widget that displays food preferences for the user to choose from.
+/// It allows the user to select multiple options for their food preferences,
+/// including omnivor, vegetarian, vegan, and pescetarian.
+///
+/// The widget is implemented as a [StatefulWidget], and it uses [SharedPrefs]
+/// to retrieve and store the user's food preferences.
+///
+/// The [Preferences] widget has four [Checkbox]es, one for each food preference.
+/// The [Checkbox]es are wrapped in [WidgetTile]s to display the preference text.
+///
+/// When a user selects a food preference, the corresponding [Checkbox] is updated
+/// and the [SharedPrefs] instance is updated with the new value. If the user
+/// selects "omnivor," all other preferences are deselected.
+///
+/// This widget requires a [BuildContext] to be built. It does not have any
+/// parameters other than the optional [key] parameter inherited from [StatefulWidget].
 class Preferences extends StatefulWidget {
   const Preferences({Key? key}) : super(key: key);
 

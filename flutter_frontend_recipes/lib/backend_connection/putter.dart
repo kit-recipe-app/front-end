@@ -4,7 +4,11 @@ import 'dart:convert';
 
 class Putter {
 
-  ///Set Username in Backend to [newUsername]
+  /// Sends a PUT HTTP request to the backend API to update the current user's username.
+  ///
+  /// The method creates an HTTP PUT request to the '/api/v1/user/name' endpoint of the backend API to update the current user's username.
+  /// The new username is passed to the method as a parameter and is included in the request body in JSON format.
+  /// The current user's ID token is added to the request headers for authentication.
   void putUsername(String newUsername) async {
     var token = await FirebaseAuth.instance.currentUser!.getIdToken();
 

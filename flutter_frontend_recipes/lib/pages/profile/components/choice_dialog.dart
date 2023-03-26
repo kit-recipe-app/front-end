@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 
-///Dialog with different exclusive choices
+/// A dialog that allows the user to choose from a list of options by displaying radio buttons for each option.
 class ChoiceDialog extends StatefulWidget {
   ///Title of the Dialog
   final String title;
-  ///Standard value of the choices that is selected
+  ///The default value that should be selected when the dialog is opened.
   final String standard;
   ///Different choices
   final List<String> values;
@@ -48,12 +48,14 @@ class _ChoiceDialogState extends State<ChoiceDialog> {
         ],
       ),
       actions: <Widget>[
+        //Cancel Button
         TextButton(
           child: Text('CANCEL'),
           onPressed: () {
             Navigator.pop(context);
           },
         ),
+        //Ok Button
         TextButton(
           child: Text('OK'),
           onPressed: () {

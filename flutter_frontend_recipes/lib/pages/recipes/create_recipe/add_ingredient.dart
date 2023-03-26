@@ -7,9 +7,11 @@ import '../../../types/ingredient.dart';
 import 'create_recipe_progress.dart';
 import 'package:flutter/services.dart';
 
+/// A [StatefulWidget] class that represents a screen for adding ingredients to a recipe.
+/// The screen contains a list of [RAIngredient] objects, which are added and removed dynamically by the user,
+/// and are managed by [AddIngredientState].
 class AddIngredient extends StatefulWidget {
 
-  //final Function(List<RAIngredient>) setIngredients;
   final Function() next;
   final Function() back;
   List<RAIngredient> ingredients;

@@ -7,6 +7,12 @@ import 'package:searchable_listview/searchable_listview.dart';
 import '../../../types/ingredient.dart';
 import 'ingredient_builder.dart';
 
+/// A widget that allows users to search and select ingredients from a list.
+///
+/// Users can enter text in a search bar to filter the list of available ingredients.
+/// They can also click on an ingredient to bring up a dialog box that allows them
+/// to select an amount and unit for the ingredient. Once they have made their selection,
+/// they can add the ingredient to their recipe by clicking on the "Hinzufügen" button.
 class SearchIngredients extends StatefulWidget {
   final ValueSetter<RAIngredient> addItem;
   final List<RAIngredient> ingredientList;

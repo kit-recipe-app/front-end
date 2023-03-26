@@ -1,5 +1,10 @@
 import 'package:flutter/material.dart';
 
+/// A dialog that displays a text field for editing an existing string.
+///
+/// Displays a [Dialog] with a text field pre-populated with [oldString].
+/// Users can edit the string in the text field and save the changes
+/// using the "Speichern" button.
 class EditDialog extends StatefulWidget {
   final String oldString;
 

@@ -4,7 +4,9 @@ import 'package:flutter/services.dart';
 
 import '../../../types/ingredient.dart';
 
-
+/// A widget that represents a single ingredient item in a list of ingredients.
+/// The item consists of the ingredient name, a text field for entering the amount,
+/// a dropdown button for selecting the unit of measurement, and a delete button.
 class IngredientListItem extends StatefulWidget {
 
   final List<String> units;

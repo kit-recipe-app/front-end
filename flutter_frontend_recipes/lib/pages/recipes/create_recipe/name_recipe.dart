@@ -4,6 +4,11 @@ import 'package:flutter_frontend_recipes/pages/recipes/create_recipe/create_reci
 import '../../../types/recipe.dart';
 import 'create_recipe_progress.dart';
 
+/// A widget for displaying a recipe name and description input screen.
+///
+/// This widget requires a [Function] [next] and a [RARecipe] [recipe] which is used to initialize the recipe name and description
+/// input fields with the current values. When the user has entered the name and description, they can click on the "Nächster Schritt"
+/// button to go to the next screen.
 class NameRecipe extends StatefulWidget {
   final Function() next;
   RARecipe recipe;

@@ -4,7 +4,12 @@ import 'package:http/http.dart' as http;
 
 class Deleter{
 
-  ///Sends DELETE HTTP Request to backend to delete [RARecipe] with given [id]
+  /// Sends a DELETE HTTP request to the backend API to delete the recipe with the given [id].
+  ///
+  /// The [id] parameter is a string that represents the ID of the recipe to be deleted.
+  ///
+  /// The method first gets the ID token of the current user from the `FirebaseAuth` instance and adds it to the HTTP request headers.
+  /// It then creates an HTTP DELETE request with the specified [id] and headers and sends the request.
   static void deleteRecipe(String id) async {
     var token = await FirebaseAuth.instance.currentUser!.getIdToken();
 

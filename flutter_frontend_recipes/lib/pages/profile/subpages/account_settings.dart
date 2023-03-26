@@ -9,6 +9,9 @@ import '../components/password_tile.dart';
 import '../components/text_tile.dart';
 import '../components/username_tile.dart';
 
+/// This widget is responsible for displaying the account settings page which
+/// includes options for changing the user's email, username, and password, as
+/// well as deleting the account.
 class AccountSettings extends StatefulWidget {
   const AccountSettings({Key? key}) : super(key: key);
 
@@ -45,8 +48,10 @@ class _AccountSettingsState extends State<AccountSettings> {
       ),
       body: Column(
         children: [
+          // Display the user's email address
           TextTile(text: "E-Mail-Adresse", info: email!, type: "email"),
           const TileDivider(),
+          // Display the user's username
           UsernameTile(
             title: "Nutzername",
             info: FutureBuilder(
@@ -82,19 +87,21 @@ class _AccountSettingsState extends State<AccountSettings> {
     );
   }
 
+  // Set the user's username using the Putter class
   void setUsername(String result) {
     setState(() {
       putter.putUsername(result);
     });
   }
 
+  // Update the futureUsername variable to display the new username
   void setUsernameFuture() {
     setState(() {
       futureUsername = loader.getUsername();
     });
   }
 
-  //maybe async
+  // Change the user's password using the FirebaseAuth API
   String changePassword(String currentPassword, String newPassword) {
     final user = FirebaseAuth.instance.currentUser;
     final cred = EmailAuthProvider.credential(
