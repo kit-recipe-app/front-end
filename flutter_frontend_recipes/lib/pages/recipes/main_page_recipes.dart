@@ -4,6 +4,7 @@ import 'package:flutter_frontend_recipes/pages/recipes/my_recipes_recipes.dart';
 import 'package:flutter_frontend_recipes/pages/recipes/search_recipe.dart';
 import 'package:flutter_frontend_recipes/pages/recipes/top_navigation_recipes.dart';
 
+/// MainPage of the recipe-tab in the app
 class RecipeScreen extends StatefulWidget {
   const RecipeScreen({super.key});
 
@@ -12,7 +13,7 @@ class RecipeScreen extends StatefulWidget {
 }
 
 class _RecipeScreenState extends State<RecipeScreen> {
-  int _selectedIndex = 0;
+  int _selectedIndex = 0; // index of the selected subpage
   String _searchWord = "";
   String _filterWord = "Übersicht";
 

@@ -7,6 +7,8 @@ import '../../backend_connection/load_recipes.dart';
 import '../../types/recipe.dart';
 import 'package:http/http.dart' as http;
 
+/// Active if user searches recipes.
+/// Lists search-matching recipes under each other.
 class SearchRecipe extends StatefulWidget {
   final String searchWord;
   final String filterWord;

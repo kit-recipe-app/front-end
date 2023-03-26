@@ -6,6 +6,7 @@ import 'package:flutter_frontend_recipes/types/recipe.dart';
 
 import 'create_recipe/create_recipe_main_page.dart';
 
+/// Preview of a reipce on the explorin subtab
 class RecipeAppRecipePreviewExploring extends StatefulWidget {
   final RARecipe recipe;
   final bool own;
