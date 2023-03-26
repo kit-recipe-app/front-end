@@ -1,6 +1,7 @@
 import 'package:dropdown_button2/dropdown_button2.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_frontend_recipes/backend_connection/unit_loader.dart';
 import 'package:searchable_listview/searchable_listview.dart';
 
 import '../../../types/ingredient.dart';
@@ -10,14 +11,16 @@ class SearchIngredients extends StatefulWidget {
   final ValueSetter<RAIngredient> addItem;
   final List<RAIngredient> ingredientList;
 
-  const SearchIngredients({Key? key, required this.addItem, required this.ingredientList}) : super(key: key);
+  const SearchIngredients(
+      {Key? key, required this.addItem, required this.ingredientList})
+      : super(key: key);
 
   @override
   State<SearchIngredients> createState() => _SearchIngredientsState();
 }
 
 class _SearchIngredientsState extends State<SearchIngredients> {
-  List<String> units = ["g", "Stück", "ml", "kg", "Blatt"];
+  List<String> units = UnitLoader.units;
 
   @override
   Widget build(BuildContext context) {
@@ -84,9 +87,8 @@ class _SearchIngredientsState extends State<SearchIngredients> {
     showDialog(
         context: context,
         builder: (BuildContext context) {
-          return StatefulBuilder(
-            builder: (context, setState){
-              return Dialog(
+          return StatefulBuilder(builder: (context, setState) {
+            return Dialog(
               alignment: const Alignment(0, -0.3),
               shape: const RoundedRectangleBorder(
                   borderRadius: BorderRadius.all(Radius.circular(12))),
@@ -100,7 +102,7 @@ class _SearchIngredientsState extends State<SearchIngredients> {
                           alignment: Alignment.centerLeft,
                           child: Text(
                             "${ingredient.name} hinzufügen",
-                            style: TextStyle(fontSize: 16),
+                            style: const TextStyle(fontSize: 16),
                           )),
                     ),
                     Padding(
@@ -114,7 +116,8 @@ class _SearchIngredientsState extends State<SearchIngredients> {
                               width: 70,
                               height: 40,
                               child: Padding(
-                                padding: const EdgeInsets.fromLTRB(0, 10, 0, 10),
+                                padding:
+                                    const EdgeInsets.fromLTRB(0, 10, 0, 10),
                                 child: TextField(
                                   textAlign: TextAlign.center,
                                   keyboardType: TextInputType.number,
@@ -150,7 +153,7 @@ class _SearchIngredientsState extends State<SearchIngredients> {
                         ],
                       ),
                     ),
-                    Spacer(),
+                    const Spacer(),
                     Padding(
                       padding: const EdgeInsets.all(8.0),
                       child: TextButton(
@@ -158,17 +161,21 @@ class _SearchIngredientsState extends State<SearchIngredients> {
                           widget.addItem(ingredient);
                           Navigator.pop(context);
                           const snackBar = SnackBar(
-                            duration: Duration(milliseconds: 1000),
-                              margin: EdgeInsets.only(bottom: 60.0, left:10, right: 10),
-                              shape: RoundedRectangleBorder(borderRadius: BorderRadius.all(Radius.circular(15))),
+                              duration: Duration(milliseconds: 1000),
+                              margin: EdgeInsets.only(
+                                  bottom: 60.0, left: 10, right: 10),
+                              shape: RoundedRectangleBorder(
+                                  borderRadius:
+                                      BorderRadius.all(Radius.circular(15))),
                               dismissDirection: DismissDirection.none,
                               behavior: SnackBarBehavior.floating,
                               backgroundColor: Colors.black,
                               content: Text(
-                            "Zutat hinzugefügt",
-                            textAlign: TextAlign.center,
-                            style: TextStyle(fontSize: 20, color: Colors.white),
-                          ));
+                                "Zutat hinzugefügt",
+                                textAlign: TextAlign.center,
+                                style: TextStyle(
+                                    fontSize: 20, color: Colors.white),
+                              ));
                           ScaffoldMessenger.of(context).showSnackBar(snackBar);
                         },
                         child: const Text("Hinzufügen",
@@ -179,8 +186,8 @@ class _SearchIngredientsState extends State<SearchIngredients> {
                   ],
                 ),
               ),
-            );}
-          );
+            );
+          });
         });
   }
 }

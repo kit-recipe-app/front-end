@@ -1,6 +1,7 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter_frontend_recipes/backend_connection/ingredient_loader.dart';
+import 'package:flutter_frontend_recipes/backend_connection/unit_loader.dart';
 import 'package:flutter_frontend_recipes/shared/shared_prefs.dart';
 import 'package:flutter_frontend_recipes/widget_tree.dart';
 import 'package:http/http.dart' as http;
@@ -29,7 +30,7 @@ Future<void> main() async {
   /// for loading ingredient data from an external API. It requires
   /// an HTTP client and an instance of FirebaseAuth for user authentication.
   await IngredientLoader().init(http.Client(), FirebaseAuth.instance);
-
+  await UnitLoader().init(http.Client(), FirebaseAuth.instance);
   /// The actual App gets started and rendered on the users device.
   runApp(const MyApp());
 }

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_frontend_recipes/backend_connection/unit_loader.dart';
 import 'package:flutter_frontend_recipes/pages/recipes/create_recipe/create_recipe_title.dart';
 import 'package:flutter_frontend_recipes/pages/recipes/create_recipe/ingredient_list_item.dart';
 import 'package:flutter_frontend_recipes/pages/recipes/create_recipe/search_ingredients.dart';
@@ -28,7 +29,7 @@ class AddIngredientState extends State<AddIngredient> {
   List<RAIngredient> lis = [];
 
   int factor = 1;
-  List<String> units = ["g", "Stück", "ml", "kg", "Blatt"];
+  List<String> units = UnitLoader.units;
 
   addItem(RAIngredient ingredient) {
     setState(() {

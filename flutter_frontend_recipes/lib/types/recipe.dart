@@ -63,12 +63,9 @@ class RARecipe {
         "ingredients": [
           for (RAIngredient ingredient in ingredients) ingredient.toJson()
         ],
-        "calories": calories,
-        "time": time,
-        "difficulty": difficulty,
-        "tags": [
-          for (String tag in tags!) {"tag": tag}
-        ],
+        "calories": 0,
+        "difficulty": "mittel",
+        "durationInMin": 0,
       };
 
 
