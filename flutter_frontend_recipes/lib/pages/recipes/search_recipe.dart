@@ -50,9 +50,9 @@ class _SearchRecipeState extends State<SearchRecipe> {
 
   Future<void> loadRecipes() async {
     List<RARecipe> recipes = await LoadRecipes()
-        .getRecipes(http.Client(), FirebaseAuth.instance, false);
+        .getRecipes(http.Client(), FirebaseAuth.instance, 'user/recipes');
     List<RARecipe> allRecipes = await LoadRecipes()
-        .getRecipes(http.Client(), FirebaseAuth.instance, true);
+        .getRecipes(http.Client(), FirebaseAuth.instance, 'recipes');
     setState(() {
       myRecipes = recipes +
           allRecipes +
